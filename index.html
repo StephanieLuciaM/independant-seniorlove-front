@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeniorLove</title>
+    <!-- Favicon -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <!-- Custom JS -->
+    <script type="module" src="../js/index.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <!-- logo en dehors de la nav ? -->
+        <a href=""><img class="header__logo" src="./logo.png" alt="logo coeur"></a>
+        <!-- connexion dans la nav ? -->
+        <nav class="header__nav">
+            <a href="" class="header__login">Connexion</a>
+        </nav>
+        <form action="/" class="header__search-form">
+            <input type="text" name="name" class="header__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+            <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="/img/icon/search-icon.svg" alt="icône de recherche" class="header__search-icon"></button>
+        </form>
+    </header>
+    
+    <main id="app" class="container">
+    </main>
+
+<!-- <template class="homepage-visitor"> -->
+        <section class="sign-in">
+            <img src="./img/img vitrine/pexels-marcus-aurelius-6787787.jpg" alt="deux personnes qui se tiennent la main" class="sign-in__img">
+            <form class="sign-in__form">
+
+                <!-- doit-on faire un fieldset ? -->
+                <div class="form__gender">
+                    <div class="sign-in__visitor-gender">
+                        <p class="visitor-gender__choice">Je suis</p>
+                        <input type="radio" id="gender-man" name="gender" value="man">
+                        <label for="gender-man" class="visitor-gender__option">Homme</label>
+                        <input type="radio" id="gender-woman" name="gender" value="woman">
+                        <label for="gender-woman" class="visitor-gender__option">Femme</label>
+                    </div>
+                    <div class="sign-in__preference-gender">
+                        <p class="preference-gender__choice">Je recherche</p>
+                        <input type="radio" id="preference-man" name="preference" value="man">
+                        <label for="preference-man" class="preference-gender__option">Homme</label>
+                        <input type="radio" id="preference-woman" name="preference" value="woman">
+                        <label for="preference-woman" class="preference-gender__option">Femme</label>
+                    </div>
+                </div>
+                <div class="sign-in__age-field">
+                    <label for="age" class="age-label">Âge</label>
+                    <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
+                </div>
+                <div class="sign-in__city-field">
+                    <label for="city" class="city-label">Ville</label>
+                    <input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>
+                </div>
+                <button type="submit" value="Submit" class="sign-in__submit-btn">S'inscrire</button>
+            </form>
+        </section>
+
+        <section class="tagline">
+            <article>
+
+            </article>
+            <article>
+
+            </article>
+
+            </article>
+            <article>
+
+            </article>
+
+            </article>
+            <article>
+                
+            </article>
+
+            </article>
+
+        </section>
+
+        <section class="events">
+            <h2 class="events__title">Nos derniers événements</h2>
+            <div class="events__list" id="events-list">
+                <!-- Les événements seront générés ici en JS -->
+            </div>
+        </section>
+</template>
+
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="#" class="footer__link">Information légale</a>
+            <a href="#" class="footer__link">Plan de site</a>
+            <a href="#" class="footer__link">Protection des données</a>
+        </div>
+    </footer>
+
+    <!-- Template pour les événements -->
+    <template id="event-template">
+        <div class="event">
+            <h3 class="event__city"></h3>
+            <p class="event__description"></p>
+        </div>
+    </template>
+
+</body>
+</html>
+
+
+<!-- pharses d'ccroches : 
+ •	Des rencontres basées sur vos centres d’intérêt
+•	Participez à des événements pour rencontrer en vrai
+•	Une plateforme simple, pensée pour les seniors
+•	Profils vérifiés pour des échanges en toute confiance -->
