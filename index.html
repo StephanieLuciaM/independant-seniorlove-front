@@ -12,14 +12,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="./CSS/reset.css" />
+    <link rel="stylesheet" href="./CSS/index.css">
     <!-- Custom JS -->
     <script type="module" src="../js/index.js" defer></script>
 </head>
 <body>
     <header class="header">
         <!-- logo en dehors de la nav ? -->
-        <a href=""><img class="header__logo" src="./logo.png" alt="logo coeur"></a>
+        <a href="">
+            <img class="header__logo" src="./img/logo/logo-coeur.png" alt="logo coeur">
+        </a>
         <!-- connexion dans la nav ? -->
         <nav class="header__nav">
             <a href="" class="header__login">Connexion</a>
@@ -35,7 +38,9 @@
 
 <!-- <template class="homepage-visitor"> -->
         <section class="sign-in">
-            <img src="./img/img vitrine/pexels-marcus-aurelius-6787787.jpg" alt="deux personnes qui se tiennent la main" class="sign-in__img">
+            <img src="./img/diverse-img/hands.jpg" alt="deux personnes qui se tiennent la main" class="sign-in__img">
+            <img class="header__logo" src="./img/logo/logo-coeur.png" alt="logo coeur">
+            <h1>SeniorLove</h1>
             <form class="sign-in__form">
 
                 <!-- doit-on faire un fieldset ? -->
@@ -56,11 +61,12 @@
                     </div>
                 </div>
                 <div class="sign-in__age-field">
-                    <label for="age" class="age-label">Âge</label>
+                    <!-- gerer les div en CSS ? -->
+                   <div><label for="age" class="age-label">Âge</label></div> 
                     <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
                 </div>
                 <div class="sign-in__city-field">
-                    <label for="city" class="city-label">Ville</label>
+                    <div><label for="city" class="city-label">Ville</label></div>
                     <input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>
                 </div>
                 <button type="submit" value="Submit" class="sign-in__submit-btn">S'inscrire</button>
@@ -69,30 +75,58 @@
 
         <section class="tagline">
             <article>
-
+                    <img src="./img/icon/coeur.png" alt="icone coeur" class="tagline__icon">
+                    <p>Des rencontres basées sur vos centres d’intérêt</p>
             </article>
             <article>
-
-            </article>
-
-            </article>
-            <article>
-
-            </article>
-
+                <img src="./img/icon/evenement.png" alt="icone calendrier " class="tagline__icon">
+                    <p>Participez à des événements pour rencontrer en vrai</p>
             </article>
             <article>
-                
+                <img src="./img/icon/facile.png" alt="icone doigts" class="tagline__icon">
+                    <p>Une plateforme simple, pensée pour les seniors</p>
             </article>
-
+            <article>
+                <img src="./img/icon/profil-verifie.png" alt="icone profil vérifié" class="tagline__icon">
+                <p>Profils vérifiés pour des échanges en toute confiance</p>
             </article>
-
         </section>
 
         <section class="events">
-            <h2 class="events__title">Nos derniers événements</h2>
+            <!-- est ce que les détails des évènements sont visible par les visiteurs ? -->
+            <h1 class="events__title">Nos derniers événements</h1>
             <div class="events__list" id="events-list">
                 <!-- Les événements seront générés ici en JS -->
+                <article class="event">
+                    <h2 class="event__city">Paris</h2>
+                    <a href="">
+                        <div>
+                            <img src="./img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
+                            <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                            <span class="event__theme">Jeux</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="event">
+                    <h2 class="event__city">Lyon</h2>
+                    <a href="">
+                        <div>
+                            <img src="./img/diverse-img/sports.jpg" alt="canoë en groupe"> 
+                            <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
+                            <span class="event__theme">Sport</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="event">
+                    <h2 class="event__city">Marseille</h2>
+                    <a href="">
+                        <div>
+                            <img src="./img/diverse-img/party.jpg" alt="soirée en groupe"> 
+                            <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
+                            <span class="event__theme">Soirée à thème</span>
+                        </div>
+                    </a>
+                </article>
             </div>
         </section>
 </template>
@@ -107,18 +141,11 @@
 
     <!-- Template pour les événements -->
     <template id="event-template">
-        <div class="event">
-            <h3 class="event__city"></h3>
-            <p class="event__description"></p>
-        </div>
+       
     </template>
 
 </body>
 </html>
 
 
-<!-- pharses d'ccroches : 
- •	Des rencontres basées sur vos centres d’intérêt
-•	Participez à des événements pour rencontrer en vrai
-•	Une plateforme simple, pensée pour les seniors
-•	Profils vérifiés pour des échanges en toute confiance -->
+
