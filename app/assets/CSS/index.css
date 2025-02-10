@@ -1,6 +1,7 @@
 :root {
     /* Couleurs */
     --primary-color: #330C2F;
+    --primary-color-light: #330c2fc5;
     --secondary-color: #BFACB5;
     --background-color: #E5D0CC;
     --text-color: #2C3E50;
@@ -47,7 +48,7 @@ body {
 .senior-word{
     margin: var(--spacing-small) 0 var(--spacing-small) 0;
     font-family: var(--font-title);
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: var(--primary-color);
 }
 
@@ -58,6 +59,7 @@ body {
 .visitor-gender__choice,
 .preference-gender__choice {
     font-weight: 900;
+    font-size: 1.2rem;
 }
 
 .visitor-gender__option,
@@ -113,9 +115,10 @@ input[type="number"] {
     align-items: center;
 }
 
+/* todo: faire marcher le changement de couleur du nav__link */
 .header__nav-link {
     text-decoration: none;
-    color: var(--secondary-color);
+    color: white;
     font-weight: bold;
     padding: 0.5rem var(--spacing-small);
     border: 0.15rem solid var(--secondary-color);
@@ -187,6 +190,7 @@ input[type="number"] {
 
 .age-label, 
 .city-label{
+    font-size: 1.2rem;
     font-weight: 900;
     display: block;
     margin-bottom: .5rem; 
@@ -200,10 +204,14 @@ input[type="number"] {
     border-radius: var(--spacing-medium);
     cursor: pointer;
     transition: transform 0.3s ease;
+    border: 0.15rem solid var(--secondary-color);
 }
 
 .sign-in__submit-btn:hover {
+    background-color: var(--primary-color-light);
+    color: white; 
     transform: scale(1.05);
+    border-color: var(--primary-color); 
 }
 
 /* CONTAINER GÉNÉRAL */
@@ -239,17 +247,12 @@ input[type="number"] {
 /* EVENTS SECTION */
 .events {
     margin-top: var(--spacing-large);
-    background-color: var(--secondary-color);
-    padding: 0 var(--spacing-small) var(--spacing-small) var(--spacing-small);
-    margin-bottom: 5rem;
 }
 
 .events__title {
     font-family: 'Poiret One', sans-serif;
     text-align: center;
-    margin-bottom: var(--spacing-medium);
     color: var(--primary-color);
-    margin-bottom: 3rem;
     display: block;
     width: 100%;
     background-color: var(--primary-color);
@@ -262,6 +265,10 @@ input[type="number"] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: var(--spacing-medium);
+    background-color: var(--secondary-color);
+    padding: var(--spacing-large);
+    margin-bottom: 5rem;
+
 }
 
 .event {
@@ -318,7 +325,7 @@ input[type="number"] {
 .footer {
     background-color: var(--primary-color);
     color: var(--background-color);
-    padding: var(--spacing-medium);
+    padding: var(--spacing-large);
     text-align: center;
 }
 
@@ -328,9 +335,10 @@ input[type="number"] {
 }
 
 .footer__link {
-    color: var(--background-color);
+    color: white;
     text-decoration: none;
     font-size: var(--spacing-small);
+    font-weight: bold;
 }
 
 .footer__link:hover {
@@ -338,12 +346,31 @@ input[type="number"] {
 }
 
 /* RESPONSIVE DESIGN */
-@media screen and (max-width: 1024px) {
+
+@media screen and (max-width: 1224px) {
     .events__list {
         grid-template-columns: repeat(2, 1fr);
     }
     .header__nav-link{
         width: 7rem;
+    }
+
+    .tagline {
+        display: flex;
+        justify-content: space-between;
+        gap: 4rem;
+        margin: 5rem var(--spacing-medium) 5rem var(--spacing-medium) ;
+    }
+
+    .tagline__icon {
+        width: 60%;
+        margin: auto;
+        padding-bottom: var(--spacing-large);
+    }
+    
+    .tagline article {
+        text-align: center;
+        width: 30%;
     }
 }
 
@@ -353,15 +380,25 @@ input[type="number"] {
     }
 
     .header {
+
         flex-direction: column;
         gap: var(--spacing-small);
         padding: var(--spacing-small);
+        align-items: center;
     }
 
     .header__nav {
         width: 100%;
+        display: flex;
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+    }
+
+    .header__nav-link {
+        width: auto;
+        max-width: 25rem;
+        display: flex;
+        justify-content: center;
     }
 
     .header__search-form {
@@ -387,7 +424,55 @@ input[type="number"] {
     }
 
     .tagline {
-        flex-direction: column;
-        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        gap: 4rem;
+        margin: 5rem var(--spacing-medium) 5rem var(--spacing-medium) ;
+    }
+
+    .tagline__icon {
+        width: 30%;
+        margin: auto;
+        padding-bottom: var(--spacing-large);
+    }
+    
+    .tagline article {
+        text-align: center;
+        width: 20%;
     }
 }
+
+@media screen and (max-width: 360px) {
+
+    .senior-word {
+        font-size: 2rem;
+    }
+
+    .tagline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 5rem var(--spacing-medium) 5rem var(--spacing-medium) ;
+    }
+
+    .tagline__icon {
+        width: 50%;
+        margin: auto;
+        padding-bottom: var(--spacing-large);
+    }
+    
+    .tagline article {
+        text-align: center;
+        width: 40%;
+    }
+
+    .events__list {
+        padding: var(--spacing-large) var(--spacing-small) var(--spacing-large) var(--spacing-small);
+        margin-bottom: 2rem;
+    }
+
+    .footer__link {
+        font-size: .8rem;
+    }
+}
+
