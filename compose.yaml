@@ -1,0 +1,31 @@
+services:
+  seniorlove-front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mount the current directory to /app in the container
+      - .:/app
+      # Mount /app/node_modules to ensure local node modules are used
+      - /app/node_modules
+    ports:
+      # Map port 3000 in the container to port 3001 on the host
+      - "3001:3000"
+    environment:
+      # Set the environment variable NODE_ENV to 'development'
+      - NODE_ENV=development
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      # Mount the custom Nginx configuration file
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      # Mount the dist directory to the Nginx HTML directory
+      - ./dist:/usr/share/nginx/html
+    ports:
+      # Map port 80 in the container to port 8080 on the host
+      - "8080:80"
+
+volumes:
+  pgdata:
+    driver: local
