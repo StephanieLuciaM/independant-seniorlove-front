@@ -31,8 +31,10 @@
     </header>
     
     <main id="app" class="container">
-
-        <!-- <template class="homepage-visitor"> -->
+        <!-- all templates to generate here -->
+    </main>
+        
+        <template class="homepage-visitor">
                 <section class="sign-up">
                     <img src="../img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
                     <div class="sign-up-part">
@@ -67,7 +69,6 @@
                         </form>
                     </div>
                 </section>
-        
                 <section class="tagline">
                     <article>
                             <img src="../img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
@@ -86,62 +87,28 @@
                         <p>Profils vérifiés pour des échanges en toute confiance</p>
                     </article>
                 </section>
-        
                 <section class="events">
                     <h2 class="events__title">Nos derniers événements</h2>
                     <div class="events__list" id="events-list">
-                        <!-- Les événements seront générés ici en JS -->
-                        <article class="event">
-                            <h2 class="event__city">Paris</h2>
-                            <a href="">
-                                <div>
-                                    <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
-                                    <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-                                    <span class="event__theme">Jeux</span>
-                                </div>
-                            </a>
-                        </article>
-                        <article class="event">
-                            <h2 class="event__city">Lyon</h2>
-                            <a href="">
-                                <div>
-                                    <img src="../img/diverse-img/sports.jpg" alt="canoë en groupe"> 
-                                    <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
-                                    <span class="event__theme">Sport</span>
-                                </div>
-                            </a>
-                        </article>
-                        <article class="event">
-                            <h2 class="event__city">Marseille</h2>
-                            <a href="">
-                                <div>
-                                    <img src="../img/diverse-img/party.jpg" alt="soirée en groupe"> 
-                                    <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
-                                    <span class="event__theme">Soirée à thème</span>
-                                </div>
-                            </a>
-                        </article>
-                    </article>
-                    <article class="event">
-                        <h2 class="event__city">Toulouse</h2>
-                        <a href="">
-                            <div>
-                                <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                                <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                                <span class="event__theme">Sortie culturelle</span>
-                            </div>
-                        </a>
-                    </article>
+                        <!-- dynamic templates of event here -->
                     </div>
                 </section>
         </template>
-        
-        
-        <!-- Template pour les événements -->
+
+        <!-- event template -->
         <template id="event-template">
-            
+            <article class="event">
+                <h2 class="event__city">Paris</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
+                        <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                        <span class="event__theme">Jeux</span>
+                    </div>
+                </a>
+            </article>
         </template>
-    </main>
+
     <footer class="footer">
         <div class="footer__links">
             <a href="#" class="footer__link">Information légale</a>
