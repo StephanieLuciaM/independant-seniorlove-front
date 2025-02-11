@@ -1,26 +1,8 @@
 {
-
   "name": "seniorlove-front",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/O-clock-Raclette/senior-love-front.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/O-clock-Raclette/senior-love-front/issues"
-  },
-  "homepage": "https://github.com/O-clock-Raclette/senior-love-front#readme",
-
-  "name": "senior-love-front",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
@@ -29,12 +11,23 @@
     "preview": "vite preview",
     "watch": "nodemon src/app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Raclette/senior-love-front.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Raclette/senior-love-front/issues"
+  },
+  "homepage": "https://github.com/O-clock-Raclette/senior-love-front#readme",
+  "type": "module",
   "devDependencies": {
     "nodemon": "^3.1.9",
     "vite": "^6.1.0"
   },
   "dependencies": {
     "eslint": "^9.20.0"
-
   }
 }
