@@ -1,0 +1,92 @@
+.question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--spacing-small);
+     }
+.size h1{
+   ali: center;
+}
+.family__situation{
+    gap: var(--spacing-small);
+    
+}
+ .pets{
+    display: flex;
+    flex-direction: column;
+   }
+   .interest__center{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+   }
+   .identification{
+    align-items: flex-start;
+   }
+   
+   .identification div{
+    display: flex;
+    flex-direction: column;
+    
+   }
+    
+   
+
+@media screen and (max-width: 768px){
+   
+}
+
+
+
+
+.senior-word {
+    font-size: 2rem;
+}
+
+
+.senior-word{
+    margin: var(--spacing-small) 0 var(--spacing-small) 0;
+    font-family: var(--font-title);
+    font-size: 3.5rem;
+    color: var(--primary-color);
+}
+
+.love-word{
+    color: var(--secondary-color);
+}
+
+
+
+.question__select{
+    font-size: var(--spacing-small); 
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    height: 5vh;
+    cursor: pointer; 
+}
+
+
+.submit-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: var(--spacing-small);
+    border-radius: var(--spacing-medium);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: 0.15rem solid var(--secondary-color);
+}
+
+.submit-btn:hover {
+    background-color: var(--primary-color-light);
+    color: white; 
+    transform: scale(1.05);
+    border-color: var(--primary-color); 
+}
+
+
+
+
+
