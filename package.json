@@ -4,21 +4,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": 
-  "private": true,
-  "type": "module",
+  
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "type": "module",
     "vite": "^6.1.0"
   },
   "dependencies": {
