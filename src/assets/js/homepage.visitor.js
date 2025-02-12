@@ -1,4 +1,5 @@
 import { getLastEvent } from "./api.js";
+import { fetchDisplaySigninPage } from "./signin.js"
 
 export async function fetchDisplayHomePageVisitor(){
 
@@ -19,6 +20,13 @@ export async function fetchDisplayHomePageVisitor(){
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
 
+  const signinButton = headerContainer.querySelector('.header__nav-link');
+  
+  signinButton.addEventListener('click', (e)=> {
+    e.preventDefault();
+    fetchDisplaySigninPage();
+  })
+  
   events.forEach(event =>{
    
     addEventContainer(event)
@@ -26,21 +34,15 @@ export async function fetchDisplayHomePageVisitor(){
 }
 
 export function addEventContainer(data){
-  console.log(data)
   
   const eventTemplate = document.querySelector("#event-template");
 
-
-  
   const eventClone = eventTemplate.content.cloneNode(true);
 
   eventClone.querySelector("[slot='city']").textContent = data.city
   eventClone.querySelector("[slot='description']").textContent = data.description
 
- 
   const eventContainer = document.querySelector("#events-list")
  
-
-
   eventContainer.appendChild(eventClone);
 }
