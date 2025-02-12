@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeniorLove - La plateforme de rencontre pour les seniors</title>
+    <link rel="icon" href="../img/icon/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/homepage-visitor.css">
+    <script type="module" src="../js/test.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a href="">
+            <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+        </a>
+        <nav class="header__nav">
+            <a href="" class="header__nav-link">Connexion</a>
+        </nav>
+        <form action="/" class="header__search-form">
+            <input type="text" name="name" class="header__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+            <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header__search-icon"></button>
+        </form>
+    </header>
+    
+    <main id="app" class="container">
+        <!-- here all templates to generate -->  
+    </main>
+        
+        <template class="homepage-visitor">
+                <section class="sign-up">
+                    <img src="../img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
+                    <div class="sign-up-part">
+                        <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+                        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+                        <form class="sign-up__form">
+                            <div class="form__gender">
+                                <div class="sign-up__visitor-gender">
+                                    <p class="visitor-gender__choice">Je suis</p>
+                                    <input type="radio" id="gender-man" name="gender" value="man">
+                                    <label for="gender-man" class="visitor-gender__option">Homme</label>
+                                    <input type="radio" id="gender-woman" name="gender" value="woman">
+                                    <label for="gender-woman" class="visitor-gender__option">Femme</label>
+                                </div>
+                                <div class="sign-up__preference-gender">
+                                    <p class="preference-gender__choice">Je recherche</p>
+                                    <input type="radio" id="preference-man" name="preference" value="man">
+                                    <label for="preference-man" class="preference-gender__option">Homme</label>
+                                    <input type="radio" id="preference-woman" name="preference" value="woman">
+                                    <label for="preference-woman" class="preference-gender__option">Femme</label>
+                                </div>
+                            </div>
+                            <div class="sign-up__age-field">
+                            <div><label for="age" class="age-label">Âge</label></div> 
+                                <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
+                            </div>
+                            <div class="sign-up__city-field">
+                                <div><label for="city" class="city-label">Ville</label></div>
+                                <input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>
+                            </div>
+                            <button type="submit" value="Submit" class="sign-up__submit-btn">S'inscrire</button>
+                        </form>
+                    </div>
+                </section>
+                <section class="tagline">
+                    <article>
+                            <img src="../img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
+                            <p>Des rencontres basées sur vos centres d’intérêt</p>
+                    </article>
+                    <article>
+                        <img src="../img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
+                            <p>Participez à des événements pour rencontrer en vrai</p>
+                    </article>
+                    <article>
+                        <img src="../img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
+                            <p>Une plateforme simple, pensée pour les seniors</p>
+                    </article>
+                    <article>
+                        <img src="../img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
+                        <p>Profils vérifiés pour des échanges en toute confiance</p>
+                    </article>
+                </section>
+                <section class="events">
+                    <h2 class="events__title">Nos derniers événements</h2>
+                    <div class="events__list" id="events-list">
+                        <!-- dynamic templates of event here -->
+                    </div>
+                </section>
+        </template>
+
+        <!-- event template -->
+        <template id="event-template">
+            <article class="event">
+                <h2 class="event__city">Paris</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
+                        <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                        <span class="event__theme">Jeux</span>
+                    </div>
+                </a>
+            </article>
+        </template>
+
+    <footer class="footer">
+        <div class="footer__links">
+            <a href="#" class="footer__link">Information légale</a>
+            <a href="#" class="footer__link">Plan de site</a>
+            <a href="#" class="footer__link">Protection des données</a>
+        </div>
+    </footer>
+    
+</body>
+</html>
+
+
+
