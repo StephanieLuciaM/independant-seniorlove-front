@@ -91,7 +91,6 @@
     border: none;
     padding: var(--spacing-small);
     border-radius: var(--spacing-medium);
-    cursor: pointer;
     transition: transform 0.3s ease;
     border: 0.15rem solid var(--secondary-color);
 }

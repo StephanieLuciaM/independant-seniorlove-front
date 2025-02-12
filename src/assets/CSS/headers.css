@@ -1,41 +1,3 @@
-:root {
-    /* Colors */
-    --primary-color: #330C2F;
-    --secondary-color: #BFACB5;
-    --primary-color-light: #330c2fcd;
-    --background-color: #E5D0CC;
-    --text-color: #2C3E50;
-    --light-gray: #ECF0F1;
-    
-    /* Fonts */
-    --font-main: 'Lato', sans-serif;
-    --font-title: 'Poiret One', sans-serif;
-    
-    /* Spacings & Dimensions */
-    --spacing-small: 1rem;
-    --spacing-medium: 1.25rem;
-    --spacing-large: 2rem;
-}
-
-body {
-    font-family: var(--font-main);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* GENERAL CONTAINER */
-
-.container {
-    max-width: 95rem;
-    height: 100%;
-    margin: 0 auto;
-    padding: var(--spacing-medium);
-    flex-grow: 1; 
-}
 
 /* HEADERS */
 
@@ -134,35 +96,8 @@ body {
     text-align: center;
 }
 
-/* FOOTER */
-
-.footer {
-    background-color: var(--primary-color);
-    color: var(--background-color);
-    padding: var(--spacing-large);
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.footer__links {
-    display: flex;
-    justify-content: space-around;
-    gap: var(--spacing-small);
-}
-
-.footer__link {
-    color: white;
-    text-decoration: none;
-    font-size: var(--spacing-small);
-    font-weight: bold;
-}
-
-.footer__link:hover {
-    text-decoration: underline;
-}
 
 @media screen and (min-width: 768px) {
-
     .header {
         flex-direction: row;
         justify-content: space-between;
@@ -181,6 +116,7 @@ body {
 
     .header__search-form {
         margin-bottom: 0;
+        margin-right: var(--spacing-medium);
         width: auto;
     }
 
@@ -207,18 +143,12 @@ body {
         width: auto;
         margin: 0 var(--spacing-small);
     }
-
-    .footer__links {
-        flex-direction: row;
-        justify-content: space-around;
-    }
 }
-
 
 @media screen and (min-width: 1271px) {
 
     .header-connected__container {
-        padding: var(--spacing-small) var(--spacing-medium);
+        padding: var(--spacing-small) var(--spacing-large);
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
