@@ -47,14 +47,14 @@
   <template id="header-not-connected">
     <div class="header header__not-connected">
       <a href="">
-        <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+        <img class="header__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
       </a>
       <nav class="header__nav">
         <a href="" class="header__nav-link">Connexion</a>
       </nav>
       <form action="/" class="header__search-form">
         <input type="text" name="name" class="header__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
-        <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header__search-icon"></button>
+        <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/search-icon.svg" alt="icône de recherche" class="header__search-icon"></button>
       </form>
     </div>
   </template>
@@ -63,7 +63,7 @@
   <template id="header-connected">
     <div class="header-connected__container">
       <a href="">
-        <img class="header-connected__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+        <img class="header-connected__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
       </a>
       <nav class="header-connected__nav">
         <a href="#"  class="header__nav-link">Profils</a>
@@ -73,7 +73,7 @@
       </nav>
       <form action="/" class="header-connected__search-form">
         <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
-        <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
+        <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/search-icon.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
       </form>
     </div>
   </template>
@@ -83,9 +83,9 @@
   <template id="home-page-visitor">
     <div class="homepage-visitor">
       <section class="sign-up">
-        <img src="../img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
+        <img src="./src/assets/img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
         <div class="sign-up-part">
-          <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+          <img class="header__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
           <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
           <form class="sign-up__form">
               <div class="form__gender">
@@ -118,19 +118,19 @@
       </section>
       <section class="tagline">
         <article>
-          <img src="../img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
+          <img src="./src/assets/img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
           <p>Des rencontres basées sur vos centres d’intérêt</p>
         </article>
         <article>
-          <img src="../img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
+          <img src="./src/assets/img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
           <p>Participez à des événements pour rencontrer en vrai</p>
         </article>
         <article>
-          <img src="../img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
+          <img src="./src/assets/img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
           <p>Une plateforme simple, pensée pour les seniors</p>
         </article>
         <article>
-          <img src="../img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
+          <img src="./src/assets/img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
           <p>Profils vérifiés pour des échanges en toute confiance</p>
         </article>
       </section>
@@ -146,11 +146,11 @@
 <!-- event template -->
   <template id="event-template">
     <article class="event">
-      <h2 class="event__city">Paris</h2>
+      <h2 class="event__city" slot="city">Paris</h2>
       <a href="">
         <div>
-          <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
-          <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+          <img src="../src/assets/img/diverse-img/games.jpg" alt="jeux de société en groupe" slot="picture"> 
+          <h3 class="event__description" slot="description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
           <span class="event__theme">Jeux</span>
         </div>
       </a>
