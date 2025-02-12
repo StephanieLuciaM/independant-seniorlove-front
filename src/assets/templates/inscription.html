@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeniorLove - La plateforme de rencontre pour les seniors</title>
+    <link rel="icon" href="../img/icon/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/base.css">
+    <link rel="stylesheet" href="../CSS/inscription.css">
+    <script type="module" src="../js/testPageInscription.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a href="">
+            <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+        </a>
+        <nav class="header__nav">
+            <a href="" class="header__nav-link">Connexion</a>
+        </nav>
+        <form action="/" class="header__search-form">
+            <input type="text" name="name" class="header__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+            <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header__search-icon"></button>
+        </form>
+    </header>
+
+    <main id="app" class="container">
+    </main>
+        
+    <!-- Templates for questions -->
+      <template id="question1">
+        <section class="question size">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <p class="welcome">
+                "Bienvenue sur SeniorLove, l'espace dédié aux belles rencontres et aux moments partagés ! Quelques questions simples nous permettront de mieux vous connaître et de vous proposer des profils et des événements qui vous ressemblent. Notre processus d'inscription comprend dix étapes, c'est le premier pas vers de nouvelles connexions!" 
+            </p>
+            <label for="size">Quelle est votre taille ? <span class="required">*</span></label>
+            <input type="text" id="size" name="size" required>
+            <button type="submit" value="Submit" class="submit-btn">Valider</button>
+        </section>
+      </template>
+
+    
+      <template id="question2">
+        <section class="question family__situation">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label for="situation">Votre situation familiale <span class="required">*</span></label>
+            <select id="situation" name="situation" class="question__select" placeholder="der">
+                <option value="divorce">Divorcé(e)</option>
+                <option value="widower">Veuf/Veuve</option>
+                <option value="separated">Séparé(e)</option>
+                <option value="single">Célibataire</option>
+            </select>
+            <button type="button" class="submit-btn">Valider</button>
+        </section>
+      </template>
+    
+      <template id="question3">
+        <section class="question">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label for="sign">Votre signe astrologique</label>
+            <select id="sign" name="sign" class="question__select">
+                <option value="ram">Bélier</option>
+                <option value="bull">Taureau</option>
+                <option value="gemeau">Gémeaux</option>
+                <option value="cancer">Cancer</option>
+                <option value="lion">Lion</option>
+                <option value="virgin">Vierge</option>
+                <option value="balance">Balance</option>
+                <option value="scorpio">Scorpion</option>
+                <option value="sagittarius">Sagittaire</option>
+                <option value="capricorn">Capricorne</option>
+                <option value="aquarius">Verseau</option>
+                <option value="pisces">Poissons</option>
+            </select>
+            <button type="button" class="submit-btn">Valider</button>
+            <button type="button" class="submit-btn">Passer</button>
+        </section>
+      </template>
+    
+      <template id="question4">
+        <section class="question">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label>Est-ce que vous fumez?</label>
+            <div>
+              <label for="smoke-yes">Oui</label>
+              <input type="radio" id="smoke-yes" name="smoke" value="yes"> 
+            </div>
+
+            <div>
+              <label for="smoke-no">Non</label>
+              <input type="radio" id="smoke-no" name="smoke" value="no"> 
+            </div>
+            <button type="button" class="submit-btn">Valider</button>
+            <button type="button" class="submit-btn">Passer</button>
+        </section>
+      </template>
+    
+      <template id="question5">
+        <section class="question pets">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label>Avez-vous des animaux de compagnie? <span class="required">*</span></label>
+          <div> 
+            <label for="animals-yes">Oui</label>
+            <input type="radio" id="animals-yes" name="animals" value="yes" required>
+          </div>
+          <div> 
+            <label for="animals-no">Non</label>
+            <input type="radio" id="animals-no" name="animals" value="no" required>
+            
+          </div>
+            <button type="button" class="submit-btn">Valider</button>
+        </section>
+      </template>
+    
+      <template id="question6">
+        <section class="question">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label>Quel style de musique appréciez-vous?</label>
+            <input type="text" id="music">
+            <button type="button" class="submit-btn">Valider</button>
+            <button type="button" class="submit-btn">Passer</button>   
+        </section>  
+      </template>
+    
+      <template id="question7">
+        <section class="question interest__center" >
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label>Vos centres d'intérêts (plusieurs choix possible)? <span class="required">*</span></label>
+            <div>
+              <label for="nature">Nature</label>
+              <input type="checkbox" id="nature" name="interets" value="nature"> 
+            </div>
+            <div>
+              <label for="culture">Culture</label>
+              <input type="checkbox" id="culture" name="interets" value="culture"> 
+            </div>
+            <div>
+              <label for="sports">Sports/bien-être</label>
+              <input type="checkbox" id="sports" name="interets" value="sports"> 
+            </div>
+            <div>
+              <label for="evening">Soirée à thème</label>
+              <input type="checkbox" id="evening" name="interets" value="evening"> 
+            </div>
+            <div>
+              <label for="artistic">Artistique</label>
+              <input type="checkbox" id="artistic" name="interets" value="artistic"> 
+            </div>
+            <div>
+              <label for="games">Jeux</label>
+              <input type="checkbox" id="games" name="interets" value="games">
+            </div>
+            <button type="button" class="submit-btn">Valider</button>
+        </section>  
+      </template>
+    
+      <template id="question8">
+        <section class="question">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label>Choisissez une photo de profil</label>
+            <input type="file" id="picture" accept="image/*">
+            <button type="button" class="submit-btn">Valider</button>
+            <button type="button" class="submit-btn">Passer</button>   
+        </section>  
+      </template>
+    
+      <template id="question9">
+        <section class="question presentation">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <label>Présentez-vous en quelques mots</label>
+            <textarea id="presentation" placeholder=""></textarea>
+            <div>
+             <button type="button" class="submit-btn">Valider</button>
+             <button type="button" class="submit-btn">Passer</button>
+            </div>
+        </section>  
+      </template>
+    
+    
+    
+      <template id="question10">
+        <section class="question identification ">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <div>
+             <label for="email">Votre email</label>
+             <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+             <label for="password">Votre mot de passe <span class="required">*</span></label>
+             <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+             <label for="checkpassword">Vérification de votre mot de passe <span class="required">*</span></label>
+             <input type="password" id="checkpassword" name="checkpassword" required>
+            </div>
+            <button type="submit" class="submit-btn">Valider</button>
+        </section>
+      </template>
+
+    <footer class="footer">
+      <div class="footer__links">
+         <a href="#" class="footer__link">Information légale</a>
+         <a href="#" class="footer__link">Plan de site</a>
+         <a href="#" class="footer__link">Protection des données</a>
+      </div>
+    </footer>
+
+
+  </body>
+
+</html>
+
+

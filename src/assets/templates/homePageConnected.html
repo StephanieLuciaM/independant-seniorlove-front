@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeniorLove - La plateforme de rencontre pour les seniors</title>
+    <link rel="icon" href="../img/icon/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/reset.css" >
+    <link rel="stylesheet" href="../CSS/homePageConnected.css">
+    <link rel="stylesheet" href="../CSS/base.css">
+    <script type="module" src="../js/index.js" ></script>
+</head>
+
+<body>
+    <header class="header-connected__container">
+        <a href="">
+            <img class="header-connected__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+        </a>
+            <nav class="header-connected__nav">
+            <a href="#"  class="header__nav-link">Profils</a>
+            <a href="#"  class="header__nav-link ">Évènements</a>
+            <a href="#"  class="header__nav-link ">Messages</a>
+            <a href="#"  class="header__nav-link ">Mon compte</a>
+        </nav>
+        <form action="/" class="header-connected__search-form">
+            <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+            <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
+        </form>
+    </header>
+
+  <main class="container">
+
+      <section class="events">
+        <h2 class="events__title"> Évènements à venir</h2>
+        <div class="events__list" id="events-list">
+            <!-- Les événements seront générés ici en JS -->
+            <article class="event">
+                <h2 class="event__city">Paris</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/events/culturel.jpeg" alt="musée dans paris"> 
+                        <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                        <span class="event__theme">Jeux</span>
+                    </div>
+                </a>
+            </article> 
+
+            <article class="event">
+                <h2 class="event__city">Lyon</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/events/forest.jpg" alt="canoë en groupe"> 
+                        <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
+                        <span class="event__theme">Sport</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="event">
+                <h2 class="event__city">Marseille</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/events/hiking.jpg" alt="soirée en groupe"> 
+                        <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
+                        <span class="event__theme">Soirée à thème</span>
+                    </div>
+                </a>
+            </article>
+
+            
+            <article class="event">
+            <h2 class="event__city">Marseille</h2>
+            <a href="">
+                <div>
+                    <img src="../img/diverse-img/events/sports.jpg" alt="sortie culturelle"> 
+                    <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
+                    <span class="event__theme">Sortie culturelle</span>
+                </div>
+            </a>
+            </article>
+        </div>
+      </section>
+
+
+        
+      <section class="profils">
+            <h2 class="profils__title"> Profils selectionnés</h2>
+            
+            <article class="profil">
+                <h2 class="profil__name">Celine</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/profils/Celine.png" alt="photo de profil"> 
+                        <h3 class="profil__city">Paris</h3>
+                        <span class="profil__old">60 ans</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="profil">
+                <h2 class="profil__name">Jacky</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/profils/Jacky.jpg" alt="photo de profil"> 
+                        <h3 class="profil__city">Paris</h3>
+                        <span class="profil__old">60 ans</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="profil">
+                <h2 class="profil__name">Alex</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/profils/Alex.jpg" alt="photo de profil"> 
+                        <h3 class="profil__city">Paris</h3>
+                        <span class="profil__old">60 ans</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="profil">
+                <h2 class="profil__name">Elena</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/profils/Elena.png" alt="photo de profil"> 
+                        <h3 class="profil__city">Paris</h3>
+                        <span class="profil__old">60 ans</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="profil">
+                <h2 class="profil__name">Celine</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/profils/Celine.png" alt="photo de profil"> 
+                        <h3 class="profil__city">Paris</h3>
+                        <span class="profil__old">60 ans</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="profil">
+                <h2 class="profil__name">Darina</h2>
+                <a href="">
+                    <div>
+                        <img src="../img/diverse-img/profils/Joel.jpg" alt="photo de profil"> 
+                        <h3 class="profil__city">Paris</h3>
+                        <span class="profil__old">60 ans</span>
+                    </div>
+                </a>
+            </article>
+            
+      </section>
+          
+        
+    </main >
+        
+    <footer class="footer">
+      <div class="footer__links">
+        <a href="#" class="footer__link">Information légale</a>
+        <a href="#" class="footer__link">Plan de site</a>
+        <a href="#" class="footer__link">Protection des données</a>
+      </div>
+    </footer>
+
+    
+  </body>
+</html>
+

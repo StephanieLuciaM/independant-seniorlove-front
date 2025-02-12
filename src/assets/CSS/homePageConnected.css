@@ -1,0 +1,219 @@
+
+/* CONTAINER */
+.container {
+    display: flex;
+    height: auto;
+     flex-direction: column-reverse;
+}
+
+/* EVENTS SECTION */
+.events {
+    width: 100%; 
+    padding-right: var(--spacing-small);
+    gap: var(--spacing-small);
+    
+}
+
+.events__title {
+    font-family: 'Poiret One', sans-serif;
+    text-align: center;
+    color: var(--primary-color);
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-small);
+    margin-top: var(--spacing-large);
+}
+
+.events__list {
+    display: grid;
+   
+    gap: var(--spacing-medium);
+    background-color: var(--secondary-color);
+    padding: var(--spacing-large);
+    margin-bottom: 5rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.event {
+    background-color: white;
+    border-radius: var(--spacing-small);
+    transition: transform 0.3s ease;
+
+}
+
+.event:hover {
+ transform: scale(1.05);
+}
+
+.event a {
+ text-decoration: none;
+ color: var(--text-color);
+ display: block;
+}
+
+.event > a > div {
+ position: relative; 
+}
+
+
+.event img {
+ width: 100%;
+ height: 30vh;
+ object-fit: cover;
+ box-sizing: border-box;
+}
+
+.event__theme {
+ position: absolute; 
+ top: var(--spacing-small); 
+ right: 0.7rem;
+ background-color: var(--primary-color);
+ color: white;
+ padding: 0.5rem var(--spacing-small);
+ border-radius: var(--spacing-small);
+ font-size: var(--spacing-small);
+ font-weight: bold;
+ border: 0.1rem solid var(--secondary-color);
+}
+
+.event__city {
+ text-align: center;
+ padding: var(--spacing-small);
+ font-family: 'Poiret One', sans-serif;
+}
+
+.event__description {
+ padding: var(--spacing-small);
+ text-align: center;
+}
+
+/* Cartes des profils */
+.profils { 
+ 
+ display: flex;
+ flex-wrap: wrap; 
+ box-sizing: border-box;
+ gap: var(--spacing-small);
+ justify-content: center;
+ text-align: right;
+ align-self: start;
+ 
+} 
+
+/* PROFILS SECTION */
+.profils__title {
+ font-family: 'Poiret One', sans-serif;
+ text-align: center;
+ color: var(--primary-color);
+ justify-content: center;
+ width: 100%;
+ background-color: var(--primary-color);
+ color: white;
+ padding: var(--spacing-small);
+ /*margin-top: var(--spacing-large);*/
+ max-height: 4rem;
+ margin-top: 2rem;
+ margin-bottom: var(--spacing-small);
+}
+
+.profil {
+ background-color: white;
+ border-radius: var(--spacing-small);
+ transition: transform 0.3s ease;
+ 
+ height:60vh;
+ 
+}
+
+.profil:hover {
+ transform: scale(1.05);
+}
+
+.profil a {
+ text-decoration: none;
+ color: var(--text-color);
+ display: block;
+}
+
+.profil > a > div {
+ position: relative; 
+}
+
+.profil img {
+ width: 50vh;
+ height: 30vh;
+ object-fit: cover;
+}
+
+.profil__old {
+ position: absolute; 
+ top: var(--spacing-small); 
+ right: 0.7rem;
+ background-color: var(--primary-color);
+ color: white;
+ padding: 0.5rem var(--spacing-small);
+ border-radius: var(--spacing-small);
+ font-size: var(--spacing-small);
+ font-weight: bold;
+ border: 0.1rem solid var(--secondary-color);
+}
+
+.profil__name {
+ text-align: center;
+ padding: var(--spacing-small);
+ font-family: 'Poiret One', sans-serif;
+}
+
+.profil__city {
+ padding: var(--spacing-small);
+ text-align: center;
+ margin: var(--spacing-small);
+}
+
+/* Responsivité */
+@media screen and (min-width: 768px) {
+    .container{
+        flex-direction: initial;
+    }
+   
+    .events{
+     width:30%;
+    } 
+    .profils{
+        width: 65%;
+    }
+    .event{
+        width:70%;
+        box-sizing: border-box;
+        /*margin: auto;*/
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .event{
+        width:100%;
+        box-sizing: border-box;
+    }
+
+    
+    .header{
+        flex-direction: column;
+        display: block;
+        
+    }
+    .header__nav{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: var(--spacing-small);
+        padding: var(--spacing-small);
+
+    }
+    .header__search-form{
+        display: block;
+    }
+    
+}
