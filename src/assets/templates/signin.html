@@ -32,14 +32,16 @@
     
     <main id="app" class="container">
 
-        <!-- <template class="sign-in"> -->
-            <form class="sign-in__form">
-                <label for="email" class="email-label">Email</label>
-                <input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
-                <label for="password" class="password-label">Mot de passe</label>
-                <input type="text" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
-                <button type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
-            </form>
+        <template id="signin"> 
+					<div  class="sign-in">
+						<form class="sign-in__form">
+							<label for="email" class="email-label">Email</label>
+							<input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
+							<label for="password" class="password-label">Mot de passe</label>
+							<input type="text" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
+							<button type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
+						</form>
+					</div>
         </template>
     
     </main>
