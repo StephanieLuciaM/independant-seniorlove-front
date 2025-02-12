@@ -34,6 +34,7 @@
     border-radius: var(--spacing-small);
     outline: none;
     transition: border-color 0.3s;
+    cursor: pointer;
 }
 
 .email-input:focus,
