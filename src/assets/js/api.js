@@ -9,7 +9,7 @@ export async function getLastEvent(){
       return null;
     }
 
-    const events = await httpResponse.json()
+    const events = await httpResponse.json();
     return events;
 
   } catch (error) {

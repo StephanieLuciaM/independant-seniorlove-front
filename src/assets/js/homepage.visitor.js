@@ -1,5 +1,5 @@
 import { getLastEvent } from "./api.js";
-import { fetchDisplaySigninPage } from "./signin.js"
+import { fetchDisplaySigninPage } from "./signin.js";
 
 export async function fetchDisplayHomePageVisitor(){
 
@@ -41,7 +41,7 @@ export function addEventContainer(data){
 
   eventClone.querySelector("[slot='city']").textContent = data.city;
   eventClone.querySelector("[slot='description']").textContent = data.description;
-
+  // eventClone.querySelector("[slot='theme']").textContent = data.theme;
   const eventContainer = document.querySelector("#events-list");
  
   eventContainer.appendChild(eventClone);

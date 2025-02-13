@@ -14,5 +14,4 @@ export function fetchDisplayHomePageConnected(){
 
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
-
 }
