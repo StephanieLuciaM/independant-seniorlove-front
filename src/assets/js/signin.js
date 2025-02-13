@@ -4,27 +4,27 @@ import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
 
 
 export function fetchDisplaySigninPage(){
-	resetViewTemplate('app-main');
+  resetViewTemplate('app-main');
 
-	const contentTemplate = document.querySelector('#signin');
+  const contentTemplate = document.querySelector('#signin');
 
-	const contentClone = contentTemplate.content.cloneNode(true);
+  const contentClone = contentTemplate.content.cloneNode(true);
 
-	const contentContainer = document.querySelector("#app-main");
+  const contentContainer = document.querySelector("#app-main");
 
-	contentContainer.appendChild(contentClone);
+  contentContainer.appendChild(contentClone);
 
-	const form = contentContainer.querySelector('form');
+  const form = contentContainer.querySelector('form');
 
-	form.addEventListener('submit', async (e) =>{
-		e.preventDefault();
-		const dataUser = Object.fromEntries(new FormData(form));
+  form.addEventListener('submit', async (e) =>{
+    e.preventDefault();
+    const dataUser = Object.fromEntries(new FormData(form));
 
-	const onSign = await signIn(dataUser);
+    const onSign = await signIn(dataUser);
 
-	if(!onSign){
-		return;
-	}
-			fetchDisplayHomePageConnected();
-	})
+    if(!onSign){
+      return;
+    }
+    fetchDisplayHomePageConnected();
+  });
 }

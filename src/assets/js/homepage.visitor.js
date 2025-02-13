@@ -25,12 +25,12 @@ export async function fetchDisplayHomePageVisitor(){
   signinButton.addEventListener('click', (e)=> {
     e.preventDefault();
     fetchDisplaySigninPage();
-  })
+  });
   
   events.forEach(event =>{
    
-    addEventContainer(event)
-  })   
+    addEventContainer(event);
+  });   
 }
 
 export function addEventContainer(data){
@@ -39,10 +39,10 @@ export function addEventContainer(data){
 
   const eventClone = eventTemplate.content.cloneNode(true);
 
-  eventClone.querySelector("[slot='city']").textContent = data.city
-  eventClone.querySelector("[slot='description']").textContent = data.description
+  eventClone.querySelector("[slot='city']").textContent = data.city;
+  eventClone.querySelector("[slot='description']").textContent = data.description;
 
-  const eventContainer = document.querySelector("#events-list")
+  const eventContainer = document.querySelector("#events-list");
  
   eventContainer.appendChild(eventClone);
 }
