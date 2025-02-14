@@ -1,5 +1,6 @@
 import { apiUrl } from "./config.js";
 
+// Asynchronous function to get the last event
 export async function getLastEvent(){
   try {
     const httpResponse = await fetch(`${apiUrl}/filterevent`);
@@ -9,7 +10,9 @@ export async function getLastEvent(){
       return null;
     }
 
+// Parse the response as JSON
     const events = await httpResponse.json();
+
     return events;
 
   } catch (error) {
@@ -17,6 +20,7 @@ export async function getLastEvent(){
   }
 }
 
+// Asynchronous function to sign in a user
 export async function signIn(data){
   try {
     const httpResponse = await fetch(`${apiUrl}/signin`,{
@@ -30,6 +34,7 @@ export async function signIn(data){
       return null;
     }
 
+// Parse the response as JSON
     const connectedUser= await httpResponse.json();
     return connectedUser; 
 
