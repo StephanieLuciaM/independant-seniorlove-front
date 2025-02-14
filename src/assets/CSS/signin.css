@@ -1,13 +1,23 @@
 /* CONTAINER */
-.container {
+/* .container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100%;
     padding: var(--spacing-medium);
-}
+} */
+
 /* SIGN IN FORM */
+
+.sign-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    padding: var(--spacing-large);
+}
+
 .sign-in__form {
     background-color: var(--secondary-color);
     border-radius: var(--spacing-medium);
@@ -61,3 +71,4 @@
     transform: scale(1.05);
     border-color: var(--primary-color);
 }
+

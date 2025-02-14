@@ -7,4 +7,3 @@ async function init(){
     // Wait for the visitor home page to be fetched and displayed
     await fetchDisplayHomePageVisitor();
 }
-

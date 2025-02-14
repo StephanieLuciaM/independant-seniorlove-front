@@ -1,3 +1,4 @@
+
 /* SIGN IN FORM */
 .sign-up__img {
     width: 100%;
@@ -203,6 +204,8 @@
     text-align: center;
 }
 
+/* RESPPONSIVE */
+
 @media screen and (min-width: 768px) {
 
     .sign-up {
@@ -232,7 +235,6 @@
 
 }
 
-/* Media Query pour 1024px (desktops) */
 @media screen and (min-width: 1024px) {
 
 

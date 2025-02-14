@@ -1,35 +1,39 @@
+
 .question {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: var(--spacing-small);
-     }
+}
+
 .size h1{
    ali: center;
 }
+
 .family__situation{
     gap: var(--spacing-small);
-    
 }
- .pets{
+
+.pets{
     display: flex;
     flex-direction: column;
-   }
-   .interest__center{
+}
+
+.interest__center{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-   }
-   .identification{
+}
+
+.identification{
     align-items: flex-start;
-   }
+}
    
-   .identification div{
+.identification div{
     display: flex;
     flex-direction: column;
-    
-   }
+}
     
    
 
@@ -44,7 +48,6 @@
     font-size: 2rem;
 }
 
-
 .senior-word{
     margin: var(--spacing-small) 0 var(--spacing-small) 0;
     font-family: var(--font-title);
@@ -56,8 +59,6 @@
     color: var(--secondary-color);
 }
 
-
-
 .question__select{
     font-size: var(--spacing-small); 
     width: 100%;
@@ -66,7 +67,6 @@
     height: 5vh;
     cursor: pointer; 
 }
-
 
 .submit-btn {
     background-color: var(--primary-color);

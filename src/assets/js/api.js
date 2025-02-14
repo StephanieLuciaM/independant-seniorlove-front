@@ -11,7 +11,8 @@ export async function getLastEvent(){
     }
 
 // Parse the response as JSON
-    const events = await httpResponse.json()
+    const events = await httpResponse.json();
+
     return events;
 
   } catch (error) {
