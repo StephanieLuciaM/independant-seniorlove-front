@@ -1,48 +1,131 @@
-import { getLastEvent } from "./api.js";
-import { fetchDisplaySigninPage } from "./signin.js";
+const newUser = {};
+let currentQuestionIndex = 1;
+const TOTAL_QUESTIONS = 10;
 
-export async function fetchDisplayHomePageVisitor(){
+const requiredQuestions = [1, 2, 5, 7, 10];
 
-  const events = await getLastEvent();
-
-  if(!events){
-    return;
+// MODIFIÉ: Accepte maintenant les données initiales
+export function initSignup(initialData = null) {
+  if (initialData) {
+    Object.assign(newUser, initialData); // Fusionne les données initiales dans newUser
+    console.log('Données initiales enregistrées:', newUser);
   }
-  const headerTemplate = document.querySelector("#header-not-connected");
-  const contentTemplate = document.querySelector("#home-page-visitor");
-
-  const headerClone = headerTemplate.content.cloneNode(true);
-  const contentClone = contentTemplate.content.cloneNode(true);
-
-  const headerContainer = document.querySelector("#app-header");
-  const contentContainer = document.querySelector("#app-main");
-
-  headerContainer.appendChild(headerClone);
-  contentContainer.appendChild(contentClone);
-
-  const signinButton = headerContainer.querySelector('.header__nav-link');
-  
-  signinButton.addEventListener('click', (e)=> {
-    e.preventDefault();
-    fetchDisplaySigninPage();
-  });
-  
-  events.forEach(event =>{
-   
-    addEventContainer(event);
-  });   
+  showTemplate(1);
 }
 
-export function addEventContainer(data){
+function showTemplate(templateId) {
+  const main = document.getElementById('app-main');
+  main.innerHTML = ''; // Nettoie le contenu existant
   
-  const eventTemplate = document.querySelector("#event-template");
+  const template = document.querySelector(`template[data-slide-id="${templateId}"]`);
+  
+  if (!template) {
+    console.error(`Template ${templateId} non trouvé`);
+    return;
+  }
 
-  const eventClone = eventTemplate.content.cloneNode(true);
+  main.appendChild(template.content.cloneNode(true));
 
-  eventClone.querySelector("[slot='city']").textContent = data.city;
-  eventClone.querySelector("[slot='description']").textContent = data.description;
-  // eventClone.querySelector("[slot='theme']").textContent = data.theme;
-  const eventContainer = document.querySelector("#events-list");
- 
-  eventContainer.appendChild(eventClone);
+  // AMÉLIORÉ: Gestion plus robuste des boutons
+  const submitButton = main.querySelector('.submit-btn');
+  const skipButton = main.querySelector('.skip-btn');
+
+  if (submitButton) {
+    submitButton.addEventListener('click', handleSubmit);
+  }
+
+  if (skipButton && !requiredQuestions.includes(currentQuestionIndex)) {
+    skipButton.addEventListener('click', () => {
+      currentQuestionIndex++;
+      showTemplate(currentQuestionIndex);
+    });
+  }
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  if (requiredQuestions.includes(currentQuestionIndex)) {
+    if (!isQuestionAnswered()) {
+      alert('Veuillez remplir ce champ obligatoire');
+      return;
+    }
+  }
+
+  saveCurrentAnswers();
+
+  if (currentQuestionIndex < TOTAL_QUESTIONS) {
+    currentQuestionIndex++;
+    showTemplate(currentQuestionIndex);
+  } else {
+    finishSignup();
+  }
+}
+
+// Les fonctions suivantes restent inchangées
+function isQuestionAnswered() {
+  switch (currentQuestionIndex) {
+    case 1:
+      return document.getElementById('height')?.value;
+    case 2:
+      return document.getElementById('marital')?.value;
+    case 5:
+      return document.querySelector('input[name="pet"]:checked');
+    case 7:
+      return document.querySelectorAll('input[name="interets"]:checked').length > 0;
+    case 10:
+      return document.getElementById('email')?.value &&
+             document.getElementById('password')?.value;
+    default:
+      return true;
+  }
+}
+
+function saveCurrentAnswers() {
+  switch (currentQuestionIndex) {
+    case 1:
+      newUser.height = document.getElementById('height')?.value;
+      break;
+    case 2:
+      newUser.marital = document.getElementById('marital')?.value;
+      break;
+    case 3:
+      newUser.zodiac = document.getElementById('zodiac')?.value;
+      break;
+    case 4:
+      newUser.smoker = document.querySelector('input[name="smoker"]:checked')?.value;
+      break;
+    case 5:
+      newUser.pet = document.querySelector('input[name="pet"]:checked')?.value;
+      break;
+    case 6:
+      newUser.music = document.getElementById('music')?.value;
+      break;
+    case 7:
+      newUser.interests = Array.from(document.querySelectorAll('input[name="interets"]:checked'))
+        .map(cb => cb.value);
+      break;
+    case 8:
+      newUser.picture = document.getElementById('picture')?.files[0];
+      break;
+    case 9:
+      newUser.description = document.getElementById('description')?.value;
+      break;
+    case 10:
+      newUser.email = document.getElementById('email')?.value;
+      newUser.password = document.getElementById('password')?.value;
+      break;
+  }
+  
+  console.log('Réponses actuelles:', newUser);
+}
+
+function finishSignup() {
+  const main = document.getElementById('app-main');
+  const signinTemplate = document.getElementById('signin');
+  
+  main.innerHTML = '';
+  main.appendChild(signinTemplate.content.cloneNode(true));
+  
+  console.log('Formulaire terminé !', newUser);
 }
