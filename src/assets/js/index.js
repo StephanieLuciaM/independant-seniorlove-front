@@ -1,8 +1,7 @@
-import { fetchDisplayHomePageVisitor} from "./homepage.visitor.js";
+import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 
-init();
+init()
 
 async function init(){
-  await fetchDisplayHomePageVisitor();
+    await fetchDisplayHomePageVisitor();
 }
-

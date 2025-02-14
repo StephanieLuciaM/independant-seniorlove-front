@@ -1,9 +1,9 @@
 import { resetViewTemplate } from "./utils.js";
 
 export function fetchDisplayHomePageConnected(){
-  resetViewTemplate('app-header', 'app-main');
+    resetViewTemplate('app-header', 'app-main');
 
-  const headerTemplate = document.querySelector("#header-connected");
+const headerTemplate = document.querySelector("#header-connected");
   const contentTemplate = document.querySelector("#home-page-connected");
 
   const headerClone = headerTemplate.content.cloneNode(true);
@@ -14,4 +14,5 @@ export function fetchDisplayHomePageConnected(){
 
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
+
 }
