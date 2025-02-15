@@ -95,16 +95,16 @@
               <div class="form__gender">
                 <div class="sign-up__visitor-gender">
                   <p class="visitor-gender__choice">Je suis</p>
-                  <input type="radio" id="gender-man" name="gender" value="man">
+                  <input type="radio" id="gender-man" name="gender" value="Homme">
                   <label for="gender-man" class="visitor-gender__option">Homme</label>
-                  <input type="radio" id="gender-woman" name="gender" value="woman">
+                  <input type="radio" id="gender-woman" name="gender" value="Femme">
                   <label for="gender-woman" class="visitor-gender__option">Femme</label>
                 </div>
                 <div class="sign-up__preference-gender">
                   <p class="preference-gender__choice">Je recherche</p>
-                  <input type="radio" id="preference-man" name="preference" value="man">
+                  <input type="radio" id="preference-man" name="gender_match" value="Homme">
                   <label for="preference-man" class="preference-gender__option">Homme</label>
-                  <input type="radio" id="preference-woman" name="preference" value="woman">
+                  <input type="radio" id="preference-woman" name="gender_match" value="Femme">
                   <label for="preference-woman" class="preference-gender__option">Femme</label>
                 </div>
               </div>
@@ -319,7 +319,7 @@
                 "Bienvenue sur SeniorLove, l'espace dédié aux belles rencontres et aux moments partagés ! Quelques questions simples nous permettront de mieux vous connaître et de vous proposer des profils et des événements qui vous ressemblent. Notre processus d'inscription comprend dix étapes, c'est le premier pas vers de nouvelles connexions!" 
             </p>
             <label for="size">Quelle est votre taille ? <span class="required">*</span></label>
-            <input type="text" id="size" name="size" required>
+            <input type="text" id="size" name="height" required>
             <button type="submit" value="Submit" class="submit-btn">Valider</button>
         </section>
       </template>
@@ -329,11 +329,11 @@
         <section class="question family__situation">
             <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
             <label for="situation">Votre situation familiale <span class="required">*</span></label>
-            <select id="situation" name="situation" class="question__select" placeholder="der">
-                <option value="divorce">Divorcé(e)</option>
-                <option value="widower">Veuf/Veuve</option>
-                <option value="separated">Séparé(e)</option>
-                <option value="single">Célibataire</option>
+            <select id="situation" name="marital" class="question__select" placeholder="der">
+                <option value="Divorcé">Divorcé(e)</option>
+                <option value="Veuf/veuve">Veuf/Veuve</option>
+                <option value="Séparé">Séparé(e)</option>
+                <option value="Célibataire">Célibataire</option>
             </select>
             <button type="button" class="submit-btn">Valider</button>
         </section>
@@ -343,19 +343,19 @@
         <section class="question">
             <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
             <label for="sign">Votre signe astrologique</label>
-            <select id="sign" name="sign" class="question__select">
-                <option value="ram">Bélier</option>
-                <option value="bull">Taureau</option>
-                <option value="gemeau">Gémeaux</option>
-                <option value="cancer">Cancer</option>
-                <option value="lion">Lion</option>
-                <option value="virgin">Vierge</option>
-                <option value="balance">Balance</option>
-                <option value="scorpio">Scorpion</option>
-                <option value="sagittarius">Sagittaire</option>
-                <option value="capricorn">Capricorne</option>
-                <option value="aquarius">Verseau</option>
-                <option value="pisces">Poissons</option>
+            <select id="sign" name="zodiac" class="question__select">
+                <option value="Bélier">Bélier</option>
+                <option value="Taureau">Taureau</option>
+                <option value="Gémeau">Gémeaux</option>
+                <option value="Cancer">Cancer</option>
+                <option value="Lion">Lion</option>
+                <option value="Vierge">Vierge</option>
+                <option value="Balance">Balance</option>
+                <option value="Scorpion">Scorpion</option>
+                <option value="Sagittaire">Sagittaire</option>
+                <option value="Capricorne">Capricorne</option>
+                <option value="Verseau">Verseau</option>
+                <option value="Poissons">Poissons</option>
             </select>
             <button type="button" class="submit-btn">Valider</button>
             <button type="button" class="submit-btn">Passer</button>
@@ -368,12 +368,12 @@
             <label>Est-ce que vous fumez?</label>
             <div>
               <label for="smoke-yes">Oui</label>
-              <input type="radio" id="smoke-yes" name="smoke" value="yes"> 
+              <input type="radio" id="smoke-yes" name="smoke" value="true"> 
             </div>
 
             <div>
               <label for="smoke-no">Non</label>
-              <input type="radio" id="smoke-no" name="smoke" value="no"> 
+              <input type="radio" id="smoke-no" name="smoke" value="false"> 
             </div>
             <button type="button" class="submit-btn">Valider</button>
             <button type="button" class="submit-btn">Passer</button>
@@ -386,11 +386,11 @@
             <label>Avez-vous des animaux de compagnie? <span class="required">*</span></label>
           <div> 
             <label for="animals-yes">Oui</label>
-            <input type="radio" id="animals-yes" name="animals" value="yes" required>
+            <input type="radio" id="animals-yes" name="pet" value="true" required>
           </div>
           <div> 
             <label for="animals-no">Non</label>
-            <input type="radio" id="animals-no" name="animals" value="no" required>
+            <input type="radio" id="animals-no" name="pet" value="false" required>
             
           </div>
             <button type="button" class="submit-btn">Valider</button>
@@ -400,8 +400,8 @@
       <template data-slide-id="6">
         <section class="question">
             <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label>Quel style de musique appréciez-vous?</label>
-            <input type="text" id="music">
+            <label for="music">Quel style de musique appréciez-vous?</label>
+            <input type="text" id="music" name="music">
             <button type="button" class="submit-btn">Valider</button>
             <button type="button" class="submit-btn">Passer</button>   
         </section>  
@@ -413,11 +413,11 @@
             <label>Vos centres d'intérêts (plusieurs choix possible)? <span class="required">*</span></label>
             <div>
               <label for="nature">Nature</label>
-              <input type="checkbox" id="nature" name="interets" value="nature"> 
+              <input type="checkbox" id="nature" name="interets" value="Nature"> 
             </div>
             <div>
               <label for="culture">Culture</label>
-              <input type="checkbox" id="culture" name="interets" value="culture"> 
+              <input type="checkbox" id="culture" name="interets" value="Culturel"> 
             </div>
             <div>
               <label for="sports">Sports/bien-être</label>
@@ -425,15 +425,15 @@
             </div>
             <div>
               <label for="evening">Soirée à thème</label>
-              <input type="checkbox" id="evening" name="interets" value="evening"> 
+              <input type="checkbox" id="evening" name="interets" value="Soirée à thème"> 
             </div>
             <div>
               <label for="artistic">Artistique</label>
-              <input type="checkbox" id="artistic" name="interets" value="artistic"> 
+              <input type="checkbox" id="artistic" name="interets" value="Artistique"> 
             </div>
             <div>
               <label for="games">Jeux</label>
-              <input type="checkbox" id="games" name="interets" value="games">
+              <input type="checkbox" id="games" name="interets" value="Jeux de société">
             </div>
             <button type="button" class="submit-btn">Valider</button>
         </section>  
@@ -442,8 +442,8 @@
       <template data-slide-id="8">
         <section class="question">
             <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label>Choisissez une photo de profil</label>
-            <input type="file" id="picture" accept="image/*">
+            <label for="picture">Choisissez une photo de profil</label>
+            <input type="file" id="picture" accept="image/*" name="picture">
             <button type="button" class="submit-btn">Valider</button>
             <button type="button" class="submit-btn">Passer</button>   
         </section>  
@@ -452,8 +452,8 @@
       <template data-slide-id="9">
         <section class="question presentation">
             <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label>Présentez-vous en quelques mots</label>
-            <textarea id="presentation" placeholder=""></textarea>
+            <label for="description">Présentez-vous en quelques mots</label>
+            <textarea id="description" placeholder="" name="descriptino"></textarea>
             <div>
              <button type="button" class="submit-btn">Valider</button>
              <button type="button" class="submit-btn">Passer</button>
@@ -473,8 +473,8 @@
              <input type="password" id="password" name="password" required>
             </div>
             <div>
-             <label for="checkpassword">Vérification de votre mot de passe <span class="required">*</span></label>
-             <input type="password" id="checkpassword" name="checkpassword" required>
+             <label for="repeat_password">Vérification de votre mot de passe <span class="required">*</span></label>
+             <input type="password" id="repeat_password" name="repeat_password" required>
             </div>
             <button type="submit" class="submit-btn">Valider</button>
         </section>

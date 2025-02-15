@@ -19,5 +19,4 @@ export function fetchDisplayHomePageConnected(){
   // Append the cloned templates to their respective containers
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
-
-}
+};

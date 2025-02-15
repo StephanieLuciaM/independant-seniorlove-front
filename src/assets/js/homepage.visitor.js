@@ -3,12 +3,7 @@ import { fetchDisplaySigninPage } from "./signin.js"
 
 export async function fetchDisplayHomePageVisitor(){
 
-  // Fetch the last event
-  const events = await getLastEvent();
-
-  if(!events){
-    return;
-  }
+ 
 
   // Select the header and content templates for the visitor home page
   const headerTemplate = document.querySelector("#header-not-connected");
@@ -32,11 +27,19 @@ export async function fetchDisplayHomePageVisitor(){
     e.preventDefault();
     fetchDisplaySigninPage();
   })
+   // Fetch the last event
+   const events = await getLastEvent();
+
+   if(!events){
+     return;
+   }
   
   // For each event, add it to the event container
   events.forEach(event =>{
-    addEventContainer(event)
+    addEventContainer(event);
   })   
+
+  
 }
 
 export function addEventContainer(data){

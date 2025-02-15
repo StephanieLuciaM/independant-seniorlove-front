@@ -20,3 +20,13 @@ export function resetViewTemplate(id, id2 = ''){
         };
     } 
 };
+
+export function getCookies(name){
+    const cookies = document.cookie.split('; ');
+    const value = cookies.find(cookie => cookie.startsWith(name))?.split('=')[1];
+    console.log(value)
+    if(!value){
+        return null
+    }
+    return decodeURIComponent(value)
+};
