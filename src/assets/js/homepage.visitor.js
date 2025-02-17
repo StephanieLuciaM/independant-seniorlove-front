@@ -1,5 +1,6 @@
 import { getLastEvent } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js"
+import { fetchDisplaySignupForm } from "./signup.js";
 
 export async function fetchDisplayHomePageVisitor(){
 
@@ -27,6 +28,14 @@ export async function fetchDisplayHomePageVisitor(){
     e.preventDefault();
     fetchDisplaySigninPage();
   })
+
+  // Add an event listener to the sign-up form
+  const signupForm = contentContainer.querySelector('form');
+  signupForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const dataUser = Object.fromEntries(new FormData(signupForm));
+    fetchDisplaySignupForm(dataUser);
+  })
    // Fetch the last event
    const events = await getLastEvent();
 
@@ -37,9 +46,7 @@ export async function fetchDisplayHomePageVisitor(){
   // For each event, add it to the event container
   events.forEach(event =>{
     addEventContainer(event);
-  })   
-
-  
+  })    
 }
 
 export function addEventContainer(data){
