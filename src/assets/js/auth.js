@@ -7,4 +7,5 @@ export async function checkUserAuthentication() {
 	if(!authentificatedUser){
 		return;
 	}
+	return authentificatedUser;
 }

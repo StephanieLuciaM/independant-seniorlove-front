@@ -15,7 +15,6 @@ export async function getLastEvent(){
 
 // Parse the response as JSON
     const events = await httpResponse.json();
-    console.log(events)
     return events;
 
   } catch (error) {
@@ -55,11 +54,11 @@ export async function authentificationUser(){
     });
 
     if (!httpResponse.ok) {
-      console.log(httpResponse);
-      return null;
+      const authentificatedUser = false;
+      return authentificatedUser;
     }
 // Parse the response as JSON      
-    const authentificatedUser= await httpResponse.json()
+    const authentificatedUser = true;
     return authentificatedUser;
     
   } catch (error) {
