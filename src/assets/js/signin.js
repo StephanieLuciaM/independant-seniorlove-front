@@ -4,27 +4,38 @@ import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
 
 
 export function fetchDisplaySigninPage(){
-  resetViewTemplate('app-main');
+	// Reset the view template for the main content area
+	resetViewTemplate('app-main');
 
-  const contentTemplate = document.querySelector('#signin');
+	// Select the sign-in template from the DOM
+	const contentTemplate = document.querySelector('#signin');
 
-  const contentClone = contentTemplate.content.cloneNode(true);
+	// Clone the sign-in template
+	const contentClone = contentTemplate.content.cloneNode(true);
 
-  const contentContainer = document.querySelector("#app-main");
+	// Select the container where the clone will be appended
+	const contentContainer = document.querySelector("#app-main");
 
-  contentContainer.appendChild(contentClone);
+	// Append the cloned template to the main content container
+	contentContainer.appendChild(contentClone);
 
-  const form = contentContainer.querySelector('form');
+	// Select the form element within the cloned content
+	const form = contentContainer.querySelector('form');
 
-  form.addEventListener('submit', async (e) =>{
-    e.preventDefault();
-    const dataUser = Object.fromEntries(new FormData(form));
+	// Add an event listener to handle the form submission
+	form.addEventListener('submit', async (e) =>{
+		e.preventDefault();
+		const dataUser = Object.fromEntries(new FormData(form));
 
-    const onSign = await signIn(dataUser);
+	// Attempt to sign in the user
+	const onSign = await signIn(dataUser);
 
-    if(!onSign){
-      return;
-    }
-    fetchDisplayHomePageConnected();
-  });
+	// If sign-in is unsuccessful, exit the function
+	if(!onSign){
+		return;
+	}
+	
+	// If sign-in is successful, display the connected home page
+	fetchDisplayHomePageConnected();
+	})
 }
