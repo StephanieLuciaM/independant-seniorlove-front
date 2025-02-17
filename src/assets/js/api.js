@@ -4,9 +4,11 @@ import { getCookies } from "./utils.js";
 // Asynchronous function to get the last event
 export async function getLastEvent(){
   try {
+
     const httpResponse = await fetch(`${apiUrl}/filter-event`,{
       credentials: "include"
     });
+
 
     if(!httpResponse.ok){
       console.log(httpResponse);
