@@ -57,7 +57,6 @@
       </div>
     </template>
 
-
     <template id="header-connected">
       <div class="header-connected__container">
         <a href="">
@@ -75,8 +74,6 @@
         </form>
       </div>
     </template>
-
-
 
     <!--Template homepage visitor-->
 
@@ -111,10 +108,10 @@
                 <div class="sign-up__city-field">
                   <div><label for="city" class="city-label">Ville</label></div>
                   <select id="city" name="city" class="question__select">
-                    <option value="Paris">Paris</option>
-                    <option value="Lyon">Lyon</option>
-                    <option value="Toulouse">Toulouse</option>
-                    <option value="marseille">Marseille</option>
+                    <option value="PARIS">Paris</option>
+                    <option value="LYON">Lyon</option>
+                    <option value="TOULOUSE">Toulouse</option>
+                    <option value="MARSEILLE">Marseille</option>
                 </select>
                   <!--<input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>-->
                 </div>
@@ -149,9 +146,7 @@
       </div>
     </template>
 
-
     <!-- Template event -->
-
 
     <template id="event-template">
       <article class="event">
@@ -166,9 +161,7 @@
       </article>
     </template>
 
-
     <!--Template sign in-->
-
 
     <template id="signin"> 
       <div class="sign-in">
@@ -182,9 +175,7 @@
       </div>
     </template>
 
-
     <!--Template connected-->
-
 
     <template id="home-page-connected">
       <section class="events connected">
@@ -312,7 +303,7 @@
     </template>   
 
       <!-- Templates of signup questions -->
-
+       
     <template data-slide-id="1">
       <section class="question size">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
@@ -375,11 +366,11 @@
           <label>Est-ce que vous fumez?</label>
           <div>
             <label for="smoke-yes">Oui</label>
-            <input type="radio" id="smoke-yes" name="smoke" value="true"> 
+            <input type="radio" id="smoke-yes" name="smoker" value="true"> 
           </div>
           <div>
             <label for="smoke-no">Non</label>
-            <input type="radio" id="smoke-no" name="smoke" value="false"> 
+            <input type="radio" id="smoke-no" name="smoker" value="false"> 
           </div>
           <button type="submit" class="submit-btn">Valider</button>
           <button type="submit" class="skip-btn">Passer</button>
@@ -424,27 +415,27 @@
           <label>Vos centres d'intérêts (plusieurs choix possible)? <span class="required">*</span></label>
           <div>
             <label for="nature">Nature</label>
-            <input type="checkbox" id="nature" name="label" value="Nature"> 
+            <input type="checkbox" id="nature" name="labels" value="Nature"> 
           </div>
           <div>
             <label for="culture">Culture</label>
-            <input type="checkbox" id="culture" name="label" value="Culturel"> 
+            <input type="checkbox" id="culture" name="labels" value="Culturel"> 
           </div>
           <div>
             <label for="sports">Sports/bien-être</label>
-            <input type="checkbox" id="sports" name="label" value="sports/bien-être"> 
+            <input type="checkbox" id="sports" name="labels" value="Sports/bien-être"> 
           </div>
           <div>
             <label for="soiree-a-theme">Soirée à thème</label>
-            <input type="checkbox" id="soiree-a-theme" name="label" value="Soirée à thème"> 
+            <input type="checkbox" id="soiree-a-theme" name="labels" value="Soirée à thème"> 
           </div>
           <div>
             <label for="artistique">Artistique</label>
-            <input type="checkbox" id="artistique" name="label" value="Artistique"> 
+            <input type="checkbox" id="artistique" name="labels" value="Artistique"> 
           </div>
           <div>
             <label for="jeux-de-societe">Jeux</label>
-            <input type="checkbox" id="jeux-de-societe" name="label" value="Jeux de société">
+            <input type="checkbox" id="jeux-de-societe" name="labels" value="Jeux de société">
           </div>
           <button type="submit" class="submit-btn">Valider</button>
         </form>

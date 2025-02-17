@@ -29,6 +29,7 @@ export async function fetchDisplayHomePageVisitor(){
     fetchDisplaySigninPage();
   })
 
+  // Add an event listener to the sign-up form
   const signupForm = contentContainer.querySelector('form');
   signupForm.addEventListener('submit', (e)=>{
     e.preventDefault();
