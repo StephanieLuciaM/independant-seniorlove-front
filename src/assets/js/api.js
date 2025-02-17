@@ -2,7 +2,7 @@ import { apiUrl } from "./config.js";
 
 export async function getLastEvent(){
   try {
-    const httpResponse = await fetch(`${apiUrl}/filterevent`);
+    const httpResponse = await fetch(`${apiUrl}/filter-event`);
 
     if(!httpResponse.ok){
       console.log(httpResponse);

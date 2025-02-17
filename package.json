@@ -1,6 +1,5 @@
 {
   "name": "senior-love-front",
-
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +7,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
@@ -20,6 +18,5 @@
   },
   "dependencies": {
     "eslint": "^9.20.0"
-
   }
 }
