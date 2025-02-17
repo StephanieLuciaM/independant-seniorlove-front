@@ -18,10 +18,6 @@
     <link rel="stylesheet" href="./src/assets/CSS/homepage.visitor.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.connected.css">
     <script type="module" src="./src/assets/js/index.js"></script>
-
-   
-   
-
   </head>
   <body>
     <header id="app-header">
@@ -44,440 +40,459 @@
 
 
 
-  <!--Template headers -->
+    <!--Template headers -->
 
-  <template id="header-not-connected">
-    <div class="header header__not-connected">
-      <a href="">
-        <img class="header__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
-      </a>
-      <nav class="header__nav">
-        <a href="" class="header__nav-link">Connexion</a>
-      </nav>
-      <form action="/" class="header__search-form">
-        <input type="text" name="name" class="header__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
-        <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/icons8-loupe.svg" alt="icône de recherche" class="header__search-icon"></button>
-      </form>
-    </div>
-  </template>
-
-
-  <template id="header-connected">
-    <div class="header-connected__container">
-      <a href="">
-        <img class="header-connected__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
-      </a>
-      <nav class="header-connected__nav">
-        <a href="#"  class="header__nav-link">Profils</a>
-        <a href="#"  class="header__nav-link ">Évènements</a>
-        <a href="#"  class="header__nav-link ">Messages</a>
-        <a href="#"  class="header__nav-link ">Mon compte</a>
-      </nav>
-      <form action="/" class="header-connected__search-form">
-        <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
-        <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/icons8-loupe.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
-      </form>
-    </div>
-  </template>
-
-
-
-  <!--Template homepage visitor-->
-
-  <template id="home-page-visitor">
-    <div class="homepage-visitor">
-      <section class="sign-up">
-        <img src="./src/assets/img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
-        <div class="sign-up-part">
+    <template id="header-not-connected">
+      <div class="header header__not-connected">
+        <a href="">
           <img class="header__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
-          <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-          <form class="sign-up__form">
-              <div class="form__gender">
-                <div class="sign-up__visitor-gender">
-                  <p class="visitor-gender__choice">Je suis</p>
-                  <input type="radio" id="gender-man" name="gender" value="Homme">
-                  <label for="gender-man" class="visitor-gender__option">Homme</label>
-                  <input type="radio" id="gender-woman" name="gender" value="Femme">
-                  <label for="gender-woman" class="visitor-gender__option">Femme</label>
-                </div>
-                <div class="sign-up__preference-gender">
-                  <p class="preference-gender__choice">Je recherche</p>
-                  <input type="radio" id="preference-man" name="gender_match" value="Homme">
-                  <label for="preference-man" class="preference-gender__option">Homme</label>
-                  <input type="radio" id="preference-woman" name="gender_match" value="Femme">
-                  <label for="preference-woman" class="preference-gender__option">Femme</label>
-                </div>
-              </div>
-              <div class="sign-up__age-field">
-              <div><label for="age" class="age-label">Âge</label></div> 
-                <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
-              </div>
-              <div class="sign-up__city-field">
-                <div><label for="city" class="city-label">Ville</label></div>
-                <input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>
-              </div>
-              <button type="submit" value="Submit" class="sign-up__submit-btn">S'inscrire</button>
-          </form>
-        </div>
-      </section>
-      <section class="tagline">
-        <article>
-          <img src="./src/assets/img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
-          <p>Des rencontres basées sur vos centres d’intérêt</p>
-        </article>
-        <article>
-          <img src="./src/assets/img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
-          <p>Participez à des événements pour rencontrer en vrai</p>
-        </article>
-        <article>
-          <img src="./src/assets/img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
-          <p>Une plateforme simple, pensée pour les seniors</p>
-        </article>
-        <article>
-          <img src="./src/assets/img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
-          <p>Profils vérifiés pour des échanges en toute confiance</p>
-        </article>
-      </section>
-      <section class="events">
-        <h2 class="events__title">Nos derniers événements</h2>
-        <div class="events__list" id="events-list">
-            <!-- Events generated by JS here -->
-        </div>
-      </section>
-    </div>
-  </template>
-
-
-<!-- Template event -->
-
-
-  <template id="event-template">
-    <article class="event">
-      <h2 class="event__city" slot="city">Paris</h2>
-      <a href="">
-        <div>
-          <img src="./src/assets/img/diverse-img/games.jpg" alt="jeux de société en groupe" slot="picture"> 
-          <h3 class="event__description" slot="description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-          <span class="event__theme" slot="theme" >Jeux</span>
-        </div>
-      </a>
-    </article>
-  </template>
-
-
-  <!--Template sign in-->
-
-
-  <template id="signin"> 
-    <div class="sign-in">
-      <form class="sign-in__form">
-        <label for="email" class="email-label">Email</label>
-        <input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
-        <label for="password" class="password-label">Mot de passe</label>
-        <input type="text" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
-        <button type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
-      </form>
-    </div>
-  </template>
-
-
-  <!--Template connected-->
-
-
-  <template id="home-page-connected">
-    <section class="events connected">
-      <h2 class="events__title connected"> Évènements à venir</h2>
-      <div class="events__list connected" id="events-list">
-          <!-- Les événements seront générés ici en JS -->
-          <article class="event connected">
-              <h2 class="event__city connected">Paris</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="musée dans paris"> 
-                      <h3 class="event__description connected">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-                      <span class="event__theme connected">Jeux</span>
-                  </div>
-              </a>
-          </article> 
-
-          <article class="event connected">
-              <h2 class="event__city connected">Lyon</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/sports.jpg" alt="canoë en groupe"> 
-                      <h3 class="event__description connected">Randonnée au Parc de Lacroix-Laval</h3>
-                      <span class="event__theme connected">Sport</span>
-                  </div>
-              </a>
-          </article>
-
-          <article class="event connected">
-              <h2 class="event__city connected">Marseille</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/party.jpg" alt="soirée en groupe"> 
-                      <h3 class="event__description connected">Soirée à la guinguette "Le Bon Air"</h3>
-                      <span class="event__theme connected">Soirée à thème</span>
-                  </div>
-              </a>
-          </article>
-
-          
-          <article class="event connected">
-          <h2 class="event__city connected">Marseille</h2>
-          <a href="">
-              <div>
-                  <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="sortie culturelle"> 
-                  <h3 class="event__description connected">Sortie au centre d’art "Les Abattoirs"</h3>
-                  <span class="event__theme connected">Sortie culturelle</span>
-              </div>
-          </a>
-          </article>
+        </a>
+        <nav class="header__nav">
+          <a href="" class="header__nav-link">Connexion</a>
+        </nav>
+        <form action="/" class="header__search-form">
+          <input type="text" name="name" class="header__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+          <button type="submit" class="header__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/icons8-loupe.svg" alt="icône de recherche" class="header__search-icon"></button>
+        </form>
       </div>
-    </section>
+    </template>
 
+    <template id="header-connected">
+      <div class="header-connected__container">
+        <a href="">
+          <img class="header-connected__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
+        </a>
+        <nav class="header-connected__nav">
+          <a href="#"  class="header__nav-link">Profils</a>
+          <a href="#"  class="header__nav-link ">Évènements</a>
+          <a href="#"  class="header__nav-link ">Messages</a>
+          <a href="#"  class="header__nav-link ">Mon compte</a>
+        </nav>
+        <form action="/" class="header-connected__search-form">
+          <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+          <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/icons8-loupe.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
+        </form>
+      </div>
+    </template>
 
-      
-    <section class="profils">
-          <h2 class="profils__title"> Profils selectionnés</h2>
-          
-          <article class="profil">
-              <h2 class="profil__name">Celine</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil"> 
-                      <h3 class="profil__city">Paris</h3>
-                      <span class="profil__old">60 ans</span>
+    <!--Template homepage visitor-->
+
+    <template id="home-page-visitor">
+      <div class="homepage-visitor">
+        <section class="sign-up">
+          <img src="./src/assets/img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
+          <div class="sign-up-part">
+            <img class="header__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
+            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+            <form class="sign-up__form">
+                <div class="form__gender">
+                  <div class="sign-up__visitor-gender">
+                    <p class="visitor-gender__choice">Je suis</p>
+                    <input type="radio" id="gender-man" name="gender" value="Homme">
+                    <label for="gender-man" class="visitor-gender__option">Homme</label>
+                    <input type="radio" id="gender-woman" name="gender" value="Femme">
+                    <label for="gender-woman" class="visitor-gender__option">Femme</label>
                   </div>
-              </a>
-          </article>
-
-          <article class="profil">
-              <h2 class="profil__name">Jacky</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/profils/Jacky.jpg" alt="photo de profil"> 
-                      <h3 class="profil__city">Paris</h3>
-                      <span class="profil__old">60 ans</span>
+                  <div class="sign-up__preference-gender">
+                    <p class="preference-gender__choice">Je recherche</p>
+                    <input type="radio" id="preference-man" name="gender_match" value="Homme">
+                    <label for="preference-man" class="preference-gender__option">Homme</label>
+                    <input type="radio" id="preference-woman" name="gender_match" value="Femme">
+                    <label for="preference-woman" class="preference-gender__option">Femme</label>
                   </div>
-              </a>
+                </div>
+                <div class="sign-up__age-field">
+                <div><label for="age" class="age-label">Âge</label></div> 
+                  <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
+                </div>
+                <div class="sign-up__city-field">
+                  <div><label for="city" class="city-label">Ville</label></div>
+                  <select id="city" name="city" class="question__select">
+                    <option value="PARIS">Paris</option>
+                    <option value="LYON">Lyon</option>
+                    <option value="TOULOUSE">Toulouse</option>
+                    <option value="MARSEILLE">Marseille</option>
+                </select>
+                  <!--<input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>-->
+                </div>
+                <button type="submit" value="Submit" class="sign-up__submit-btn">S'inscrire</button>
+            </form>
+          </div>
+        </section>
+        <section class="tagline">
+          <article>
+            <img src="./src/assets/img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
+            <p>Des rencontres basées sur vos centres d’intérêt</p>
           </article>
+          <article>
+            <img src="./src/assets/img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
+            <p>Participez à des événements pour rencontrer en vrai</p>
+          </article>
+          <article>
+            <img src="./src/assets/img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
+            <p>Une plateforme simple, pensée pour les seniors</p>
+          </article>
+          <article>
+            <img src="./src/assets/img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
+            <p>Profils vérifiés pour des échanges en toute confiance</p>
+          </article>
+        </section>
+        <section class="events">
+          <h2 class="events__title">Nos derniers événements</h2>
+          <div class="events__list" id="events-list">
+              <!-- Events generated by JS here -->
+          </div>
+        </section>
+      </div>
+    </template>
 
-          <article class="profil">
-              <h2 class="profil__name">Alex</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/profils/Alex.jpg" alt="photo de profil"> 
-                      <h3 class="profil__city">Paris</h3>
-                      <span class="profil__old">60 ans</span>
-                  </div>
-              </a>
-          </article>
+    <!-- Template event -->
 
-          <article class="profil">
-              <h2 class="profil__name">Elena</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/profils/Elena.png" alt="photo de profil"> 
-                      <h3 class="profil__city">Paris</h3>
-                      <span class="profil__old">60 ans</span>
-                  </div>
-              </a>
-          </article>
+    <template id="event-template">
+      <article class="event">
+        <h2 class="event__city" slot="city">Paris</h2>
+        <a href="">
+          <div>
+            <img src="./src/assets/img/diverse-img/games.jpg" alt="jeux de société en groupe" slot="picture"> 
+            <h3 class="event__description" slot="description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+            <span class="event__theme" slot="theme" >Jeux</span>
+          </div>
+        </a>
+      </article>
+    </template>
 
-          <article class="profil">
-              <h2 class="profil__name">Celine</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil"> 
-                      <h3 class="profil__city">Paris</h3>
-                      <span class="profil__old">60 ans</span>
-                  </div>
-              </a>
-          </article>
+    <!--Template sign in-->
 
-          <article class="profil">
-              <h2 class="profil__name">Darina</h2>
-              <a href="">
-                  <div>
-                      <img src="./src/assets/img/diverse-img/profils/Joel.jpg" alt="photo de profil"> 
-                      <h3 class="profil__city">Paris</h3>
-                      <span class="profil__old">60 ans</span>
-                  </div>
-              </a>
-          </article>
-          
-    </section>
-  </template>   
+    <template id="signin"> 
+      <div class="sign-in">
+        <form class="sign-in__form">
+          <label for="email" class="email-label">Email</label>
+          <input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
+          <label for="password" class="password-label">Mot de passe</label>
+          <input type="text" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
+          <button type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
+        </form>
+      </div>
+    </template>
+
+    <!--Template connected-->
+
+    <template id="home-page-connected">
+      <section class="events connected">
+        <h2 class="events__title connected"> Évènements à venir</h2>
+        <div class="events__list connected" id="events-list">
+            <!-- Les événements seront générés ici en JS -->
+            <article class="event connected">
+                <h2 class="event__city connected">Paris</h2>
+                <a href="">
+                    <div>
+                        <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="musée dans paris"> 
+                        <h3 class="event__description connected">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                        <span class="event__theme connected">Jeux</span>
+                    </div>
+                </a>
+            </article> 
+
+            <article class="event connected">
+                <h2 class="event__city connected">Lyon</h2>
+                <a href="">
+                    <div>
+                        <img src="./src/assets/img/diverse-img/sports.jpg" alt="canoë en groupe"> 
+                        <h3 class="event__description connected">Randonnée au Parc de Lacroix-Laval</h3>
+                        <span class="event__theme connected">Sport</span>
+                    </div>
+                </a>
+            </article>
+
+            <article class="event connected">
+                <h2 class="event__city connected">Marseille</h2>
+                <a href="">
+                    <div>
+                        <img src="./src/assets/img/diverse-img/party.jpg" alt="soirée en groupe"> 
+                        <h3 class="event__description connected">Soirée à la guinguette "Le Bon Air"</h3>
+                        <span class="event__theme connected">Soirée à thème</span>
+                    </div>
+                </a>
+            </article>
+
+            
+            <article class="event connected">
+            <h2 class="event__city connected">Marseille</h2>
+            <a href="">
+                <div>
+                    <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="sortie culturelle"> 
+                    <h3 class="event__description connected">Sortie au centre d’art "Les Abattoirs"</h3>
+                    <span class="event__theme connected">Sortie culturelle</span>
+                </div>
+            </a>
+            </article>
+        </div>
+      </section>
+
+
+        
+      <section class="profils">
+        <h2 class="profils__title"> Profils selectionnés</h2>
+        
+        <article class="profil">
+          <h2 class="profil__name">Celine</h2>
+          <a href="">
+            <div>
+              <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil"> 
+              <h3 class="profil__city">Paris</h3>
+              <span class="profil__old">60 ans</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="profil">
+          <h2 class="profil__name">Jacky</h2>
+          <a href="">
+            <div>
+              <img src="./src/assets/img/diverse-img/profils/Jacky.jpg" alt="photo de profil"> 
+              <h3 class="profil__city">Paris</h3>
+              <span class="profil__old">60 ans</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="profil">
+          <h2 class="profil__name">Alex</h2>
+          <a href="">
+            <div>
+              <img src="./src/assets/img/diverse-img/profils/Alex.jpg" alt="photo de profil"> 
+              <h3 class="profil__city">Paris</h3>
+              <span class="profil__old">60 ans</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="profil">
+          <h2 class="profil__name">Elena</h2>
+          <a href="">
+            <div>
+              <img src="./src/assets/img/diverse-img/profils/Elena.png" alt="photo de profil"> 
+              <h3 class="profil__city">Paris</h3>
+              <span class="profil__old">60 ans</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="profil">
+          <h2 class="profil__name">Celine</h2>
+          <a href="">
+            <div>
+              <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil"> 
+              <h3 class="profil__city">Paris</h3>
+              <span class="profil__old">60 ans</span>
+            </div>
+          </a>
+        </article>
+
+        <article class="profil">
+          <h2 class="profil__name">Darina</h2>
+          <a href="">
+            <div>
+              <img src="./src/assets/img/diverse-img/profils/Joel.jpg" alt="photo de profil"> 
+              <h3 class="profil__city">Paris</h3>
+              <span class="profil__old">60 ans</span>
+            </div>
+          </a>
+        </article>  
+      </section>
+    </template>   
 
       <!-- Templates of signup questions -->
+       
+    <template data-slide-id="1">
+      <section class="question size">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <p class="welcome">
+          "Bienvenue sur SeniorLove, l'espace dédié aux belles rencontres et aux moments partagés ! Quelques questions simples nous permettront de mieux vous connaître et de vous proposer des profils et des événements qui vous ressemblent. Notre processus d'inscription comprend dix étapes, c'est le premier pas vers de nouvelles connexions!" 
+        </p>
+        <form>
+          <label for="size">Quelle est votre taille ?(en cm) <span class="required">*</span></label>
+          <input type="text" id="size" name="height" required>
+          <button type="submit" class="submit-btn">Valider</button>
+        </form> 
+      </section>
+    </template>
 
-      <template data-slide-id="1">
-        <section class="question size">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <p class="welcome">
-                "Bienvenue sur SeniorLove, l'espace dédié aux belles rencontres et aux moments partagés ! Quelques questions simples nous permettront de mieux vous connaître et de vous proposer des profils et des événements qui vous ressemblent. Notre processus d'inscription comprend dix étapes, c'est le premier pas vers de nouvelles connexions!" 
-            </p>
-            <label for="size">Quelle est votre taille ? <span class="required">*</span></label>
-            <input type="text" id="size" name="height" required>
-            <button type="submit" value="Submit" class="submit-btn">Valider</button>
-        </section>
-      </template>
-
+    <template data-slide-id="2">
+      <section class="question family__situation">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label for="situation">Votre situation familiale <span class="required">*</span></label>
+          <select id="situation" name="marital" class="question__select" placeholder="der">
+            <option value="Divorcé">Divorcé(e)</option>
+            <option value="Veuf/veuve">Veuf/Veuve</option>
+            <option value="Séparé">Séparé(e)</option>
+            <option value="Célibataire">Célibataire</option>
+          </select>
+          <button type="submit" class="submit-btn">Valider</button>
+        </form>
+      </section>
+    </template>
     
-      <template data-slide-id="2">
-        <section class="question family__situation">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label for="situation">Votre situation familiale <span class="required">*</span></label>
-            <select id="situation" name="marital" class="question__select" placeholder="der">
-                <option value="Divorcé">Divorcé(e)</option>
-                <option value="Veuf/veuve">Veuf/Veuve</option>
-                <option value="Séparé">Séparé(e)</option>
-                <option value="Célibataire">Célibataire</option>
-            </select>
-            <button type="button" class="submit-btn">Valider</button>
-        </section>
-      </template>
+    <template data-slide-id="3">
+      <section class="question">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label for="sign">Votre signe astrologique</label>
+          <select id="sign" name="zodiac" class="question__select">
+            <option value="Bélier">Bélier</option>
+            <option value="Taureau">Taureau</option>
+            <option value="Gémeau">Gémeaux</option>
+            <option value="Cancer">Cancer</option>
+            <option value="Lion">Lion</option>
+            <option value="Vierge">Vierge</option>
+            <option value="Balance">Balance</option>
+            <option value="Scorpion">Scorpion</option>
+            <option value="Sagittaire">Sagittaire</option>
+            <option value="Capricorne">Capricorne</option>
+            <option value="Verseau">Verseau</option>
+            <option value="Poissons">Poissons</option>
+          </select>
+          <button type="submit" class="submit-btn">Valider</button>
+          <button type="submit" class="skip-btn">Passer</button>
+        </form>
+      </section>
+    </template>
     
-      <template data-slide-id="3">
-        <section class="question">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label for="sign">Votre signe astrologique</label>
-            <select id="sign" name="zodiac" class="question__select">
-                <option value="Bélier">Bélier</option>
-                <option value="Taureau">Taureau</option>
-                <option value="Gémeau">Gémeaux</option>
-                <option value="Cancer">Cancer</option>
-                <option value="Lion">Lion</option>
-                <option value="Vierge">Vierge</option>
-                <option value="Balance">Balance</option>
-                <option value="Scorpion">Scorpion</option>
-                <option value="Sagittaire">Sagittaire</option>
-                <option value="Capricorne">Capricorne</option>
-                <option value="Verseau">Verseau</option>
-                <option value="Poissons">Poissons</option>
-            </select>
-            <button type="button" class="submit-btn">Valider</button>
-            <button type="button" class="submit-btn">Passer</button>
-        </section>
-      </template>
+    <template data-slide-id="4">
+      <section class="question">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label>Est-ce que vous fumez?</label>
+          <div>
+            <label for="smoke-yes">Oui</label>
+            <input type="radio" id="smoke-yes" name="smoker" value="true"> 
+          </div>
+          <div>
+            <label for="smoke-no">Non</label>
+            <input type="radio" id="smoke-no" name="smoker" value="false"> 
+          </div>
+          <button type="submit" class="submit-btn">Valider</button>
+          <button type="submit" class="skip-btn">Passer</button>
+        </form> 
+      </section>
+    </template>
     
-      <template data-slide-id="4">
-        <section class="question">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label>Est-ce que vous fumez?</label>
-            <div>
-              <label for="smoke-yes">Oui</label>
-              <input type="radio" id="smoke-yes" name="smoke" value="true"> 
-            </div>
-
-            <div>
-              <label for="smoke-no">Non</label>
-              <input type="radio" id="smoke-no" name="smoke" value="false"> 
-            </div>
-            <button type="button" class="submit-btn">Valider</button>
-            <button type="button" class="submit-btn">Passer</button>
-        </section>
-      </template>
-    
-      <template data-slide-id="5">
-        <section class="question pets">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label>Avez-vous des animaux de compagnie? <span class="required">*</span></label>
+    <template data-slide-id="5">
+      <section class="question pets">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label>Avez-vous des animaux de compagnie? <span class="required">*</span></label>
           <div> 
             <label for="animals-yes">Oui</label>
             <input type="radio" id="animals-yes" name="pet" value="true" required>
           </div>
           <div> 
             <label for="animals-no">Non</label>
-            <input type="radio" id="animals-no" name="pet" value="false" required>
-            
+            <input type="radio" id="animals-no" name="pet" value="false" required> 
           </div>
-            <button type="button" class="submit-btn">Valider</button>
-        </section>
-      </template>
+          <button type="submit" class="submit-btn">Valider</button>
+        </form>
+      </section>
+    </template>
     
-      <template data-slide-id="6">
-        <section class="question">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label for="music">Quel style de musique appréciez-vous?</label>
-            <input type="text" id="music" name="music">
-            <button type="button" class="submit-btn">Valider</button>
-            <button type="button" class="submit-btn">Passer</button>   
-        </section>  
-      </template>
+    <template data-slide-id="6">
+      <section class="question">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label for="music">Quel style de musique appréciez-vous?</label>
+          <input type="text" id="music" name="music">
+          <button type="submit" class="submit-btn">Valider</button>
+          <button type="submit" class="skip-btn">Passer</button>   
+        </form>
+      </section>  
+    </template>
          
-      <template data-slide-id="7">
-        <section class="question interest__center" >
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label>Vos centres d'intérêts (plusieurs choix possible)? <span class="required">*</span></label>
-            <div>
-              <label for="nature">Nature</label>
-              <input type="checkbox" id="nature" name="interets" value="Nature"> 
-            </div>
-            <div>
-              <label for="culture">Culture</label>
-              <input type="checkbox" id="culture" name="interets" value="Culturel"> 
-            </div>
-            <div>
-              <label for="sports">Sports/bien-être</label>
-              <input type="checkbox" id="sports" name="interets" value="sports"> 
-            </div>
-            <div>
-              <label for="evening">Soirée à thème</label>
-              <input type="checkbox" id="evening" name="interets" value="Soirée à thème"> 
-            </div>
-            <div>
-              <label for="artistic">Artistique</label>
-              <input type="checkbox" id="artistic" name="interets" value="Artistique"> 
-            </div>
-            <div>
-              <label for="games">Jeux</label>
-              <input type="checkbox" id="games" name="interets" value="Jeux de société">
-            </div>
-            <button type="button" class="submit-btn">Valider</button>
-        </section>  
-      </template>
+    <template data-slide-id="7">
+      <section class="question interest__center" >
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label>Vos centres d'intérêts (plusieurs choix possible)? <span class="required">*</span></label>
+          <div>
+            <label for="nature">Nature</label>
+            <input type="checkbox" id="nature" name="labels" value="Nature"> 
+          </div>
+          <div>
+            <label for="culture">Culture</label>
+            <input type="checkbox" id="culture" name="labels" value="Culturel"> 
+          </div>
+          <div>
+            <label for="sports">Sports/bien-être</label>
+            <input type="checkbox" id="sports" name="labels" value="Sports/bien-être"> 
+          </div>
+          <div>
+            <label for="soiree-a-theme">Soirée à thème</label>
+            <input type="checkbox" id="soiree-a-theme" name="labels" value="Soirée à thème"> 
+          </div>
+          <div>
+            <label for="artistique">Artistique</label>
+            <input type="checkbox" id="artistique" name="labels" value="Artistique"> 
+          </div>
+          <div>
+            <label for="jeux-de-societe">Jeux</label>
+            <input type="checkbox" id="jeux-de-societe" name="labels" value="Jeux de société">
+          </div>
+          <button type="submit" class="submit-btn">Valider</button>
+        </form>
+      </section>  
+    </template>
     
-      <template data-slide-id="8">
-        <section class="question">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label for="picture">Choisissez une photo de profil</label>
-            <input type="file" id="picture" accept="image/*" name="picture">
-            <button type="button" class="submit-btn">Valider</button>
-            <button type="button" class="submit-btn">Passer</button>   
-        </section>  
-      </template>
+    <template data-slide-id="8">
+      <section class="question">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label for="picture">Choisissez une photo de profil</label>
+          <input type="file" id="picture" accept="image/*" name="picture">
+          <button type="submit" class="submit-btn">Valider</button>
+          <button type="submit" class="skip-btn">Passer</button>   
+        </form>
+      </section>  
+    </template>
     
-      <template data-slide-id="9">
-        <section class="question presentation">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <label for="description">Présentez-vous en quelques mots</label>
-            <textarea id="description" placeholder="" name="descriptino"></textarea>
-            <div>
-             <button type="button" class="submit-btn">Valider</button>
-             <button type="button" class="submit-btn">Passer</button>
-            </div>
-        </section>  
-      </template>
+    <template data-slide-id="9">
+      <section class="question presentation">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <label for="description">Présentez-vous en quelques mots</label>
+          <textarea id="description" placeholder="" name="description"></textarea>
+          <div>
+            <button type="submit" class="submit-btn">Valider</button>
+            <button type="submit" class="skip-btn">Passer</button>
+          </div>
+        </form>
+      </section>  
+    </template>
     
-      <template data-slide-id="10">
-        <section class="question identification ">
-            <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-            <div>
-             <label for="email">Votre email</label>
-             <input type="email" id="email" name="email" required>
+    <template data-slide-id="10">
+      <section class="question identification ">
+        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+        <form>
+          <div>
+            <label for="firstname">Votre prénom</label>
+            <input type="text" id="firstname" name="firstname" required>
+            </div>
+          <div>
+            <label for="email">Votre email</label>
+            <input type="email" id="email" name="email" required>
             </div>
             <div>
-             <label for="password">Votre mot de passe <span class="required">*</span></label>
-             <input type="password" id="password" name="password" required>
+            <label for="password">Votre mot de passe <span class="required">*</span></label>
+            <input type="password" id="password" name="password" required>
             </div>
             <div>
-             <label for="repeat_password">Vérification de votre mot de passe <span class="required">*</span></label>
-             <input type="password" id="repeat_password" name="repeat_password" required>
+            <label for="repeat_password">Vérification de votre mot de passe <span class="required">*</span></label>
+            <input type="password" id="repeat_password" name="repeat_password" required>
             </div>
             <button type="submit" class="submit-btn">Valider</button>
-        </section>
-      </template>
+        </form>
+      </section>
+    </template>
+
+
   </body> 
 </html>
