@@ -1,5 +1,4 @@
 import { apiUrl } from "./config.js";
-import { getCookies } from "./utils.js";
 
 // Asynchronous function to get the last event
 export async function getLastEvent(){
@@ -20,8 +19,9 @@ export async function getLastEvent(){
   } catch (error) {
     console.error("API non accessible...", error);
   }
-}
+};
 
+// Asynchronous function to sign up a user
 export async function signUp(data){
   try {
     const httpResponse = await fetch(`${apiUrl}/signup`,{
@@ -43,8 +43,7 @@ export async function signUp(data){
   } catch (error) {
     console.error("API non accessible...", error);  
   }
-}
-
+};
 
 // Asynchronous function to sign in a user
 export async function signIn(data){
@@ -68,7 +67,7 @@ export async function signIn(data){
   } catch (error) {
     console.error("API non accessible...", error);  
   }
-}
+};
 
 // Asynchronous function to authentificated user
 export async function authentificationUser(){
@@ -88,4 +87,4 @@ export async function authentificationUser(){
   } catch (error) {
     console.error('Erreur de vérification du token :', error)
   }
-}
+};

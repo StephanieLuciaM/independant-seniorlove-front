@@ -5,7 +5,7 @@ export async function checkUserAuthentication() {
 	const authentificatedUser = await authentificationUser();
 	// If the user is not authenticated, return without any further action
 	if(!authentificatedUser){
-		return;
+		return null;
 	}
 	return authentificatedUser;
-}
+};
