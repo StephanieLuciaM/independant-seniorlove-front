@@ -1,4 +1,6 @@
 import { resetViewTemplate } from "./utils.js";
+import { signUp } from "./api.js";
+import { fetchDisplaySigninPage } from "./signin.js";
 
 export function fetchDisplaySignupForm(data){
   let i = 1;
@@ -44,7 +46,7 @@ function displayNextForm(count, data) {
   }
 }
 
-function handleFormSubmit(e, count, data) {
+ function handleFormSubmit(e, count, data) {
    // Prevent the default form submission behavior 
   e.preventDefault();
   // Create a FormData object from the form that triggered the event
@@ -59,12 +61,24 @@ function handleFormSubmit(e, count, data) {
   }
   // Merge the formDataObject into the existing data object
   Object.assign(data, formDataObject);
+  console.log(data)
   
   // Increment the count and display the next form if the count is less than or equal to 10
   count++;
   if (count <= 10) {
     displayNextForm(count, data);
   }
-
+  createNewUser(data)
 }
+
+async function createNewUser(data){
+  const createUser = await signUp(data);
+
+  if(!createUser){
+    return;
+  }
+  fetchDisplaySigninPage();
+}
+
+
 

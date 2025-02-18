@@ -22,6 +22,30 @@ export async function getLastEvent(){
   }
 }
 
+export async function signUp(data){
+  try {
+    const httpResponse = await fetch(`${apiUrl}/signup`,{
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(data)
+    });
+
+    if(!httpResponse.ok){
+      console.log(httpResponse);
+      return null;
+    }
+
+// Parse the response as JSON
+    const createdUser= await httpResponse.json();
+    return createdUser; 
+
+  } catch (error) {
+    console.error("API non accessible...", error);  
+  }
+}
+
+
 // Asynchronous function to sign in a user
 export async function signIn(data){
   try {
