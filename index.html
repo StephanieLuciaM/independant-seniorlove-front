@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./src/assets/CSS/signin.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.visitor.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.connected.css">
+    <link rel="stylesheet" href="./src/assets/CSS/my.account.css">
     <script type="module" src="./src/assets/js/index.js"></script>
   </head>
   <body>
@@ -66,7 +67,25 @@
           <a href="#"  class="header__nav-link">Profils</a>
           <a href="#"  class="header__nav-link ">Évènements</a>
           <a href="#"  class="header__nav-link ">Messages</a>
-          <a href="#"  class="header__nav-link ">Mon compte</a>
+          <a href="#"  class="header__nav-link my__account">Mon compte</a>
+        </nav>
+        <form action="/" class="header-connected__search-form">
+          <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+          <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="./src/assets/img/icon/icons8-loupe.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
+        </form>
+      </div>
+    </template>
+
+    <template id="header-my-account">
+      <div class="header-connected__container">
+        <a href="">
+          <img class="header-connected__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
+        </a>
+        <nav class="header-connected__nav">
+          <a href="#"  class="header__nav-link">Profils</a>
+          <a href="#"  class="header__nav-link ">Évènements</a>
+          <a href="#"  class="header__nav-link ">Messages</a>
+          <a href="#"  class="header__nav-link ">Se déconnecter</a>
         </nav>
         <form action="/" class="header-connected__search-form">
           <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
@@ -215,7 +234,6 @@
                 </a>
             </article>
 
-            
             <article class="event connected">
             <h2 class="event__city connected">Marseille</h2>
             <a href="">
@@ -229,8 +247,6 @@
         </div>
       </section>
 
-
-        
       <section class="profils">
         <h2 class="profils__title"> Profils selectionnés</h2>
         
@@ -492,6 +508,226 @@
         </form>
       </section>
     </template>
+
+      <!--TEMPLATE PERSONAL PROFIL-->
+    <template id="my-account">
+      <section class="profile-section">
+        <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="my profile picture" class="profile-img" slot="picture">      
+        <div class="profile-details">
+          <p class="profile-firstname"><strong>Prénom :</strong> <span slot="firstname">Celine</span></p>
+          <p class="profile-old"><strong>Age:</strong> <span slot="age">60 ans</span></p>
+          <p class="profile-city"><strong>Ville :</strong> <span slot="city">Bordeaux</span></p>
+        </div>
+        <button class="edit-modal" type="button">Modifier</button>
+      </section>
+      
+      <section class="interests-section">
+        <article class="intro-article">
+          <article class="intro-article-presentation">
+            <h2 class="intro-title">Texte d'introduction</h2>
+            <p slot="description">Jeune retraitée et cherche à faire des rencontres. Contactez-moi!</p>
+            <button class="edit-modal" type="button">Modifier</button>
+          </article>
+
+          <article class="interests-article">
+            <h2 class="interests-title">Centres d'intérets</h2>
+            <div class="interest">
+              <span class="interest_type" slot="Jeux de société">Jeux de société</span>
+              <span class="interest_type" slot="Culturel">Culturel</span>
+              <span class="interest_type" slot="Nature">Nature</span>
+              <span class="interest_type" slot="Artistique">Artistique</span>
+              <span class="interest_type" slot="soirée à thème">Soirée à thème</span>
+            </div>
+            <button class="edit-modal" type="button">Modifier</button>
+          </article>
+
+          <article class="events-article">
+            <div class="past-events">
+                <h2 class="events-title">Evènements passés</h2>
+                <div class="past-event">
+                  <h3 class="event-city" slot="city">Paris</h3>
+                  <a href="">
+                    <div class="event-details">
+                      <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img" slot="picture"> 
+                      <h3 class="event-description " slot="description">Soirée à la guinguette "Le Bon Air"</h3>
+                      <span class="event-theme " slot="name">Soirée à thème</span>
+                    </div>
+                  </a>
+                </div>  
+                <div class="past-event">
+                  <h3 class="event-city">Marseille</h3>
+                  <a href="">
+                    <div class="event-details">
+                      <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
+                      <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
+                      <span class="event-theme ">Soirée à thème</span>
+                    </div>
+                  </a>
+                </div>
+                <div class="past-event">
+                  <h3 class="event-city">Marseille</h3>
+                  <a href="">
+                    <div class="event-details">
+                      <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
+                      <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
+                      <span class="event-theme ">Soirée à thème</span>
+                    </div>
+                  </a>
+                </div>  
+            </div>
+
+            <div class="upcoming-events">
+              <h3 class="events-title"> Evénements à venir</h3>
+              <div class="past-event">
+                <h3 class="event-city">Marseille</h3>
+                <a href="">
+                  <div class="event-details">
+                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
+                    <h3 class="event-description connected">Soirée à la guinguette "Le Bon Air"</h3>
+                    <span class="event-theme ">Soirée à thème</span>
+                  </div>
+                </a>
+              </div>  
+              <div class="past-event">
+                <h3 class="event-city">Marseille</h3>
+                <a href="">
+                  <div class="event-details">
+                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
+                    <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
+                    <span class="event-theme ">Soirée à thème</span>
+                  </div>
+                </a>
+              </div>
+              <div class="past-event">
+                <h3 class="event-city">Marseille</h3>
+                <a href="">
+                  <div class="event-details">
+                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
+                    <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
+                    <span class="event-theme ">Soirée à thème</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </article>
+        </article>
+
+        <article class="general-info-article">
+          <h2 class="general-info-title"> Informations générales</h2> 
+          <p class="general-info-item"><strong>Taille: </strong> <span slot="height">170</span></p>
+          <p class="general-info-item"><strong>Fumeur/Fumeuse: </strong> <span slot="smoker">oui</span></p>
+          <p class="general-info-item"><strong>Situation familiale: </strong> <span slot="marital">Célibataire</span></p>
+          <p class="general-info-item"><strong>Signe astrologique: </strong> <span slot="zodiak">Gémeaux</span></p>
+          <p class="general-info-item"><strong>Animaux de compagnie: </strong> <span slot="pet">oui</span></p>
+          <p class="general-info-item"><strong>Style de musique: </strong> <span slot="music"></span>Rock</p>
+        </article>
+      </section>
+    </template>
+
+      <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
+    <template id="modif-info">
+      <div class="modal">
+        <h1>Modification Générale</h1>
+        <form id="modification-form">
+          <div class="form-group">
+            <label for="modif-picture" class="form-label-modif">Télécharger une photo de profil</label>
+            <input type="file" id="modif-picture" accept="image/*" name="picture">    
+          </div>
+  
+          <div class="form-group">
+            <label for="first-name" class="form-label">Prénom</label>
+            <input type="text" id="first-name" name="firstname" class="form-input" required>
+          </div>
+  
+          <div class="form-group">
+            <label for="modif-city" class="form-label">Ville</label>
+            <input type="text" id="modif-city" name="city" class="form-input" required>
+          </div>
+  
+          <button type="submit" class="edit-modal">Valider</button>
+          <button type="button" class="edit-modal">Annuler</button>
+        </form>
+      </div>
+    </template>
+
+      <!--TEMPLATE MODIFICATION TEXT INTRODUCTION -->
+    <template id="modif-intro" >
+      <div class="modal">
+        <h1 id="">Modifier votre texte d'introduction</h1>
+        <form>
+          <div>
+            <label for="modif-presentation">Présentez-vous en quelques mots</label>
+            <textarea id="modif-presentation" class="modif_text-presentation" name="description" ></textarea> 
+          </div>             
+          <button type="submit" class="edit-modal">Valider</button>
+          <button type="button" class="edit-modal">Annuler</button>
+        </form>
+      </div>
+    </template>
+
+      <!--TEMPLATE MODIFICATION PERSONAL DATA -->
+    <template id="modif-personal">
+      <div class="modal">
+        <form class="personal_dada" id="modal_personal-data">
+          <div class="personal_data-section" id="modal_smoker-section">  
+            <h2>FUMEUR:</h2>
+            <div>
+              <label for="modal-smoker-yes">OUI:</label>
+              <input type="radio" id="modal-smoker-yes" name="smoker" class="radio-option" value="true">
+            </div>
+            <div>
+              <label for="modal-smoker-no">NON:</label>
+              <input type="radio" id="modal-smoker-no" name="smoker" class="radio-option" value="false">
+            </div>
+          </div>
+
+          <div class="personal_data-section" id="modal-pets-section">
+            <h2>ANIMAUX DE COMPAGNIE</h2>
+            <div>
+              <label for="pets-yes">OUI:</label>
+              <input type="radio" id="pets-yes" name="pet" class="radio-option" value="true">
+            </div>
+            <div>
+              <label for="pets-no">NON:</label>
+              <input type="radio" id="pets-no" name="pet" class="radio-option" value="false">
+            </div>
+          </div>
+
+          <div class="personal_data-section" id="music-style-section">
+            <label for="music-style">STYLE DE MUSIQUE</label>
+            <input type="text" id="music-style" class="text-input" name="music">
+          </div>
+        <button type="submit" class="edit-modal">Valider</button> 
+        <button type="button" class="edit-modal">Annuler</button>
+        </form>
+      </div>
+    </template>
+
+      <!--TEMPLATE LABEL DATA -->
+    <template id="modif-label">
+      <div class="modal">
+        <h1 id="">Centres d'intérêts</h1>
+        <form>
+          <label for="nature">Nature</label>
+          <input type="checkbox" id="nature" name="labels" value="Nature"> 
+      
+          <label for="culture">Culture</label>
+          <input type="checkbox" id="culture" name="labels" value="Culturel"> 
+                
+          <label for="evening">Soirée à thème</label>
+          <input type="checkbox" id="evening" name="labels" value="soirée à thème"> 
+               
+          <label for="artistic">Artistique</label>
+          <input type="checkbox" id="artistic" name="labels" value="Artistique"> 
+              
+          <label for="games">Jeux de société</label>
+          <input type="checkbox" id="games" name="label" value="Jeux de société">
+        
+          <button type="button" class="edit-modal">Valider</button>
+          <button type="button" class="edit-modal">Annuler</button>
+        </form>
+      </div>
+    </template>    
 
 
   </body> 

@@ -39,7 +39,7 @@ async function handleSigninFormSubmit(e) {
 	e.preventDefault();
 	const form = e.target;
 	const dataUser = Object.fromEntries(new FormData(form));
-  
+	console.log(dataUser)
 	// Attempt to sign in the user
 	const onSign = await signIn(dataUser);
   
@@ -47,7 +47,7 @@ async function handleSigninFormSubmit(e) {
 	if (!onSign) {
 	  return null;
 	}
-  
+	
 	// If sign-in is successful, display the connected home page
-	fetchDisplayHomePageConnected();
+	fetchDisplayHomePageConnected(dataUser);
 };
