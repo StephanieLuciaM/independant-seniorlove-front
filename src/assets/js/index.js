@@ -3,7 +3,7 @@ import { checkUserAuthentication } from "./auth.js";
 import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
 
 // Function to initialize the application
-init()
+init();
 
 async function init() {
   try {
@@ -19,6 +19,6 @@ async function init() {
   } catch (error) {
     console.error('Erreur d\'initialisation:', error);
   }
-}
+};
 
 

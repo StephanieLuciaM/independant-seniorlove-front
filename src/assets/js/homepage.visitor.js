@@ -2,11 +2,22 @@ import { getLastEvent } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js"
 import { fetchDisplaySignupForm } from "./signup.js";
 
-export async function fetchDisplayHomePageVisitor(){
+export async function fetchDisplayHomePageVisitor() {
+  // Append the header and content templates to the respective containers
+  appendTemplates();
+  // Add event listener to the sign-in button
+  addSigninButtonListener();
+  // Add event listener to the sign-up form
+  addSignupFormListener();
+  // Fetch the latest events and display them
+  const events = await getLastEvent();
+  if (events) {
+    events.forEach(addEventContainer); // Add each event to the event container
+  }
+};
 
- 
-
-  // Select the header and content templates for the visitor home page
+function appendTemplates() {
+  // Select the header and content templates
   const headerTemplate = document.querySelector("#header-not-connected");
   const contentTemplate = document.querySelector("#home-page-visitor");
 
@@ -21,33 +32,30 @@ export async function fetchDisplayHomePageVisitor(){
   // Append the cloned templates to their respective containers
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
+};
 
-  // Add an event listener to the sign-in button
-  const signinButton = headerContainer.querySelector('.header__nav-link');
-  signinButton.addEventListener('click', (e)=> {
-    e.preventDefault();
-    fetchDisplaySigninPage();
-  })
-
-  // Add an event listener to the sign-up form
-  const signupForm = contentContainer.querySelector('form');
-  signupForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const dataUser = Object.fromEntries(new FormData(signupForm));
-    fetchDisplaySignupForm(dataUser);
-  })
-   // Fetch the last event
-   const events = await getLastEvent();
-
-   if(!events){
-     return;
-   }
+function addSigninButtonListener() {
+  // Select the sign-in button in the header
+  const signinButton = document.querySelector("#app-header .header__nav-link");
   
-  // For each event, add it to the event container
-  events.forEach(event =>{
-    addEventContainer(event);
-  })    
-}
+  // Add a click event listener to the sign-in button
+  signinButton.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent the default link behavior
+    fetchDisplaySigninPage(); // Call the function to display the sign-in page
+  });
+};
+
+function addSignupFormListener() {
+  // Select the sign-up form in the main content area
+  const signupForm = document.querySelector("#app-main form");
+  
+  // Add a submit event listener to the sign-up form
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const dataUser = Object.fromEntries(new FormData(signupForm)); // Convert form data to an object
+    fetchDisplaySignupForm(dataUser); // Call the function to display the sign-up form
+  });
+};
 
 export function addEventContainer(data){
   
@@ -58,12 +66,12 @@ export function addEventContainer(data){
   const eventClone = eventTemplate.content.cloneNode(true);
 
   // Populate the cloned template with event data
-  eventClone.querySelector("[slot='city']").textContent = data.city
-  eventClone.querySelector("[slot='description']").textContent = data.description
+  eventClone.querySelector("[slot='city']").textContent = data.city;
+  eventClone.querySelector("[slot='description']").textContent = data.description;
 
   // Select the container for the event list
-  const eventContainer = document.querySelector("#events-list")
+  const eventContainer = document.querySelector("#events-list");
  
   // Append the cloned event template to the event list container
   eventContainer.appendChild(eventClone);
-}
+};
