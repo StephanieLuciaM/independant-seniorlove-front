@@ -173,8 +173,8 @@
         <a href="">
           <div>
             <img src="./src/assets/img/diverse-img/games.jpg" alt="jeux de société en groupe" slot="picture"> 
-            <h3 class="event__description" slot="description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-            <span class="event__theme" slot="theme" >Jeux</span>
+            <h3 class="event__description" slot="title">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+            <span class="event__theme" slot="label" >Jeux</span>
           </div>
         </a>
       </article>
@@ -200,123 +200,48 @@
       <section class="events connected">
         <h2 class="events__title connected"> Évènements à venir</h2>
         <div class="events__list connected" id="events-list">
-            <!-- Les événements seront générés ici en JS -->
-            <article class="event connected">
-                <h2 class="event__city connected">Paris</h2>
-                <a href="">
-                    <div>
-                        <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="musée dans paris"> 
-                        <h3 class="event__description connected">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-                        <span class="event__theme connected">Jeux</span>
-                    </div>
-                </a>
-            </article> 
-
-            <article class="event connected">
-                <h2 class="event__city connected">Lyon</h2>
-                <a href="">
-                    <div>
-                        <img src="./src/assets/img/diverse-img/sports.jpg" alt="canoë en groupe"> 
-                        <h3 class="event__description connected">Randonnée au Parc de Lacroix-Laval</h3>
-                        <span class="event__theme connected">Sport</span>
-                    </div>
-                </a>
-            </article>
-
-            <article class="event connected">
-                <h2 class="event__city connected">Marseille</h2>
-                <a href="">
-                    <div>
-                        <img src="./src/assets/img/diverse-img/party.jpg" alt="soirée en groupe"> 
-                        <h3 class="event__description connected">Soirée à la guinguette "Le Bon Air"</h3>
-                        <span class="event__theme connected">Soirée à thème</span>
-                    </div>
-                </a>
-            </article>
-
-            <article class="event connected">
-            <h2 class="event__city connected">Marseille</h2>
-            <a href="">
-                <div>
-                    <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="sortie culturelle"> 
-                    <h3 class="event__description connected">Sortie au centre d’art "Les Abattoirs"</h3>
-                    <span class="event__theme connected">Sortie culturelle</span>
-                </div>
-            </a>
-            </article>
+            <!-- Les événements seront générés ici en JS -->  
         </div>
       </section>
 
       <section class="profils">
         <h2 class="profils__title"> Profils selectionnés</h2>
+        <div id="profiles-list">
+
+        </div>
         
-        <article class="profil">
-          <h2 class="profil__name">Celine</h2>
-          <a href="">
-            <div>
-              <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil"> 
-              <h3 class="profil__city">Paris</h3>
-              <span class="profil__old">60 ans</span>
-            </div>
-          </a>
-        </article>
-
-        <article class="profil">
-          <h2 class="profil__name">Jacky</h2>
-          <a href="">
-            <div>
-              <img src="./src/assets/img/diverse-img/profils/Jacky.jpg" alt="photo de profil"> 
-              <h3 class="profil__city">Paris</h3>
-              <span class="profil__old">60 ans</span>
-            </div>
-          </a>
-        </article>
-
-        <article class="profil">
-          <h2 class="profil__name">Alex</h2>
-          <a href="">
-            <div>
-              <img src="./src/assets/img/diverse-img/profils/Alex.jpg" alt="photo de profil"> 
-              <h3 class="profil__city">Paris</h3>
-              <span class="profil__old">60 ans</span>
-            </div>
-          </a>
-        </article>
-
-        <article class="profil">
-          <h2 class="profil__name">Elena</h2>
-          <a href="">
-            <div>
-              <img src="./src/assets/img/diverse-img/profils/Elena.png" alt="photo de profil"> 
-              <h3 class="profil__city">Paris</h3>
-              <span class="profil__old">60 ans</span>
-            </div>
-          </a>
-        </article>
-
-        <article class="profil">
-          <h2 class="profil__name">Celine</h2>
-          <a href="">
-            <div>
-              <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil"> 
-              <h3 class="profil__city">Paris</h3>
-              <span class="profil__old">60 ans</span>
-            </div>
-          </a>
-        </article>
-
-        <article class="profil">
-          <h2 class="profil__name">Darina</h2>
-          <a href="">
-            <div>
-              <img src="./src/assets/img/diverse-img/profils/Joel.jpg" alt="photo de profil"> 
-              <h3 class="profil__city">Paris</h3>
-              <span class="profil__old">60 ans</span>
-            </div>
-          </a>
-        </article>  
       </section>
     </template>   
+
+    <!-- template card event minus-->
+
+    <template id="minimal-event">
+      <article class="event connected">
+        <h2 class="event__city connected" slot="city">Paris</h2>
+        <a href="">
+            <div>
+                <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="musée dans paris" slot="picture"> 
+                <h3 class="event__description connected" slot="title">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                <span class="event__theme connected" slot="label">Jeux</span>
+            </div>
+        </a>
+      </article> 
+    </template>
+
+    <!-- template card profil minus-->
+
+    <template id="minimal-profil">
+      <article class="profil">
+        <h2 class="profil__name" slot="firstname">Celine</h2>
+        <a href="">
+          <div>
+            <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil" slot="picture"> 
+            <h3 class="profil__city" slot="city">Paris</h3>
+            <span class="profil__old" slot="age">60 ans</span>
+          </div>
+        </a>
+      </article>
+    </template>
 
       <!-- Templates of signup questions -->
        
@@ -516,9 +441,9 @@
         <div class="profile-details">
           <p class="profile-firstname"><strong>Prénom :</strong> <span slot="firstname">Celine</span></p>
           <p class="profile-old"><strong>Age:</strong> <span slot="age">60 ans</span></p>
-          <p class="profile-city"><strong>Ville :</strong> <span slot="city">Bordeaux</span></p>
+          <p class="profile-city"><strong>Ville :</strong> <span slot="city-profil">Bordeaux</span></p>
         </div>
-        <button class="edit-modal modif-info" type="button">Modifier</button>
+        <button class="edit-modal edit-info" type="button">Modifier</button>
       </section>
       
       <section class="interests-section">
@@ -526,19 +451,15 @@
           <article class="intro-article-presentation">
             <h2 class="intro-title">Texte d'introduction</h2>
             <p slot="description">Jeune retraitée et cherche à faire des rencontres. Contactez-moi!</p>
-            <button class="edit-modal modif-intro" type="button">Modifier</button>
+            <button class="edit-modal edit-intro" type="button">Modifier</button>
           </article>
 
           <article class="interests-article">
             <h2 class="interests-title">Centres d'intérets</h2>
             <div class="interest">
-              <span class="interest_type" slot="Jeux de société">Jeux de société</span>
-              <span class="interest_type" slot="Culturel">Culturel</span>
-              <span class="interest_type" slot="Nature">Nature</span>
-              <span class="interest_type" slot="Artistique">Artistique</span>
-              <span class="interest_type" slot="soirée à thème">Soirée à thème</span>
+              <span class="interest_type" slot="labels">Jeux de société</span>
             </div>
-            <button class="edit-modal modif-label" type="button">Modifier</button>
+            <button class="edit-modal edit-label" type="button">Modifier</button>
           </article>
 
           <article class="events-article">
@@ -619,14 +540,14 @@
           <p class="general-info-item"><strong>Situation familiale: </strong> <span slot="marital">Célibataire</span></p>
           <p class="general-info-item"><strong>Signe astrologique: </strong> <span slot="zodiac">Gémeaux</span></p>
           <p class="general-info-item"><strong>Animaux de compagnie: </strong> <span slot="pet">oui</span></p>
-          <p class="general-info-item"><strong>Style de musique: </strong> <span slot="music"></span>Rock</p>
-          <button class="edit-modal modif-personal" type="button">Modifier</button>
+          <p class="general-info-item"><strong>Style de musique: </strong> <span slot="music">Rock</span></p>
+          <button class="edit-modal edit-personal" type="button">Modifier</button>
         </article>
       </section>
     </template>
 
       <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
-    <template id="modif-info">
+    <template id="edit-info">
       <div class="modal">
         <h1>Modification Générale</h1>
         <form id="modification-form">
@@ -645,14 +566,14 @@
             <input type="text" id="modif-city" name="city" class="form-input" required>
           </div>
   
-          <button type="submit" class="edit-modal">Valider</button>
-          <button type="button" class="edit-modal cancel-view">Annuler</button>
+          <button type="submit" class="edit-modal edit-button">Valider</button>
+          <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
       </div>
     </template>
 
       <!--TEMPLATE MODIFICATION TEXT INTRODUCTION -->
-    <template id="modif-intro" >
+    <template id="edit-intro" >
       <div class="modal">
         <h1 id="">Modifier votre texte d'introduction</h1>
         <form>
@@ -660,14 +581,14 @@
             <label for="modif-presentation">Présentez-vous en quelques mots</label>
             <textarea id="modif-presentation" class="modif_text-presentation" name="description" ></textarea> 
           </div>             
-          <button type="submit" class="edit-modal">Valider</button>
-          <button type="button" class="edit-modal cancel-view">Annuler</button>
+          <button type="submit" class="edit-modal edit-button">Valider</button>
+          <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
       </div>
     </template>
 
       <!--TEMPLATE MODIFICATION PERSONAL DATA -->
-    <template id="modif-personal">
+    <template id="edit-personal">
       <div class="modal">
         <form class="personal_dada" id="modal_personal-data">
           <div class="personal_data-section" id="modal_smoker-section">  
@@ -698,16 +619,16 @@
             <label for="music-style">STYLE DE MUSIQUE</label>
             <input type="text" id="music-style" class="text-input" name="music">
           </div>
-        <button type="submit" class="edit-modal">Valider</button> 
-        <button type="button" class="edit-modal cancel-view">Annuler</button>
+        <button type="submit" class="edit-modal edit-button">Valider</button> 
+        <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
       </div>
     </template>
 
       <!--TEMPLATE LABEL DATA -->
-    <template id="modif-label">
+    <template id="edit-label">
       <div class="modal">
-        <h1 id="">Centres d'intérêts</h1>
+        <h1>Centres d'intérêts</h1>
         <form>
           <label for="nature">Nature</label>
           <input type="checkbox" id="nature" name="labels" value="Nature"> 
@@ -722,10 +643,13 @@
           <input type="checkbox" id="artistic" name="labels" value="Artistique"> 
               
           <label for="games">Jeux de société</label>
-          <input type="checkbox" id="games" name="label" value="Jeux de société">
+          <input type="checkbox" id="games" name="labels" value="Jeux de société">
+
+          <label for="Sports">Sports/bien-être</label>
+          <input type="checkbox" id="Sports" name="labels" value="Sports/bien-être">
         
-          <button type="button" class="edit-modal">Valider</button>
-          <button type="button" class="edit-modal cancel-view">Annuler</button>
+          <button type="submit" class="edit-modal edit-button">Valider</button>
+          <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
       </div>
     </template>    

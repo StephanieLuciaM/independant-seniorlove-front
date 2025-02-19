@@ -67,7 +67,8 @@ export function addEventContainer(data){
 
   // Populate the cloned template with event data
   eventClone.querySelector("[slot='city']").textContent = data.city;
-  eventClone.querySelector("[slot='description']").textContent = data.description;
+  eventClone.querySelector("[slot='title']").textContent = data.title;
+  eventClone.querySelector("[slot='label']").textContent = data.label.name;
 
   // Select the container for the event list
   const eventContainer = document.querySelector("#events-list");
