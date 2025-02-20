@@ -94,6 +94,10 @@
       </div>
     </template>
 
+
+
+
+
     <!--Template homepage visitor-->
 
     <template id="home-page-visitor">
@@ -167,6 +171,8 @@
 
     <!-- Template event -->
 
+
+
     <template id="event-template">
       <article class="event">
         <h2 class="event__city" slot="city">Paris</h2>
@@ -188,7 +194,7 @@
           <label for="email" class="email-label">Email</label>
           <input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
           <label for="password" class="password-label">Mot de passe</label>
-          <input type="text" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
+          <input type="password" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
           <button type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
         </form>
       </div>
@@ -542,8 +548,10 @@
           <p class="general-info-item"><strong>Animaux de compagnie: </strong> <span slot="pet">oui</span></p>
           <p class="general-info-item"><strong>Style de musique: </strong> <span slot="music">Rock</span></p>
           <button class="edit-modal edit-personal" type="button">Modifier</button>
+          <button class="delete-account" type="button">Supprimer le compte</button>
         </article>
       </section>
+      
     </template>
 
       <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
@@ -552,18 +560,19 @@
         <h1>Modification Générale</h1>
         <form id="modification-form">
           <div class="form-group">
-            <label for="modif-picture" class="form-label-modif">Télécharger une photo de profil</label>
-            <input type="file" id="modif-picture" accept="image/*" name="picture">    
+            <label for="edit-picture" class="form-label-modif">Télécharger une photo de profil</label>
+            <input type="file" id="edit-picture" accept="image/*" name="picture">    
           </div>
   
           <div class="form-group">
-            <label for="first-name" class="form-label">Prénom</label>
-            <input type="text" id="first-name" name="firstname" class="form-input" required>
+            <label for="edit-firstname" class="form-label">Prénom</label>
+            <input type="text" id="edit-firstname" name="firstname" class="form-input">
           </div>
   
           <div class="form-group">
-            <label for="modif-city" class="form-label">Ville</label>
-            <input type="text" id="modif-city" name="city" class="form-input" required>
+            <label for="edit-city" class="form-label">Ville</label>
+            <input type="text" id="edit-city" name="city" class="form-input">
+          </select>
           </div>
   
           <button type="submit" class="edit-modal edit-button">Valider</button>
@@ -578,8 +587,8 @@
         <h1 id="">Modifier votre texte d'introduction</h1>
         <form>
           <div>
-            <label for="modif-presentation">Présentez-vous en quelques mots</label>
-            <textarea id="modif-presentation" class="modif_text-presentation" name="description" ></textarea> 
+            <label for="edit-presentation">Présentez-vous en quelques mots</label>
+            <textarea id="edit-presentation" class="modif_text-presentation" name="description" ></textarea> 
           </div>             
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>
@@ -594,12 +603,12 @@
           <div class="personal_data-section" id="modal_smoker-section">  
             <h2>FUMEUR:</h2>
             <div>
-              <label for="modal-smoker-yes">OUI:</label>
-              <input type="radio" id="modal-smoker-yes" name="smoker" class="radio-option" value="true">
+              <label for="edit-smoker-yes">OUI:</label>
+              <input type="radio" id="edit-smoker-yes" name="smoker" class="radio-option" value="true">
             </div>
             <div>
-              <label for="modal-smoker-no">NON:</label>
-              <input type="radio" id="modal-smoker-no" name="smoker" class="radio-option" value="false">
+              <label for="edit-smoker-no">NON:</label>
+              <input type="radio" id="edit-smoker-no" name="smoker" class="radio-option" value="false">
             </div>
           </div>
 

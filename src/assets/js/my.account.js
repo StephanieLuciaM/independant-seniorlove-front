@@ -5,7 +5,8 @@ import {
   fetchDisplayEditLabelPage,
   fetchDisplayEditPersonalPage 
 } from "./edit.account.js";
-import { getMyAccount } from "./api.js";
+import { deleteMyAccount, getMyAccount } from "./api.js";
+import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 
 
 
@@ -21,6 +22,8 @@ export async function fetchDisplayMyAccountPage(){
   
   // Add event listeners to the edit buttons
   addEditButtonsListener();
+
+  addDeleteButtonListener();
 };
 
 function appendTemplatesMyAccount(data){
@@ -59,6 +62,27 @@ function addEditButtonsListener() {
     }else{
       button.addEventListener('click', handleEditPersonal);
     }
+  });
+};
+
+function addDeleteButtonListener() {
+  // Select the delete button element within the app-main section
+  const deleteButton = document.querySelector("#app-main .delete-account");
+
+  // Add a click event listener to the delete button
+  deleteButton.addEventListener('click', async () => {
+    console.log('ok'); // Log 'ok' to the console when the button is clicked
+
+    // Call the deleteMyAccount function and wait for its completion
+    const deleteUser = await deleteMyAccount();
+
+    // If deleteMyAccount returns false or null, exit the function
+    if (!deleteUser) {
+      return null;
+    }
+
+    // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
+    fetchDisplayHomePageVisitor();
   });
 };
 

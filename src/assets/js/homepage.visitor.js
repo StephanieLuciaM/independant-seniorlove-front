@@ -1,8 +1,11 @@
 import { getLastEvent } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js"
 import { fetchDisplaySignupForm } from "./signup.js";
+import { resetViewTemplate } from "./utils.js";
 
 export async function fetchDisplayHomePageVisitor() {
+  
+  resetViewTemplate('app-header', 'app-main')
   // Append the header and content templates to the respective containers
   appendTemplates();
   // Add event listener to the sign-in button

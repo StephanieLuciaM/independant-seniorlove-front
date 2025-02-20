@@ -129,7 +129,23 @@ function addEditFormListener(editForm) {
     console.log('preventDefault called');
 
     const formData = new FormData(editForm);
-    const dataUser = Object.fromEntries(formData);
+    const dataUser = {};
+
+    // Check if the file input field is empty
+const fileInput = formData.get('picture');
+if (fileInput && fileInput.size === 0) {
+  formData.delete('picture'); // Delete the 'picture' field if no file is selected
+}
+
+// Iterate over formData entries and update dataUser object
+  for (const [key, value] of formData.entries()) {
+    if (value.trim() !== '') { // Check if the value is not just empty spaces
+    dataUser[key] = value; // Update the dataUser object with the non-empty values
+  }
+}
+    
+    //const dataUser = Object.fromEntries(formData);
+    console.log(dataUser)
 
     // Get all checkbox values
     const checkboxes = formData.getAll('labels');

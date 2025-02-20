@@ -91,7 +91,7 @@ export async function authentificationUser(){
   }
 };
 
-// Asynchronous function to get the last event
+// Asynchronous function to get the last profiles match with the city of customers
 export async function getLastProfilesMatch(){
   try {
 
@@ -183,4 +183,28 @@ export async function editMyAccount(data){
     console.error("API non accessible...", error);  
   }
 };
+
+export async function deleteMyAccount(){
+  try {
+
+      const httpResponse = await fetch(`${apiUrl}/my-account`,{
+        method: "DELETE",
+      credentials: "include",
+    });
+
+
+    if(!httpResponse.ok){
+      console.log(httpResponse);
+      return null;
+    }
+
+// Parse the response as JSON
+    const myProfil = await httpResponse.json();
+    return myProfil;
+
+  } catch (error) {
+    console.error("API non accessible...", error);
+  }
+};
+
 
