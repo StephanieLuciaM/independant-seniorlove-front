@@ -1,8 +1,11 @@
 import { getLastEvent } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js"
 import { fetchDisplaySignupForm } from "./signup.js";
+import { resetViewTemplate } from "./utils.js";
 
 export async function fetchDisplayHomePageVisitor() {
+  
+  resetViewTemplate('app-header', 'app-main')
   // Append the header and content templates to the respective containers
   appendTemplates();
   // Add event listener to the sign-in button
@@ -67,7 +70,8 @@ export function addEventContainer(data){
 
   // Populate the cloned template with event data
   eventClone.querySelector("[slot='city']").textContent = data.city;
-  eventClone.querySelector("[slot='description']").textContent = data.description;
+  eventClone.querySelector("[slot='title']").textContent = data.title;
+  eventClone.querySelector("[slot='label']").textContent = data.label.name;
 
   // Select the container for the event list
   const eventContainer = document.querySelector("#events-list");
