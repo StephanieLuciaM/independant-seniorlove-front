@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="./src/assets/CSS/homepage.connected.css">
     <link rel="stylesheet" href="./src/assets/CSS/my.account.css">
     <script type="module" src="./src/assets/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">s</script>
   </head>
   <body>
     <header id="app-header">
@@ -195,7 +196,7 @@
           <input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
           <label for="password" class="password-label">Mot de passe</label>
           <input type="password" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
-          <button type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
+          <button  type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
         </form>
       </div>
     </template>
@@ -259,7 +260,7 @@
         </p>
         <form>
           <label for="size">Quelle est votre taille ?(en cm) <span class="required">*</span></label>
-          <input type="text" id="size" name="height" required>
+          <input type="number" id="size" name="height"  required>
           <button type="submit" class="submit-btn">Valider</button>
         </form> 
       </section>
@@ -348,7 +349,7 @@
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
         <form>
           <label for="music">Quel style de musique appréciez-vous?</label>
-          <input type="text" id="music" name="music">
+          <input type="text" id="music" name="music" required>
           <button type="submit" class="submit-btn">Valider</button>
           <button type="submit" class="skip-btn">Passer</button>   
         </form>
