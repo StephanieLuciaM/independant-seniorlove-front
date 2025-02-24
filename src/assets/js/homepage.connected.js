@@ -20,6 +20,11 @@ export async function fetchDisplayHomePageConnected(data){
   if(eventsMatch){
     eventsMatch.forEach(addEventContainer);
   }
+
+  const state = {page: 4, initFunction: 'fetchDisplayHomePageConnected'};
+  const title = "Tableau de bord";
+  const url = "/tableau-de-bord";
+  history.pushState(state, title, url);
 };
 
 function appendTemplatesConnedted(){

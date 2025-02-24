@@ -23,7 +23,12 @@ export async function fetchDisplayMyAccountPage(){
   // Add event listeners to the edit buttons
   addEditButtonsListener();
   addDeleteButtonListener();
-  addLogOutButtonListener()
+  addLogOutButtonListener();
+
+  const state = {page: 5, initFunction: 'fetchDisplayMyAccountPage'};
+  const title = "Page Mon Compte";
+  const url = "/mon-compte";
+  history.pushState(state, title, url);
 };
 
 function appendTemplatesMyAccount(data){
@@ -133,7 +138,6 @@ function myAccount(display, data){
   display.querySelector("[slot='description']").textContent = data.description;
 
   data.labels.forEach(label => {
-    console.log(label);
     const labelTemplate = document.querySelector("#label");
     const labelClone = labelTemplate.content.cloneNode(true);
     

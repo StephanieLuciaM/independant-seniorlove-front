@@ -12,6 +12,11 @@ export function fetchDisplaySigninPage() {
   
 	// Add the event listener to the sign-in form
 	addSigninFormListener();
+
+	const state = {page: 3, initFunction: 'fetchDisplaySigninPage'};
+  const title = "Page de connexion";
+  const url = "/connexion";
+  history.pushState(state, title, url);
 };
   
 function appendSigninTemplate() {

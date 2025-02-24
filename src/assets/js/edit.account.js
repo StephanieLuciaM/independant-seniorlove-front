@@ -6,24 +6,44 @@ import { resetViewTemplate } from "./utils.js";
 export function fetchDisplayEditInfoPage(){
   resetViewTemplate('app-main');
   appendTemplateEditInfoPage();
+
+  const state = {page: 6, initFunction: 'fetchDisplayEditInfoPage'};
+  const title = "Page de modification profil";
+  const url = "/mon-compte/modification";
+  history.pushState(state, title, url);
 };
 
 // Function to reset the view and display the edit intro page
 export function fetchDisplayEditIntroPage(){
   resetViewTemplate('app-main');
   appendTemplateEditIntroPage();
+
+  const state = {page: 6, initFunction: 'fetchDisplayEditIntroPage'};
+  const title = "Page de modification profil";
+  const url = "/mon-compte/modification";
+  history.pushState(state, title, url);
 };
 
 // Function to reset the view and display the edit label page
 export function fetchDisplayEditLabelPage(){
   resetViewTemplate('app-main');
   appendTemplateEditLabelPage();
+
+  const state = {page: 6, initFunction: 'fetchDisplayEditLabelPage'};
+  const title = "Page de Modification Profil";
+  const url = "/mon-compte/modification";
+  history.pushState(state, title, url);
 };
 
 // Function to reset the view and display the edit personal page
 export function fetchDisplayEditPersonalPage(){
   resetViewTemplate('app-main');
   appendTemplateEditPersonnalPage();
+
+  const state = {page: 6, initFunction: 'fetchDisplayEditPersonalPage'};
+  const title = "Page de modification profil";
+  const url = "/mon-compte/modification";
+  history.pushState(state, title, url);
 };
 
 function appendTemplateEditInfoPage(){
@@ -132,10 +152,10 @@ function addEditFormListener(editForm) {
     const dataUser = {};
 
     // Check if the file input field is empty
-const fileInput = formData.get('picture');
-if (fileInput && fileInput.size === 0) {
-  formData.delete('picture'); // Delete the 'picture' field if no file is selected
-}
+  const fileInput = formData.get('picture');
+  if (fileInput && fileInput.size === 0) {
+    formData.delete('picture'); // Delete the 'picture' field if no file is selected
+  }
 
 // Iterate over formData entries and update dataUser object
   for (const [key, value] of formData.entries()) {

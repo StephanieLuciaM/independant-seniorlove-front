@@ -3,6 +3,7 @@ import { fetchDisplaySigninPage } from "./signin.js"
 import { fetchDisplaySignupForm } from "./signup.js";
 import { resetViewTemplate } from "./utils.js";
 
+
 export async function fetchDisplayHomePageVisitor() {
   
   resetViewTemplate('app-header', 'app-main')
@@ -17,7 +18,13 @@ export async function fetchDisplayHomePageVisitor() {
   if (events) {
     events.forEach(addEventContainer); // Add each event to the event container
   }
+
+const state = {page: 1, initFunction: 'fetchDisplayHomePageVisitor'};
+const title = "Page d'acceuil";
+const url = "/acceuil";
+history.pushState(state, title, url);
 };
+
 
 function appendTemplates() {
   // Select the header and content templates

@@ -5,7 +5,12 @@ import { validateFormSignup } from "./handling.error.js";
 
 export function fetchDisplaySignupForm(data) {
   let i = 1;
-  displayNextForm(i, data); 
+  displayNextForm(i, data);
+
+  const state = {page: 2, initFunction: 'fetchDisplaySignupForm'};
+  const title = "Page d'inscription";
+  const url = "/inscription";
+  history.pushState(state, title, url); 
 };
 
 function displayNextForm(count, data) {
@@ -15,6 +20,8 @@ function displayNextForm(count, data) {
   // Select the template corresponding to the current slide
   const contentTemplate = document.querySelector(`template[data-slide-id='${count}']`);
   initContent(contentTemplate, count, data);
+
+  
 };
 
 function initContent(contentTemplate, count, data) {
