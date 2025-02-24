@@ -1,6 +1,6 @@
 
 /* CONTAINER */
-.container {
+.container{
     display: flex;
     height: auto;
     flex-direction: column-reverse;
