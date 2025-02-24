@@ -97,6 +97,7 @@ function handleFormSubmit(e, count, data) {
   if (count <= 10) {
     displayNextForm(count, data);
   } else {
+    console.log('ok');
     createNewUser(data); // Create new user if the count exceeds 10
   }
 };

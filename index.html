@@ -40,8 +40,6 @@
       </div>
     </footer>
 
-
-
     <!--Template headers -->
 
     <template id="header-not-connected">
@@ -95,11 +93,7 @@
       </div>
     </template>
 
-
-
-
-
-    <!--Template homepage visitor-->
+    <!-- Template homepage visitor -->
 
     <template id="home-page-visitor">
       <div class="homepage-visitor">
@@ -131,7 +125,7 @@
                 </div>
                 <div class="sign-up__city-field">
                   <div><label for="city" class="city-label">Ville</label></div>
-                  <select id="city" name="city" class="question__select">
+                  <select id="city" name="city" class="question__select not-connected">
                     <option value="PARIS">Paris</option>
                     <option value="LYON">Lyon</option>
                     <option value="TOULOUSE">Toulouse</option>
@@ -172,8 +166,6 @@
 
     <!-- Template event -->
 
-
-
     <template id="event-template">
       <article class="event">
         <h2 class="event__city" slot="city">Paris</h2>
@@ -187,7 +179,7 @@
       </article>
     </template>
 
-    <!--Template sign in-->
+    <!-- Template sign in -->
 
     <template id="signin"> 
       <div class="sign-in">
@@ -201,13 +193,13 @@
       </div>
     </template>
 
-    <!--Template connected-->
+    <!-- Template connected -->
 
     <template id="home-page-connected">
       <section class="events connected">
         <h2 class="events__title connected"> Évènements à venir</h2>
         <div class="events__list connected" id="events-list">
-            <!-- Les événements seront générés ici en JS -->  
+            <!-- Genererated events here -->  
         </div>
       </section>
 
@@ -220,7 +212,7 @@
       </section>
     </template>   
 
-    <!-- template card event minus-->
+    <!-- Template miniature card of events -->
 
     <template id="minimal-event">
       <article class="event connected">
@@ -235,7 +227,7 @@
       </article> 
     </template>
 
-    <!-- template card profil minus-->
+    <!-- Template miniature card of profiles -->
 
     <template id="minimal-profil">
       <article class="profil">
@@ -256,12 +248,14 @@
       <section class="question size">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
         <p class="welcome">
-          "Bienvenue sur SeniorLove, l'espace dédié aux belles rencontres et aux moments partagés ! Quelques questions simples nous permettront de mieux vous connaître et de vous proposer des profils et des événements qui vous ressemblent. Notre processus d'inscription comprend dix étapes, c'est le premier pas vers de nouvelles connexions!" 
+          "Bienvenue sur <strong>SeniorLove</strong>, l'espace dédié aux belles rencontres et aux moments partagés ! <br /><br />
+          Quelques <strong >questions</strong> simples nous permettront de mieux vous connaître et de vous proposer des profils et des événements qui vous ressemblent. <br /><br />
+          Notre processus d'inscription comprend <strong>dix étapes</strong> , c'est le premier pas vers de nouvelles connexions!" 
         </p>
-        <form>
-          <label for="size">Quelle est votre taille ?(en cm) <span class="required">*</span></label>
-          <input type="number" id="size" name="height"  required>
-          <button type="submit" class="submit-btn">Valider</button>
+        <form class="form__signup">
+          <label class="label__signup" for="size">Quelle est votre taille ? (en cm) *</label>
+          <input class="input__signup" type="number" id="size" name="height" required>
+          <button type="submit" class="submit-btn signup">Valider</button>
         </form> 
       </section>
     </template>
@@ -269,9 +263,9 @@
     <template data-slide-id="2">
       <section class="question family__situation">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label for="situation">Votre situation familiale <span class="required">*</span></label>
-          <select id="situation" name="marital" class="question__select" placeholder="der">
+        <form class="form__signup">
+          <label class="label__signup marital" for="situation">Votre situation familiale *</label>
+          <select  id="situation" name="marital" class="question__select">
             <option value="Divorcé">Divorcé(e)</option>
             <option value="Veuf/veuve">Veuf/Veuve</option>
             <option value="Séparé">Séparé(e)</option>
@@ -285,8 +279,8 @@
     <template data-slide-id="3">
       <section class="question">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label for="sign">Votre signe astrologique</label>
+        <form class="form__signup">
+          <label class="label__signup" for="sign">Votre signe astrologique</label>
           <select id="sign" name="zodiac" class="question__select">
             <option value="Bélier">Bélier</option>
             <option value="Taureau">Taureau</option>
@@ -308,20 +302,20 @@
     </template>
     
     <template data-slide-id="4">
-      <section class="question">
+      <section class="question smoker">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label>Est-ce que vous fumez?</label>
+        <form class="form__signup">
+          <label class="label__signup smoker" >Est-ce que vous fumez ?</label>
           <div>
-            <label for="smoke-yes">Oui</label>
             <input type="radio" id="smoke-yes" name="smoker" value="true"> 
+            <label class="label__signup" for="smoke-yes">Oui</label>
           </div>
-          <div>
-            <label for="smoke-no">Non</label>
+          <div class="radio__signup">
             <input type="radio" id="smoke-no" name="smoker" value="false"> 
+            <label class="label__signup" for="smoke-no">Non</label>
           </div>
-          <button type="submit" class="submit-btn">Valider</button>
-          <button type="submit" class="skip-btn">Passer</button>
+          <button type="submit" class="submit-btn smocker">Valider</button>
+          <button type="submit" class="skip-btn smocker">Passer</button>
         </form> 
       </section>
     </template>
@@ -329,15 +323,15 @@
     <template data-slide-id="5">
       <section class="question pets">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label>Avez-vous des animaux de compagnie? <span class="required">*</span></label>
+        <form class="form__signup">
+          <label class="label__signup pets">Avez-vous des animaux de compagnie ? *</label>
           <div> 
-            <label for="animals-yes">Oui</label>
             <input type="radio" id="animals-yes" name="pet" value="true" required>
+            <label class="label__signup" for="animals-yes">Oui</label>
           </div>
           <div> 
-            <label for="animals-no">Non</label>
             <input type="radio" id="animals-no" name="pet" value="false" required> 
+            <label class="label__signup" for="animals-no">Non</label>
           </div>
           <button type="submit" class="submit-btn">Valider</button>
         </form>
@@ -345,11 +339,11 @@
     </template>
     
     <template data-slide-id="6">
-      <section class="question">
+      <section class="question music">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label for="music">Quel style de musique appréciez-vous?</label>
-          <input type="text" id="music" name="music" required>
+        <form class="form__signup">
+          <label class="label__signup music" for="music">Quel style de musique appréciez-vous ?</label>
+          <input class="input__signup music" type="text" id="music" name="music" required>
           <button type="submit" class="submit-btn">Valider</button>
           <button type="submit" class="skip-btn">Passer</button>   
         </form>
@@ -359,31 +353,31 @@
     <template data-slide-id="7">
       <section class="question interest__center" >
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label>Vos centres d'intérêts (plusieurs choix possible)? <span class="required">*</span></label>
+        <form class="form__signup">
+          <label class="label__signup interest">Vos centres d'intérêts (plusieurs choix possible) ? *</label>
           <div>
-            <label for="nature">Nature</label>
-            <input type="checkbox" id="nature" name="labels" value="Nature"> 
+            <input class="checkbox__signup" type="checkbox" id="nature" name="labels" value="Nature"> 
+            <label class="label__signup interest" for="nature">Nature</label>
           </div>
           <div>
-            <label for="culture">Culture</label>
-            <input type="checkbox" id="culture" name="labels" value="Culturel"> 
+            <input class="checkbox__signup" type="checkbox" id="culture" name="labels" value="Culturel"> 
+            <label class="label__signup interest" for="culture">Culture</label>
           </div>
           <div>
-            <label for="sports">Sports/bien-être</label>
-            <input type="checkbox" id="sports" name="labels" value="Sports/bien-être"> 
+            <input class="checkbox__signup" type="checkbox" id="sports" name="labels" value="Sports/bien-être"> 
+            <label class="label__signup interest" for="sports">Sports/bien-être</label>
           </div>
           <div>
-            <label for="soiree-a-theme">Soirée à thème</label>
-            <input type="checkbox" id="soiree-a-theme" name="labels" value="Soirée à thème"> 
+            <input class="checkbox__signup" type="checkbox" id="soiree-a-theme" name="labels" value="Soirée à thème"> 
+            <label class="label__signup interest" for="soiree-a-theme">Soirée à thème</label>
           </div>
           <div>
-            <label for="artistique">Artistique</label>
-            <input type="checkbox" id="artistique" name="labels" value="Artistique"> 
+            <input class="checkbox__signup" type="checkbox" id="artistique" name="labels" value="Artistique"> 
+            <label class="label__signup interest" for="artistique">Artistique</label>
           </div>
           <div>
-            <label for="jeux-de-societe">Jeux</label>
-            <input type="checkbox" id="jeux-de-societe" name="labels" value="Jeux de société">
+            <input class="checkbox__signup" type="checkbox" id="jeux-de-societe" name="labels" value="Jeux de société">
+            <label class="label__signup interest" for="jeux-de-societe">Jeux</label>
           </div>
           <button type="submit" class="submit-btn">Valider</button>
         </form>
@@ -393,9 +387,9 @@
     <template data-slide-id="8">
       <section class="question">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label for="picture">Choisissez une photo de profil</label>
-          <input type="file" id="picture" accept="image/*" name="picture">
+        <form class="form__signup">
+          <label class="label__signup picture" for="picture">Choisissez une photo de profil</label>
+          <input class="input__signup picture" type="file" id="picture" accept="image/*" name="picture">
           <button type="submit" class="submit-btn">Valider</button>
           <button type="submit" class="skip-btn">Passer</button>   
         </form>
@@ -405,9 +399,9 @@
     <template data-slide-id="9">
       <section class="question presentation">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
-          <label for="description">Présentez-vous en quelques mots</label>
-          <textarea id="description" placeholder="" name="description"></textarea>
+        <form class="form__signup">
+          <label class="label__signup presentation" for="description">Présentez-vous en quelques mots</label>
+          <textarea class="textarea__signup presentation" id="description" placeholder="Dites-nous en plus sur vous…" name="description"></textarea>
           <div>
             <button type="submit" class="submit-btn">Valider</button>
             <button type="submit" class="skip-btn">Passer</button>
@@ -419,29 +413,30 @@
     <template data-slide-id="10">
       <section class="question identification ">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-        <form>
+        <form class="form__signup">
           <div>
-            <label for="firstname">Votre prénom</label>
-            <input type="text" id="firstname" name="firstname" required>
+            <label class="label__signup identification" for="firstname">Votre prénom</label>
+            <input class="input__signup identification" type="text" id="firstname" placeholder="ex: Joséphine.." name="firstname" required>
             </div>
           <div>
-            <label for="email">Votre email</label>
-            <input type="email" id="email" name="email" required>
+            <label class="label__signup identification" for="email">Votre email</label>
+            <input class="input__signup identification" type="email" id="email" name="email" placeholder="ex: Joséphine_78@gmail.com..." required>
             </div>
             <div>
-            <label for="password">Votre mot de passe <span class="required">*</span></label>
-            <input type="password" id="password" name="password" required>
+            <label class="label__signup identification" for="password">Votre mot de passe *</label>
+            <input class="input__signup identification" type="password" id="password" name="password" required>
             </div>
             <div>
-             <label for="repeat_password">Vérification de votre mot de passe <span class="required">*</span></label>
-             <input type="password" id="repeat_password" name="confirmPassword" required>
+             <label class="label__signup identification" for="repeat_password">Vérification de votre mot de passe *</label>
+             <input class="input__signup identification" type="password" id="repeat_password" name="confirmPassword" required>
             </div>
             <button type="submit" class="submit-btn">Valider</button>
         </form>
       </section>
     </template>
 
-      <!--TEMPLATE PERSONAL PROFIL-->
+      <!-- Template my account -->
+
     <template id="my-account">
       <section class="profile-section">
         <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="my profile picture" class="profile-img" slot="picture">      
@@ -555,7 +550,8 @@
       
     </template>
 
-      <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
+      <!-- Template modification profile informations -->
+
     <template id="edit-info">
       <div class="modal">
         <h1>Modification Générale</h1>
@@ -582,7 +578,8 @@
       </div>
     </template>
 
-      <!--TEMPLATE MODIFICATION TEXT INTRODUCTION -->
+      <!-- Template modification text introduction -->
+
     <template id="edit-intro" >
       <div class="modal">
         <h1 id="">Modifier votre texte d'introduction</h1>
@@ -597,7 +594,8 @@
       </div>
     </template>
 
-      <!--TEMPLATE MODIFICATION PERSONAL DATA -->
+      <!--Template modification personnal data -->
+
     <template id="edit-personal">
       <div class="modal">
         <form class="personal_dada" id="modal_personal-data">
@@ -635,7 +633,8 @@
       </div>
     </template>
 
-      <!--TEMPLATE LABEL DATA -->
+      <!--Template modification label data -->
+
     <template id="edit-label">
       <div class="modal">
         <h1>Centres d'intérêts</h1>
