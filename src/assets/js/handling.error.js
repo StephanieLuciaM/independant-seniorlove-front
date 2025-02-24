@@ -7,7 +7,7 @@ export function errorServer () {
 }
 
 
-// Data validation form sugnup
+// Data validation form signup
 export function validateFormSignup(data, count) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const lettersPattern = /^[A-Za-zÀ-ÿ\s]+$/;
@@ -82,7 +82,7 @@ export function validateFormSignup(data, count) {
   }
 
 
- // Data validation form sugnin 
+ // Data validation form signin 
  export function validateFormSignin(data) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isEmailValid = data.email && emailPattern.test(data.email);
