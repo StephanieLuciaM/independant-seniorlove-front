@@ -1,6 +1,7 @@
 import { resetViewTemplate } from "./utils.js";
 import { signUp } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js";
+import { validateFormSignup } from "./handling.error.js";
 
 export function fetchDisplaySignupForm(data) {
   let i = 1;
@@ -68,6 +69,17 @@ function handleFormSubmit(e, count, data) {
   const formData = new FormData(e.target);
   const formDataObject = Object.fromEntries(formData);
 
+    // Validate form data with current step
+    const error = validateFormSignup(formDataObject, count);
+    if (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: error,
+        });
+        return;
+    }
+
   // Get all checkbox values with the name 'labels'
   const checkboxes = formData.getAll('labels');
 
@@ -92,11 +104,28 @@ function handleFormSubmit(e, count, data) {
 
 async function createNewUser(data) {
   const createUser = await signUp(data);
-
+console.log(createUser);
   if (!createUser) {
     return  null;
   }
-
+  // Afficher directement l'alerte de succès
+Swal.fire({
+  title: "Parfait!",
+  text: "Vous êtes bien inscrit, vous allez etre rediriger vers la page de connexion.",
+  icon: "success",
+  confirmButtonText: "OK"
+}).then(() => {
+ 
   // Display the sign-in page upon successful user creation
   fetchDisplaySigninPage();
-};
+});
+}
+
+
+
+
+
+
+
+
+

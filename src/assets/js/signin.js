@@ -1,6 +1,7 @@
 import { signIn } from "./api.js";
 import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
+import { validateFormSignin } from "./handling.error.js";
 
 export function fetchDisplaySigninPage() {
 	// Reset the view template for the main content area
@@ -32,22 +33,38 @@ function addSigninFormListener() {
 	const form = document.querySelector("#app-main form");
   
 	// Add an event listener to handle the form submission
-	form.addEventListener('submit', handleSigninFormSubmit);
-};
-  
+	form.addEventListener('submit', handleSigninFormSubmit)
+    };
+
 async function handleSigninFormSubmit(e) {
 	e.preventDefault();
 	const form = e.target;
 	const dataUser = Object.fromEntries(new FormData(form));
-	console.log(dataUser)
+	console.log(dataUser);
+
+    // Valider les données avant de tenter de se connecter
+    if (!validateFormSignin(dataUser)) {
+     Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'Veuillez renseigner correctement vos données de connexion.',
+     });
+      return;
+    };
+	
 	// Attempt to sign in the user
 	const onSign = await signIn(dataUser);
-  
+	
 	// If sign-in is unsuccessful, exit the function
 	if (!onSign) {
+
 	  return null;
-	}
-	
-	// If sign-in is successful, display the connected home page
-	fetchDisplayHomePageConnected(dataUser);
+	};
+
+    fetchDisplayHomePageConnected(dataUser);
+ 
 };
+
+
+
+  
