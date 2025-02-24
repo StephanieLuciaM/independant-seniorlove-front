@@ -184,12 +184,13 @@ export async function editMyAccount(data){
   }
 };
 
+
 export async function deleteMyAccount(){
   try {
 
       const httpResponse = await fetch(`${apiUrl}/my-account`,{
         method: "DELETE",
-      credentials: "include",
+        credentials: "include",
     });
 
 
@@ -206,5 +207,26 @@ export async function deleteMyAccount(){
     console.error("API non accessible...", error);
   }
 };
+
+export async function logOutMyAccount(){
+  try {
+    
+    const httpResponse = await fetch(`${apiUrl}/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if(!httpResponse.ok){
+      console.log(httpResponse);
+      return null;
+    }
+
+    const logOut = await httpResponse.json();
+    return logOut;
+
+  } catch (error) {
+    console.error("API non accessible...", error);
+  }
+}
 
 

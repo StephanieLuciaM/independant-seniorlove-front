@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeniorLove - La plateforme de rencontre pour les seniors</title>
-    <link rel="icon" href="../img/icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./src/assets/img/icon/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
@@ -85,7 +85,7 @@
           <a href="#"  class="header__nav-link">Profils</a>
           <a href="#"  class="header__nav-link ">Évènements</a>
           <a href="#"  class="header__nav-link ">Messages</a>
-          <a href="#"  class="header__nav-link ">Se déconnecter</a>
+          <a href="#"  class="header__nav-link logout">Se déconnecter</a>
         </nav>
         <form action="/" class="header-connected__search-form">
           <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
@@ -462,8 +462,8 @@
 
           <article class="interests-article">
             <h2 class="interests-title">Centres d'intérets</h2>
-            <div class="interest">
-              <span class="interest_type" slot="labels">Jeux de société</span>
+            <div class="interest" id="label-user">
+              <!--centre of interest template-->
             </div>
             <button class="edit-modal edit-label" type="button">Modifier</button>
           </article>
@@ -554,6 +554,10 @@
       
     </template>
 
+    <template id="label">
+      <span class="interest_type" slot="labels">Jeux de société</span>
+    </template>
+
       <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
     <template id="edit-info">
       <div class="modal">
@@ -640,22 +644,22 @@
         <h1>Centres d'intérêts</h1>
         <form>
           <label for="nature">Nature</label>
-          <input type="checkbox" id="nature" name="labels" value="Nature"> 
+          <input type="checkbox" id="nature" name="labels" value="1"> 
       
           <label for="culture">Culture</label>
-          <input type="checkbox" id="culture" name="labels" value="Culturel"> 
+          <input type="checkbox" id="culture" name="labels" value="2"> 
                 
           <label for="evening">Soirée à thème</label>
-          <input type="checkbox" id="evening" name="labels" value="soirée à thème"> 
+          <input type="checkbox" id="evening" name="labels" value="5"> 
                
           <label for="artistic">Artistique</label>
-          <input type="checkbox" id="artistic" name="labels" value="Artistique"> 
+          <input type="checkbox" id="artistic" name="labels" value="3"> 
               
           <label for="games">Jeux de société</label>
-          <input type="checkbox" id="games" name="labels" value="Jeux de société">
+          <input type="checkbox" id="games" name="labels" value="4">
 
           <label for="Sports">Sports/bien-être</label>
-          <input type="checkbox" id="Sports" name="labels" value="Sports/bien-être">
+          <input type="checkbox" id="Sports" name="labels" value="6">
         
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>

@@ -5,7 +5,7 @@ import {
   fetchDisplayEditLabelPage,
   fetchDisplayEditPersonalPage 
 } from "./edit.account.js";
-import { deleteMyAccount, getMyAccount } from "./api.js";
+import { deleteMyAccount, getMyAccount, logOutMyAccount } from "./api.js";
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 
 
@@ -22,19 +22,19 @@ export async function fetchDisplayMyAccountPage(){
   
   // Add event listeners to the edit buttons
   addEditButtonsListener();
-
   addDeleteButtonListener();
+  addLogOutButtonListener()
 };
 
 function appendTemplatesMyAccount(data){
   // Select the header and content templates from the DOM
   const headerTemplate = document.querySelector("#header-my-account");
   const contentTemplate = document.querySelector("#my-account");
-
+  
   // Clone the templates
   const headerClone = headerTemplate.content.cloneNode(true);
   const contentClone = contentTemplate.content.cloneNode(true);
-
+  
   // Select the containers where the clones will be appended
   const headerContainer = document.querySelector("#app-header");
   const contentContainer = document.querySelector("#app-main");
@@ -42,6 +42,8 @@ function appendTemplatesMyAccount(data){
   // Append the cloned templates to their respective containers
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
+
+  
 
   // Populate the content with the user data
   myAccount(contentContainer, data);
@@ -71,7 +73,6 @@ function addDeleteButtonListener() {
 
   // Add a click event listener to the delete button
   deleteButton.addEventListener('click', async () => {
-    console.log('ok'); // Log 'ok' to the console when the button is clicked
 
     // Call the deleteMyAccount function and wait for its completion
     const deleteUser = await deleteMyAccount();
@@ -85,6 +86,22 @@ function addDeleteButtonListener() {
     fetchDisplayHomePageVisitor();
   });
 };
+
+function addLogOutButtonListener(){
+  
+  const logOutButton = document.querySelector('#app-header .logout');
+
+  logOutButton.addEventListener('click', async () =>{
+    
+    const logOutUser = await logOutMyAccount();
+
+    if (!logOutUser) {
+      return null
+    }
+
+    fetchDisplayHomePageVisitor();
+  })
+}
 
 function handleEditInfo(){
   // Fetch and display the edit info page
@@ -108,14 +125,28 @@ function handleEditPersonal(){
 
 function myAccount(display, data){
   // Log the user data to the console
-  console.log(data);
 
   // Populate the account information slots with the user data
   display.querySelector("[slot='firstname']").textContent = data.firstname;
   display.querySelector("[slot='age']").textContent = data.age;
   display.querySelector("[slot='city-profil']").textContent = data.city;
   display.querySelector("[slot='description']").textContent = data.description;
-  // display.querySelector("[slot='labels']").textContent = data.labels.name;
+
+  data.labels.forEach(label => {
+    console.log(label);
+    const labelTemplate = document.querySelector("#label");
+    const labelClone = labelTemplate.content.cloneNode(true);
+    
+    
+    // Setting the content of the cloned element
+    labelClone.querySelector("[slot='labels']").textContent = label.name;
+    labelClone.querySelector("[slot='labels']").dataset.id = label.id;
+    
+    // Appending the cloned element to the container
+    const labelContainer = document.querySelector("#label-user")
+    labelContainer.appendChild(labelClone);
+  });
+
   display.querySelector("[slot='height']").textContent = data.height;
   display.querySelector("[slot='smoker']").textContent = data.smoker;
   display.querySelector("[slot='marital']").textContent = data.marital;
