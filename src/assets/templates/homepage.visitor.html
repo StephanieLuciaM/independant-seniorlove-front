@@ -33,67 +33,67 @@
     <main id="app" class="container">
         <!-- here all templates to generate -->  
     </main>
+    <template class="homepage-visitor">
+            <section class="sign-up">
+                <img src="../img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
+                <div class="sign-up-part">
+                    <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+                    <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
+                    <form class="sign-up__form">
+                        <div class="form__gender">
+                            <div class="sign-up__visitor-gender">
+                                <p class="visitor-gender__choice">Je suis</p>
+                                <input type="radio" id="gender-man" name="gender" value="man">
+                                <label for="gender-man" class="visitor-gender__option">Homme</label>
+                                <input type="radio" id="gender-woman" name="gender" value="woman">
+                                <label for="gender-woman" class="visitor-gender__option">Femme</label>
+                            </div>
+                            <div class="sign-up__preference-gender">
+                                <p class="preference-gender__choice">Je recherche</p>
+                                <input type="radio" id="preference-man" name="preference" value="man">
+                                <label for="preference-man" class="preference-gender__option">Homme</label>
+                                <input type="radio" id="preference-woman" name="preference" value="woman">
+                                <label for="preference-woman" class="preference-gender__option">Femme</label>
+                            </div>
+                        </div>
+                        <div class="sign-up__age-field">
+                        <div><label for="age" class="age-label">Âge</label></div> 
+                            <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
+                        </div>
+                        <div class="sign-up__city-field">
+                            <div><label for="city" class="city-label">Ville</label></div>
+                            <input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>
+                        </div>
+                        <button type="submit" value="Submit" class="sign-up__submit-btn">S'inscrire</button>
+                    </form>
+                </div>
+            </section>
+            <section class="tagline">
+                <article>
+                        <img src="../img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
+                        <p>Des rencontres basées sur vos centres d’intérêt</p>
+                </article>
+                <article>
+                    <img src="../img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
+                        <p>Participez à des événements pour rencontrer en vrai</p>
+                </article>
+                <article>
+                    <img src="../img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
+                        <p>Une plateforme simple, pensée pour les seniors</p>
+                </article>
+                <article>
+                    <img src="../img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
+                    <p>Profils vérifiés pour des échanges en toute confiance</p>
+                </article>
+            </section>
+            <section class="events">
+                <h2 class="events__title">Nos derniers événements</h2>
+                <div class="events__list" id="events-list">
+                    <!-- dynamic templates of event here -->
+                </div>
+            </section>
+    </template>
         
-        <template class="homepage-visitor">
-                <section class="sign-up">
-                    <img src="../img/diverse-img/hands.png" alt="deux personnes qui se tiennent la main" class="sign-up__img">
-                    <div class="sign-up-part">
-                        <img class="header__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
-                        <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
-                        <form class="sign-up__form">
-                            <div class="form__gender">
-                                <div class="sign-up__visitor-gender">
-                                    <p class="visitor-gender__choice">Je suis</p>
-                                    <input type="radio" id="gender-man" name="gender" value="man">
-                                    <label for="gender-man" class="visitor-gender__option">Homme</label>
-                                    <input type="radio" id="gender-woman" name="gender" value="woman">
-                                    <label for="gender-woman" class="visitor-gender__option">Femme</label>
-                                </div>
-                                <div class="sign-up__preference-gender">
-                                    <p class="preference-gender__choice">Je recherche</p>
-                                    <input type="radio" id="preference-man" name="preference" value="man">
-                                    <label for="preference-man" class="preference-gender__option">Homme</label>
-                                    <input type="radio" id="preference-woman" name="preference" value="woman">
-                                    <label for="preference-woman" class="preference-gender__option">Femme</label>
-                                </div>
-                            </div>
-                            <div class="sign-up__age-field">
-                            <div><label for="age" class="age-label">Âge</label></div> 
-                                <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
-                            </div>
-                            <div class="sign-up__city-field">
-                                <div><label for="city" class="city-label">Ville</label></div>
-                                <input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>
-                            </div>
-                            <button type="submit" value="Submit" class="sign-up__submit-btn">S'inscrire</button>
-                        </form>
-                    </div>
-                </section>
-                <section class="tagline">
-                    <article>
-                            <img src="../img/icon/heart-icon.svg" alt="icone coeur" class="tagline__icon">
-                            <p>Des rencontres basées sur vos centres d’intérêt</p>
-                    </article>
-                    <article>
-                        <img src="../img/icon/event-icon.svg" alt="icone calendrier " class="tagline__icon">
-                            <p>Participez à des événements pour rencontrer en vrai</p>
-                    </article>
-                    <article>
-                        <img src="../img/icon/easy-icon.svg" alt="icone doigts" class="tagline__icon">
-                            <p>Une plateforme simple, pensée pour les seniors</p>
-                    </article>
-                    <article>
-                        <img src="../img/icon/verified-profil.svg" alt="icone profil vérifié" class="tagline__icon">
-                        <p>Profils vérifiés pour des échanges en toute confiance</p>
-                    </article>
-                </section>
-                <section class="events">
-                    <h2 class="events__title">Nos derniers événements</h2>
-                    <div class="events__list" id="events-list">
-                        <!-- dynamic templates of event here -->
-                    </div>
-                </section>
-        </template>
 
         <!-- event template -->
         <template id="event-template">

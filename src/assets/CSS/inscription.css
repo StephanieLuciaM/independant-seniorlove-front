@@ -1,24 +1,86 @@
 
 .question {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: var(--spacing-large);
+    width: 80%;
     flex-direction: column;
-    gap: var(--spacing-small);
+    margin: auto;
+    align-items: center;
+    justify-content: center;
 }
 
-.size h1{
-   ali: center;
+.question.presentation{
+    width: 100%;
+}
+
+.welcome{
+    font-family: var(--font-main);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.label__signup{
+    font-size: var(--spacing-medium);
+    font-family: var(--font-main);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.input__signup{
+    width: 70%;
+    padding: .5rem;
+    border: 0.1rem solid var(--primary-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.input__signup.music{
+    width: 80%;
+}
+
+.input__signup.picture{
+    width: 100%;
+}
+
+.input__signup.identification{
+    width: 100%;
+}
+
+
+
+/* .select__signup{
+    width: 100%;
+    padding: .5rem;
+    border: 0.1rem solid var(--primary-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin: 1rem 0 1rem 0;
+} */
+
+.skip-btn {
+    background-color: var(--text-color);
+    color: white;
+    border: none;
+    padding: var(--spacing-small);
+    margin: 0 .5rem 0 .5rem;
+    border-radius: var(--spacing-medium);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+   
+}
+
+.skip-btn:hover {
+    background-color: var(--text-color-light);
+    color: white; 
+    transform: scale(1.05);
+    border-color: var(--primary-color); 
 }
 
 .family__situation{
     gap: var(--spacing-small);
 }
 
-.pets{
-    display: flex;
-    flex-direction: column;
-}
+
 
 .interest__center{
     display: flex;
@@ -35,15 +97,6 @@
     flex-direction: column;
 }
     
-   
-
-@media screen and (max-width: 768px){
-   
-}
-
-
-
-
 .senior-word {
     font-size: 2rem;
 }
@@ -60,13 +113,66 @@
 }
 
 .question__select{
-    font-size: var(--spacing-small); 
     width: 100%;
-    padding: 0.5rem;
+    padding: .5rem;
+    border: 0.1rem solid var(--primary-color);
     border-radius: 0.5rem;
-    height: 5vh;
-    cursor: pointer; 
+    cursor: pointer;
+    margin: 1rem 0 1rem 0;
 }
+
+.question.smoker{
+    width: 100%;
+}
+
+.label__signup.smoker{
+    display: block;
+    padding-bottom: var(--spacing-small);
+}
+
+.label__signup.pets{
+    display: block;
+    padding-bottom: var(--spacing-small);
+}
+
+.label__signup.music{
+    display: block;
+    padding-bottom: var(--spacing-small);
+
+}
+
+.label__signup.picture {
+    display: block;
+    padding-bottom: var(--spacing-small);
+}
+
+.form__signup.interest{
+    display: block;
+    padding-bottom: var(--spacing-small);
+}
+
+.label__signup.presentation{
+    display: block;
+    padding-bottom: var(--spacing-small);
+}
+
+.label__signup.identification{
+    display: block;
+    padding-top: var(--spacing-small);
+
+}
+
+.radio__signup{
+    margin-bottom: var(--spacing-small);
+}
+
+#smoke-yes, 
+#smoke-no,
+#animals-yes,
+#animals-no{
+    margin-right: var(--spacing-small) ;
+}
+
 
 .submit-btn {
     background-color: var(--primary-color);
@@ -77,6 +183,7 @@
     cursor: pointer;
     transition: transform 0.3s ease;
     border: 0.15rem solid var(--secondary-color);
+    margin: 1rem 0 1rem 0;
 }
 
 .submit-btn:hover {
@@ -85,6 +192,145 @@
     transform: scale(1.05);
     border-color: var(--primary-color); 
 }
+
+.submit-btn.signup{
+    margin-top: 2rem;
+}
+
+.form__signup div {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-small);
+}
+
+.checkbox__signup {
+    display:none
+}
+
+.checkbox__signup + .label__signup.interest {
+    gap: var(--spacing-small);
+    font-size: var(--spacing-small);
+    font-weight: normal;
+    cursor: pointer;
+    position: relative;
+    padding-left: var(--spacing-large);
+    font-weight: bold;
+    font-size: var(--spacing-medium);
+}
+
+.checkbox__signup + .label__signup.interest::before {
+    content: "";
+    width: 1.30rem;
+    height: 1.30rem;
+    border: 0.1rem solid var(--primary-color);
+    border-radius: 0.3rem;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.checkbox__signup:checked + .label__signup.interest::before {
+    content: "✔";
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    text-align: center;
+    font-size: var(--spacing-small);
+    line-height: 1.125rem;
+    font-weight: bold;
+}
+
+.checkbox__signup + .label__signup.interest:hover::before {
+    border-color: var(--primary-color);
+}
+
+.input__signup.picture {
+    width: 100%;
+    font-family: var(--font-main);
+    font-size: var(--spacing-medium);
+}
+
+.input__signup.picture::-webkit-file-upload-button {
+    display: none;
+}
+
+.input__signup.picture::before {
+    content: 'Sélectionner une photo';
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: var(--spacing-small);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-right: var(--spacing-small);
+}
+
+.input__signup.picture:hover::before {
+    background: var(--primary-color-light);
+}
+
+.textarea__signup.presentation {
+    width: 100%;
+    min-height: 10rem;
+    padding: var(--spacing-small);
+    border: 0.1rem solid var(--primary-color);
+    border-radius: 0.5rem;
+    font-family: var(--font-main);
+    font-size: var(--spacing-medium);
+    resize: vertical;
+}
+
+.textarea__signup.presentation:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0.3rem var(--primary-color-light);
+}
+ 
+@media screen and (min-width: 768px){
+
+    .question{
+        margin: 0;
+    }
+
+    .input__signup {
+        width: 60%;
+    }
+
+    .submit-btn.signup {
+        margin: .5rem;
+    }
+
+    .question.pets{
+        width: 100%;
+    }
+
+    .textarea__signup.presentation {
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-width: 1024px){
+    .question {
+        width: 70%;
+        padding-bottom: 2rem;
+    }
+
+    .input__signup.music {
+        width: 92%;
+    }
+
+    .question.music {
+        width: 100%;
+        padding-bottom: 2rem;
+    }
+
+}
+
+
+
 
 
 

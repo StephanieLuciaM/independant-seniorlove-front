@@ -1,20 +1,21 @@
 import { apiUrl } from "./config.js";
+import { errorServer } from "./handling.error.js";
 
 // Asynchronous function to get the last event
-export async function getLastEvent(){
+export async function getLastEvent() {
   try {
 
-    const httpResponse = await fetch(`${apiUrl}/filter-event`,{
+    const httpResponse = await fetch(`${apiUrl}/filter-event`, {
       credentials: "include"
     });
 
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
       return null;
     }
 
-// Parse the response as JSON
+    // Parse the response as JSON
     const events = await httpResponse.json();
     return events;
 
@@ -24,55 +25,67 @@ export async function getLastEvent(){
 };
 
 // Asynchronous function to sign up a user
-export async function signUp(data){
+export async function signUp(data) {
   try {
-    const httpResponse = await fetch(`${apiUrl}/signup`,{
+    const httpResponse = await fetch(`${apiUrl}/signup`, {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'erreur dans les données renseignées lors de l\'inscription.',
+      });
       return null;
     }
 
-// Parse the response as JSON
-    const createdUser= await httpResponse.json();
-    return createdUser; 
+    // Parse the response as JSON
+    const createdUser = await httpResponse.json();
+    return createdUser;
 
   } catch (error) {
-    console.error("API non accessible...", error);  
+    errorServer();
+    console.error("API non accessible...", error);
   }
 };
 
 // Asynchronous function to sign in a user
-export async function signIn(data){
+export async function signIn(data) {
   try {
-    const httpResponse = await fetch(`${apiUrl}/signin`,{
+    const httpResponse = await fetch(`${apiUrl}/signin`, {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Utilisateur non trouvé, veuillez verifier vos informations de connexion.',
+      });
       return null;
     }
 
-// Parse the response as JSON
-    const connectedUser= await httpResponse.json();
-    return connectedUser; 
+    // Parse the response as JSON
+    const connectedUser = await httpResponse.json();
+    return connectedUser;
 
   } catch (error) {
-    console.error("API non accessible...", error);  
+    errorServer();
+    console.error("API non accessible...", error);
   }
 };
 
 // Asynchronous function to authentificated user
-export async function authentificationUser(){
+export async function authentificationUser() {
   try {
     const httpResponse = await fetch(`${apiUrl}/verify-token`, {
       credentials: 'include',
@@ -82,30 +95,30 @@ export async function authentificationUser(){
       const authentificatedUser = false;
       return authentificatedUser;
     }
-// Parse the response as JSON      
+    // Parse the response as JSON      
     const authentificatedUser = true;
     return authentificatedUser;
-    
+
   } catch (error) {
     console.error('Erreur de vérification du token :', error)
   }
 };
 
 // Asynchronous function to get the last profiles match with the city of customers
-export async function getLastProfilesMatch(){
+export async function getLastProfilesMatch() {
   try {
 
-    const httpResponse = await fetch(`${apiUrl}/homepage-profiles`,{
+    const httpResponse = await fetch(`${apiUrl}/homepage-profiles`, {
       credentials: "include"
     });
 
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
       return null;
     }
 
-// Parse the response as JSON
+    // Parse the response as JSON
     const profiles = await httpResponse.json();
     return profiles;
 
@@ -115,20 +128,20 @@ export async function getLastProfilesMatch(){
 };
 
 // Asynchronous function to get the last event match with the city of customers
-export async function getLastEventsMatch(){
+export async function getLastEventsMatch() {
   try {
 
-    const httpResponse = await fetch(`${apiUrl}/homepage-events`,{
+    const httpResponse = await fetch(`${apiUrl}/homepage-events`, {
       credentials: "include"
     });
 
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
       return null;
     }
 
-// Parse the response as JSON
+    // Parse the response as JSON
     const events = await httpResponse.json();
     return events;
 
@@ -138,20 +151,20 @@ export async function getLastEventsMatch(){
 };
 
 // Asynchronous function to get user data
-export async function getMyAccount(){
+export async function getMyAccount() {
   try {
 
-    const httpResponse = await fetch(`${apiUrl}/my-account`,{
+    const httpResponse = await fetch(`${apiUrl}/my-account`, {
       credentials: "include",
     });
 
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
       return null;
     }
 
-// Parse the response as JSON
+    // Parse the response as JSON
     const myProfil = await httpResponse.json();
     return myProfil;
 
@@ -161,45 +174,44 @@ export async function getMyAccount(){
 };
 
 // Asynchronous function to edit user data
-export async function editMyAccount(data){
+export async function editMyAccount(data) {
   try {
-    const httpResponse = await fetch(`${apiUrl}/my-account`,{
+    const httpResponse = await fetch(`${apiUrl}/my-account`, {
       method: "PATCH",
       credentials: "include",
-      headers: { "Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
       return null;
     }
 
-// Parse the response as JSON
-    const updatedUser= await httpResponse.json();
-    return updatedUser; 
+    // Parse the response as JSON
+    const updatedUser = await httpResponse.json();
+    return updatedUser;
 
   } catch (error) {
-    console.error("API non accessible...", error);  
+    console.error("API non accessible...", error);
   }
 };
 
-
-export async function deleteMyAccount(){
+export async function deleteMyAccount() {
   try {
 
-      const httpResponse = await fetch(`${apiUrl}/my-account`,{
-        method: "DELETE",
-        credentials: "include",
+    const httpResponse = await fetch(`${apiUrl}/my-account`, {
+      method: "DELETE",
+      credentials: "include",
     });
 
 
-    if(!httpResponse.ok){
+    if (!httpResponse.ok) {
       console.log(httpResponse);
       return null;
     }
 
-// Parse the response as JSON
+    // Parse the response as JSON
     const myProfil = await httpResponse.json();
     return myProfil;
 
