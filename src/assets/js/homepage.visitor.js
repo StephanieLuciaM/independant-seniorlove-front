@@ -49,16 +49,30 @@ function addSigninButtonListener() {
 };
 
 function addSignupFormListener() {
-  // Select the sign-up form in the main content area
+   // Select the signup form within the main area
   const signupForm = document.querySelector("#app-main form");
   
-  // Add a submit event listener to the sign-up form
+   // Add a 'submit' event listener to the signup form
   signupForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    const dataUser = Object.fromEntries(new FormData(signupForm)); // Convert form data to an object
-    fetchDisplaySignupForm(dataUser); // Call the function to display the sign-up form
+    e.preventDefault(); 
+    
+    const dataUser = Object.fromEntries(new FormData(signupForm));
+    
+     // Check if the age is less than 60
+    if (dataUser.age < 60) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Âge insuffisant',
+        text: 'Vous devez avoir au moins soixante ans pour vous inscrire.',
+        confirmButtonText: 'Compris'
+      });
+      return; 
+    }
+    
+    // If the age is valid, proceed with the submission (e.g., call a function)
+    fetchDisplaySignupForm(dataUser);
   });
-};
+}
 
 export function addEventContainer(data){
   
@@ -79,3 +93,94 @@ export function addEventContainer(data){
   // Append the cloned event template to the event list container
   eventContainer.appendChild(eventClone);
 };
+
+
+// display of the legal information page.
+function displayLegalInfoPage() {
+  // Select the template element that contains the legal information.
+  const templateLegalInformation = document.querySelector("#legal-info-template");
+  
+  // Select the main content container where the template content will be inserted.
+  const contentContainer = document.querySelector("#app-main");
+  
+  // Select the footer button that, when clicked, will display the legal information.
+  const footerButton = document.querySelector("#legal-info");
+  
+  
+  //handler for the footer button click event.
+  footerButton.addEventListener('click', () => {
+  // Reset or clear the current view/content inside the main content container.
+    resetViewTemplate('app-main');
+    
+    // Clone the content of the legal information template.
+    // Using 'true' ensures that the cloning is deep, meaning all child nodes are copied.
+    const contentClone = templateLegalInformation.content.cloneNode(true);
+    
+    // Append the cloned content to the main content container.
+    contentContainer.appendChild(contentClone);
+  });
+}
+
+// Invoke the function to set up the event listener and initialize functionality.
+displayLegalInfoPage();
+
+
+// display of the Privacy and Cookies page.
+function displayPrivacyAndCookiesPage() {
+  // Select the template element that contains the privacy and cookies information.
+  const templatePrivacy = document.querySelector("#data-protection-template");
+  
+  // Select the main content container where the template content will be inserted.
+  const contentContainer = document.querySelector("#app-main");
+  
+  // Select the footer button that, when clicked, will display the privacy and cookies information.
+  const footerButton = document.querySelector("#data-protection");
+    
+  //handler for the footer button click event.
+  footerButton.addEventListener('click', () => {
+    // Reset or clear the current view/content inside the main content container.
+    resetViewTemplate('app-main');
+    
+    // Clone the content of the privacy and cookies template.
+    // Using 'true' ensures that the cloning is deep, meaning all child nodes are copied.
+    const contentClone = templatePrivacy.content.cloneNode(true);
+    
+    // Append the cloned content to the main content container.
+    contentContainer.appendChild(contentClone);
+  });
+}
+
+// Invoke the function to set up the event listener and initialize functionality.
+displayPrivacyAndCookiesPage();
+
+
+
+
+// display of the site map page.
+function displaySiteMapPage() {
+  // Select the template element that contains the site map.
+  const templateSiteMap = document.querySelector("#site-map-template");
+  
+  // Select the main content container where the template content will be inserted.
+  const contentContainer = document.querySelector("#app-main");
+  
+  // Select the footer button that, when clicked, will display the site map.
+  const footerButton = document.querySelector("#site-map");
+  
+  
+  //handler for the footer button click event.
+  footerButton.addEventListener('click', () => {
+    // Reset or clear the current view/content inside the main content container.
+    resetViewTemplate('app-main');
+    
+    // Clone the content of the sitmap template.
+    // Using 'true' ensures that the cloning is deep, meaning all child nodes are copied.
+    const contentClone = templateSiteMap.content.cloneNode(true);
+    
+    // Append the cloned content to the main content container.
+    contentContainer.appendChild(contentClone);
+  });
+}
+
+// Invoke the function to set up the event listener and initialize functionality.
+displaySiteMapPage();

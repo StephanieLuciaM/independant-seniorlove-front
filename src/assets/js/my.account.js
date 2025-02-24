@@ -64,27 +64,108 @@ function addEditButtonsListener() {
     }
   });
 };
+   
+// Function to select the delete button element
+function getDeleteButton() {
+  // Select the delete button within the #app-main section
+  return document.querySelector("#app-main .delete-account");
+}
 
+// Function to display the confirmation dialog
+async function showConfirmationDialog() {
+  return await Swal.fire({
+    title: 'Attention',
+    text: 'Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.',
+    icon: 'warning', // Warning icon
+    showCancelButton: true, // Show cancel button
+    confirmButtonText: 'Oui, supprimer mon compte', // Confirm button text
+    cancelButtonText: 'Non, annuler', // Cancel button text
+    reverseButtons: true // Reverse the order of buttons
+  });
+}
+
+// Function to display the success message
+async function showSuccessMessage() {
+  await Swal.fire({
+    icon: 'success', // Success icon
+    title: 'Succès',
+    text: 'Votre compte a bien été supprimé.',
+  });
+
+  // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
+  fetchDisplayHomePageVisitor();
+}
+
+// Function to display the error message
+function showErrorMessage(message) {
+  Swal.fire({
+    icon: 'error', // Error icon
+    title: 'Erreur',
+    text: message, // Error message passed as a parameter
+  });
+}
+
+// Function to handle the account deletion process
+async function handleDeleteAccount() {
+  try {
+    // Call the function to delete the user account
+    const deleteUser = await deleteMyAccount();
+
+    // Check if the account was successfully deleted
+    if (deleteUser) {
+      // Show success message if deletion was successful
+      await showSuccessMessage();
+    } else {
+      // Show error message if deletion failed
+      showErrorMessage('Il y a eu un problème lors de la suppression de votre compte. Veuillez réessayer plus tard.');
+    }
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error('Erreur lors de la suppression du compte:', error);
+
+    // Show a generic error message to the user
+    showErrorMessage('Une erreur inattendue est survenue. Veuillez réessayer plus tard.');
+  }
+}
+
+// Function to handle the user's response from the confirmation dialog
+async function handleConfirmation(confirmation) {
+  if (confirmation.isConfirmed) {
+    // If the user confirmed, proceed to delete the account
+    await handleDeleteAccount();
+  } else if (confirmation.dismiss === Swal.DismissReason.cancel) {
+    // If the user canceled, show an informational message
+    Swal.fire({
+      icon: 'info', // Info icon
+      title: 'Annulé',
+      text: 'Votre compte n\'a pas été supprimé.',
+      timer: 2000, // Automatically close after 2 seconds
+      showConfirmButton: false
+    });
+  }
+}
+
+// Main function to add the delete button event listener
 function addDeleteButtonListener() {
-  // Select the delete button element within the app-main section
-  const deleteButton = document.querySelector("#app-main .delete-account");
+  // Get the delete button element
+  const deleteButton = getDeleteButton();
+
+  if (!deleteButton) {
+    console.error('Delete button not found!');
+    return;
+  }
 
   // Add a click event listener to the delete button
   deleteButton.addEventListener('click', async () => {
-    console.log('ok'); // Log 'ok' to the console when the button is clicked
+    console.log('Bouton de suppression cliqué');
 
-    // Call the deleteMyAccount function and wait for its completion
-    const deleteUser = await deleteMyAccount();
+    // Show the confirmation dialog and wait for the user's response
+    const confirmation = await showConfirmationDialog();
 
-    // If deleteMyAccount returns false or null, exit the function
-    if (!deleteUser) {
-      return null;
-    }
-
-    // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
-    fetchDisplayHomePageVisitor();
+    // Handle the user's response
+    await handleConfirmation(confirmation);
   });
-};
+}
 
 function handleEditInfo(){
   // Fetch and display the edit info page
