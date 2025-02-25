@@ -32,76 +32,77 @@
     
         <main id="app" class="container">
             <!-- here all templates to generate -->  
+        <template id="all-events-page">
+            <section class="cities-filter">
+                <div class="cities-filter__list">
+                    <button class="cities-filter__button">Paris</button>
+                    <button class="cities-filter__button">Lyon</button>
+                    <button class="cities-filter__button">Toulouse</button>
+                    <button class="cities-filter__button">Marseille</button>
+                    <button class="cities-filter__button">Filtre</button>
+                </div>
+            </section>
 
-        <section class="cities-filter">
-            <div class="cities-filter__list">
-                <button class="cities-filter__button">Paris</button>
-                <button class="cities-filter__button">Lyon</button>
-                <button class="cities-filter__button">Toulouse</button>
-                <button class="cities-filter__button">Marseille</button>
-                <button class="cities-filter__button">Filtre</button>
-            </div>
-        </section>
-
-        <section class="events-grid">
-            <!-- Premier événement -->
+            <section class="events-grid">
+                <!-- Premier événement -->
+                <article class="event">
+                    <a href="">
+                        <div>
+                            <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
+                            <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                            <span class="event__theme">Jeux</span>
+                            <button class="more-btn">En savoir plus</button>
+                        </div>
+                    </a>
+                </article>
+                <article class="event">
+                    <a href="">
+                        <div>
+                            <img src="../img/diverse-img/sports.jpg" alt="canoë en groupe"> 
+                            <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
+                            <span class="event__theme">Sport</span>
+                        </div>
+                    </a>
+                </article>
+                <article class="event">
+                    <a href="">
+                        <div>
+                            <img src="../img/diverse-img/party.jpg" alt="soirée en groupe"> 
+                            <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
+                            <span class="event__theme">Soirée à thème</span>
+                        </div>
+                    </a>
+                </article>
+            </article>
             <article class="event">
                 <a href="">
                     <div>
-                        <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
-                        <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-                        <span class="event__theme">Jeux</span>
-                        <button class="more-btn">En savoir plus</button>
+                        <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
+                        <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
+                        <span class="event__theme">Sortie culturelle</span>
                     </div>
                 </a>
             </article>
             <article class="event">
                 <a href="">
                     <div>
-                        <img src="../img/diverse-img/sports.jpg" alt="canoë en groupe"> 
-                        <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
-                        <span class="event__theme">Sport</span>
+                        <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
+                        <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
+                        <span class="event__theme">Sortie culturelle</span>
                     </div>
                 </a>
             </article>
             <article class="event">
                 <a href="">
                     <div>
-                        <img src="../img/diverse-img/party.jpg" alt="soirée en groupe"> 
-                        <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
-                        <span class="event__theme">Soirée à thème</span>
+                        <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
+                        <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
+                        <span class="event__theme">Sortie culturelle</span>
                     </div>
                 </a>
             </article>
-        </article>
-        <article class="event">
-            <a href="">
-                <div>
-                    <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                    <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                    <span class="event__theme">Sortie culturelle</span>
-                </div>
-            </a>
-        </article>
-        <article class="event">
-            <a href="">
-                <div>
-                    <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                    <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                    <span class="event__theme">Sortie culturelle</span>
-                </div>
-            </a>
-        </article>
-        <article class="event">
-            <a href="">
-                <div>
-                    <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                    <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                    <span class="event__theme">Sortie culturelle</span>
-                </div>
-            </a>
-        </article>
-        </section>
+            </section>
+    </template>
     </main>
 
     <footer class="footer">
