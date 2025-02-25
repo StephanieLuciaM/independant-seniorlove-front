@@ -24,6 +24,7 @@ export function fetchDisplayEditLabelPage(){
 export function fetchDisplayEditPersonalPage(){
   resetViewTemplate('app-main');
   appendTemplateEditPersonnalPage();
+
 };
 
 function appendTemplateEditInfoPage(){
@@ -136,10 +137,10 @@ function addEditFormListener(editForm) {
     const dataUser = {};
 
     // Check if the file input field is empty
-const fileInput = formData.get('picture');
-if (fileInput && fileInput.size === 0) {
-  formData.delete('picture'); // Delete the 'picture' field if no file is selected
-}
+  const fileInput = formData.get('picture');
+  if (fileInput && fileInput.size === 0) {
+    formData.delete('picture'); // Delete the 'picture' field if no file is selected
+  }
 
 // Iterate over formData entries and update dataUser object
   for (const [key, value] of formData.entries()) {

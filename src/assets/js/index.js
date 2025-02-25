@@ -1,8 +1,15 @@
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 import { checkUserAuthentication } from "./auth.js";
 import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
+import { popstate } from "./history.js";
 
 // Function to initialize the application
+window.addEventListener('popstate',(e) =>{
+  popstate(e);
+});
+const initialState = {initFunction: 'fetchDisplayHomePageVisitor'};
+history.replaceState(initialState, "", document.location.href);
+
 init();
 
 async function init() {
@@ -20,5 +27,10 @@ async function init() {
     console.error('Erreur d\'initialisation:', error);
   }
 };
+
+
+
+
+
 
 
