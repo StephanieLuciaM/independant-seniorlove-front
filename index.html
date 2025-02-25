@@ -2,6 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8">
+    <meta name="description" content="SeniorLove est une plateforme de rencontre dédiée aux seniors souhaitant trouver l'amour et partager de beaux moments à deux. Inscrivez-vous dès maintenant !">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeniorLove - La plateforme de rencontre pour les seniors</title>
     <link rel="icon" href="./src/assets/img/icon/favicon.ico" type="image/x-icon">
@@ -438,115 +439,120 @@
       <!-- Template my account -->
 
     <template id="my-account">
-      <section class="profile-section">
-        <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="my profile picture" class="profile-img" slot="picture">      
-        <div class="profile-details">
-          <p class="profile-firstname"><strong>Prénom :</strong> <span slot="firstname">Celine</span></p>
-          <p class="profile-old"><strong>Age:</strong> <span slot="age">60 ans</span></p>
-          <p class="profile-city"><strong>Ville :</strong> <span slot="city-profil">Bordeaux</span></p>
-        </div>
-        <button class="edit-modal edit-info" type="button">Modifier</button>
-      </section>
-      
-      <section class="interests-section">
-        <article class="intro-article">
-          <article class="intro-article-presentation">
-            <h2 class="intro-title">Texte d'introduction</h2>
-            <p slot="description">Jeune retraitée et cherche à faire des rencontres. Contactez-moi!</p>
-            <button class="edit-modal edit-intro" type="button">Modifier</button>
+      <div class="my-account">
+        <section class="profile-section">
+          <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="my profile picture" class="profile-img" slot="picture">      
+          <div class="profile-details">
+            <p class="profile-firstname"><strong>Prénom :</strong> <span slot="firstname">Celine</span></p>
+            <p class="profile-old"><strong>Age:</strong> <span slot="age">60 ans</span></p>
+            <p class="profile-city"><strong>Ville :</strong> <span slot="city-profil">Bordeaux</span></p>
+          </div>
+          <button class="edit-modal edit-info" type="button">Modifier</button>
+        </section>
+        
+        <section class="interests-section">
+          <article class="general-info-article">
+            <h2 class="general-info-title"> Informations générales</h2> 
+            <div class="general-info-description">
+            <p class="general-info-item"><strong class="general-info">Taille: </strong> <span slot="height">170</span>cm</p>
+            <p class="general-info-item"><strong class="general-info">Fumeur/Fumeuse: </strong> <span slot="smoker">oui</span></p>
+            <p class="general-info-item"><strong class="general-info">Situation familiale: </strong> <span slot="marital">Célibataire</span></p>
+            <p class="general-info-item"><strong class="general-info">Signe astrologique: </strong> <span slot="zodiac">Gémeaux</span></p>
+            <p class="general-info-item"><strong class="general-info">Animaux de compagnie: </strong> <span slot="pet">oui</span></p>
+            <p class="general-info-item"><strong class="general-info">Style de musique: </strong> <span slot="music">Rock</span></p>
+          </div>
+            <button class="edit-modal edit-personal" type="button">Modifier</button>
+            <button class="delete-account" type="button">Supprimer le compte</button>
+            
           </article>
+          <article class="intro-article">
+            <article class="intro-article-presentation">
+              <h2 class="intro-title">Texte d'introduction</h2>
+              <p slot="description">Jeune retraitée et cherche à faire des rencontres. Contactez-moi!</p>
+              <button class="edit-modal edit-intro" type="button">Modifier</button>
+            </article>
 
-          <article class="interests-article">
-            <h2 class="interests-title">Centres d'intérets</h2>
-            <div class="interest" id="label-user">
-              <!--centre of interest template-->
-            </div>
-            <button class="edit-modal edit-label" type="button">Modifier</button>
-          </article>
+            <article class="interests-article">
+              <h2 class="interests-title">Centres d'intérets</h2>
+              <div class="interest">
+                <span class="interest_type" slot="labels">Jeux de société</span>
+              </div>
+              <button class="edit-modal edit-label" type="button">Modifier</button>
+            </article>
 
-          <article class="events-article">
-            <div class="past-events">
-                <h2 class="events-title">Evènements passés</h2>
+            <article class="events-article">
+              <div class="past-events">
+                  <h2 class="events-title">Evènements passés</h2>
+                  <div class="past-event">
+                    <h3 class="event-city" slot="city">PARIS</h3>
+                    <a href="">
+                      <div class="event-details">
+                        <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img" slot="picture"> 
+                        <h3 class="event-description " slot="title">Balade Nature en Forêt</h3>
+                        <span class="event-theme " slot="label">Nature</span>
+                      </div>
+                    </a>
+                  </div>  
+                  <div class="past-event">
+                    <h3 class="event-city">PARIS</h3>
+                    <a href="">
+                      <div class="event-details">
+                        <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="soirée en groupe" class="event-img"> 
+                        <h3 class="event-description">Soirée Théâtre Classique</h3>
+                        <span class="event-theme ">Culturel</span>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="past-event">
+                    <h3 class="event-city">PARIS</h3>
+                    <a href="">
+                      <div class="event-details">
+                        <img src="./src/assets/img/diverse-img/events/artistic.jpg" alt="soirée en groupe" class="event-img"> 
+                        <h3 class="event-description">Atelier de Peinture Acrylique</h3>
+                        <span class="event-theme ">Artistique</span>
+                      </div>
+                    </a>
+                  </div>  
+              </div>
+
+              <div class="upcoming-events">
+                <h2 class="events-title"> Evénements à venir</h2>
                 <div class="past-event">
-                  <h3 class="event-city" slot="city">Paris</h3>
+                  <h3 class="event-city">LYON</h3>
                   <a href="">
                     <div class="event-details">
                       <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img" slot="picture"> 
-                      <h3 class="event-description " slot="title">Soirée à la guinguette "Le Bon Air"</h3>
-                      <span class="event-theme " slot="label">Soirée à thème</span>
+                      <h3 class="event-description connected" slot="title">Randonnée au Parc de la Tête d''Or</h3>
+                      <span class="event-theme" slot="label">Nature</span>
                     </div>
                   </a>
                 </div>  
                 <div class="past-event">
-                  <h3 class="event-city">Marseille</h3>
+                  <h3 class="event-city">LYON</h3>
                   <a href="">
                     <div class="event-details">
-                      <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
-                      <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
-                      <span class="event-theme ">Soirée à thème</span>
+                      <img src="./src/assets/img/diverse-img/events/artistic.jpg" alt="soirée en groupe" class="event-img"> 
+                      <h3 class="event-description">Concert de Musique Classique</h3>
+                      <span class="event-theme ">Artistique</span>
                     </div>
                   </a>
                 </div>
                 <div class="past-event">
-                  <h3 class="event-city">Marseille</h3>
+                  <h3 class="event-city">LYON</h3>
                   <a href="">
                     <div class="event-details">
-                      <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
-                      <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
-                      <span class="event-theme ">Soirée à thème</span>
+                      <img src="./src/assets/img/diverse-img/games.jpg" alt="soirée en groupe" class="event-img"> 
+                      <h3 class="event-description">Soirée Jeux de Société</h3>
+                      <span class="event-theme ">Jeux de société</span>
                     </div>
                   </a>
-                </div>  
-            </div>
-
-            <div class="upcoming-events">
-              <h3 class="events-title"> Evénements à venir</h3>
-              <div class="past-event">
-                <h3 class="event-city">Marseille</h3>
-                <a href="">
-                  <div class="event-details">
-                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img" slot="picture"> 
-                    <h3 class="event-description connected" slot="title">Soirée à la guinguette "Le Bon Air"</h3>
-                    <span class="event-theme" slot="label">Soirée à thème</span>
-                  </div>
-                </a>
-              </div>  
-              <div class="past-event">
-                <h3 class="event-city">Marseille</h3>
-                <a href="">
-                  <div class="event-details">
-                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
-                    <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
-                    <span class="event-theme ">Soirée à thème</span>
-                  </div>
-                </a>
+                </div>
               </div>
-              <div class="past-event">
-                <h3 class="event-city">Marseille</h3>
-                <a href="">
-                  <div class="event-details">
-                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img"> 
-                    <h3 class="event-description">Soirée à la guinguette "Le Bon Air"</h3>
-                    <span class="event-theme ">Soirée à thème</span>
-                  </div>
-                </a>
-              </div>
-            </div>
+            </article>
           </article>
-        </article>
 
-        <article class="general-info-article">
-          <h2 class="general-info-title"> Informations générales</h2> 
-          <p class="general-info-item"><strong>Taille: </strong> <span slot="height">170</span></p>
-          <p class="general-info-item"><strong>Fumeur/Fumeuse: </strong> <span slot="smoker">oui</span></p>
-          <p class="general-info-item"><strong>Situation familiale: </strong> <span slot="marital">Célibataire</span></p>
-          <p class="general-info-item"><strong>Signe astrologique: </strong> <span slot="zodiac">Gémeaux</span></p>
-          <p class="general-info-item"><strong>Animaux de compagnie: </strong> <span slot="pet">oui</span></p>
-          <p class="general-info-item"><strong>Style de musique: </strong> <span slot="music">Rock</span></p>
-          <button class="edit-modal edit-personal" type="button">Modifier</button>
-          <button class="delete-account" type="button">Supprimer le compte</button>
-        </article>
-      </section>
+        </section>
+    </div>
       
     </template>
 
