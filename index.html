@@ -36,7 +36,7 @@
       <div class="footer__links">
         <a href="#" id="legal-info" class="footer__link">Information légale</a>
         <a href="#" id="site-map" class="footer__link">Plan de site</a>
-        <a href="#" id="data-protection" class="footer__link">Protection des données</a>
+        <a href="#" id="data-protection"  class="footer__link">Protection des données</a>
       </div>
     </footer>
 
@@ -84,7 +84,7 @@
           <a href="#"  class="header__nav-link">Profils</a>
           <a href="#"  class="header__nav-link ">Évènements</a>
           <a href="#"  class="header__nav-link ">Messages</a>
-          <a href="#"  class="header__nav-link ">Se déconnecter</a>
+          <a href="#"  class="header__nav-link logout">Se déconnecter</a>
         </nav>
         <form action="/" class="header-connected__search-form">
           <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
@@ -106,22 +106,22 @@
                 <div class="form__gender">
                   <div class="sign-up__visitor-gender">
                     <p class="visitor-gender__choice">Je suis</p>
-                    <input type="radio" id="gender-man" name="gender" value="Homme" required>
+                    <input type="radio" id="gender-man" name="gender" value="Homme">
                     <label for="gender-man" class="visitor-gender__option">Homme</label>
                     <input type="radio" id="gender-woman" name="gender" value="Femme">
                     <label for="gender-woman" class="visitor-gender__option">Femme</label>
                   </div>
                   <div class="sign-up__preference-gender">
                     <p class="preference-gender__choice">Je recherche</p>
-                    <input type="radio" id="preference-man" name="gender_match" value="Homme" required>
+                    <input type="radio" id="preference-man" name="gender_match" value="Homme">
                     <label for="preference-man" class="preference-gender__option">Homme</label>
-                    <input type="radio" id="preference-woman" name="gender_match" value="Femme" >
+                    <input type="radio" id="preference-woman" name="gender_match" value="Femme">
                     <label for="preference-woman" class="preference-gender__option">Femme</label>
                   </div>
                 </div>
                 <div class="sign-up__age-field">
                 <div><label for="age" class="age-label">Âge</label></div> 
-                  <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge...">
+                  <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
                 </div>
                 <div class="sign-up__city-field">
                   <div><label for="city" class="city-label">Ville</label></div>
@@ -458,8 +458,8 @@
 
           <article class="interests-article">
             <h2 class="interests-title">Centres d'intérets</h2>
-            <div class="interest">
-              <span class="interest_type" slot="labels">Jeux de société</span>
+            <div class="interest" id="label-user">
+              <!--centre of interest template-->
             </div>
             <button class="edit-modal edit-label" type="button">Modifier</button>
           </article>
@@ -550,7 +550,12 @@
       
     </template>
 
-      <!-- Template modification profile informations -->
+
+    <template id="label">
+      <span class="interest_type" slot="labels">Jeux de société</span>
+    </template>
+
+      <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
 
     <template id="edit-info">
       <div class="modal">
@@ -640,37 +645,37 @@
         <h1>Centres d'intérêts</h1>
         <form>
           <label for="nature">Nature</label>
-          <input type="checkbox" id="nature" name="labels" value="Nature"> 
+          <input type="checkbox" id="nature" name="labels" value="1"> 
       
           <label for="culture">Culture</label>
-          <input type="checkbox" id="culture" name="labels" value="Culturel"> 
+          <input type="checkbox" id="culture" name="labels" value="2"> 
                 
           <label for="evening">Soirée à thème</label>
-          <input type="checkbox" id="evening" name="labels" value="soirée à thème"> 
+          <input type="checkbox" id="evening" name="labels" value="5"> 
                
           <label for="artistic">Artistique</label>
-          <input type="checkbox" id="artistic" name="labels" value="Artistique"> 
+          <input type="checkbox" id="artistic" name="labels" value="3"> 
               
           <label for="games">Jeux de société</label>
-          <input type="checkbox" id="games" name="labels" value="Jeux de société">
+          <input type="checkbox" id="games" name="labels" value="4">
 
           <label for="Sports">Sports/bien-être</label>
-          <input type="checkbox" id="Sports" name="labels" value="Sports/bien-être">
+          <input type="checkbox" id="Sports" name="labels" value="6">
         
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
       </div>
     </template> 
-
-      <!--Template legal informations -->
-    <template id=legal-info-template>
+    
+     <!--Template legal informations -->
+    <template id="legal-info-template">
       <section>
         <h1>Mentions Légales</h1>
-  
-        <article>
-            <h2>1. Éditeur du Site</h2>
-            <div>
+
+          <div>
+              <h2>1. Éditeur du Site</h2>
+              <p>
               <strong>Projet :</strong> SeniorLove<br>
               <strong>Nature du projet :</strong> Projet de formation<br>
               <strong>Équipe :</strong> Travail d'équipe de quatre étudiants<br>
@@ -683,81 +688,151 @@
               - [Nom et Prénom, Développeur full-stack]<br>
               <strong>Adresse :</strong> [Adresse de l'école ou une adresse de contact dédiée au projet]<br>
               <strong>Email de contact :</strong> [Adresse email dédiée au projet]<br>
-            </div>
-            <div>
+              </p>
+              <p>
               <strong>Avertissement :</strong> Ce site est développé dans le cadre d’une formation à l’école O'clock et n’est pas destiné à un usage commercial. Les contenus présentés sur ce site sont à but pédagogique et éducatif.
-            </div>
-        </article>
+              </p>
+          </div>
 
-        <article>
-          <h2>2. Hébergeur du Site</h2>
           <div>
-            <strong>Nom de l'hébergeur :</strong> [Nom de l'hébergeur]<br>
-            <strong>Adresse :</strong> [Adresse complète de l'hébergeur]<br>
-            <strong>Téléphone :</strong> [Numéro de téléphone de l'hébergeur]<br>
+              <h2>2. Hébergeur du Site</h2>
+              <p>
+              <strong>Nom de l'hébergeur :</strong> [Nom de l'hébergeur]<br>
+              <strong>Adresse :</strong> [Adresse complète de l'hébergeur]<br>
+              <strong>Téléphone :</strong> [Numéro de téléphone de l'hébergeur]<br>
+              </p>
           </div>
-        </article>
 
-        <article>
-          <h2>3. Propriété Intellectuelle</h2>
           <div>
-            L’ensemble des contenus présents sur le site SeniorLove, incluant de manière non limitative les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme, sont la propriété collective des membres de l'équipe SeniorLove dans le cadre de leur projet de formation. Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord écrit préalable des auteurs.
+              <h2>3. Propriété Intellectuelle</h2>
+              <p>
+              L’ensemble des contenus présents sur le site SeniorLove, incluant de manière non limitative les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme, sont la propriété collective des membres de l'équipe SeniorLove dans le cadre de leur projet de formation. Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord écrit préalable des auteurs.
+              </p>
           </div>
-        </article>
 
-        <article>
-          <h2>4. Protection des Données Personnelles</h2>
           <div>
-            Conformément à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée et au Règlement Général sur la Protection des Données (RGPD) (EU) 2016/679, vous disposez d’un droit d’accès, de rectification, de suppression et d’opposition aux données personnelles vous concernant.<br>
-            Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : [Adresse email de contact] ou par courrier à l'adresse mentionnée ci-dessus.
+              <h2>4. Protection des Données Personnelles</h2>
+              <p>
+              Conformément à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée et au Règlement Général sur la Protection des Données (RGPD) (EU) 2016/679, vous disposez d’un droit d’accès, de rectification, de suppression et d’opposition aux données personnelles vous concernant.<br>
+              Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : [Adresse email de contact] ou par courrier à l'adresse mentionnée ci-dessus.
+              </p>
+              <p>
+              Pour en savoir plus sur vos droits et la manière de les exercer, vous pouvez consulter le site de la <a href="https://www.cnil.fr/" target="_blank">CNIL</a>.
+              </p>
           </div>
-          <div>
-            Pour en savoir plus sur vos droits et la manière de les exercer, vous pouvez consulter le site de la <a href="https://www.cnil.fr/" target="_blank">CNIL</a>.
-          </div>
-        </article>
 
-        <article>
-          <h2>5. Cookies</h2>
           <div>
-            Le site SeniorLove peut utiliser des cookies pour améliorer votre expérience de navigation, analyser le trafic du site et personnaliser le contenu. Vous pouvez gérer vos préférences en matière de cookies via les paramètres de votre navigateur.
+              <h2>5. Cookies</h2>
+              <p>
+              Le site SeniorLove peut utiliser des cookies pour améliorer votre expérience de navigation, analyser le trafic du site et personnaliser le contenu. Vous pouvez gérer vos préférences en matière de cookies via les paramètres de votre navigateur.
+              </p>
           </div>
-        </article>
 
-        <article>
-          <h2>6. Responsabilité</h2>
           <div>
-            Bien que nous nous efforcions de fournir des informations exactes et à jour, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité des contenus du site. SeniorLove décline toute responsabilité en cas d'erreurs ou d'omissions dans les contenus.
+              <h2>6. Responsabilité</h2>
+              <p>
+              Bien que nous nous efforcions de fournir des informations exactes et à jour, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité des contenus du site. SeniorLove décline toute responsabilité en cas d'erreurs ou d'omissions dans les contenus.
+              </p>
+              <p>
+              SeniorLove ne saurait être tenu responsable des dommages directs ou indirects résultant de l’accès ou de l’utilisation du site, y compris l’inaccessibilité, les pertes de données, et interruptions.
+              </p>
           </div>
-          <div>
-           SeniorLove ne saurait être tenu responsable des dommages directs ou indirects résultant de l’accès ou de l’utilisation du site, y compris l’inaccessibilité, les pertes de données, et interruptions.
-          </div>
-        </article>
 
-        <article>
-          <h2>7. Liens Hypertextes</h2>
           <div>
-            Le site SeniorLove peut contenir des liens vers d’autres sites. SeniorLove n’a pas de contrôle sur ces sites et ne peut être tenu responsable de leur contenu ni des dommages ou préjudices qu’ils pourraient causer.
+              <h2>7. Liens Hypertextes</h2>
+              <p>
+              Le site SeniorLove peut contenir des liens vers d’autres sites. SeniorLove n’a pas de contrôle sur ces sites et ne peut être tenu responsable de leur contenu ni des dommages ou préjudices qu’ils pourraient causer.
+              </p>
           </div>
-        </article>
 
-        <article>
-          <h2>8. Droit Applicable</h2>
           <div>
-            Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.
+              <h2>8. Droit Applicable</h2>
+              <p>
+              Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.
+              </p>
           </div>
-        </article>
 
-        <article>
-          <h2>9. Modification des Mentions Légales</h2>
           <div>
-            SeniorLove se réserve le droit de modifier, à tout moment et sans préavis, les présentes mentions légales afin de les adapter à toute évolution de son activité ou de son exploitation.
+              <h2>9. Modification des Mentions Légales</h2>
+              <p>
+              SeniorLove se réserve le droit de modifier, à tout moment et sans préavis, les présentes mentions légales afin de les adapter à toute évolution de son activité ou de son exploitation.
+              </p>
           </div>
-        </article>
-
       </section>
-    </template> 
-    
-      <!--Template privacy and cookies-->
+    </template>
+
+ <!--Template site map -->
+    <template id="site-map-template">
+      <section>
+        <h1>Plan du Site</h1>
+            <nav>
+                <a href="/">Accueil</a>
+                <a href="/connexion">Connexion</a>
+                <a href="/inscription">Inscription</a>
+                <a href="/mon-compte">Mon Compte</a>
+                <a href="/profils">Profils</a>
+                <a href="/evenements">Événements</a>
+                <a href="/messages">Messages</a>
+                <a href="/informations-legales">Informations Légales</a>
+                <a href="/protection-des-donnees">Protection des Données</a>
+                <a href="/contact">Contact</a>
+            </nav>
+
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/connexion">Connexion</a></li>
+
+                <li>
+                    <a href="/inscription">Inscription</a>
+                  
+                </li>
+
+                <li>
+                    <a href="/mon-compte">Mon Compte</a>
+                    <ul>
+                        <li><a href="#">Mes informations de profil</a></li>
+                        <li><a href="#">Mon text d'introduction</a></li>
+                        <li><a href="#">Centres d'intérets</a></li>
+                        <li><a href="#">Èvènements passées</a></li>
+                        <li><a href="#">Èvènements à venir</a></li>
+                        <li><a href="#">Informations générales</a></li>
+                        <li><a href="#">Supprimer mon compte</a></li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/profils">Profils</a>
+                    <ul>
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/evenements">Événements</a>
+                    <ul>
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/messages">Messages</a></li>
+
+                <li>
+                    Pages Légales
+                    <ul>
+                        <li><a href="/informations-legales">Informations Légales</a></li>
+                        <li><a href="/protection-des-donnees">Protection des Données</a></li>
+                        <li><a href="/plan-du-site">Plan du Site</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/a-propos">À Propos</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+      </section>
+    </template>
+
+     <!--Template private data protection and cookie management -->
     <template id="data-protection-template">
       <section>
         <h1>Protection des Données Personnelles et Gestion des Cookies</h1>
@@ -887,78 +962,6 @@
             </ul>
         </section>
         </section>
-    </template>
-
-      <!--Template sitemap-->
-    <template id="site-map-template">
-      <section>
-        <h1>Plan du Site</h1>
-        <nav>
-            <a href="/">Accueil</a>
-            <a href="/connexion">Connexion</a>
-            <a href="/inscription">Inscription</a>
-            <a href="/mon-compte">Mon Compte</a>
-            <a href="/profils">Profils</a>
-            <a href="/evenements">Événements</a>
-            <a href="/messages">Messages</a>
-            <a href="/informations-legales">Informations Légales</a>
-            <a href="/protection-des-donnees">Protection des Données</a>
-            <!--est ce qu'on rajoute dans le footer un boutton Contact?-->
-            <a href="/contact">Contact</a>
-        </nav>
-
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/connexion">Connexion</a></li>
-
-            <li>
-                <a href="/inscription">Inscription</a>
-               
-            </li>
-
-            <li>
-                <a href="/mon-compte">Mon Compte</a>
-                <ul>
-                    <li><a href="#">Mes informations de profil</a></li>
-                    <li><a href="#">Mon text d'introduction</a></li>
-                    <li><a href="#">Centres d'intérets</a></li>
-                    <li><a href="#">Èvènements passées</a></li>
-                    <li><a href="#">Èvènements à venir</a></li>
-                    <li><a href="#">Informations générales</a></li>
-                    <li><a href="#">Supprimer mon compte</a></li>
-
-                </ul>
-            </li>
-
-            <li>
-                <a href="/profils">Profils</a>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="/evenements">Événements</a>
-                <ul>
-                    <li><a href=""></a></li>
-                </ul>
-            </li>
-
-            <li><a href="/messages">Messages</a></li>
-
-            <li>
-                Pages Légales
-                <ul>
-                    <li><a href="/informations-legales">Informations Légales</a></li>
-                    <li><a href="/protection-des-donnees">Protection des Données</a></li>
-                    <li><a href="/plan-du-site">Plan du Site</a></li>
-                </ul>
-            </li>
-
-            <li><a href="/a-propos">À Propos</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
-      </section>
     </template>
 
   </body> 

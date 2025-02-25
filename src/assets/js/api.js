@@ -1,5 +1,6 @@
 import { apiUrl } from "./config.js";
 import { errorServer } from "./handling.error.js";
+import { showErrorMessage } from "./handling.error.js";
 
 // Asynchronous function to get the last event
 export async function getLastEvent() {
@@ -8,7 +9,6 @@ export async function getLastEvent() {
     const httpResponse = await fetch(`${apiUrl}/filter-event`, {
       credentials: "include"
     });
-
 
     if (!httpResponse.ok) {
       console.log(httpResponse);
@@ -36,11 +36,7 @@ export async function signUp(data) {
 
     if (!httpResponse.ok) {
       console.log(httpResponse);
-      Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: 'erreur dans les données renseignées lors de l\'inscription.',
-      });
+      showErrorMessage('erreur dans les données renseignées lors de l\'inscription.')
       return null;
     }
 
@@ -49,8 +45,8 @@ export async function signUp(data) {
     return createdUser;
 
   } catch (error) {
-    errorServer();
-    console.error("API non accessible...", error);
+     errorServer();  //alert ereur server
+     console.error("API non accessible...", error);
   }
 };
 
@@ -66,11 +62,7 @@ export async function signIn(data) {
 
     if (!httpResponse.ok) {
       console.log(httpResponse);
-      Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: 'Utilisateur non trouvé, veuillez verifier vos informations de connexion.',
-      });
+      showErrorMessage('Utilisateur non trouvé, veuillez verifier vos informations de connexion.')
       return null;
     }
 
@@ -79,7 +71,7 @@ export async function signIn(data) {
     return connectedUser;
 
   } catch (error) {
-    errorServer();
+    errorServer(); //alert ereur server
     console.error("API non accessible...", error);
   }
 };

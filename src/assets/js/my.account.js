@@ -1,3 +1,8 @@
+import { deleteMyAccount, getMyAccount } from "./api.js";
+import { showConfirmationDialog } from "./handling.error.js";
+import { showSuccessMessage } from "./handling.error.js";
+import { showErrorMessage } from "./handling.error.js";
+import { ShowCancelAction } from "./handling.error.js";
 import { resetViewTemplate } from "./utils.js";
 import { 
   fetchDisplayEditInfoPage,
@@ -5,9 +10,6 @@ import {
   fetchDisplayEditLabelPage,
   fetchDisplayEditPersonalPage 
 } from "./edit.account.js";
-import { deleteMyAccount, getMyAccount } from "./api.js";
-import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
-
 
 
 export async function fetchDisplayMyAccountPage(){
@@ -65,46 +67,6 @@ function addEditButtonsListener() {
   });
 };
    
-// Function to select the delete button element
-function getDeleteButton() {
-  // Select the delete button within the #app-main section
-  return document.querySelector("#app-main .delete-account");
-}
-
-// Function to display the confirmation dialog
-async function showConfirmationDialog() {
-  return await Swal.fire({
-    title: 'Attention',
-    text: 'Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.',
-    icon: 'warning', // Warning icon
-    showCancelButton: true, // Show cancel button
-    confirmButtonText: 'Oui, supprimer mon compte', // Confirm button text
-    cancelButtonText: 'Non, annuler', // Cancel button text
-    reverseButtons: true // Reverse the order of buttons
-  });
-}
-
-// Function to display the success message
-async function showSuccessMessage() {
-  await Swal.fire({
-    icon: 'success', // Success icon
-    title: 'Succès',
-    text: 'Votre compte a bien été supprimé.',
-  });
-
-  // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
-  fetchDisplayHomePageVisitor();
-}
-
-// Function to display the error message
-function showErrorMessage(message) {
-  Swal.fire({
-    icon: 'error', // Error icon
-    title: 'Erreur',
-    text: message, // Error message passed as a parameter
-  });
-}
-
 // Function to handle the account deletion process
 async function handleDeleteAccount() {
   try {
@@ -128,27 +90,10 @@ async function handleDeleteAccount() {
   }
 }
 
-// Function to handle the user's response from the confirmation dialog
-async function handleConfirmation(confirmation) {
-  if (confirmation.isConfirmed) {
-    // If the user confirmed, proceed to delete the account
-    await handleDeleteAccount();
-  } else if (confirmation.dismiss === Swal.DismissReason.cancel) {
-    // If the user canceled, show an informational message
-    Swal.fire({
-      icon: 'info', // Info icon
-      title: 'Annulé',
-      text: 'Votre compte n\'a pas été supprimé.',
-      timer: 2000, // Automatically close after 2 seconds
-      showConfirmButton: false
-    });
-  }
-}
-
 // Main function to add the delete button event listener
 function addDeleteButtonListener() {
   // Get the delete button element
-  const deleteButton = getDeleteButton();
+  const deleteButton = document.querySelector("#app-main .delete-account");;
 
   if (!deleteButton) {
     console.error('Delete button not found!');
@@ -157,14 +102,24 @@ function addDeleteButtonListener() {
 
   // Add a click event listener to the delete button
   deleteButton.addEventListener('click', async () => {
-    console.log('Bouton de suppression cliqué');
-
+    
     // Show the confirmation dialog and wait for the user's response
     const confirmation = await showConfirmationDialog();
 
     // Handle the user's response
     await handleConfirmation(confirmation);
   });
+}
+
+// Function to handle the user's response from the confirmation dialog
+async function handleConfirmation(confirmation) {
+  if (confirmation.isConfirmed) {
+    // If the user confirmed, proceed to delete the account
+    await handleDeleteAccount();
+  } else if (confirmation.dismiss === Swal.DismissReason.cancel) {
+    // If the user canceled, show an informational message
+    ShowCancelAction()
+  }
 }
 
 function handleEditInfo(){

@@ -2,6 +2,8 @@ import { resetViewTemplate } from "./utils.js";
 import { signUp } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js";
 import { validateFormSignup } from "./handling.error.js";
+import { successSignup } from "./handling.error.js";
+import { showErrorMessage } from "./handling.error.js";
 
 export function fetchDisplaySignupForm(data) {
   let i = 1;
@@ -72,11 +74,7 @@ function handleFormSubmit(e, count, data) {
     // Validate form data with current step
     const error = validateFormSignup(formDataObject, count);
     if (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: error,
-        });
+        showErrorMessage(error)
         return;
     }
 
@@ -108,17 +106,12 @@ console.log(createUser);
   if (!createUser) {
     return  null;
   }
-  // Afficher directement l'alerte de succès
-Swal.fire({
-  title: "Parfait!",
-  text: "Vous êtes bien inscrit, vous allez etre rediriger vers la page de connexion.",
-  icon: "success",
-  confirmButtonText: "OK"
-}).then(() => {
- 
+  // display the success signup alert
+    successSignup()
+   
   // Display the sign-in page upon successful user creation
   fetchDisplaySigninPage();
-});
+
 }
 
 
