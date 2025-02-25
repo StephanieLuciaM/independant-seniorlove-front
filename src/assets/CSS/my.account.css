@@ -1,103 +1,86 @@
 
-/* Profile Section */
+/* LAYOUT PRINCIPAL */
 
 .my-account {
-    padding-top: var(--spacing-large);
-    padding-bottom: var(--spacing-large);
-}
-
-.profile-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-medium);
-    padding: var(--spacing-medium);
-    background-color: white;
-    border-radius: var(--spacing-small);
-    margin-bottom: var(--spacing-large);
-}
-
-/* Pour les conteneurs parents */
-.intro-article-presentation,
-.interests-article {
-    position: relative;
-    padding-top: 2.5rem; /* Pour éviter que le contenu ne soit sous le bouton */
-}
-
-/* Pour les boutons */
-.edit-modal.edit-intro,
-.edit-modal.edit-label {
-    position: absolute;
-    top: var(--spacing-small);
-    right: var(--spacing-small);
-}
-
-.intro-article-presentation, 
-.interests-article{
-    background-color: var(--light-gray);
-}
-
-.events-article{
-    background-color: var(--secondary-color);
-}
-
-.general-info-article{
-    background-color: var(--primary-color-light);
-    color: white;
+    padding: var(--spacing-large) 0;
 }
   
-.profile-img {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--primary-color);
-}
-  
-.profile-details {
-    text-align: center;
-    width: 100%;
-}
-  
-.profile-details p {
-    margin: var(--spacing-small) 0;
-}
-  
-/* Interests Section */
 .interests-section {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-large);
 }
+
+.profile-section,
+.intro-article-presentation,
+.interests-article, 
+.events-article,
+.general-info-article {
+    border-radius: var(--spacing-small);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+}
   
+
 .intro-article {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-medium);
 }
-  
+
 .intro-article-presentation,
-.interests-article,
-.events-article,
-.general-info-article {
-    padding: var(--spacing-medium);
-    border-radius: var(--spacing-small);
-    margin-bottom: var(--spacing-medium);
+.interests-article {
+    position: relative;
+    padding-top: 2.5rem;
+    background-color: var(--light-gray);
 }
-  
+
+
+.general-info-article {
+    background-color: var(--primary-color-light);
+    color: white;
+}
+
+/* PROFILE */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-medium);
+    background-color: white;
+    margin-bottom: var(--spacing-large);
+}
+
+.profile-img {
+    width: 15.625rem;
+    height: 15.625rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+}
+
+.profile-details {
+    text-align: center;
+    width: 100%;
+}
+
+.profile-details p {
+    margin: var(--spacing-small) 0;
+}
+
+/* TITLES */
 .intro-title,
 .interests-title,
 .general-info-title {
     color: var(--primary-color);
     margin-bottom: var(--spacing-medium);
     font-family: var(--font-title);
-    font-size: 1.5rem;
+    font-size: var(--spacing-medium);
 }
 
 .events-title {
     font-family: var(--font-title);
     text-align: center;
-    color: var(--primary-color);
     display: block;
     width: 100%;
     background-color: var(--primary-color);
@@ -106,18 +89,9 @@
     margin-bottom: var(--spacing-medium);
 }
 
-.general-info-title{
+.general-info-title {
     color: white;
-    margin-bottom: var(--spacing-medium);
-    font-family: var(--font-title);
-    font-size: 1.5rem;
     padding-bottom: 3rem;
-}
-
-.general-info{
-    font-weight: bold;
-    padding-right: var(--spacing-small);
-    line-height: var(--spacing-large);
 }
 
 .interest {
@@ -126,7 +100,7 @@
     gap: var(--spacing-small);
     margin-bottom: var(--spacing-medium);
 }
-  
+
 .interest_type {
     top: var(--spacing-small);
     right: 0.7rem;
@@ -136,15 +110,30 @@
     border-radius: var(--spacing-small);
     font-size: var(--spacing-small);
     font-weight: bold;
-    border: 0.1rem solid var(--primary-color);
+    border: 1px solid var(--primary-color);
+    margin-top: 1.8rem;
 }
-  
-/* Events Section */
+
+.general-info {
+    font-weight: bold;
+    padding-right: var(--spacing-small);
+    line-height: var(--spacing-large);
+}
+
+.general-info-description {
+    margin-bottom: 3rem;
+}
+
+/* EVENTS */
+.events-article {
+    background-color: var(--secondary-color);
+}
+
 .past-events,
 .upcoming-events {
     margin-bottom: var(--spacing-large);
 }
-  
+
 .past-event {
     margin-bottom: var(--spacing-medium);
     background-color: white;
@@ -155,11 +144,15 @@
 .past-event:hover {
     transform: scale(1.05);
 }
-
+  
 .past-event a {
     text-decoration: none;
     color: var(--text-color);
     display: block;
+}
+  
+.past-event > a > div {
+    position: relative;
 }
   
 .event-city {
@@ -170,11 +163,9 @@
 }
   
 .event-details {
-    /* padding: var(--spacing-small); */
     display: flex;
     flex-direction: column;
     position: relative;
-    /* gap: var(--spacing-small); */
 }
   
 .event-img {
@@ -200,10 +191,17 @@
     border-radius: var(--spacing-small);
     font-size: var(--spacing-small);
     font-weight: bold;
-    border: 0.1rem solid var(--secondary-color);
+    border: 1px solid var(--secondary-color);
 }
   
-/* Buttons */
+/* BUTTONS */
+.edit-modal.edit-intro,
+.edit-modal.edit-label {
+    position: absolute;
+    top: var(--spacing-small);
+    right: var(--spacing-small);
+}
+  
 .delete-account {
     padding: var(--spacing-small);
     border-radius: var(--spacing-medium);
@@ -215,9 +213,9 @@
     color: white;
     margin-top: var(--spacing-medium);
 }
-
+  
 .delete-account:hover {
-  background-color: #bb2d3b;
+    background-color: #bb2d3b;
 }
   
 .edit-modal {
@@ -228,7 +226,6 @@
     border-radius: var(--spacing-medium);
     transition: transform 0.3s ease;
     border: 0.15rem solid var(--secondary-color);
-    /* margin-top: 1rem; */
 }
   
 .edit-modal:hover {
@@ -237,18 +234,228 @@
     transform: scale(1.05);
     border-color: var(--primary-color);
 }
-
-.edit-modal.edit-personal{
-    margin-right: .5rem;
+  
+.edit-modal.edit-personal {
+    margin-right: 0.5rem;
 }
   
-/* Desktop Styles */
+.edit-modal.cancel-button {
+    background-color: var(--text-color);
+    color: white;
+}
+  
+.edit-modal.cancel-button:hover {
+    background-color: var(--text-color-light);
+}
+  
+/* MODAL */
+.modal {
+    background-color: white;
+    border-radius: var(--spacing-small);
+    padding: var(--spacing-large);
+    max-width: 31.25rem;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+  
+.modal h1 {
+    color: var(--primary-color);
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-medium);
+    text-align: center;
+    padding-bottom: var(--spacing-small);
+    border-bottom: 2px solid var(--light-gray);
+}
+  
+.modal h2, 
+.title-music-edit {
+    color: var(--primary-color);
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-small);
+    text-align: center;
+}
+  
+.title-music-edit {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+  
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+  
+.modal form::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+  
+/* FORM */
+.label-personnal-edit {
+    margin-left: 1rem;
+}
+  
+#modification-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+}
+  
+.form-label, 
+.form-label-modif {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-small);
+    text-align: center;
+}
+  
+.form-input.edit, 
+input[type="file"], 
+.modif_text-presentation {
+    padding: var(--spacing-small);
+    border: 1px solid var(--text-color);
+    border-radius: var(--spacing-small);
+    width: 100%;
+    font-family: var(--font-text);
+    margin-bottom: var(--spacing-small);
+}
+  
+.edit-picture {
+    content: "Sélectionner une photo";
+    display: inline-block;
+    color: white;
+    cursor: pointer;
+    margin-right: var(--spacing-small);
+    background: var(--primary-color);
+    padding: var(--spacing-small);
+    border-radius: 0.5rem;
+}
+  
+.form-input.edit:focus, 
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    background-color: var(--light-primary-color);
+    outline: none;
+}
+  
+.modif_text-presentation {
+    min-height: 16rem;
+    resize: vertical;
+    width: 100%;
+    margin-top: var(--spacing-small);
+}
+  
+#edit-intro form div {
+    margin-bottom: var(--spacing-medium);
+    width: 100%;
+}
+  
+.personal_data-section {
+    background-color: var(--light-gray);
+    padding: var(--spacing-medium);
+    border-radius: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+}
+  
+.personal_data-section > div {
+    display: flex;
+    align-items: center;
+    margin: var(--spacing-small) 0;
+    justify-content: center;
+}
+  
+.personal_data-section label {
+    margin-right: var(--spacing-medium);
+}
+  
+.radio-option {
+    margin-left: var(--spacing-small);
+}
+  
+#music-style-section {
+    display: flex;
+    flex-direction: column;
+}
+  
+#music-style-section label, 
+#music-style-section h2 {
+    margin-bottom: var(--spacing-small);
+}
+  
+#music-style {
+    margin-top: var(--spacing-small);
+}
+  
+#edit-label form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+}
+  
+#edit-label label {
+    margin-right: var(--spacing-small);
+    font-weight: bold;
+}
+  
+/* CHECKBOXES */
+.modal input[type="checkbox"] {
+    display: none;
+}
+  
+.modal input[type="checkbox"] + label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-small);
+    font-size: var(--spacing-medium);
+    font-family: var(--font-main);
+    color: var(--primary-color);
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    padding-left: var(--spacing-large);
+    margin-bottom: var(--spacing-small);
+}
+  
+.modal input[type="checkbox"] + label::before {
+    content: "";
+    width: 1.30rem;
+    height: 1.30rem;
+    border: 0.1rem solid var(--primary-color);
+    border-radius: 0.3rem;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    transition: all 0.3s ease;
+}
+  
+.modal input[type="checkbox"]:checked + label::before {
+    content: "✔";
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    text-align: center;
+    font-size: var(--spacing-small);
+    line-height: 1.125rem;
+    font-weight: bold;
+}
+  
+.modal input[type="checkbox"] + label:hover::before {
+    border-color: var(--primary-color);
+}
+  
+/* MEDIA QUERIES */
 @media screen and (min-width: 768px) {
-
-    .edit-modal.edit-personal{
-        margin-right: none
-    }
-
     .profile-section {
         flex-direction: row;
         justify-content: flex-start;
@@ -270,21 +477,15 @@
   
     .intro-article {
         grid-column: 1;
-        display: flex;
-        flex-direction: column;
     }
   
     .general-info-article {
         grid-column: 2;
-        grid-row: 1; 
-        align-self: stretch; 
-        height: 100%; 
-        position: sticky; 
+        grid-row: 1;
+        align-self: stretch;
+        height: 100%;
+        position: sticky;
         top: var(--spacing-medium);
-    }
-
-    .general-info-description{
-        margin-bottom: 3rem;
     }
   
     .events-article {
@@ -299,62 +500,44 @@
     }
   
     .event-details {
-        /* display: grid;
-        grid-template-columns: 120px 1fr; */
         align-items: center;
-        /* gap: var(--spacing-small); */
     }
   
-    /* .event-img {
-        width: 120px;
-        height: 120px;
-    } */
-    
-    .past-event > a > div {
-        position: relative;
+    .modal {
+        padding: var(--spacing-large);
+        max-width: 37.5rem;
     }
-    .interests-article {
-        margin-bottom: var(--spacing-medium);
+  
+    #edit-label form {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+  
+    .edit-modal.edit-button, 
+    .edit-modal.cancel-button {
+        padding: var(--spacing-small) var(--spacing-large);
+    }
+  
+    .edit-modal.edit-personal {
+        margin-right: none;
     }
 }
-
+  
 @media screen and (min-width: 1024px) {
-
     .profile-section {
         margin-bottom: var(--spacing-medium);
     }
-    
+  
     .intro-article-presentation,
     .interests-article {
         margin-bottom: var(--spacing-medium);
     }
-    
+  
     .interests-section {
         position: relative;
-        padding-bottom: 70px; 
+        padding-bottom: 4.3rem;
     }
-
-    .edit-modal.edit-personal{
-        margin-right: .5rem;
+  
+    .edit-modal.edit-personal {
+        margin-right: 0.5rem;
     }
-    
-    /* .send-message-btn {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 0.75rem 2rem;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: var(--spacing-medium);
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: var(--spacing-large);
-        margin-bottom: var(--spacing-large);
-    }
-    
-    .send-message-btn:hover {
-      background-color: var(--primary-color-light);
-    } */
 }

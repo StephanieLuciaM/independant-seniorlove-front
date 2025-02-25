@@ -573,12 +573,12 @@
   
           <div class="form-group">
             <label for="edit-firstname" class="form-label">Prénom</label>
-            <input type="text" id="edit-firstname" name="firstname" class="form-input">
+            <input type="text" id="edit-firstname" name="firstname" class="form-input edit" placeholder="Votre prénom ici...">
           </div>
   
           <div class="form-group">
             <label for="edit-city" class="form-label">Ville</label>
-            <input type="text" id="edit-city" name="city" class="form-input">
+            <input type="text" id="edit-city" name="city" class="form-input edit" placeholder="Votre ville ici...">
           </select>
           </div>
   
@@ -596,7 +596,7 @@
         <form>
           <div>
             <label for="edit-presentation">Présentez-vous en quelques mots</label>
-            <textarea id="edit-presentation" class="modif_text-presentation" name="description" ></textarea> 
+            <textarea id="edit-presentation" class="modif_text-presentation" name="description" placeholder="Votre texte d'introduction ici..." ></textarea> 
           </div>             
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>
@@ -610,32 +610,32 @@
       <div class="modal">
         <form class="personal_dada" id="modal_personal-data">
           <div class="personal_data-section" id="modal_smoker-section">  
-            <h2>FUMEUR:</h2>
-            <div>
-              <label for="edit-smoker-yes">OUI:</label>
+            <h2>FUMEUR</h2>
+            <div class="personnal-edit-smoker">
               <input type="radio" id="edit-smoker-yes" name="smoker" class="radio-option" value="true">
+              <label class="label-personnal-edit" for="edit-smoker-yes">OUI</label>
             </div>
             <div>
-              <label for="edit-smoker-no">NON:</label>
               <input type="radio" id="edit-smoker-no" name="smoker" class="radio-option" value="false">
+              <label class="label-personnal-edit" for="edit-smoker-no">NON</label>
             </div>
           </div>
 
           <div class="personal_data-section" id="modal-pets-section">
             <h2>ANIMAUX DE COMPAGNIE</h2>
-            <div>
-              <label for="pets-yes">OUI:</label>
+            <div class="personnal-edit-pet">
               <input type="radio" id="pets-yes" name="pet" class="radio-option" value="true">
+              <label class="label-personnal-edit" for="pets-yes">OUI</label>
             </div>
             <div>
-              <label for="pets-no">NON:</label>
               <input type="radio" id="pets-no" name="pet" class="radio-option" value="false">
+              <label class="label-personnal-edit" for="pets-no">NON</label>
             </div>
           </div>
 
           <div class="personal_data-section" id="music-style-section">
-            <label for="music-style">STYLE DE MUSIQUE</label>
-            <input type="text" id="music-style" class="text-input" name="music">
+            <label class="title-music-edit" for="music-style">STYLE DE MUSIQUE</label>
+            <input class="form-input edit" type="text" id="music-style" class="text-input" name="music" placeholder="Votre style de musique ici...">
           </div>
         <button type="submit" class="edit-modal edit-button">Valider</button> 
         <button type="button" class="edit-modal cancel-button">Annuler</button>
@@ -649,23 +649,23 @@
       <div class="modal">
         <h1>Centres d'intérêts</h1>
         <form>
+          <input class="checkbox-edit" type="checkbox" id="nature" name="labels" value="1"> 
           <label for="nature">Nature</label>
-          <input type="checkbox" id="nature" name="labels" value="1"> 
       
+          <input class="checkbox-edit" type="checkbox" id="culture" name="labels" value="2"> 
           <label for="culture">Culture</label>
-          <input type="checkbox" id="culture" name="labels" value="2"> 
                 
+          <input class="checkbox-edit" type="checkbox" id="evening" name="labels" value="5"> 
           <label for="evening">Soirée à thème</label>
-          <input type="checkbox" id="evening" name="labels" value="5"> 
                
+          <input class="checkbox-edit" type="checkbox" id="artistic" name="labels" value="3"> 
           <label for="artistic">Artistique</label>
-          <input type="checkbox" id="artistic" name="labels" value="3"> 
               
+          <input class="checkbox-edit" type="checkbox" id="games" name="labels" value="4">
           <label for="games">Jeux de société</label>
-          <input type="checkbox" id="games" name="labels" value="4">
 
+          <input class="checkbox-edit" type="checkbox" id="Sports" name="labels" value="6">
           <label for="Sports">Sports/bien-être</label>
-          <input type="checkbox" id="Sports" name="labels" value="6">
         
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>
