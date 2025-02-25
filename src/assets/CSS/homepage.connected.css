@@ -102,6 +102,7 @@
     justify-content: center;
     text-align: right;
     margin-bottom: var(--spacing-large);
+    align-content: flex-start;
 } 
 
 .profils__title {

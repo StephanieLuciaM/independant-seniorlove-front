@@ -27,6 +27,7 @@ export function fetchDisplayEditPersonalPage(){
 };
 
 function appendTemplateEditInfoPage(){
+  console.log('appendTemplateEditInfoPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-info");
 
@@ -49,6 +50,7 @@ function appendTemplateEditInfoPage(){
 };
 
 function appendTemplateEditIntroPage(){
+  console.log('appendTemplateEditIntroPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-intro");
 
@@ -71,6 +73,7 @@ function appendTemplateEditIntroPage(){
 };
 
 function appendTemplateEditLabelPage(){
+  console.log('appendTemplateEditLabelPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-label");
 
@@ -93,6 +96,7 @@ function appendTemplateEditLabelPage(){
 };
 
 function appendTemplateEditPersonnalPage(){
+  console.log('appendTemplateEditPersonnalPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-personal");
 
