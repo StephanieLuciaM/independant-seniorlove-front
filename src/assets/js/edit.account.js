@@ -145,16 +145,18 @@ if (fileInput && fileInput.size === 0) {
 }
     
     //const dataUser = Object.fromEntries(formData);
-    console.log(dataUser)
+    
 
     // Get all checkbox values
     const checkboxes = formData.getAll('labels');
     if (checkboxes.length > 0) {
       dataUser.labels = checkboxes;
+      console.log(dataUser.labels)
     }
 
     // Send the updated data to the server
     const updateUser = await editMyAccount(dataUser);
+    console.log(dataUser)
 
     // If the update was unsuccessful, return null
     if(!updateUser){
