@@ -6,33 +6,18 @@ import { resetViewTemplate } from "./utils.js";
 export function fetchDisplayEditInfoPage(){
   resetViewTemplate('app-main');
   appendTemplateEditInfoPage();
-
-  const state = {page: 6, initFunction: 'fetchDisplayEditInfoPage'};
-  const title = "Page de modification profil";
-  const url = "/mon-compte/modification";
-  history.pushState(state, title, url);
 };
 
 // Function to reset the view and display the edit intro page
 export function fetchDisplayEditIntroPage(){
   resetViewTemplate('app-main');
   appendTemplateEditIntroPage();
-
-  const state = {page: 6, initFunction: 'fetchDisplayEditIntroPage'};
-  const title = "Page de modification profil";
-  const url = "/mon-compte/modification";
-  history.pushState(state, title, url);
 };
 
 // Function to reset the view and display the edit label page
 export function fetchDisplayEditLabelPage(){
   resetViewTemplate('app-main');
   appendTemplateEditLabelPage();
-
-  const state = {page: 6, initFunction: 'fetchDisplayEditLabelPage'};
-  const title = "Page de Modification Profil";
-  const url = "/mon-compte/modification";
-  history.pushState(state, title, url);
 };
 
 // Function to reset the view and display the edit personal page
@@ -40,10 +25,6 @@ export function fetchDisplayEditPersonalPage(){
   resetViewTemplate('app-main');
   appendTemplateEditPersonnalPage();
 
-  const state = {page: 6, initFunction: 'fetchDisplayEditPersonalPage'};
-  const title = "Page de modification profil";
-  const url = "/mon-compte/modification";
-  history.pushState(state, title, url);
 };
 
 function appendTemplateEditInfoPage(){

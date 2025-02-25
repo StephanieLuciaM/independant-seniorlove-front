@@ -18,11 +18,6 @@ export async function fetchDisplayHomePageVisitor() {
   if (events) {
     events.forEach(addEventContainer); // Add each event to the event container
   }
-
-const state = {page: 1, initFunction: 'fetchDisplayHomePageVisitor'};
-const title = "Page d'acceuil";
-const url = "/acceuil";
-history.pushState(state, title, url);
 };
 
 
@@ -51,7 +46,11 @@ function addSigninButtonListener() {
   // Add a click event listener to the sign-in button
   signinButton.addEventListener('click', (e) => {
     e.preventDefault(); // Prevent the default link behavior
-    fetchDisplaySigninPage(); // Call the function to display the sign-in page
+    fetchDisplaySigninPage();
+
+    const state = {initFunction: 'fetchDisplaySigninPage'};
+  	const url = "/connexion";
+  	history.pushState(state, "", url); // Call the function to display the sign-in page
   });
 };
 
@@ -64,6 +63,10 @@ function addSignupFormListener() {
     e.preventDefault(); // Prevent the default form submission behavior
     const dataUser = Object.fromEntries(new FormData(signupForm)); // Convert form data to an object
     fetchDisplaySignupForm(dataUser); // Call the function to display the sign-up form
+
+  const state = {initFunction: 'fetchDisplaySignupForm'};
+  const url = "/inscription/etape-1";
+  history.pushState(state, "", url); 
   });
 };
 

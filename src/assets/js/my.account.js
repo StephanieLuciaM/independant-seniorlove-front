@@ -25,10 +25,7 @@ export async function fetchDisplayMyAccountPage(){
   addDeleteButtonListener();
   addLogOutButtonListener();
 
-  const state = {page: 5, initFunction: 'fetchDisplayMyAccountPage'};
-  const title = "Page Mon Compte";
-  const url = "/mon-compte";
-  history.pushState(state, title, url);
+  
 };
 
 function appendTemplatesMyAccount(data){
@@ -111,21 +108,38 @@ function addLogOutButtonListener(){
 function handleEditInfo(){
   // Fetch and display the edit info page
   fetchDisplayEditInfoPage();
+
+  const state = { initFunction: 'fetchDisplayEditInfoPage'};
+  const url = "/mon-compte/modification";
+  history.pushState(state, "", url);
 };
 
 function handleEditIntro(){
   // Fetch and display the edit intro page
   fetchDisplayEditIntroPage();
+
+  const state = {initFunction: 'fetchDisplayEditIntroPage'};
+  const url = "/mon-compte/modification";
+  history.pushState(state, "", url);
 };
 
 function handleEditLabel(){
   // Fetch and display the edit label page
   fetchDisplayEditLabelPage();
+
+
+  const state = {initFunction: 'fetchDisplayEditLabelPage'};
+  const url = "/mon-compte/modification";
+  history.pushState(state, "", url);
 };
 
 function handleEditPersonal(){
   // Fetch and display the edit personal page
   fetchDisplayEditPersonalPage();
+
+  const state = {initFunction: 'fetchDisplayEditPersonalPage'};
+  const url = "/mon-compte/modification";
+  history.pushState(state, "", url);
 };
 
 function myAccount(display, data){

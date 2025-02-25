@@ -6,11 +6,6 @@ import { validateFormSignup } from "./handling.error.js";
 export function fetchDisplaySignupForm(data) {
   let i = 1;
   displayNextForm(i, data);
-
-  const state = {page: 2, initFunction: 'fetchDisplaySignupForm'};
-  const title = "Page d'inscription";
-  const url = "/inscription";
-  history.pushState(state, title, url); 
 };
 
 function displayNextForm(count, data) {
@@ -21,7 +16,9 @@ function displayNextForm(count, data) {
   const contentTemplate = document.querySelector(`template[data-slide-id='${count}']`);
   initContent(contentTemplate, count, data);
 
-  
+  const state = {page: `${count + 1}`, initFunction: 'fetchDisplaySignupForm'};
+  const url = `/inscription/etape-${count}`;
+  history.pushState(state, "", url); 
 };
 
 function initContent(contentTemplate, count, data) {
@@ -125,6 +122,9 @@ Swal.fire({
  
   // Display the sign-in page upon successful user creation
   fetchDisplaySigninPage();
+  const state = {initFunction: 'fetchDisplayHomePageConnected'};
+  const url = "/tableau-de-bord";
+  history.pushState(state, "", url);
 });
 }
 
