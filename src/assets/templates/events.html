@@ -8,101 +8,109 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../CSS/reset.css">
-    <link rel="stylesheet" href="../CSS/base.css">
-    <link rel="stylesheet" href="../CSS/events.css">
+    <link rel="stylesheet" href="/src/assets/CSS/reset.css">
+    <link rel="stylesheet" href="/src/assets/CSS/inscription.css">
+    <link rel="stylesheet" href="/src/assets/CSS/signin.css">
+    <link rel="stylesheet" href="/src/assets/CSS/homepage.visitor.css">
+    <link rel="stylesheet" href="/src/assets/CSS/homepage.connected.css"> 
+    <link rel="stylesheet" href="/src/assets/CSS/base.css">
+    <link rel="stylesheet" href="/src/assets/CSS/events.css">
 </head>
 <body>
-        <header class="header-connected__container">
-            <a href="">
-                <img class="header-connected__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
-            </a>
-                <nav class="header-connected__nav">
-                <a href="#"  class="header__nav-link">Profils</a>
-                <a href="#"  class="header__nav-link ">Évènements</a>
-                <a href="#"  class="header__nav-link ">Messages</a>
-                <a href="#"  class="header__nav-link ">Mon compte</a>
-            </nav>
-            <form action="/" class="header-connected__search-form">
-                <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
-                <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
-            </form>
-        </header>
+    <header class="header-connected__container">
+        <a href="">
+            <img class="header-connected__logo" src="../img/logo/heart-2-removebg.png" alt="logo coeur">
+        </a>
+            <nav class="header-connected__nav">
+            <a href="#"  class="header__nav-link">Profils</a>
+            <a href="#"  class="header__nav-link ">Évènements</a>
+            <a href="#"  class="header__nav-link ">Messages</a>
+            <a href="#"  class="header__nav-link ">Mon compte</a>
+        </nav>
+        <form action="/" class="header-connected__search-form">
+            <input type="text" name="name" class="header-connected__search-input" placeholder="Profil, évènement,.." aria-label="Rechercher un profil, un évènement">
+            <button type="submit" class="header-connected__search-button" aria-label="Rechercher"><img src="../img/icon/search-icon.svg" alt="icône de recherche" class="header-connected__search-icon"></button>
+        </form>
+    </header>
 
-    
-        <main id="app" class="container">
-            <!-- here all templates to generate -->  
-        <template id="all-events-page">
-            <section class="cities-filter">
-                <div class="cities-filter__list">
-                    <button class="cities-filter__button">Paris</button>
-                    <button class="cities-filter__button">Lyon</button>
-                    <button class="cities-filter__button">Toulouse</button>
-                    <button class="cities-filter__button">Marseille</button>
-                    <button class="cities-filter__button">Filtre</button>
-                </div>
-            </section>
+    <main id="app" class="container">
+        <!-- contenu de la page événements -->
+         <!-- <template id="all-events-page"> -->
+            <div class="all-events-page">
+                <section class="cities-filter">
+                    <div class="cities-filter__list">
+                        <button class="cities-filter__button">Paris</button>
+                        <button class="cities-filter__button">Lyon</button>
+                        <button class="cities-filter__button">Toulouse</button>
+                        <button class="cities-filter__button">Marseille</button>
+                        <button class="cities-filter__button filter">Filtre</button>
+                    </div>
+                </section>
 
-            <section class="events-grid">
-                <!-- Premier événement -->
-                <article class="event">
-                    <a href="">
-                        <div>
-                            <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
-                            <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
-                            <span class="event__theme">Jeux</span>
-                            <button class="more-btn">En savoir plus</button>
-                        </div>
-                    </a>
-                </article>
-                <article class="event">
-                    <a href="">
-                        <div>
-                            <img src="../img/diverse-img/sports.jpg" alt="canoë en groupe"> 
-                            <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
-                            <span class="event__theme">Sport</span>
-                        </div>
-                    </a>
-                </article>
-                <article class="event">
-                    <a href="">
-                        <div>
-                            <img src="../img/diverse-img/party.jpg" alt="soirée en groupe"> 
-                            <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
-                            <span class="event__theme">Soirée à thème</span>
-                        </div>
-                    </a>
-                </article>
-            </article>
-            <article class="event">
-                <a href="">
-                    <div>
-                        <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                        <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                        <span class="event__theme">Sortie culturelle</span>
-                    </div>
-                </a>
-            </article>
-            <article class="event">
-                <a href="">
-                    <div>
-                        <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                        <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                        <span class="event__theme">Sortie culturelle</span>
-                    </div>
-                </a>
-            </article>
-            <article class="event">
-                <a href="">
-                    <div>
-                        <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
-                        <h3 class="event__description">Sortie au centre d’art "Les Abattoirs"</h3>
-                        <span class="event__theme">Sortie culturelle</span>
-                    </div>
-                </a>
-            </article>
-            </section>
-    </template>
+                <section class="events-grid">
+                    <article class="event">
+                        <a href="">
+                            <div>
+                                <img src="../img/diverse-img/games.jpg" alt="jeux de société en groupe"> 
+                                <h3 class="event__description">Partie de Trivial Pursuit au bar à jeux "Les Grands Gamins"</h3>
+                                <span class="event__theme">Jeux</span>
+                                <button class="more-btn">En savoir plus</button>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="event">
+                        <a href="">
+                            <div>
+                                <img src="../img/diverse-img/sports.jpg" alt="canoë en groupe"> 
+                                <h3 class="event__description">Randonnée au Parc de Lacroix-Laval</h3>
+                                <span class="event__theme">Sport</span>
+                                <button class="more-btn">En savoir plus</button>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="event">
+                        <a href="">
+                            <div>
+                                <img src="../img/diverse-img/party.jpg" alt="soirée en groupe"> 
+                                <h3 class="event__description">Soirée à la guinguette "Le Bon Air"</h3>
+                                <span class="event__theme">Soirée à thème</span>
+                                <button class="more-btn">En savoir plus</button>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="event">
+                        <a href="">
+                            <div>
+                                <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
+                                <h3 class="event__description">Sortie au centre d'art "Les Abattoirs"</h3>
+                                <span class="event__theme">Sortie culturelle</span>
+                                <button class="more-btn">En savoir plus</button>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="event">
+                        <a href="">
+                            <div>
+                                <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
+                                <h3 class="event__description">Sortie au centre d'art "Les Abattoirs"</h3>
+                                <span class="event__theme">Sortie culturelle</span>
+                                <button class="more-btn">En savoir plus</button>
+                            </div>
+                        </a>
+                    </article>
+                    <article class="event">
+                        <a href="">
+                            <div>
+                                <img src="../img/diverse-img/cultural.jpg" alt="sortie culturelle"> 
+                                <h3 class="event__description">Sortie au centre d'art "Les Abattoirs"</h3>
+                                <span class="event__theme">Sortie culturelle</span>
+                                <button class="more-btn">En savoir plus</button>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        <!-- </template> -->
     </main>
 
     <footer class="footer">
