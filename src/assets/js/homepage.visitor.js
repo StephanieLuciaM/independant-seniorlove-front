@@ -48,7 +48,7 @@ function addSigninButtonListener() {
     e.preventDefault(); // Prevent the default link behavior
     fetchDisplaySigninPage();
 
-    const state = {initFunction: 'fetchDisplaySigninPage'};
+    const state = {page: "Connexion", initFunction: 'fetchDisplaySigninPage'};
   	const url = "/connexion";
   	history.pushState(state, "", url); // Call the function to display the sign-in page
   });
@@ -64,9 +64,9 @@ function addSignupFormListener() {
     const dataUser = Object.fromEntries(new FormData(signupForm)); // Convert form data to an object
     fetchDisplaySignupForm(dataUser); // Call the function to display the sign-up form
 
-  const state = {initFunction: 'fetchDisplaySignupForm'};
-  const url = "/inscription/etape-1";
-  history.pushState(state, "", url); 
+    const state = {page: "Inscription etape 1", initFunction: 'fetchDisplaySignupForm'};
+    const url = "/inscription/etape-1";
+    history.pushState(state, "", url); 
   });
 };
 

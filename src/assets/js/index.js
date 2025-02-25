@@ -19,9 +19,17 @@ async function init() {
     // If the user is not authenticated, display the visitor home page
     if (!user) {
       await fetchDisplayHomePageVisitor();
+
+      const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
+    const url = "/accueil";
+    history.pushState(state, "", url);
     } else {
       // Display the home page for authenticated users
       fetchDisplayHomePageConnected();
+
+      const state = {page: "Tableau de bord", initFunction: 'fetchDisplayHomePageConnected'};
+  	  const url = "/tableau-de-bord";
+  	  history.pushState(state, "", url);
     }
   } catch (error) {
     console.error('Erreur d\'initialisation:', error);

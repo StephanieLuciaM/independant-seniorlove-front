@@ -86,6 +86,10 @@ function addDeleteButtonListener() {
 
     // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
     fetchDisplayHomePageVisitor();
+
+    const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
+    const url = "/accueil";
+    history.pushState(state, "", url);
   });
 };
 
@@ -102,6 +106,9 @@ function addLogOutButtonListener(){
     }
 
     fetchDisplayHomePageVisitor();
+    const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
+    const url = "/accueil";
+    history.pushState(state, "", url);
   })
 }
 
@@ -109,7 +116,7 @@ function handleEditInfo(){
   // Fetch and display the edit info page
   fetchDisplayEditInfoPage();
 
-  const state = { initFunction: 'fetchDisplayEditInfoPage'};
+  const state = {page: "Mon compte modification", initFunction: 'fetchDisplayEditInfoPage'};
   const url = "/mon-compte/modification";
   history.pushState(state, "", url);
 };
@@ -118,7 +125,7 @@ function handleEditIntro(){
   // Fetch and display the edit intro page
   fetchDisplayEditIntroPage();
 
-  const state = {initFunction: 'fetchDisplayEditIntroPage'};
+  const state = {page: "Mon compte modification", initFunction: 'fetchDisplayEditIntroPage'};
   const url = "/mon-compte/modification";
   history.pushState(state, "", url);
 };
@@ -128,7 +135,7 @@ function handleEditLabel(){
   fetchDisplayEditLabelPage();
 
 
-  const state = {initFunction: 'fetchDisplayEditLabelPage'};
+  const state = {page: "Mon compte modification", initFunction: 'fetchDisplayEditLabelPage'};
   const url = "/mon-compte/modification";
   history.pushState(state, "", url);
 };
@@ -137,7 +144,7 @@ function handleEditPersonal(){
   // Fetch and display the edit personal page
   fetchDisplayEditPersonalPage();
 
-  const state = {initFunction: 'fetchDisplayEditPersonalPage'};
+  const state = {page: "Mon compte modification", initFunction: 'fetchDisplayEditPersonalPage'};
   const url = "/mon-compte/modification";
   history.pushState(state, "", url);
 };

@@ -16,7 +16,7 @@ function displayNextForm(count, data) {
   const contentTemplate = document.querySelector(`template[data-slide-id='${count}']`);
   initContent(contentTemplate, count, data);
 
-  const state = {page: `${count + 1}`, initFunction: 'fetchDisplaySignupForm'};
+  const state = {page: `Inscription etape ${count + 1}`, initFunction: 'fetchDisplaySignupForm'};
   const url = `/inscription/etape-${count}`;
   history.pushState(state, "", url); 
 };
@@ -122,8 +122,8 @@ Swal.fire({
  
   // Display the sign-in page upon successful user creation
   fetchDisplaySigninPage();
-  const state = {initFunction: 'fetchDisplayHomePageConnected'};
-  const url = "/tableau-de-bord";
+  const state = {page: "Connexion", initFunction: 'fetchDisplaySigninPage'};
+  const url = "/connexion";
   history.pushState(state, "", url);
 });
 }

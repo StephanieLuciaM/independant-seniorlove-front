@@ -124,6 +124,10 @@ function addCancelButtonListener(cancelButton){
   cancelButton.addEventListener('click', () =>{
     resetViewTemplate("app-main");
     fetchDisplayMyAccountPage();
+
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   });
 };
 
@@ -170,5 +174,9 @@ function addEditFormListener(editForm) {
 
     // Fetch and display the "My Account" page
     fetchDisplayMyAccountPage();
+
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   });
 };
