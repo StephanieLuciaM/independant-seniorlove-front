@@ -37,7 +37,7 @@
 
 .email-input,
 .password-input {
-    width: 100%;
+    width: 20rem;
     padding: 0.5rem;
     margin-bottom: var(--spacing-medium);
     border: 1px solid var(--secondary-color);
@@ -45,6 +45,23 @@
     outline: none;
     transition: border-color 0.3s;
     cursor: pointer;
+}
+
+.password-container {
+    position: relative; 
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    bottom: -20%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+  /* Icone toggler */
+.password-toggle i {
+    font-size: 18px;
 }
 
 .email-input:focus,

@@ -31,7 +31,57 @@ function initContent(contentTemplate, count, data) {
   // Add event listeners to the form and skip button
   addFormSubmitListener(form, count, data);
   addSkipButtonListener(skipButton, count, data);
+
+  // Add event listeners for showing/hiding password
+  addPasswordToggleListener(contentContainer);
 };
+
+function addPasswordToggleListener(container) {
+  // Select the elements that will act as toggle buttons for password visibility
+  const togglePassword = container.querySelector('#togglePassword');
+  const toggleRepeatPassword = container.querySelector('#toggleRepeatPassword');
+
+  // If the first toggle button exists, add a click event listener
+  if (togglePassword) {
+    togglePassword.addEventListener('click', function () {
+      // Select the password input field
+      const passwordField = container.querySelector('#password');
+      // Select the icon inside the toggle button
+      const icon = this.querySelector('i');
+
+      // Check if the password is currently hidden (type="password")
+      const isPasswordHidden = passwordField.getAttribute('type') === 'password';
+      // Toggle the input field type between 'password' and 'text'
+      passwordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
+      
+      // Toggle the icon between an open eye (visible) and a slashed eye (hidden)
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+  }
+
+  // If the second toggle button exists, add a click event listener
+  if (toggleRepeatPassword) {
+    toggleRepeatPassword.addEventListener('click', function () {
+      // Select the repeat password input field
+      const repeatPasswordField = container.querySelector('#repeat_password');
+      // Select the icon inside the toggle button
+      const icon = this.querySelector('i');
+
+      // Check if the repeat password is currently hidden (type="password")
+      const isPasswordHidden = repeatPasswordField.getAttribute('type') === 'password';
+      // Toggle the input field type between 'password' and 'text'
+      repeatPasswordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
+      
+      // Toggle the icon between an open eye (visible) and a slashed eye (hidden)
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+  }
+}
+
+
+
 
 function cloneAndAppendContent(contentTemplate) {
   if (!contentTemplate) {
@@ -69,16 +119,16 @@ function handleFormSubmit(e, count, data) {
   const formData = new FormData(e.target);
   const formDataObject = Object.fromEntries(formData);
 
-    // Validate form data with current step
-    const error = validateFormSignup(formDataObject, count);
-    if (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Erreur',
-            text: error,
-        });
-        return;
-    }
+  // Validate form data with current step
+  const error = validateFormSignup(formDataObject, count);
+  if (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: error,
+    });
+    return;
+  }
 
   // Get all checkbox values with the name 'labels'
   const checkboxes = formData.getAll('labels');
@@ -104,21 +154,21 @@ function handleFormSubmit(e, count, data) {
 
 async function createNewUser(data) {
   const createUser = await signUp(data);
-console.log(createUser);
+  console.log(createUser);
   if (!createUser) {
     return  null;
   }
   // Afficher directement l'alerte de succès
-Swal.fire({
-  title: "Parfait!",
-  text: "Vous êtes bien inscrit, vous allez etre rediriger vers la page de connexion.",
-  icon: "success",
-  confirmButtonText: "OK"
-}).then(() => {
+  Swal.fire({
+    title: "Parfait!",
+    text: "Vous êtes bien inscrit, vous allez etre rediriger vers la page de connexion.",
+    icon: "success",
+    confirmButtonText: "OK"
+  }).then(() => {
  
-  // Display the sign-in page upon successful user creation
-  fetchDisplaySigninPage();
-});
+    // Display the sign-in page upon successful user creation
+    fetchDisplaySigninPage();
+  });
 }
 
 

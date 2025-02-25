@@ -43,9 +43,23 @@
 }
 
 .input__signup.identification{
-    width: 100%;
+    width: 20rem;
 }
 
+.password-container .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 2; 
+}
+
+
+/* Icone du toggler */
+.password-toggle i {
+    font-size: 18px;
+}
 
 
 /* .select__signup{

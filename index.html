@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="./src/assets/CSS/homepage.visitor.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.connected.css">
     <link rel="stylesheet" href="./src/assets/CSS/my.account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script type="module" src="./src/assets/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">s</script>
   </head>
@@ -188,7 +189,12 @@
           <label for="email" class="email-label">Email</label>
           <input type="text" class="email-input" id="email" name="email" placeholder="Votre email..." required>
           <label for="password" class="password-label">Mot de passe</label>
-          <input type="password" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
+          <div class="password-container">
+            <input type="password" class="password-input" id="password" name="password" placeholder="Votre mot de passe ..." required>
+            <span id="togglePassword" class="password-toggle">
+              <i class="fa-solid fa-eye-slash"></i>
+            </span> 
+          </div>
           <button  type="submit" value="Submit" class="sign-in__submit-btn">Se connecter</button>
         </form>
       </div>
@@ -412,30 +418,40 @@
     </template>
     
     <template data-slide-id="10">
-      <section class="question identification ">
+      <section class="question identification">
         <h1 class="senior-word">Senior<span class="love-word">Love</span></h1>
         <form class="form__signup">
           <div>
             <label class="label__signup identification" for="firstname">Votre prénom</label>
             <input class="input__signup identification" type="text" id="firstname" placeholder="ex: Joséphine.." name="firstname" required>
-            </div>
+          </div>
           <div>
             <label class="label__signup identification" for="email">Votre email</label>
             <input class="input__signup identification" type="email" id="email" name="email" placeholder="ex: Joséphine_78@gmail.com..." required>
-            </div>
-            <div>
+          </div>
+          <div>
             <label class="label__signup identification" for="password">Votre mot de passe *</label>
-            <input class="input__signup identification" type="password" id="password" name="password" required>
+            <div class="password-container">
+              <input class="input__signup identification" type="password" id="password" name="password" required>
+              <span id="togglePassword" class="password-toggle">
+                <i class="fa-solid fa-eye-slash"></i>
+              </span>              
             </div>
-            <div>
-             <label class="label__signup identification" for="repeat_password">Vérification de votre mot de passe *</label>
-             <input class="input__signup identification" type="password" id="repeat_password" name="confirmPassword" required>
+          </div>         
+          <div>
+            <label class="label__signup identification" for="repeat_password">Vérification de votre mot de passe *</label>
+            <div class="password-container">
+              <input class="input__signup identification" type="password" id="repeat_password" name="confirmPassword" required>
+              <span id="toggleRepeatPassword" class="password-toggle">
+                <i class="fa-solid fa-eye-slash"></i>
+              </span>              
             </div>
-            <button type="submit" class="submit-btn">Valider</button>
+          </div>      
+          <button type="submit" class="submit-btn">Valider</button>
         </form>
       </section>
     </template>
-
+    
       <!-- Template my account -->
 
     <template id="my-account">
