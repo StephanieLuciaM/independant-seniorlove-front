@@ -120,6 +120,10 @@ console.log(createUser);
   const url = "/connexion";
   history.pushState(state, "", url);
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> c3c35d74a56d65eaafe5d62cd5eb89ed3452d16d
 
 
 
