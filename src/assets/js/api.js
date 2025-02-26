@@ -212,4 +212,25 @@ export async function deleteMyAccount() {
   }
 };
 
+export async function logOutMyAccount(){
+  try {
+    
+    const httpResponse = await fetch(`${apiUrl}/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if(!httpResponse.ok){
+      console.log(httpResponse);
+      return null;
+    }
+
+    const logOut = await httpResponse.json();
+    return logOut;
+
+  } catch (error) {
+    console.error("API non accessible...", error);
+  }
+}
+
 

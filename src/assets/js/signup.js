@@ -7,7 +7,7 @@ import { showErrorMessage } from "./handling.error.js";
 
 export function fetchDisplaySignupForm(data) {
   let i = 1;
-  displayNextForm(i, data); 
+  displayNextForm(i, data);
 };
 
 function displayNextForm(count, data) {
@@ -17,6 +17,10 @@ function displayNextForm(count, data) {
   // Select the template corresponding to the current slide
   const contentTemplate = document.querySelector(`template[data-slide-id='${count}']`);
   initContent(contentTemplate, count, data);
+
+  const state = {page: `Inscription etape ${count + 1}`, initFunction: 'fetchDisplaySignupForm'};
+  const url = `/inscription/etape-${count}`;
+  history.pushState(state, "", url); 
 };
 
 function initContent(contentTemplate, count, data) {
@@ -111,6 +115,11 @@ console.log(createUser);
    
   // Display the sign-in page upon successful user creation
   fetchDisplaySigninPage();
+
+  const state = {page: "Connexion", initFunction: 'fetchDisplaySigninPage'};
+  const url = "/connexion";
+  history.pushState(state, "", url);
+});
 
 }
 

@@ -24,9 +24,11 @@ export function fetchDisplayEditLabelPage(){
 export function fetchDisplayEditPersonalPage(){
   resetViewTemplate('app-main');
   appendTemplateEditPersonnalPage();
+
 };
 
 function appendTemplateEditInfoPage(){
+  console.log('appendTemplateEditInfoPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-info");
 
@@ -49,6 +51,7 @@ function appendTemplateEditInfoPage(){
 };
 
 function appendTemplateEditIntroPage(){
+  console.log('appendTemplateEditIntroPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-intro");
 
@@ -71,6 +74,7 @@ function appendTemplateEditIntroPage(){
 };
 
 function appendTemplateEditLabelPage(){
+  console.log('appendTemplateEditLabelPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-label");
 
@@ -93,6 +97,7 @@ function appendTemplateEditLabelPage(){
 };
 
 function appendTemplateEditPersonnalPage(){
+  console.log('appendTemplateEditPersonnalPage');
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-personal");
 
@@ -119,6 +124,10 @@ function addCancelButtonListener(cancelButton){
   cancelButton.addEventListener('click', () =>{
     resetViewTemplate("app-main");
     fetchDisplayMyAccountPage();
+
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   });
 };
 
@@ -132,10 +141,10 @@ function addEditFormListener(editForm) {
     const dataUser = {};
 
     // Check if the file input field is empty
-const fileInput = formData.get('picture');
-if (fileInput && fileInput.size === 0) {
-  formData.delete('picture'); // Delete the 'picture' field if no file is selected
-}
+  const fileInput = formData.get('picture');
+  if (fileInput && fileInput.size === 0) {
+    formData.delete('picture'); // Delete the 'picture' field if no file is selected
+  }
 
 // Iterate over formData entries and update dataUser object
   for (const [key, value] of formData.entries()) {
@@ -145,16 +154,18 @@ if (fileInput && fileInput.size === 0) {
 }
     
     //const dataUser = Object.fromEntries(formData);
-    console.log(dataUser)
+    
 
     // Get all checkbox values
     const checkboxes = formData.getAll('labels');
     if (checkboxes.length > 0) {
       dataUser.labels = checkboxes;
+      console.log(dataUser.labels)
     }
 
     // Send the updated data to the server
     const updateUser = await editMyAccount(dataUser);
+    console.log(dataUser)
 
     // If the update was unsuccessful, return null
     if(!updateUser){
@@ -163,5 +174,9 @@ if (fileInput && fileInput.size === 0) {
 
     // Fetch and display the "My Account" page
     fetchDisplayMyAccountPage();
+
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   });
 };

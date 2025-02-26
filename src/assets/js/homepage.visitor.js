@@ -4,6 +4,7 @@ import { fetchDisplaySignupForm } from "./signup.js";
 import { resetViewTemplate } from "./utils.js";
 import { chekMinimumAge } from "./handling.error.js";
 
+
 export async function fetchDisplayHomePageVisitor() {
   
   resetViewTemplate('app-header', 'app-main')
@@ -19,6 +20,7 @@ export async function fetchDisplayHomePageVisitor() {
     events.forEach(addEventContainer); // Add each event to the event container
   }
 };
+
 
 function appendTemplates() {
   // Select the header and content templates
@@ -45,7 +47,11 @@ function addSigninButtonListener() {
   // Add a click event listener to the sign-in button
   signinButton.addEventListener('click', (e) => {
     e.preventDefault(); // Prevent the default link behavior
-    fetchDisplaySigninPage(); // Call the function to display the sign-in page
+    fetchDisplaySigninPage();
+
+    const state = {page: "Connexion", initFunction: 'fetchDisplaySigninPage'};
+  	const url = "/connexion";
+  	history.pushState(state, "", url); // Call the function to display the sign-in page
   });
 };
 
@@ -55,9 +61,9 @@ function addSignupFormListener() {
   
    // Add a 'submit' event listener to the signup form
   signupForm.addEventListener('submit', (e) => {
-    e.preventDefault(); 
-    
-    const dataUser = Object.fromEntries(new FormData(signupForm));
+
+    e.preventDefault(); // Prevent the default form submission behavior
+    const dataUser = Object.fromEntries(new FormData(signupForm)); // Convert form data to an object
     
      // Check if the age is less than 60
     if (dataUser.age < 60) {
@@ -66,8 +72,12 @@ function addSignupFormListener() {
       return; 
     }
     
-    // If the age is valid, proceed with the submission (e.g., call a function)
-    fetchDisplaySignupForm(dataUser);
+    fetchDisplaySignupForm(dataUser); // Call the function to display the sign-up form
+    
+    const state = {page: "Inscription etape 1", initFunction: 'fetchDisplaySignupForm'};
+    const url = "/inscription/etape-1";
+    history.pushState(state, "", url); 
+
   });
 }
 

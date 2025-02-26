@@ -13,6 +13,7 @@ export function fetchDisplaySigninPage() {
   
 	// Add the event listener to the sign-in form
 	addSigninFormListener();
+
 };
   
 function appendSigninTemplate() {
@@ -60,6 +61,9 @@ async function handleSigninFormSubmit(e) {
 	};
 
     fetchDisplayHomePageConnected(dataUser);
+	const state = {initFunction: 'fetchDisplayHomePageConnected'};
+  	const url = "/tableau-de-bord";
+  	history.pushState(state, "", url);
  
 };
 
