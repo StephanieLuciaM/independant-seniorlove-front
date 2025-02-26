@@ -9,7 +9,7 @@ export async function fetchDisplayHomePageConnected(data){
 
   appendTemplatesConnedted();
   addMyAccountButtonListener(data);
-  addEventsButtonListener();
+  addEventsButtonListener(data);
 
   // Fetch and display the latest matched profiles
   const profilsMatch = await getLastProfilesMatch();
@@ -59,7 +59,7 @@ function addMyAccountButtonListener(data){
   })
 };
 
-function addEventsButtonListener(){
+function addEventsButtonListener(data){
   // Select the "Évènements" button from the header
   const EventsButton = document.querySelector("#app-header .header__nav-link-events");
 
@@ -69,7 +69,7 @@ function addEventsButtonListener(){
     e.preventDefault();
     
     // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayEventsPage();
+    fetchDisplayEventsPage(data);
     const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
     const url = "/events";
     history.pushState(state, "", url);

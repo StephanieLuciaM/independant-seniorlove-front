@@ -233,22 +233,22 @@ export async function logOutMyAccount(){
   }
 }
 
-// export async function getAllEvents(){
-//   try {
+export async function getAllEvents(){
+  try {
     
-//     const httpResponse = await fetch(`${apiUrl}/events`, {
-//       credentials: "include",
-//     });
+    const httpResponse = await fetch(`${apiUrl}/events`, {
+      credentials: "include",
+    });
 
-//     if(!httpResponse.ok){
-//       console.log(httpResponse);
-//       return null;
-//     }
+    if(!httpResponse.ok){
+      console.log(httpResponse);
+      return null;
+    }
 
-//     const allEvents = await httpResponse.json();
-//     return allEvents;
+    const allEvents = await httpResponse.json();
+    return allEvents;
 
-//   } catch (error) {
-//     console.error("API non accessible...", error);
-//   }
-// };
+  } catch (error) {
+    console.error("API non accessible...", error);
+  }
+};
