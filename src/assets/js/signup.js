@@ -119,9 +119,7 @@ console.log(createUser);
   const state = {page: "Connexion", initFunction: 'fetchDisplaySigninPage'};
   const url = "/connexion";
   history.pushState(state, "", url);
-});
-
-}
+};
 
 
 
