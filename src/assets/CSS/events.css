@@ -1,3 +1,4 @@
+
 /* CITIES FILTER */
 .cities-filter {
     margin-top: var(--spacing-large);
@@ -34,11 +35,6 @@
     background-color: var(--primary-color);
     color: white; 
 }
-
-/* .cities-filter__button.filter:hover{
-background-color: white;
-color: var(--text-color)
-} */
 
 .cities-filter__button:hover,
 .cities-filter__button.active {
@@ -123,20 +119,11 @@ color: var(--text-color)
     background-color: var(--primary-color-light);
 }
 
-/* Pour assurer que le container contient correctement tout le contenu */
-.container {
-    max-width: 95rem;
-    margin: 0 auto;
-    padding: var(--spacing-medium);
-    width: 100%;
-    box-sizing: border-box;
-}
-
 .all-events-page {
     width: 100%;
 }
 
-/* DESKTOP VERSION */
+/* MEDIA QUERIES */
 @media screen and (min-width: 768px) {
     .cities-filter__list {
         justify-content: center;
