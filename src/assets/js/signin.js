@@ -2,6 +2,7 @@ import { signIn } from "./api.js";
 import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
 import { validateFormSignin } from "./handling.error.js";
+import { showErrorMessage } from "./handling.error.js";
 
 export function fetchDisplaySigninPage() {
   // Reset the view template for the main content area
@@ -10,8 +11,9 @@ export function fetchDisplaySigninPage() {
   // Append the sign-in template to the main content container
   appendSigninTemplate();
   
-  // Add the event listener to the sign-in form
-  addSigninFormListener();
+	// Add the event listener to the sign-in form
+	addSigninFormListener();
+
 };
   
 function appendSigninTemplate() {
@@ -45,15 +47,14 @@ async function handleSigninFormSubmit(e) {
   const dataUser = Object.fromEntries(new FormData(form));
   console.log(dataUser);
 
-  // Valider les données avant de tenter de se connecter
-  if (!validateFormSignin(dataUser)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Erreur',
-      text: 'Veuillez renseigner correctement vos données de connexion.',
-    });
-    return;
-  };
+
+    // Validate data before attempting to connect
+    if (!validateFormSignin(dataUser)) {
+		//if error in connection informations
+		showErrorMessage('Veuillez renseigner correctement vos données de connexion.')
+      return;
+    };
+
 	
   // Attempt to sign in the user
   const onSign = await signIn(dataUser);
@@ -64,7 +65,12 @@ async function handleSigninFormSubmit(e) {
 	  return null;
   };
 
-  fetchDisplayHomePageConnected(dataUser);
+
+    fetchDisplayHomePageConnected(dataUser);
+	const state = {initFunction: 'fetchDisplayHomePageConnected'};
+  	const url = "/tableau-de-bord";
+  	history.pushState(state, "", url);
+
  
 };
 function addPasswordToggleListener() {

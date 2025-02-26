@@ -24,6 +24,7 @@ export function fetchDisplayEditLabelPage(){
 export function fetchDisplayEditPersonalPage(){
   resetViewTemplate('app-main');
   appendTemplateEditPersonnalPage();
+
 };
 
 function appendTemplateEditInfoPage(){
@@ -123,6 +124,10 @@ function addCancelButtonListener(cancelButton){
   cancelButton.addEventListener('click', () =>{
     resetViewTemplate("app-main");
     fetchDisplayMyAccountPage();
+
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   });
 };
 
@@ -136,10 +141,10 @@ function addEditFormListener(editForm) {
     const dataUser = {};
 
     // Check if the file input field is empty
-const fileInput = formData.get('picture');
-if (fileInput && fileInput.size === 0) {
-  formData.delete('picture'); // Delete the 'picture' field if no file is selected
-}
+  const fileInput = formData.get('picture');
+  if (fileInput && fileInput.size === 0) {
+    formData.delete('picture'); // Delete the 'picture' field if no file is selected
+  }
 
 // Iterate over formData entries and update dataUser object
   for (const [key, value] of formData.entries()) {
@@ -169,5 +174,9 @@ if (fileInput && fileInput.size === 0) {
 
     // Fetch and display the "My Account" page
     fetchDisplayMyAccountPage();
+
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   });
 };

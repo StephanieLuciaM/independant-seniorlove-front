@@ -51,6 +51,9 @@ function addMyAccountButtonListener(data){
     
     // Fetch and display the "Mon compte" page with the provided data
     fetchDisplayMyAccountPage(data);
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
   })
 };
 
