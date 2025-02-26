@@ -1,7 +1,7 @@
 import { resetViewTemplate } from "./utils";
 
 // Function to reset the view and display the privacy ande cookies page 
-export async function fetchDispayPrivacyPage() {
+export async function fetchDisplayPrivacyPage() {
   resetViewTemplate('app-main');
   // Append the content template to the container
   appendTemplate();
