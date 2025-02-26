@@ -36,9 +36,9 @@
       
     <footer class="footer">
       <div class="footer__links">
-        <a href="#" class="footer__link">Information légale</a>
-        <a href="#" class="footer__link">Plan de site</a>
-        <a href="#" class="footer__link">Protection des données</a>
+        <a href="#" id="legal-info" class="footer__link">Information légale</a>
+        <a href="#" id="site-map" class="footer__link">Plan de site</a>
+        <a href="#" id="data-protection"  class="footer__link">Protection des données</a>
       </div>
     </footer>
 
@@ -440,6 +440,7 @@
       <!-- Template my account -->
 
     <template id="my-account">
+
       <div class="my-account">
         <section class="profile-section">
           <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="my profile picture" class="profile-img" slot="picture">      
@@ -465,6 +466,7 @@
             <button class="edit-modal edit-personal" type="button">Modifier</button>
             <button class="delete-account" type="button">Supprimer le compte</button>
             
+
           </article>
           <article class="intro-article">
             <article class="intro-article-presentation">
@@ -652,31 +654,335 @@
         <form>
           <input class="checkbox-edit" type="checkbox" id="nature" name="labels" value="1"> 
           <label for="nature">Nature</label>
+
       
           <input class="checkbox-edit" type="checkbox" id="culture" name="labels" value="2"> 
           <label for="culture">Culture</label>
+
+
                 
           <input class="checkbox-edit" type="checkbox" id="evening" name="labels" value="5"> 
           <label for="evening">Soirée à thème</label>
+
                
           <input class="checkbox-edit" type="checkbox" id="artistic" name="labels" value="3"> 
           <label for="artistic">Artistique</label>
+
               
           <input class="checkbox-edit" type="checkbox" id="games" name="labels" value="4">
           <label for="games">Jeux de société</label>
 
+
           <input class="checkbox-edit" type="checkbox" id="Sports" name="labels" value="6">
           <label for="Sports">Sports/bien-être</label>
+
         
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
       </div>
+
+    </template> 
+    
+     <!--Template legal informations -->
+    <template id="legal-info-template">
+      <section>
+        <h1>Mentions Légales</h1>
+
+          <div>
+              <h2>1. Éditeur du Site</h2>
+              <p>
+              <strong>Projet :</strong> SeniorLove<br>
+              <strong>Nature du projet :</strong> Projet de formation<br>
+              <strong>Équipe :</strong> Travail d'équipe de quatre étudiants<br>
+              <strong>École :</strong> O'clock<br>
+              <strong>Site de l'école :</strong> <a href="https://oclock.io/" target="_blank">https://oclock.io/</a><br>
+              <strong>Membres de l'équipe :</strong><br>
+              - [Nom et Prénom, Développeur full-stack]<br>
+              - [Nom et Prénom, Développeuse full-stack]<br>
+              - [Nom et Prénom, Développeuse full-stack]<br>
+              - [Nom et Prénom, Développeur full-stack]<br>
+              <strong>Adresse :</strong> [Adresse de l'école ou une adresse de contact dédiée au projet]<br>
+              <strong>Email de contact :</strong> [Adresse email dédiée au projet]<br>
+              </p>
+              <p>
+              <strong>Avertissement :</strong> Ce site est développé dans le cadre d’une formation à l’école O'clock et n’est pas destiné à un usage commercial. Les contenus présentés sur ce site sont à but pédagogique et éducatif.
+              </p>
+          </div>
+
+          <div>
+              <h2>2. Hébergeur du Site</h2>
+              <p>
+              <strong>Nom de l'hébergeur :</strong> [Nom de l'hébergeur]<br>
+              <strong>Adresse :</strong> [Adresse complète de l'hébergeur]<br>
+              <strong>Téléphone :</strong> [Numéro de téléphone de l'hébergeur]<br>
+              </p>
+          </div>
+
+          <div>
+              <h2>3. Propriété Intellectuelle</h2>
+              <p>
+              L’ensemble des contenus présents sur le site SeniorLove, incluant de manière non limitative les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme, sont la propriété collective des membres de l'équipe SeniorLove dans le cadre de leur projet de formation. Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord écrit préalable des auteurs.
+              </p>
+          </div>
+
+          <div>
+              <h2>4. Protection des Données Personnelles</h2>
+              <p>
+              Conformément à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée et au Règlement Général sur la Protection des Données (RGPD) (EU) 2016/679, vous disposez d’un droit d’accès, de rectification, de suppression et d’opposition aux données personnelles vous concernant.<br>
+              Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : [Adresse email de contact] ou par courrier à l'adresse mentionnée ci-dessus.
+              </p>
+              <p>
+              Pour en savoir plus sur vos droits et la manière de les exercer, vous pouvez consulter le site de la <a href="https://www.cnil.fr/" target="_blank">CNIL</a>.
+              </p>
+          </div>
+
     </template>  
     
-    
-    
 
+
+          <div>
+              <h2>5. Cookies</h2>
+              <p>
+              Le site SeniorLove peut utiliser des cookies pour améliorer votre expérience de navigation, analyser le trafic du site et personnaliser le contenu. Vous pouvez gérer vos préférences en matière de cookies via les paramètres de votre navigateur.
+              </p>
+          </div>
+
+          <div>
+              <h2>6. Responsabilité</h2>
+              <p>
+              Bien que nous nous efforcions de fournir des informations exactes et à jour, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité des contenus du site. SeniorLove décline toute responsabilité en cas d'erreurs ou d'omissions dans les contenus.
+              </p>
+              <p>
+              SeniorLove ne saurait être tenu responsable des dommages directs ou indirects résultant de l’accès ou de l’utilisation du site, y compris l’inaccessibilité, les pertes de données, et interruptions.
+              </p>
+          </div>
+
+          <div>
+              <h2>7. Liens Hypertextes</h2>
+              <p>
+              Le site SeniorLove peut contenir des liens vers d’autres sites. SeniorLove n’a pas de contrôle sur ces sites et ne peut être tenu responsable de leur contenu ni des dommages ou préjudices qu’ils pourraient causer.
+              </p>
+          </div>
+
+          <div>
+              <h2>8. Droit Applicable</h2>
+              <p>
+              Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.
+              </p>
+          </div>
+
+          <div>
+              <h2>9. Modification des Mentions Légales</h2>
+              <p>
+              SeniorLove se réserve le droit de modifier, à tout moment et sans préavis, les présentes mentions légales afin de les adapter à toute évolution de son activité ou de son exploitation.
+              </p>
+          </div>
+      </section>
+    </template>
+
+ <!--Template site map -->
+    <template id="site-map-template">
+      <section>
+        <h1>Plan du Site</h1>
+            <nav>
+                <a href="/">Accueil</a>
+                <a href="/connexion">Connexion</a>
+                <a href="/inscription">Inscription</a>
+                <a href="/mon-compte">Mon Compte</a>
+                <a href="/profils">Profils</a>
+                <a href="/evenements">Événements</a>
+                <a href="/messages">Messages</a>
+                <a href="/informations-legales">Informations Légales</a>
+                <a href="/protection-des-donnees">Protection des Données</a>
+                <a href="/contact">Contact</a>
+            </nav>
+
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/connexion">Connexion</a></li>
+
+                <li>
+                    <a href="/inscription">Inscription</a>
+                  
+                </li>
+
+                <li>
+                    <a href="/mon-compte">Mon Compte</a>
+                    <ul>
+                        <li><a href="#">Mes informations de profil</a></li>
+                        <li><a href="#">Mon text d'introduction</a></li>
+                        <li><a href="#">Centres d'intérets</a></li>
+                        <li><a href="#">Èvènements passées</a></li>
+                        <li><a href="#">Èvènements à venir</a></li>
+                        <li><a href="#">Informations générales</a></li>
+                        <li><a href="#">Supprimer mon compte</a></li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/profils">Profils</a>
+                    <ul>
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/evenements">Événements</a>
+                    <ul>
+                        <li><a href=""></a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/messages">Messages</a></li>
+
+                <li>
+                    Pages Légales
+                    <ul>
+                        <li><a href="/informations-legales">Informations Légales</a></li>
+                        <li><a href="/protection-des-donnees">Protection des Données</a></li>
+                        <li><a href="/plan-du-site">Plan du Site</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="/a-propos">À Propos</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+      </section>
+    </template>
+
+     <!--Template private data protection and cookie management -->
+    <template id="data-protection-template">
+      <section>
+        <h1>Protection des Données Personnelles et Gestion des Cookies</h1>
+        <section>
+            <h2>1. Introduction</h2>
+            <p>
+                Bienvenue sur SeniorLove. Nous nous engageons à protéger et à respecter votre vie privée. Cette politique de protection des données décrit comment nous recueillons, utilisons et protégeons vos données personnelles lorsque vous utilisez notre site web.
+            </p>
+        </section>
+
+        <section>
+            <h2>2. Données Collectées</h2>
+            <p>
+                Nous pouvons collecter les types de données personnelles suivants :
+            </p>
+            <ul>
+                <li>Nom et prénom</li>
+                <li>Adresse e-mail</li>
+                
+                <li>Données de navigation (adresse IP, type de navigateur, pages consultées)</li>
+                <li>Autres informations pertinentes au regard des finalités pour lesquelles elles sont collectées</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Finalités du Traitement</h2>
+            <p>
+                Les données collectées sont utilisées pour les finalités suivantes :
+            </p>
+            <ul>
+                <li>Gérer votre compte utilisateur</li>
+                <li>Améliorer nos services et notre site</li>
+                
+                <li>Assurer la sécurité du site</li>
+                <li>Répondre à vos demandes et questions</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Base Légale du Traitement</h2>
+            <p>
+                Le traitement de vos données personnelles repose sur les bases légales suivantes :
+            </p>
+            <ul>
+                <li>Votre consentement</li>
+                <li>L'exécution d'un contrat</li>
+                <li>Le respect d'une obligation légale</li>
+                <li>L'intérêt légitime de SeniorLove</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Durée de Conservation des Données</h2>
+            <p>
+                Vos données personnelles sont conservées pour la durée nécessaire aux finalités mentionnées ci-dessus, sauf si une durée de conservation plus longue est requise ou autorisée par la loi.
+            </p>
+        </section>
+
+        <section>
+            <h2>6. Droits des Utilisateurs</h2>
+            <p>
+                Conformément au RGPD, vous disposez des droits suivants :
+            </p>
+            <ul>
+                <li><strong>Droit d'accès :</strong> Vous pouvez demander l'accès à vos données personnelles.</li>
+                <li><strong>Droit de rectification :</strong> Vous pouvez demander la correction de données inexactes.</li>
+                <li><strong>Droit à l'effacement :</strong> Vous pouvez demander la suppression de vos données.</li>
+                <li><strong>Droit à la limitation du traitement :</strong> Vous pouvez demander de restreindre le traitement de vos données.</li>
+                <li><strong>Droit à la portabilité :</strong> Vous pouvez demander à recevoir vos données dans un format structuré.</li>
+                <li><strong>Droit d'opposition :</strong> Vous pouvez vous opposer au traitement de vos données.</li>
+            </ul>
+            <p>
+                Pour exercer ces droits, veuillez nous contacter à l'adresse suivante : <a href="mailto:contact@seniorlove.projet.oclock.io">contact@seniorlove.projet.oclock.io</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>7. Sécurité des Données</h2>
+            <p>
+                Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, divulgation, altération ou destruction.
+            </p>
+        </section>
+
+        <section>
+            <h2>8. Destinataires des Données</h2>
+            <p>
+                Vos données personnelles peuvent être partagées avec des prestataires de services tiers qui nous assistent dans l'exploitation du site, la gestion des données, et l'amélioration de nos services. Ces prestataires sont tenus de protéger vos données et de ne les utiliser que pour les finalités déterminées par SeniorLove.
+            </p>
+        </section>
+
+        
+
+        <section>
+            <h2>9. Gestion des Cookies</h2>
+            <p>
+                Comme mentionné dans notre <a href="/mentions-legales">Mentions Légales</a>, SeniorLove utilise des cookies pour améliorer votre expérience de navigation. Voici les types de cookies que nous utilisons :
+            </p>
+            <ul>
+                <li><strong>Cookies Essentiels :</strong> Nécessaires au fonctionnement du site (ex. gestion de session).</li>
+                <li><strong>Cookies de Performance :</strong> Collectent des informations sur la manière dont les visiteurs utilisent le site pour améliorer ses performances.</li>
+                <li><strong>Cookies Fonctionnels :</strong> Permettent de mémoriser des choix faits par l'utilisateur pour offrir une expérience personnalisée.</li>
+                <li><strong>Cookies Publicitaires :</strong> Utilisés pour diffuser des publicités pertinentes en fonction de vos intérêts.</li>
+            </ul>
+            <p>
+                Vous pouvez gérer vos préférences en matière de cookies en modifiant les paramètres de votre navigateur. Pour plus d'informations, consultez notre <a href="/mentions-legales">page des Mentions Légales</a>.
+            </p>
+            <p>
+                Pour en savoir plus sur la gestion des cookies, vous pouvez visiter le site de la <a href="https://www.cnil.fr/fr/cookies-traceurs" target="_blank">CNIL</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>10. Modification de la Politique</h2>
+            <p>
+                SeniorLove se réserve le droit de modifier cette politique de protection des données et de gestion des cookies à tout moment. Les modifications seront publiées sur cette page et, si les changements sont significatifs, une notification sera affichée sur le site.
+            </p>
+        </section>
+
+        <section>
+            <h2>11. Contact</h2>
+            <p>
+                Pour toute question ou demande concernant cette politique, veuillez nous contacter à :
+            </p>
+            <ul>
+                <li><strong>Email :</strong> <a href="mailto:contact@seniorlove.projet.oclock.io">contact@seniorlove.projet.oclock.io</a></li>
+                <li><strong>Adresse :</strong> [Adresse de l'école O'clock ou adresse dédiée au projet]</li>
+            </ul>
+        </section>
+        </section>
+    </template>
 
   </body> 
 </html>
