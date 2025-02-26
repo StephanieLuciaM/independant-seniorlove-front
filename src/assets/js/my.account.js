@@ -10,7 +10,7 @@ import {
   fetchDisplayEditLabelPage,
   fetchDisplayEditPersonalPage 
 } from "./edit.account.js";
-import { deleteMyAccount, getMyAccount, logOutMyAccount } from "./api.js";
+import {  logOutMyAccount } from "./api.js";
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 
 export async function fetchDisplayMyAccountPage(){
