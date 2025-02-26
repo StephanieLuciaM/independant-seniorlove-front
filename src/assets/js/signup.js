@@ -81,8 +81,6 @@ function addPasswordToggleListener(container) {
 }
 
 
-
-
 function cloneAndAppendContent(contentTemplate) {
   if (!contentTemplate) {
     console.error(`Template avec data-slide-id='${count}' non trouvé.`);
