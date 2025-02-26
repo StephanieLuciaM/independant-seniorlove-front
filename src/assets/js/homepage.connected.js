@@ -1,6 +1,7 @@
 import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { getLastEventsMatch, getLastProfilesMatch } from "./api.js";
+import { fetchDisplayEventsPage } from "./events.js";
 
 export async function fetchDisplayHomePageConnected(data){
 // Reset the view templates for header and main content
@@ -8,6 +9,7 @@ export async function fetchDisplayHomePageConnected(data){
 
   appendTemplatesConnedted();
   addMyAccountButtonListener(data);
+  addEventsButtonListener();
 
   // Fetch and display the latest matched profiles
   const profilsMatch = await getLastProfilesMatch();
@@ -57,21 +59,21 @@ function addMyAccountButtonListener(data){
   })
 };
 
-function addEventsButtonListener(data){
+function addEventsButtonListener(){
   // Select the "Évènements" button from the header
-  const myAccountButton = document.querySelector("#app-header .my__account");
+  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
 
-  // Add click event listener to the "Mon compte" button
-  myAccountButton.addEventListener('click', (e) =>{
+  // Add click event listener to the "Évènements" button
+  EventsButton.addEventListener('click', (e) =>{
     // Prevent the default behavior of the button
     e.preventDefault();
     
-    // Fetch and display the "Mon compte" page with the provided data
-    fetchDisplayMyAccountPage(data);
-    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
-    const url = "/mon-compte";
+    // Fetch and display the "Évènements" page with the provided data
+    fetchDisplayEventsPage();
+    const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
+    const url = "/events";
     history.pushState(state, "", url);
-  })
+  });
 };
 
 export function addEventContainer(data){
