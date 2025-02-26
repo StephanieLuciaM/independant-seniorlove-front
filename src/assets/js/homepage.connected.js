@@ -57,6 +57,23 @@ function addMyAccountButtonListener(data){
   })
 };
 
+function addEventsButtonListener(data){
+  // Select the "Évènements" button from the header
+  const myAccountButton = document.querySelector("#app-header .my__account");
+
+  // Add click event listener to the "Mon compte" button
+  myAccountButton.addEventListener('click', (e) =>{
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Fetch and display the "Mon compte" page with the provided data
+    fetchDisplayMyAccountPage(data);
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
+  })
+};
+
 export function addEventContainer(data){
   
   // Select the event template
