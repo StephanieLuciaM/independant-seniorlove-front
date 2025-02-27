@@ -57,8 +57,6 @@ footerSiteMapLink.addEventListener('click', (e) => {
 async function init() {
   try {
 
-    // Verifies the JWT token and updates the UI
-    const user = await checkUserAuthentication();
 
     // Gets the current path
     const path = window.location.pathname;
