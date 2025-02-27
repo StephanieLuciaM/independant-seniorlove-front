@@ -15,6 +15,7 @@ import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 import { fetchDisplayEventsPage } from "./events.js";
 
 export async function fetchDisplayMyAccountPage(){
+
   // Reset the view templates for header and main content
   resetViewTemplate('app-header', 'app-main');
 
@@ -29,11 +30,10 @@ export async function fetchDisplayMyAccountPage(){
   addDeleteButtonListener();
   addLogOutButtonListener();
   addEventsButtonListener();
-
-  
 };
 
 function appendTemplatesMyAccount(data){
+
   // Select the header and content templates from the DOM
   const headerTemplate = document.querySelector("#header-my-account");
   const contentTemplate = document.querySelector("#my-account");
@@ -50,13 +50,12 @@ function appendTemplatesMyAccount(data){
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
 
-  
-
   // Populate the content with the user data
   myAccount(contentContainer, data);
 };
 
 function addEditButtonsListener() {
+
   // Select all edit buttons within the main content area
   const editButtons = document.querySelectorAll("#app-main .edit-modal");
 
@@ -77,18 +76,22 @@ function addEditButtonsListener() {
 // Function to handle the account deletion process
 async function handleDeleteAccount() {
   try {
+
     // Call the function to delete the user account
     const deleteUser = await deleteMyAccount();
 
     // Check if the account was successfully deleted
     if (deleteUser) {
+
       // Show success message if deletion was successful
       await showSuccessMessage();
     } else {
+
       // Show error message if deletion failed
       showErrorMessage('Il y a eu un problème lors de la suppression de votre compte. Veuillez réessayer plus tard.');
     }
   } catch (error) {
+
     // Log the error for debugging purposes
     console.error('Erreur lors de la suppression du compte:', error);
 
@@ -99,6 +102,7 @@ async function handleDeleteAccount() {
 
 // Main function to add the delete button event listener
 function addDeleteButtonListener() {
+
   // Get the delete button element
   const deleteButton = document.querySelector("#app-main .delete-account");;
 
@@ -136,11 +140,14 @@ function addDeleteButtonListener() {
 // Function to handle the user's response from the confirmation dialog
 async function handleConfirmation(confirmation) {
   if (confirmation.isConfirmed) {
+
     // If the user confirmed, proceed to delete the account
     await handleDeleteAccount();
+
   } else if (confirmation.dismiss === Swal.DismissReason.cancel) {
+    
     // If the user canceled, show an informational message
-    ShowCancelAction()
+    ShowCancelAction();
   }
 }
 
@@ -153,17 +160,18 @@ function addLogOutButtonListener(){
     const logOutUser = await logOutMyAccount();
 
     if (!logOutUser) {
-      return null
+      return null;
     }
 
     fetchDisplayHomePageVisitor();
     const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
     const url = "/accueil";
     history.pushState(state, "", url);
-  })
+  });
 }
 
 function handleEditInfo(){
+
   // Fetch and display the edit info page
   fetchDisplayEditInfoPage();
 
@@ -173,6 +181,7 @@ function handleEditInfo(){
 };
 
 function handleEditIntro(){
+
   // Fetch and display the edit intro page
   fetchDisplayEditIntroPage();
 
@@ -182,6 +191,7 @@ function handleEditIntro(){
 };
 
 function handleEditLabel(){
+
   // Fetch and display the edit label page
   fetchDisplayEditLabelPage();
 
@@ -192,6 +202,7 @@ function handleEditLabel(){
 };
 
 function handleEditPersonal(){
+  
   // Fetch and display the edit personal page
   fetchDisplayEditPersonalPage();
 
@@ -219,7 +230,7 @@ function myAccount(display, data){
     labelClone.querySelector("[slot='labels']").dataset.id = label.id;
     
     // Appending the cloned element to the container
-    const labelContainer = document.querySelector("#label-user")
+    const labelContainer = document.querySelector("#label-user");
     labelContainer.appendChild(labelClone);
   });
 
@@ -232,11 +243,13 @@ function myAccount(display, data){
 };
 
 function addEventsButtonListener(data){
+
   // Select the "Évènements" button from the header
   const EventsButton = document.querySelector("#app-header .header__nav-link-events");
 
   // Add click event listener to the "Évènements" button
   EventsButton.addEventListener('click', (e) =>{
+    
     // Prevent the default behavior of the button
     e.preventDefault();
     

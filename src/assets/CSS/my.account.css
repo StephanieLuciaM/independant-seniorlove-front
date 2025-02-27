@@ -21,7 +21,6 @@
     margin-bottom: var(--spacing-medium);
 }
   
-
 .intro-article {
     display: flex;
     flex-direction: column;
@@ -34,7 +33,6 @@
     padding-top: 2.5rem;
     background-color: var(--light-gray);
 }
-
 
 .general-info-article {
     background-color: var(--primary-color-light);

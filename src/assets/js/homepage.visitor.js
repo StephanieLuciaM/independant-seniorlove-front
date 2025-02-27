@@ -1,5 +1,5 @@
 import { getLastEvent } from "./api.js";
-import { fetchDisplaySigninPage } from "./signin.js"
+import { fetchDisplaySigninPage } from "./signin.js";
 import { fetchDisplaySignupForm } from "./signup.js";
 import { resetViewTemplate } from "./utils.js";
 import { chekMinimumAge } from "./handling.error.js";
@@ -7,14 +7,18 @@ import { chekMinimumAge } from "./handling.error.js";
 
 export async function fetchDisplayHomePageVisitor() {
   
-  resetViewTemplate('app-header', 'app-main')
+  resetViewTemplate('app-header', 'app-main');
   // Append the header and content templates to the respective containers
+
   appendTemplates();
   // Add event listener to the sign-in button
+
   addSigninButtonListener();
   // Add event listener to the sign-up form
+
   addSignupFormListener();
   // Fetch the latest events and display them
+
   const events = await getLastEvent();
   if (events) {
     events.forEach(addEventContainer); // Add each event to the event container
@@ -23,6 +27,7 @@ export async function fetchDisplayHomePageVisitor() {
 
 
 function appendTemplates() {
+
   // Select the header and content templates
   const headerTemplate = document.querySelector("#header-not-connected");
   const contentTemplate = document.querySelector("#home-page-visitor");
@@ -46,6 +51,7 @@ function addSigninButtonListener() {
   
   // Add a click event listener to the sign-in button
   signinButton.addEventListener('click', (e) => {
+
     e.preventDefault(); // Prevent the default link behavior
     fetchDisplaySigninPage();
 
@@ -56,23 +62,26 @@ function addSigninButtonListener() {
 };
 
 function addSignupFormListener() {
-   // Select the signup form within the main area
+
+  // Select the signup form within the main area
   const signupForm = document.querySelector("#app-main form");
   
-   // Add a 'submit' event listener to the signup form
+  // Add a 'submit' event listener to the signup form
   signupForm.addEventListener('submit', (e) => {
 
     e.preventDefault(); // Prevent the default form submission behavior
     const dataUser = Object.fromEntries(new FormData(signupForm)); // Convert form data to an object
     
-     // Check if the age is less than 60
+    // Check if the age is less than 60
     if (dataUser.age < 60) {
+      
       //checks the age of the visitor
-      chekMinimumAge()
+      chekMinimumAge();
       return; 
     }
-    
-    fetchDisplaySignupForm(dataUser); // Call the function to display the sign-up form
+
+    // Call the function to display the sign-up form
+    fetchDisplaySignupForm(dataUser); 
     
     const state = {page: "Inscription etape 1", initFunction: 'fetchDisplaySignupForm'};
     const url = "/inscription/etape-1";

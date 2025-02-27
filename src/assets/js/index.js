@@ -21,42 +21,46 @@ init();
 const footerLegalLink = document.querySelector("#legal-info");
 
 footerLegalLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    fetchDisplayLegalInfoPage();
+
+  e.preventDefault();
+  fetchDisplayLegalInfoPage();
 
   const state = {page: "Informations legales", initFunction: 'fetchDisplayLegalInfoPage'};
   const url = "/informations-légales";
   history.pushState(state, "", url);
-})
+});
 
 // Select the footer button that, when clicked, will display the privacy protect data page.    
 const footerPrivacyLink = document.querySelector("#data-protection");
   
 footerPrivacyLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    fetchDisplayPrivacyPage();
+
+  e.preventDefault();
+  fetchDisplayPrivacyPage();
 
   const state = {page: "Protection des données", initFunction: 'fetchDisplayPrivacyPage'};
   const url = "/protection-des-donnees";
   history.pushState(state, "", url);
-})
+});
 
 // Select the footer button that, when clicked, will display the site map page.    
 const footerSiteMapLink = document.querySelector("#site-map");
 
 footerSiteMapLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    fetchDisplaySiteMapPage();
+  e.preventDefault();
+  fetchDisplaySiteMapPage();
 
   const state = {page: "Plan du site", initFunction: 'fetchDisplaySiteMapPage'};
   const url = "/plan-du-site";
   history.pushState(state, "", url);
-})
+});
 
 async function init() {
   try {
+
     // Verifies the JWT token and updates the UI
     const user = await checkUserAuthentication();
+
     // Gets the current path
     const path = window.location.pathname;
 
@@ -75,8 +79,10 @@ async function init() {
 
     // Checks if the current path is a known routess
     if (!knownRoutes.includes(path)) {
+
       // If the route is not known, display the 404 page
       fetchDisplay404Page();
+
       const state = { page: "404", initFunction: 'fetchDisplay404Page' };
       history.replaceState(state, "", "/404");
       return;
@@ -84,12 +90,15 @@ async function init() {
 
     // Normal processing of known routes
     if (!user) {
+
       await fetchDisplayHomePageVisitor();
 
       const state = { page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor' };
       const url = "/accueil";
       history.pushState(state, "", url);
+
     } else {
+
       // Displays the home page for authenticated users
       fetchDisplayHomePageConnected();
 
@@ -98,11 +107,13 @@ async function init() {
       history.pushState(state, "", url);
     }
   } catch (error) {
-      console.error('Erreur d\'initialisation:', error);
-      // If initialization error occurs, display page 404
-      fetchDisplay404Page();
-      const state = { page: "404", initFunction: 'fetchDisplay404Page' };
-      history.replaceState(state, "", "/404");
+    console.error('Erreur d\'initialisation:', error);
+
+    // If initialization error occurs, display page 404
+    fetchDisplay404Page();
+    
+    const state = { page: "404", initFunction: 'fetchDisplay404Page' };
+    history.replaceState(state, "", "/404");
   }
 };
 

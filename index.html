@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poiret+One&family=Yeseva+One&family=Young+Serif&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/assets/CSS/reset.css">
     <link rel="stylesheet" href="./src/assets/CSS/base.css">
-    <link rel="stylesheet" href="./src/assets/CSS/inscription.css">
+    <link rel="stylesheet" href="./src/assets/CSS/signup.css">
     <link rel="stylesheet" href="./src/assets/CSS/signin.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.visitor.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.connected.css">
@@ -30,12 +30,9 @@
 
     </header>
 
-
     <main id="app-main" class="container">
       
-
     </main>
-    
       
     <footer class="footer">
       <div class="footer__links">
@@ -579,7 +576,6 @@
       
     </template>
 
-
     <template id="label">
       <span class="interest_type" slot="labels">Jeux de société</span>
     </template>
@@ -676,28 +672,21 @@
           <input class="checkbox-edit" type="checkbox" id="nature" name="labels" value="1"> 
           <label for="nature">Nature</label>
 
-      
           <input class="checkbox-edit" type="checkbox" id="culture" name="labels" value="2"> 
           <label for="culture">Culture</label>
-
-
                 
           <input class="checkbox-edit" type="checkbox" id="evening" name="labels" value="5"> 
           <label for="evening">Soirée à thème</label>
 
-               
           <input class="checkbox-edit" type="checkbox" id="artistic" name="labels" value="3"> 
           <label for="artistic">Artistique</label>
 
-              
           <input class="checkbox-edit" type="checkbox" id="games" name="labels" value="4">
           <label for="games">Jeux de société</label>
-
 
           <input class="checkbox-edit" type="checkbox" id="Sports" name="labels" value="6">
           <label for="Sports">Sports/bien-être</label>
 
-        
           <button type="submit" class="edit-modal edit-button">Valider</button>
           <button type="button" class="edit-modal cancel-button">Annuler</button>
         </form>
@@ -820,14 +809,8 @@
             <ul>
                 <li><a href="/">Accueil</a></li>
                 <li><a href="/connexion">Connexion</a></li>
-
-                <li>
-                    <a href="/inscription">Inscription</a>
-                  
-                </li>
-
-                <li>
-                    <a href="/mon-compte">Mon Compte</a>
+                <li><a href="/inscription">Inscription</a></li>
+                <li><a href="/mon-compte">Mon Compte</a>
                     <ul>
                         <li><a href="#">Mes informations de profil</a></li>
                         <li><a href="#">Mon text d'introduction</a></li>
@@ -1002,7 +985,8 @@
         </section>
     </template>
   
-        <!--template 404 page-->
+    <!--template 404 page-->
+
     <template id="page-404-template">
       <section class="error-404_page">
         <img src="./src/assets/img/diverse-img/errors/404.jpg" alt="page d'erreur 404">
@@ -1013,6 +997,7 @@
         </div>
     </section>
   </template>
+
     <!-- Template events page -->
 
     <template id="all-events-page">

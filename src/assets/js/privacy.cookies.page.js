@@ -3,11 +3,13 @@ import { resetViewTemplate } from "./utils";
 // Function to reset the view and display the privacy ande cookies page 
 export async function fetchDisplayPrivacyPage() {
   resetViewTemplate('app-main');
+  
   // Append the content template to the container
   appendTemplate();
 }
 
 function appendTemplate(){
+
   // Select the content template
   const contenteTemplate = document.querySelector("#data-protection-template");
 

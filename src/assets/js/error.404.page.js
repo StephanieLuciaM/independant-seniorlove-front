@@ -3,7 +3,9 @@ import { fetchDisplayHomePageVisitor } from "./homepage.visitor";
 
 // Function to reset the view and display the privacy ande cookies page 
 export async function fetchDisplay404Page() {
+
     resetViewTemplate('app-main');
+    
     // Append the content template to the container
     appendTemplate();
 }
