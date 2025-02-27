@@ -11,6 +11,7 @@ import { fetchDisplayLegalInfoPage } from "./legal.info.page.js"
 import { fetchDisplayPrivacyPage } from "./privacy.cookies.page.js"
 import { fetchDisplaySiteMapPage } from "./site.map.page.js"
 import { fetchDisplay404Page } from "./error.404.page.js"
+import { fetchDisplayEventsPage } from "./events.js"
 
 const displayMap ={
 	'fetchDisplayHomePageVisitor' : fetchDisplayHomePageVisitor,
@@ -18,6 +19,7 @@ const displayMap ={
 	'fetchDisplaySignupForm': fetchDisplaySignupForm,
 	'fetchDisplayHomePageConnected': fetchDisplayHomePageConnected,
 	'fetchDisplayMyAccountPage' : fetchDisplayMyAccountPage,
+	'fetchDisplayEventsPage' : fetchDisplayEventsPage,
 	'fetchDisplayEditInfoPage': fetchDisplayEditInfoPage,
 	'fetchDisplayEditIntroPage': fetchDisplayEditIntroPage,
 	'fetchDisplayEditLabelPage': fetchDisplayEditLabelPage,
