@@ -256,7 +256,7 @@ function addEventsButtonListener(data){
     // Fetch and display the "Évènements" page with the provided data
     fetchDisplayEventsPage(data);
     const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
-    const url = "/events";
+    const url = "/evenements";
     history.pushState(state, "", url);
   });
 };
