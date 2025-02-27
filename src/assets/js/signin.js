@@ -5,18 +5,19 @@ import { validateFormSignin } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
 
 export function fetchDisplaySigninPage() {
+
   // Reset the view template for the main content area
   resetViewTemplate('app-main');
   
   // Append the sign-in template to the main content container
   appendSigninTemplate();
   
-	// Add the event listener to the sign-in form
-	addSigninFormListener();
-
+  // Add the event listener to the sign-in form
+  addSigninFormListener();
 };
   
 function appendSigninTemplate() {
+
   // Select the sign-in template from the DOM
   const contentTemplate = document.querySelector('#signin');
   
@@ -31,6 +32,7 @@ function appendSigninTemplate() {
 };
   
 function addSigninFormListener() {
+
   // Select the form element within the cloned content
   const form = document.querySelector("#app-main form");
   
@@ -45,43 +47,41 @@ async function handleSigninFormSubmit(e) {
   e.preventDefault();
   const form = e.target;
   const dataUser = Object.fromEntries(new FormData(form));
-  console.log(dataUser);
 
+  // Validate data before attempting to connect
+  if (!validateFormSignin(dataUser)) {
 
-    // Validate data before attempting to connect
-    if (!validateFormSignin(dataUser)) {
-		//if error in connection informations
-		showErrorMessage('Veuillez renseigner correctement vos données de connexion.')
-      return;
-    };
+    //if error in connection informations
+    showErrorMessage('Veuillez renseigner correctement vos données de connexion.');
+    return;
+  };
 
-	
   // Attempt to sign in the user
   const onSign = await signIn(dataUser);
 	
   // If sign-in is unsuccessful, exit the function
   if (!onSign) {
-
 	  return null;
   };
 
-
-    fetchDisplayHomePageConnected(dataUser);
-	const state = {initFunction: 'fetchDisplayHomePageConnected'};
+  fetchDisplayHomePageConnected(dataUser);
+  const state = {initFunction: 'fetchDisplayHomePageConnected'};
   	const url = "/tableau-de-bord";
   	history.pushState(state, "", url);
-
- 
 };
+
 function addPasswordToggleListener() {
+
   // Select the toggle password icon and the password input
   const togglePassword = document.querySelector('#togglePassword');
   const passwordField = document.querySelector('#password');
   
   if (togglePassword) {
 	  togglePassword.addEventListener('click', function () {
+
       // Check if the password is currently hidden (type="password")
       const isPasswordHidden = passwordField.getAttribute('type') === 'password';
+
       // Toggle the input field type between 'password' and 'text'
       passwordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
   

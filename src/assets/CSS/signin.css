@@ -1,15 +1,5 @@
-/* CONTAINER */
-/* .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-    padding: var(--spacing-medium);
-} */
 
 /* SIGN IN FORM */
-
 .sign-in {
     display: flex;
     justify-content: center;
@@ -59,7 +49,7 @@
     cursor: pointer;
 }
 
-  /* Icone toggler */
+/* Icone toggler */
 .password-toggle i {
     font-size: 18px;
 }

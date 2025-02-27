@@ -25,6 +25,7 @@ export async function fetchDisplayHomePageConnected(data){
 };
 
 function appendTemplatesConnedted(){
+
   // Select the header and content templates from the DOM
   const headerTemplate = document.querySelector("#header-connected");
   const contentTemplate = document.querySelector("#home-page-connected");
@@ -43,11 +44,13 @@ function appendTemplatesConnedted(){
 };
 
 function addMyAccountButtonListener(data){
+
   // Select the "Mon compte" button from the header
   const myAccountButton = document.querySelector("#app-header .my__account");
 
   // Add click event listener to the "Mon compte" button
   myAccountButton.addEventListener('click', (e) =>{
+    
     // Prevent the default behavior of the button
     e.preventDefault();
     
@@ -56,15 +59,17 @@ function addMyAccountButtonListener(data){
     const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
     const url = "/mon-compte";
     history.pushState(state, "", url);
-  })
+  });
 };
 
 function addEventsButtonListener(data){
+
   // Select the "Évènements" button from the header
   const EventsButton = document.querySelector("#app-header .header__nav-link-events");
 
   // Add click event listener to the "Évènements" button
   EventsButton.addEventListener('click', (e) =>{
+
     // Prevent the default behavior of the button
     e.preventDefault();
     
