@@ -96,7 +96,8 @@ body {
     align-items: center;
 }
 
-.header__nav-link {
+.header__nav-link,
+.header__nav-link-events {
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -175,7 +176,8 @@ body {
         justify-content: flex-end;
     }
 
-    .header__nav-link {
+    .header__nav-link,
+    .header__nav-link-events {
         width: auto;
         margin: 0 var(--spacing-small);
     }
