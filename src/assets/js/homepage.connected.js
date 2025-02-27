@@ -1,6 +1,7 @@
 import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { getLastEventsMatch, getLastProfilesMatch } from "./api.js";
+import { fetchDisplayEventsPage } from "./events.js";
 
 export async function fetchDisplayHomePageConnected(data){
 // Reset the view templates for header and main content
@@ -8,6 +9,7 @@ export async function fetchDisplayHomePageConnected(data){
 
   appendTemplatesConnedted();
   addMyAccountButtonListener(data);
+  addEventsButtonListener(data);
 
   // Fetch and display the latest matched profiles
   const profilsMatch = await getLastProfilesMatch();
@@ -55,6 +57,23 @@ function addMyAccountButtonListener(data){
     const url = "/mon-compte";
     history.pushState(state, "", url);
   })
+};
+
+function addEventsButtonListener(data){
+  // Select the "Évènements" button from the header
+  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
+
+  // Add click event listener to the "Évènements" button
+  EventsButton.addEventListener('click', (e) =>{
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Fetch and display the "Évènements" page with the provided data
+    fetchDisplayEventsPage(data);
+    const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
+    const url = "/evenements";
+    history.pushState(state, "", url);
+  });
 };
 
 export function addEventContainer(data){

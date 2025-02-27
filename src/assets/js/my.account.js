@@ -12,6 +12,7 @@ import {
 } from "./edit.account.js";
 import {  logOutMyAccount } from "./api.js";
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
+import { fetchDisplayEventsPage } from "./events.js";
 
 export async function fetchDisplayMyAccountPage(){
   // Reset the view templates for header and main content
@@ -27,6 +28,7 @@ export async function fetchDisplayMyAccountPage(){
   addEditButtonsListener();
   addDeleteButtonListener();
   addLogOutButtonListener();
+  addEventsButtonListener();
 
   
 };
@@ -227,4 +229,21 @@ function myAccount(display, data){
   display.querySelector("[slot='zodiac']").textContent = data.zodiac;
   display.querySelector("[slot='pet']").textContent = data.pet;
   display.querySelector("[slot='music']").textContent = data.music;
+};
+
+function addEventsButtonListener(data){
+  // Select the "Évènements" button from the header
+  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
+
+  // Add click event listener to the "Évènements" button
+  EventsButton.addEventListener('click', (e) =>{
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Fetch and display the "Évènements" page with the provided data
+    fetchDisplayEventsPage(data);
+    const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
+    const url = "/events";
+    history.pushState(state, "", url);
+  });
 };

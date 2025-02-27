@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="./src/assets/CSS/homepage.visitor.css">
     <link rel="stylesheet" href="./src/assets/CSS/homepage.connected.css">
     <link rel="stylesheet" href="./src/assets/CSS/my.account.css">
+    <link rel="stylesheet" href="/src/assets/CSS/error.404.css">
+    <link rel="stylesheet" href="./src/assets/CSS/events.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script type="module" src="./src/assets/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">s</script>
@@ -67,7 +69,7 @@
         </a>
         <nav class="header-connected__nav">
           <a href="#"  class="header__nav-link">Profils</a>
-          <a href="#"  class="header__nav-link ">Évènements</a>
+          <a href="#"  class="header__nav-link-events">Évènements</a>
           <a href="#"  class="header__nav-link ">Messages</a>
           <a href="#"  class="header__nav-link my__account">Mon compte</a>
         </nav>
@@ -85,7 +87,7 @@
         </a>
         <nav class="header-connected__nav">
           <a href="#"  class="header__nav-link">Profils</a>
-          <a href="#"  class="header__nav-link ">Évènements</a>
+          <a href="#"  class="header__nav-link-events">Évènements</a>
           <a href="#"  class="header__nav-link ">Messages</a>
           <a href="#"  class="header__nav-link logout">Se déconnecter</a>
         </nav>
@@ -123,18 +125,21 @@
                   </div>
                 </div>
                 <div class="sign-up__age-field">
-                <div><label for="age" class="age-label">Âge</label></div> 
+                <div>
+                  <label for="age" class="age-label">Âge</label>
+                </div> 
                   <input type="number" class="age-input" id="age" name="age" placeholder="Votre âge..." required>
                 </div>
                 <div class="sign-up__city-field">
-                  <div><label for="city" class="city-label">Ville</label></div>
+                  <div>
+                    <label for="city" class="city-label">Ville</label>
+                  </div>
                   <select id="city" name="city" class="question__select not-connected">
                     <option value="PARIS">Paris</option>
                     <option value="LYON">Lyon</option>
                     <option value="TOULOUSE">Toulouse</option>
                     <option value="MARSEILLE">Marseille</option>
                 </select>
-                  <!--<input type="text" class="city-input" id="city" name="city" placeholder="Votre ville..." required>-->
                 </div>
                 <button type="submit" value="Submit" class="sign-up__submit-btn">S'inscrire</button>
             </form>
@@ -250,7 +255,7 @@
       </article>
     </template>
 
-      <!-- Templates of signup questions -->
+    <!-- Templates of signup questions -->
        
     <template data-slide-id="1">
       <section class="question size">
@@ -453,7 +458,7 @@
       </section>
     </template>
     
-      <!-- Template my account -->
+    <!-- Template my account -->
 
     <template id="my-account">
 
@@ -579,7 +584,7 @@
       <span class="interest_type" slot="labels">Jeux de société</span>
     </template>
 
-      <!--TEMPLATE MODIFICATION PROFIL INFORMATION-->
+    <!--Template modification profil information-->
 
     <template id="edit-info">
       <div class="modal">
@@ -607,7 +612,7 @@
       </div>
     </template>
 
-      <!-- Template modification text introduction -->
+    <!-- Template modification text introduction -->
 
     <template id="edit-intro" >
       <div class="modal">
@@ -623,7 +628,7 @@
       </div>
     </template>
 
-      <!--Template modification personnal data -->
+    <!--Template modification personnal data -->
 
     <template id="edit-personal">
       <div class="modal">
@@ -662,7 +667,7 @@
       </div>
     </template>
 
-      <!--Template modification label data -->
+    <!--Template modification label data -->
 
     <template id="edit-label">
       <div class="modal">
@@ -700,7 +705,8 @@
 
     </template> 
     
-     <!--Template legal informations -->
+    <!--Template legal informations -->
+
     <template id="legal-info-template">
       <section>
         <h1>Mentions Légales</h1>
@@ -752,7 +758,6 @@
               Pour en savoir plus sur vos droits et la manière de les exercer, vous pouvez consulter le site de la <a href="https://www.cnil.fr/" target="_blank">CNIL</a>.
               </p>
           </div>
-
           <div>
               <h2>5. Cookies</h2>
               <p>
@@ -793,7 +798,8 @@
       </section>
     </template>
 
- <!--Template site map -->
+    <!--Template site map -->
+
     <template id="site-map-template">
       <section>
         <h1>Plan du Site</h1>
@@ -865,6 +871,7 @@
     </template>
 
      <!--Template private data protection and cookie management -->
+
     <template id="data-protection-template">
       <section>
         <h1>Protection des Données Personnelles et Gestion des Cookies</h1>
@@ -955,8 +962,6 @@
             </p>
         </section>
 
-        
-
         <section>
             <h2>9. Gestion des Cookies</h2>
             <p>
@@ -995,6 +1000,59 @@
         </section>
         </section>
     </template>
+  
+        <!--template 404 page-->
+    <template id="page-404-template">
+      <section class="error-404_page">
+        <img src="./src/assets/img/diverse-img/errors/404.jpg" alt="page d'erreur 404">
+        <div class="error-404_message">
+         <h1 class="error-404_title">Page non trouvée</h1>
+         <p>Désolé, la page que vous recherchez n'existe pas.</p>
+         <a href="/" data-link>Retourner à la page d'accueil</a>
+        </div>
+    </section>
+  </template>
+    <!-- Template events page -->
 
+    <template id="all-events-page">
+      <div class="all-events-page">
+        <section class="cities-filter">
+            <div class="cities-filter__list">
+                <button class="cities-filter__button ">Paris</button>
+                <button class="cities-filter__button ">Lyon</button>
+                <button class="cities-filter__button ">Toulouse</button>
+                <button class="cities-filter__button ">Marseille</button>
+                <select class="cities-filter__button filter" id="theme" name="theme">
+                    <option value="tous">Tous les thèmes</option>
+                    <option value="nature">Nature</option>
+                    <option value="culture">Culture</option>
+                    <option value="sports">Sports/bien-être</option>
+                    <option value="soiree-a-theme">Soirée à thème</option>
+                    <option value="artistique">Artistique</option>
+                    <option value="jeux de société">Jeux</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="events-grid">
+          <!-- Events generated by JS here -->
+        </section>
+      </div>
+    </template>
+
+    <!--- Template event from events page--->
+
+    <template id="event__events-page">
+      <article class="event">
+        <a href="">
+            <div>
+                <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="sortie culturelle"> 
+                <h3 class="event__description" slot="title">Sortie au centre d'art "Les Abattoirs"</h3>
+                <span class="event__theme" slot="label">Sortie culturelle</span>
+                <button class="more-btn">En savoir plus</button>
+            </div>
+        </a>
+      </article>
+    </template>
   </body> 
 </html>
