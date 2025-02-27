@@ -40,9 +40,5 @@ export function popstate(e) {
 		fetchDisplay404Page();
 		history.replaceState({ page: "404", initFunction: 'fetchDisplay404Page' }, "", "/404");
 	  }
-	} else {
-	  // If no status is found, display the 404 page
-	  fetchDisplay404Page();
-	  history.replaceState({ page: "404", initFunction: 'fetchDisplay404Page' }, "", "/404");
-	}
+	} 
 };
