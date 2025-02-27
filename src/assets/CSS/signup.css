@@ -56,20 +56,10 @@
 }
 
 
-/* Icone du toggler */
+/* Toggler icon */
 .password-toggle i {
     font-size: 18px;
 }
-
-
-/* .select__signup{
-    width: 100%;
-    padding: .5rem;
-    border: 0.1rem solid var(--primary-color);
-    border-radius: 0.5rem;
-    cursor: pointer;
-    margin: 1rem 0 1rem 0;
-} */
 
 .skip-btn {
     background-color: var(--text-color);
@@ -79,8 +69,7 @@
     margin: 0 .5rem 0 .5rem;
     border-radius: var(--spacing-medium);
     cursor: pointer;
-    transition: transform 0.3s ease;
-   
+    transition: transform 0.3s ease; 
 }
 
 .skip-btn:hover {
@@ -93,8 +82,6 @@
 .family__situation{
     gap: var(--spacing-small);
 }
-
-
 
 .interest__center{
     display: flex;
@@ -152,7 +139,6 @@
 .label__signup.music{
     display: block;
     padding-bottom: var(--spacing-small);
-
 }
 
 .label__signup.picture {
@@ -186,7 +172,6 @@
 #animals-no{
     margin-right: var(--spacing-small) ;
 }
-
 
 .submit-btn {
     background-color: var(--primary-color);
@@ -301,7 +286,9 @@
     border-color: var(--secondary-color);
     box-shadow: 0 0 0.3rem var(--primary-color-light);
 }
- 
+
+
+/* MEDIAS QUERIES */ 
 @media screen and (min-width: 768px){
 
     .question{
@@ -327,6 +314,7 @@
 
 
 @media screen and (min-width: 1024px){
+
     .question {
         width: 70%;
         padding-bottom: 2rem;
@@ -340,7 +328,6 @@
         width: 100%;
         padding-bottom: 2rem;
     }
-
 }
 
 

@@ -11,7 +11,6 @@ export async function getLastEvent() {
     });
 
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       return null;
     }
 
@@ -35,7 +34,6 @@ export async function signUp(data) {
     });
 
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       showErrorMessage('erreur dans les données renseignées lors de l\'inscription.')
       return null;
     }
@@ -45,8 +43,8 @@ export async function signUp(data) {
     return createdUser;
 
   } catch (error) {
-     errorServer();  //alert ereur server
-     console.error("API non accessible...", error);
+    errorServer();  //alert ereur server
+    console.error("API non accessible...", error);
   }
 };
 
@@ -61,7 +59,6 @@ export async function signIn(data) {
     });
 
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       showErrorMessage('Utilisateur non trouvé, veuillez verifier vos informations de connexion.')
       return null;
     }
@@ -104,9 +101,7 @@ export async function getLastProfilesMatch() {
       credentials: "include"
     });
 
-
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       return null;
     }
 
@@ -127,9 +122,7 @@ export async function getLastEventsMatch() {
       credentials: "include"
     });
 
-
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       return null;
     }
 
@@ -150,9 +143,7 @@ export async function getMyAccount() {
       credentials: "include",
     });
 
-
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       return null;
     }
 
@@ -176,7 +167,6 @@ export async function editMyAccount(data) {
     });
 
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       return null;
     }
 
@@ -199,7 +189,6 @@ export async function deleteMyAccount() {
 
 
     if (!httpResponse.ok) {
-      console.log(httpResponse);
       return null;
     }
 
@@ -221,7 +210,6 @@ export async function logOutMyAccount(){
     });
 
     if(!httpResponse.ok){
-      console.log(httpResponse);
       return null;
     }
 
@@ -241,7 +229,6 @@ export async function getAllEvents(){
     });
 
     if(!httpResponse.ok){
-      console.log(httpResponse);
       return null;
     }
 

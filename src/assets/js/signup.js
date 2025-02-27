@@ -11,6 +11,7 @@ export function fetchDisplaySignupForm(data) {
 };
 
 function displayNextForm(count, data) {
+
   // Reset the view template for the main application area
   resetViewTemplate('app-main');
 
@@ -24,6 +25,7 @@ function displayNextForm(count, data) {
 };
 
 function initContent(contentTemplate, count, data) {
+
   // Clone and append the content template to the main container
   const contentContainer = cloneAndAppendContent(contentTemplate);
   if (!contentContainer) {
@@ -50,13 +52,16 @@ function addPasswordToggleListener(container) {
   // If the first toggle button exists, add a click event listener
   if (togglePassword) {
     togglePassword.addEventListener('click', function () {
+
       // Select the password input field
       const passwordField = container.querySelector('#password');
+
       // Select the icon inside the toggle button
       const icon = this.querySelector('i');
 
       // Check if the password is currently hidden (type="password")
       const isPasswordHidden = passwordField.getAttribute('type') === 'password';
+
       // Toggle the input field type between 'password' and 'text'
       passwordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
       
@@ -69,13 +74,16 @@ function addPasswordToggleListener(container) {
   // If the second toggle button exists, add a click event listener
   if (toggleRepeatPassword) {
     toggleRepeatPassword.addEventListener('click', function () {
+
       // Select the repeat password input field
       const repeatPasswordField = container.querySelector('#repeat_password');
+
       // Select the icon inside the toggle button
       const icon = this.querySelector('i');
 
       // Check if the repeat password is currently hidden (type="password")
       const isPasswordHidden = repeatPasswordField.getAttribute('type') === 'password';
+      
       // Toggle the input field type between 'password' and 'text'
       repeatPasswordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
       
@@ -124,12 +132,12 @@ function handleFormSubmit(e, count, data) {
   const formDataObject = Object.fromEntries(formData);
 
 
-    // Validate form data with current step
-    const error = validateFormSignup(formDataObject, count);
-    if (error) {
-        showErrorMessage(error)
-        return;
-    }
+  // Validate form data with current step
+  const error = validateFormSignup(formDataObject, count);
+  if (error) {
+    showErrorMessage(error);
+    return;
+  }
 
 
   // Get all checkbox values with the name 'labels'
@@ -142,27 +150,24 @@ function handleFormSubmit(e, count, data) {
 
   // Merge formDataObject into the existing data object
   Object.assign(data, formDataObject);
-  console.log(data);
 
   // Increment the count and display the next form if the count is less than or equal to 10
   count++;
   if (count <= 10) {
     displayNextForm(count, data);
   } else {
-    console.log('ok');
     createNewUser(data); // Create new user if the count exceeds 10
   }
 };
 
 async function createNewUser(data) {
   const createUser = await signUp(data);
-  console.log(createUser);
   if (!createUser) {
     return  null;
   }
 
   // display the success signup alert
-    successSignup()
+  successSignup();
    
   // Display the sign-in page upon successful user creation
   fetchDisplaySigninPage();

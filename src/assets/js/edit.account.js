@@ -28,7 +28,7 @@ export function fetchDisplayEditPersonalPage(){
 };
 
 function appendTemplateEditInfoPage(){
-  console.log('appendTemplateEditInfoPage');
+
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-info");
 
@@ -51,7 +51,7 @@ function appendTemplateEditInfoPage(){
 };
 
 function appendTemplateEditIntroPage(){
-  console.log('appendTemplateEditIntroPage');
+
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-intro");
 
@@ -74,7 +74,7 @@ function appendTemplateEditIntroPage(){
 };
 
 function appendTemplateEditLabelPage(){
-  console.log('appendTemplateEditLabelPage');
+
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-label");
 
@@ -97,7 +97,7 @@ function appendTemplateEditLabelPage(){
 };
 
 function appendTemplateEditPersonnalPage(){
-  console.log('appendTemplateEditPersonnalPage');
+
   // Select the content template from the DOM
   const contentTemplate = document.querySelector("#edit-personal");
 
@@ -134,38 +134,34 @@ function addCancelButtonListener(cancelButton){
 // Function to add event listener to the edit form
 function addEditFormListener(editForm) {
   editForm.addEventListener('submit', async (e) => {
+
     e.preventDefault();
-    console.log('preventDefault called');
 
     const formData = new FormData(editForm);
     const dataUser = {};
 
     // Check if the file input field is empty
-  const fileInput = formData.get('picture');
-  if (fileInput && fileInput.size === 0) {
-    formData.delete('picture'); // Delete the 'picture' field if no file is selected
-  }
+    const fileInput = formData.get('picture');
+    if (fileInput && fileInput.size === 0) {
+      formData.delete('picture'); // Delete the 'picture' field if no file is selected
+    }
 
-// Iterate over formData entries and update dataUser object
-  for (const [key, value] of formData.entries()) {
-    if (value.trim() !== '') { // Check if the value is not just empty spaces
-    dataUser[key] = value; // Update the dataUser object with the non-empty values
-  }
-}
+    // Iterate over formData entries and update dataUser object
+    for (const [key, value] of formData.entries()) {
+      if (value.trim() !== '') { // Check if the value is not just empty spaces
+        dataUser[key] = value; // Update the dataUser object with the non-empty values
+      }
+    }
     
-    //const dataUser = Object.fromEntries(formData);
-    
-
     // Get all checkbox values
     const checkboxes = formData.getAll('labels');
+
     if (checkboxes.length > 0) {
       dataUser.labels = checkboxes;
-      console.log(dataUser.labels)
     }
 
     // Send the updated data to the server
     const updateUser = await editMyAccount(dataUser);
-    console.log(dataUser)
 
     // If the update was unsuccessful, return null
     if(!updateUser){

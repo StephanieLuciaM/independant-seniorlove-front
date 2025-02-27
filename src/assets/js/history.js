@@ -1,3 +1,4 @@
+
 import { fetchDisplayEditInfoPage } from "./edit.account.js"
 import { fetchDisplayEditIntroPage } from "./edit.account.js"
 import { fetchDisplayEditLabelPage } from "./edit.account.js"
@@ -11,6 +12,7 @@ import { fetchDisplayLegalInfoPage } from "./legal.info.page.js"
 import { fetchDisplayPrivacyPage } from "./privacy.cookies.page.js"
 import { fetchDisplaySiteMapPage } from "./site.map.page.js"
 import { fetchDisplay404Page } from "./error.404.page.js"
+import { fetchDisplayEventsPage } from "./events.js"
 
 const displayMap ={
 	'fetchDisplayHomePageVisitor' : fetchDisplayHomePageVisitor,
@@ -18,6 +20,7 @@ const displayMap ={
 	'fetchDisplaySignupForm': fetchDisplaySignupForm,
 	'fetchDisplayHomePageConnected': fetchDisplayHomePageConnected,
 	'fetchDisplayMyAccountPage' : fetchDisplayMyAccountPage,
+	'fetchDisplayEventsPage' : fetchDisplayEventsPage,
 	'fetchDisplayEditInfoPage': fetchDisplayEditInfoPage,
 	'fetchDisplayEditIntroPage': fetchDisplayEditIntroPage,
 	'fetchDisplayEditLabelPage': fetchDisplayEditLabelPage,
@@ -29,16 +32,17 @@ const displayMap ={
 };
 
 export function popstate(e) {
-	const state = e.state;
+  const state = e.state;
   
-	if (state && state.initFunction) {
+  if (state && state.initFunction) {
+	
 	  const initFunction = displayMap[state.initFunction];
 	  if (initFunction) {
-		initFunction();
+      initFunction();
 	  } else {
-		// If the function is not found in displayMap, show the 404 page
-		fetchDisplay404Page();
-		history.replaceState({ page: "404", initFunction: 'fetchDisplay404Page' }, "", "/404");
+      // If the function is not found in displayMap, show the 404 page
+      fetchDisplay404Page();
+      history.replaceState({ page: "404", initFunction: 'fetchDisplay404Page' }, "", "/404");
 	  }
-	} 
+  } 
 };
