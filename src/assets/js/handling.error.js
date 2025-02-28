@@ -147,6 +147,10 @@ export async function showSuccessMessage() {
 
   // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
   fetchDisplayHomePageVisitor();
+
+  const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
+    const url = "/accueil";
+    history.pushState(state, "", url);
 }
 
 // If the user canceled, show an informational message
