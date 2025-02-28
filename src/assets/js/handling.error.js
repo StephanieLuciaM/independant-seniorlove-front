@@ -148,10 +148,16 @@ export async function showSuccessMessage() {
   // Update page after deletion
   fetchDisplayHomePageVisitor();
 
+<<<<<<< HEAD
+  const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
+    const url = "/accueil";
+    history.pushState(state, "", url);
+=======
   // Update browser history
   const state = { page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor' };
   const url = "/accueil";
   history.pushState(state, "", url);
+>>>>>>> 10bbe08b42daa12d3b8cc9cec96af53d490e62fc
 }
 
 // If the user canceled, show an informational message
