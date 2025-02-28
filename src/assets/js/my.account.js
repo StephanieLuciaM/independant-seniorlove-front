@@ -2,7 +2,7 @@ import { deleteMyAccount, getMyAccount } from "./api.js";
 import { showConfirmationDialog } from "./handling.error.js";
 import { showSuccessMessage } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
-import { ShowCancelAction } from "./handling.error.js";
+import { showCancelAction } from "./handling.error.js";
 import { resetViewTemplate } from "./utils.js";
 import { 
   fetchDisplayEditInfoPage,
@@ -74,81 +74,48 @@ function addEditButtonsListener() {
 };
    
 // Function to handle the account deletion process
-async function handleDeleteAccount() {
-  try {
+export async function handleDeleteAccount() {
+    try {
+        //Show confirmation dialog and wait for user response
+        const confirmation = await showConfirmationDialog();
 
-    // Call the function to delete the user account
-    const deleteUser = await deleteMyAccount();
+        if (confirmation.isConfirmed) {
+            // The user confirmed the deletion
 
-    // Check if the account was successfully deleted
-    if (deleteUser) {
+            // Call the function to delete the user account
+            const deleteUser = await deleteMyAccount();
 
-      // Show success message if deletion was successful
-      await showSuccessMessage();
-    } else {
-
-      // Show error message if deletion failed
-      showErrorMessage('Il y a eu un problème lors de la suppression de votre compte. Veuillez réessayer plus tard.');
+            if (deleteUser) {
+                //Deletion was successful, show success message
+                await showSuccessMessage();
+            } else {
+                // Deletion failed, display error message
+                showErrorMessage('Il y a eu un problème lors de la suppression de votre compte. Veuillez réessayer plus tard.');
+            }
+        } else {
+          // User canceled deletion, show cancellation message
+            showCancelAction();
+        }
+    } catch (error) {
+        // Handling unexpected errors
+        console.error('Erreur lors de la suppression du compte:', error);
+        showErrorMessage('Une erreur inattendue est survenue. Veuillez réessayer plus tard.');
     }
-  } catch (error) {
-
-    // Log the error for debugging purposes
-    console.error('Erreur lors de la suppression du compte:', error);
-
-    // Show a generic error message to the user
-    showErrorMessage('Une erreur inattendue est survenue. Veuillez réessayer plus tard.');
-  }
 }
 
-// Main function to add the delete button event listener
-function addDeleteButtonListener() {
+export function addDeleteButtonListener() {
+    // Delete button CSS selector. Make sure it matches your HTML.
+    const deleteButton = document.querySelector("#app-main .delete-account");
 
-  // Get the delete button element
-  const deleteButton = document.querySelector("#app-main .delete-account");;
-
-  if (!deleteButton) {
-    console.error('Delete button not found!');
-    return;
-  }
-
-  // Add a click event listener to the delete button
-  deleteButton.addEventListener('click', async () => {
-    
-    // Show the confirmation dialog and wait for the user's response
-    const confirmation = await showConfirmationDialog();
-
-    // Handle the user's response
-    await handleConfirmation(confirmation);
-
-    // Call the deleteMyAccount function and wait for its completion
-    const deleteUser = await deleteMyAccount();
-
-    // If deleteMyAccount returns false or null, exit the function
-    if (!deleteUser) {
-      return null;
+    if (!deleteButton) {
+        console.error('Bouton de suppression introuvable!');
+        return;
     }
 
-    // If the account deletion is successful, call fetchDisplayHomePageVisitor to update the page
-    fetchDisplayHomePageVisitor();
-
-    const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor'};
-    const url = "/accueil";
-    history.pushState(state, "", url);
-  });
-}
-
-// Function to handle the user's response from the confirmation dialog
-async function handleConfirmation(confirmation) {
-  if (confirmation.isConfirmed) {
-
-    // If the user confirmed, proceed to delete the account
-    await handleDeleteAccount();
-
-  } else if (confirmation.dismiss === Swal.DismissReason.cancel) {
-    
-    // If the user canceled, show an informational message
-    ShowCancelAction();
-  }
+    // Add click event listener to delete button
+    deleteButton.addEventListener('click', async () => {
+        await handleDeleteAccount();
+    });
 }
 
 function addLogOutButtonListener(){
