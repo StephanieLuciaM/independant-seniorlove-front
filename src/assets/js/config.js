@@ -1,1 +1,1 @@
-export const apiUrl = "https://senior-love-back-6.onrender.com";
+export const apiUrl = "https://senior-love-back-8.onrender.com";
