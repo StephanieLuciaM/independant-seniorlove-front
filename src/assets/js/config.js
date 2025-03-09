@@ -1,1 +1,1 @@
-export const apiUrl = "http://localhost:3000/api";
+export const apiUrl = "https://senior-love-back-6.onrender.com";
