@@ -1,4 +1,4 @@
-import { deleteMyAccount, getMyAccount } from "./api.js";
+import { deleteMyAccount, getMyAccount} from "./api.js";
 import { showConfirmationDialog } from "./handling.error.js";
 import { showSuccessMessage } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
@@ -13,6 +13,9 @@ import {
 import {  logOutMyAccount } from "./api.js";
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 import { fetchDisplayEventsPage } from "./events.js";
+import { fetchDisplayMessagesPage } from "./messages.js";
+
+
 
 export async function fetchDisplayMyAccountPage(){
 
@@ -29,6 +32,7 @@ export async function fetchDisplayMyAccountPage(){
   addEditButtonsListener();
   addDeleteButtonListener();
   addLogOutButtonListener();
+  addMessagesButtonListener();
   addEventsButtonListener();
 };
 
@@ -75,47 +79,47 @@ function addEditButtonsListener() {
    
 // Function to handle the account deletion process
 export async function handleDeleteAccount() {
-    try {
-        //Show confirmation dialog and wait for user response
-        const confirmation = await showConfirmationDialog();
+  try {
+    //Show confirmation dialog and wait for user response
+    const confirmation = await showConfirmationDialog();
 
-        if (confirmation.isConfirmed) {
-            // The user confirmed the deletion
+    if (confirmation.isConfirmed) {
+      // The user confirmed the deletion
 
-            // Call the function to delete the user account
-            const deleteUser = await deleteMyAccount();
+      // Call the function to delete the user account
+      const deleteUser = await deleteMyAccount();
 
-            if (deleteUser) {
-                //Deletion was successful, show success message
-                await showSuccessMessage();
-            } else {
-                // Deletion failed, display error message
-                showErrorMessage('Il y a eu un problème lors de la suppression de votre compte. Veuillez réessayer plus tard.');
-            }
-        } else {
-          // User canceled deletion, show cancellation message
-            showCancelAction();
-        }
-    } catch (error) {
-        // Handling unexpected errors
-        console.error('Erreur lors de la suppression du compte:', error);
-        showErrorMessage('Une erreur inattendue est survenue. Veuillez réessayer plus tard.');
+      if (deleteUser) {
+        //Deletion was successful, show success message
+        await showSuccessMessage();
+      } else {
+        // Deletion failed, display error message
+        showErrorMessage('Il y a eu un problème lors de la suppression de votre compte. Veuillez réessayer plus tard.');
+      }
+    } else {
+      // User canceled deletion, show cancellation message
+      showCancelAction();
     }
+  } catch (error) {
+    // Handling unexpected errors
+    console.error('Erreur lors de la suppression du compte:', error);
+    showErrorMessage('Une erreur inattendue est survenue. Veuillez réessayer plus tard.');
+  }
 }
 
 export function addDeleteButtonListener() {
-    // Delete button CSS selector. Make sure it matches your HTML.
-    const deleteButton = document.querySelector("#app-main .delete-account");
+  // Delete button CSS selector. Make sure it matches your HTML.
+  const deleteButton = document.querySelector("#app-main .delete-account");
 
-    if (!deleteButton) {
-        console.error('Bouton de suppression introuvable!');
-        return;
-    }
+  if (!deleteButton) {
+    console.error('Bouton de suppression introuvable!');
+    return;
+  }
 
-    // Add click event listener to delete button
-    deleteButton.addEventListener('click', async () => {
-        await handleDeleteAccount();
-    });
+  // Add click event listener to delete button
+  deleteButton.addEventListener('click', async () => {
+    await handleDeleteAccount();
+  });
 }
 
 function addLogOutButtonListener(){
@@ -178,14 +182,19 @@ function handleEditPersonal(){
   history.pushState(state, "", url);
 };
 
-function myAccount(display, data){
-  // Log the user data to the console
-
+export async function myAccount(display, data){
   // Populate the account information slots with the user data
   display.querySelector("[slot='firstname']").textContent = data.firstname;
   display.querySelector("[slot='age']").textContent = data.age;
   display.querySelector("[slot='city-profil']").textContent = data.city;
   display.querySelector("[slot='description']").textContent = data.description;
+
+  const pictureSlot = display.querySelector("[slot='picture']");
+  if (pictureSlot) {
+    pictureSlot.src = data.picture;
+  } else {
+    console.error("Image de profil non trouvée dans le DOM.");
+  }
 
   data.labels.forEach(label => {
     const labelTemplate = document.querySelector("#label");
@@ -209,6 +218,8 @@ function myAccount(display, data){
   display.querySelector("[slot='music']").textContent = data.music;
 };
 
+
+
 function addEventsButtonListener(data){
 
   // Select the "Évènements" button from the header
@@ -227,3 +238,23 @@ function addEventsButtonListener(data){
     history.pushState(state, "", url);
   });
 };
+
+function addMessagesButtonListener(data){
+
+  // Select the "Évènements" button from the header
+  const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
+
+  // Add click event listener to the "Évènements" button
+  messagesButton.addEventListener('click', (e) =>{
+
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Fetch and display the "Évènements" page with the provided data
+    fetchDisplayMessagesPage(1,2);
+    const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
+    const url = "/messages";
+    history.pushState(state, "", url);
+  });
+};
+

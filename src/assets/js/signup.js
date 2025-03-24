@@ -1,9 +1,10 @@
 import { resetViewTemplate } from "./utils.js";
-import { signUp } from "./api.js";
+import { signUp, uploadImageToCloudinary } from "./api.js";
 import { fetchDisplaySigninPage } from "./signin.js";
 import { validateFormSignup } from "./handling.error.js";
 import { successSignup } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
+
 
 export function fetchDisplaySignupForm(data) {
   let i = 1;
@@ -126,39 +127,51 @@ function addSkipButtonListener(skipButton, count, data) {
 
 function handleFormSubmit(e, count, data) {
   e.preventDefault();
-  
-  // Create a FormData object from the form data and convert it to a regular object
+
   const formData = new FormData(e.target);
   const formDataObject = Object.fromEntries(formData);
 
-
-  // Validate form data with current step
+  // Form validation and checking
   const error = validateFormSignup(formDataObject, count);
   if (error) {
     showErrorMessage(error);
     return;
   }
 
+  // If a photo is selected, upload the image to Cloudinary
+  const fileInput = e.target.querySelector('#picture');
+  if (fileInput && fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    uploadImageToCloudinary(file).then(imageUrl => {
+      // Add the image URL to the form data
+      formDataObject.profile_photo_url = imageUrl;
 
-  // Get all checkbox values with the name 'labels'
-  const checkboxes = formData.getAll('labels');
+      // Add the form data to the `data` object
+      Object.assign(data, formDataObject);
 
-  // If there are any checkbox values, add them to the formDataObject under 'labels'
-  if (checkboxes.length > 0) {
-    formDataObject.labels = checkboxes;
-  }
-
-  // Merge formDataObject into the existing data object
-  Object.assign(data, formDataObject);
-
-  // Increment the count and display the next form if the count is less than or equal to 10
-  count++;
-  if (count <= 10) {
-    displayNextForm(count, data);
+      // Move to the next step or submit the data
+      count++;
+      if (count <= 10) {
+        displayNextForm(count, data);
+      } else {
+        createNewUser(data); // Create a new user once everything is validated
+      }
+    }).catch(err => {
+      showErrorMessage("Error while uploading the image.");
+    });
   } else {
-    createNewUser(data); // Create new user if the count exceeds 10
+    // If no photo is selected, continue as normal
+    Object.assign(data, formDataObject);
+    count++;
+    if (count <= 10) {
+      displayNextForm(count, data);
+    } else {
+      createNewUser(data);
+    }
   }
-};
+}
+
+
 
 async function createNewUser(data) {
   const createUser = await signUp(data);

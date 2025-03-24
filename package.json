@@ -17,6 +17,7 @@
     "vite": "^6.1.0"
   },
   "dependencies": {
-    "eslint": "^9.20.0"
+    "eslint": "^9.20.0",
+    "stream-chat": "^8.57.6"
   }
 }

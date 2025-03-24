@@ -1,6 +1,7 @@
-import { editMyAccount } from "./api.js";
+import { editMyAccount, uploadImageToCloudinary } from "./api.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { resetViewTemplate } from "./utils.js";
+
 
 // Function to reset the view and display the edit info page
 export function fetchDisplayEditInfoPage(){
@@ -134,45 +135,51 @@ function addCancelButtonListener(cancelButton){
 // Function to add event listener to the edit form
 function addEditFormListener(editForm) {
   editForm.addEventListener('submit', async (e) => {
-
     e.preventDefault();
-
     const formData = new FormData(editForm);
     const dataUser = {};
-
-    // Check if the file input field is empty
-    const fileInput = formData.get('picture');
-    if (fileInput && fileInput.size === 0) {
-      formData.delete('picture'); // Delete the 'picture' field if no file is selected
+    
+    // Check if there's a file to upload to Cloudinary
+    const fileInput = editForm.querySelector('#edit-picture'); 
+    if (fileInput && fileInput.files.length > 0) {
+      try {
+        // Upload the image to Cloudinary and get the URL
+        const file = fileInput.files[0];
+        const imageUrl = await uploadImageToCloudinary(file);
+        
+        // Ajouter l'URL à l'objet dataUser avec le nom correct
+        // Utiliser le même nom que dans le modèle User côté serveur
+        dataUser.picture = imageUrl; // Assumant que le champ dans la DB est 'picture'
+      } catch (error) {
+        console.error("Erreur lors du téléchargement de l'image:", error);
+        return null;
+      }
     }
-
-    // Iterate over formData entries and update dataUser object
+    
+    // Parcourir les autres champs du formulaire
     for (const [key, value] of formData.entries()) {
-      if (value.trim() !== '') { // Check if the value is not just empty spaces
-        dataUser[key] = value; // Update the dataUser object with the non-empty values
+      // Ignorer le champ 'picture' car on l'a déjà traité
+      if (key !== 'picture' && value && value.trim && value.trim() !== '') {
+        dataUser[key] = value;
       }
     }
     
     // Get all checkbox values
     const checkboxes = formData.getAll('labels');
-
     if (checkboxes.length > 0) {
       dataUser.labels = checkboxes;
     }
-
+    
     // Send the updated data to the server
     const updateUser = await editMyAccount(dataUser);
-
-    // If the update was unsuccessful, return null
-    if(!updateUser){
+    if (!updateUser) {
       return null;
     }
-
+    
     // Fetch and display the "My Account" page
     fetchDisplayMyAccountPage();
-
     const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
     const url = "/mon-compte";
     history.pushState(state, "", url);
   });
-};
+}

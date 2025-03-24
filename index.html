@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="./src/assets/CSS/my.account.css">
     <link rel="stylesheet" href="/src/assets/CSS/error.404.css">
     <link rel="stylesheet" href="./src/assets/CSS/events.css">
+    <link rel="stylesheet" href="./src/assets/CSS/profils.css">
+    <link rel="stylesheet" href="./src/assets/CSS/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script type="module" src="./src/assets/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">s</script>
@@ -65,9 +67,9 @@
           <img class="header-connected__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
         </a>
         <nav class="header-connected__nav">
-          <a href="#"  class="header__nav-link">Profils</a>
+          <a href="/profils"  class="header__nav-link-profils">Profils</a>
           <a href="/evenements"  class="header__nav-link-events">Évènements</a>
-          <a href="#"  class="header__nav-link ">Messages</a>
+          <a href="/messages"  class="header__nav-link-messages">Messages</a>
           <a href="#"  class="header__nav-link my__account">Mon compte</a>
         </nav>
         <form action="/" class="header-connected__search-form">
@@ -83,9 +85,9 @@
           <img class="header-connected__logo" src="./src/assets/img/logo/heart-2-removebg.png" alt="logo coeur">
         </a>
         <nav class="header-connected__nav">
-          <a href="#"  class="header__nav-link">Profils</a>
-          <a href="#"  class="header__nav-link-events">Évènements</a>
-          <a href="#"  class="header__nav-link ">Messages</a>
+          <a href="/profils"  class="header__nav-link-profils">Profils</a>
+          <a href="/evenements"  class="header__nav-link-events">Évènements</a>
+          <a href="/messages"  class="header__nav-link-messages">Messages</a>
           <a href="#"  class="header__nav-link logout">Se déconnecter</a>
         </nav>
         <form action="/" class="header-connected__search-form">
@@ -95,6 +97,7 @@
       </div>
     </template>
 
+  
     <!-- Template homepage visitor -->
 
     <template id="home-page-visitor">
@@ -693,6 +696,35 @@
       </div>
 
     </template> 
+
+   <!-- Template de la page de messages -->
+<template id="messages-page">
+  <div class="messages-container">
+    <div class="messages-header">
+      <p><strong>Conversation avec : </strong><span class="conversation-partner"></span></p>
+    </div>
+    <div class="messages-list">
+      <!-- Les messages seront ajoutés ici dynamiquement -->
+    </div>
+    <div class="message-form">
+      <input type="text" id="messageInput" placeholder="Écrivez votre message ici..." />
+      <button id="sendMessageButton">Envoyer</button>
+    </div>
+  </div>
+</template>
+
+<!-- Template pour un message individuel -->
+<template id="message-item">
+  <div class="message-bubble">
+    <div class="message-info">
+      <span class="message-sender"></span>
+      <span class="message-time"></span>
+    </div>
+    <p class="message-content"></p>
+  </div>
+</template>
+
+    
     
     <!--Template legal informations -->
 
@@ -1039,5 +1071,166 @@
         </a>
       </article>
     </template>
-  </body> 
+
+<!-- Template profils page -->
+<template id="all-profils-page">
+  <div class="all-profils-page">
+    <section class="cities-filter">
+      <div class="cities-filter__list">
+        <button class="cities-filter__button">Paris</button>
+        <button class="cities-filter__button">Lyon</button>
+        <button class="cities-filter__button">Toulouse</button>
+        <button class="cities-filter__button">Marseille</button>
+        <select class="cities-filter__button filter" id="description" name="description">
+            <option value="tous-les-criteres">Choisir les critères</option>         
+            <option value="taille">Taille</option>
+            <option value="fumeur">Fumeur</option>
+            <option value="situation-familiale">Situation familiale</option>
+            <option value="animaux-de-compagnie">Animaux de compagnie</option>
+            <option value="centres-interet">Centres d'intérêt</option>   
+        </select>
+        <!-- Sub-options will be added here dynamically -->
+      </div>
+    </section>
+    <section class="profils-grid">
+      <!-- Profils générés par JS ici -->
+    </section>
+  </div>
+</template>
+    
+<!-- Template profil from profils page -->
+<template id="profil__profils-page">
+  <article class="profil" data-user-id="4" data-user-slug="francoise">
+    <a href="">
+        <div>
+            <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil" slot="picture"> 
+            <h2 class="profil__name" slot="firstname">Celine</h2>
+            <h3 class="profil__city" slot="city">Paris</h3>
+            <span class="profil__old" slot="age">60 ans</span>
+            <button class="more-btn">En savoir plus</button>
+        </div>
+    </a>
+  </article>
+</template>
+
+
+ <!-- Template visitor profile -->
+
+ <template id="visitor-profile">
+
+  <div class="visitor-profile">
+    <section class="profile-section">
+      <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="my profile picture" class="profile-img" slot="picture">      
+      <div class="profile-details">
+        <p class="profile-firstname"><strong>Prénom :</strong> <span slot="firstname">Celine</span></p>
+        <p class="profile-old"><strong>Age:</strong> <span slot="age">60 ans</span></p>
+        <p class="profile-city"><strong>Ville :</strong> <span slot="city-profil">Bordeaux</span></p>
+      </div>
+    </section>
+    
+    <section class="interests-section">
+      <article class="general-info-article">
+        <h2 class="general-info-title"> Informations générales</h2> 
+        <div class="general-info-description">
+        <p class="general-info-item"><strong class="general-info">Taille: </strong> <span slot="height">170</span>cm</p>
+        <p class="general-info-item"><strong class="general-info">Fumeur/Fumeuse: </strong> <span slot="smoker">oui</span></p>
+        <p class="general-info-item"><strong class="general-info">Situation familiale: </strong> <span slot="marital">Célibataire</span></p>
+        <p class="general-info-item"><strong class="general-info">Signe astrologique: </strong> <span slot="zodiac">Gémeaux</span></p>
+        <p class="general-info-item"><strong class="general-info">Animaux de compagnie: </strong> <span slot="pet">oui</span></p>
+        <p class="general-info-item"><strong class="general-info">Style de musique: </strong> <span slot="music">Rock</span></p>
+      </div>
+        
+      </article>
+      <article class="intro-article">
+        <article class="intro-article-presentation">
+          <h2 class="intro-title">Texte d'introduction</h2>
+          <p slot="description">Jeune retraitée et cherche à faire des rencontres. Contactez-moi!</p>
+        </article>
+
+        <article class="interests-article">
+          <h2 class="interests-title">Centres d'intérets</h2>
+          <div class="interest" id="label-user">
+          </div>
+        </article>
+        <button class="send-message-button" type="button">Envoyer un message</button> 
+
+        <article class="events-article">
+          <div class="past-events">
+              <h2 class="events-title">Evènements passés</h2>
+              <div class="past-event">
+                <h3 class="event-city" slot="city">PARIS</h3>
+                <a href="">
+                  <div class="event-details">
+                    <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img" slot="picture"> 
+                    <h3 class="event-description " slot="title">Balade Nature en Forêt</h3>
+                    <span class="event-theme " slot="label">Nature</span>
+                  </div>
+                </a>
+              </div>  
+              <div class="past-event">
+                <h3 class="event-city">PARIS</h3>
+                <a href="">
+                  <div class="event-details">
+                    <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="soirée en groupe" class="event-img"> 
+                    <h3 class="event-description">Soirée Théâtre Classique</h3>
+                    <span class="event-theme ">Culturel</span>
+                  </div>
+                </a>
+              </div>
+              <div class="past-event">
+                <h3 class="event-city">PARIS</h3>
+                <a href="">
+                  <div class="event-details">
+                    <img src="./src/assets/img/diverse-img/events/artistic.jpg" alt="soirée en groupe" class="event-img"> 
+                    <h3 class="event-description">Atelier de Peinture Acrylique</h3>
+                    <span class="event-theme ">Artistique</span>
+                  </div>
+                </a>
+              </div>  
+          </div>
+
+          <div class="upcoming-events">
+            <h2 class="events-title"> Evénements à venir</h2>
+            <div class="past-event">
+              <h3 class="event-city">LYON</h3>
+              <a href="">
+                <div class="event-details">
+                  <img src="./src/assets/img/diverse-img/events/hiking.jpg" alt="soirée en groupe" class="event-img" slot="picture"> 
+                  <h3 class="event-description connected" slot="title">Randonnée au Parc de la Tête d''Or</h3>
+                  <span class="event-theme" slot="label">Nature</span>
+                </div>
+              </a>
+            </div>  
+            <div class="past-event">
+              <h3 class="event-city">LYON</h3>
+              <a href="">
+                <div class="event-details">
+                  <img src="./src/assets/img/diverse-img/events/artistic.jpg" alt="soirée en groupe" class="event-img"> 
+                  <h3 class="event-description">Concert de Musique Classique</h3>
+                  <span class="event-theme ">Artistique</span>
+                </div>
+              </a>
+            </div>
+            <div class="past-event">
+              <h3 class="event-city">LYON</h3>
+              <a href="">
+                <div class="event-details">
+                  <img src="./src/assets/img/diverse-img/games.jpg" alt="soirée en groupe" class="event-img"> 
+                  <h3 class="event-description">Soirée Jeux de Société</h3>
+                  <span class="event-theme ">Jeux de société</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </article>
+      </article>
+    </section>
+</div> 
+</template>
+
+<template id="label">
+  <span class="interest_type" slot="labels">Jeux de société</span>
+</template>
+
+</body> 
 </html>

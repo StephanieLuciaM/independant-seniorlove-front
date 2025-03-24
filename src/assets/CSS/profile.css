@@ -1,0 +1,296 @@
+/* LAYOUT PRINCIPAL */
+
+.visitor-profile {
+    padding: var(--spacing-large) 0;
+}
+
+.interests-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-large);
+}
+
+.profile-section,
+.intro-article-presentation,
+.interests-article, 
+.events-article,
+.general-info-article {
+    border-radius: var(--spacing-small);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+}
+
+.intro-article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+}
+
+.intro-article-presentation,
+.interests-article {
+    position: relative;
+    padding-top: 2.5rem;
+    background-color: var(--light-gray);
+}
+
+.interests-article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--light-gray);
+    gap: var(--spacing-medium);
+    padding: var(--spacing-medium);
+    border-radius: var(--spacing-small);
+}
+
+/* Mise à jour spécifique pour le bouton */
+.send-message-button {
+    background-color: var(--primary-color-light); /* Correspond au style des informations générales */
+    color: white;
+    border: 2px solid var(--secondary-color);
+    padding: var(--spacing-medium);
+    border-radius: var(--spacing-small);
+    font-family: var(--font-title);
+    font-size: var(--spacing-medium);
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: var(--spacing-large);
+    transition: all 0.3s ease-in-out;
+    display: block;
+    width: 100%;
+}
+
+.send-message-button:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.05);
+    border-color: var(--text-color-light);
+}
+
+.general-info-article {
+    background-color: var(--primary-color-light);
+    color: white;
+}
+
+/* PROFILE */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-medium);
+    background-color: white;
+    margin-bottom: var(--spacing-large);
+}
+
+.profile-img {
+    width: 15.625rem;
+    height: 15.625rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+}
+
+.profile-details {
+    text-align: center;
+    width: 100%;
+}
+
+.profile-details p {
+    margin: var(--spacing-small) 0;
+}
+
+/* TITLES */
+.intro-title,
+.interests-title,
+.general-info-title {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-medium);
+    font-family: var(--font-title);
+    font-size: var(--spacing-medium);
+}
+
+.events-title {
+    font-family: var(--font-title);
+    text-align: center;
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+}
+
+.general-info-title {
+    color: white;
+    padding-bottom: 3rem;
+}
+
+.interest {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+}
+
+.interest_type {
+    top: var(--spacing-small);
+    right: 0.7rem;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.5rem var(--spacing-small);
+    border-radius: var(--spacing-small);
+    font-size: var(--spacing-small);
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    margin-top: 1.8rem;
+}
+
+.general-info {
+    font-weight: bold;
+    padding-right: var(--spacing-small);
+    line-height: var(--spacing-large);
+}
+
+.general-info-description {
+    margin-bottom: 3rem;
+}
+
+/* EVENTS */
+.events-article {
+    background-color: var(--secondary-color);
+}
+
+.past-events,
+.upcoming-events {
+    margin-bottom: var(--spacing-large);
+}
+
+.past-event {
+    margin-bottom: var(--spacing-medium);
+    background-color: white;
+    border-radius: var(--spacing-small);
+    transition: transform 0.3s ease;
+}
+
+.past-event:hover {
+    transform: scale(1.05);
+}
+
+.past-event a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+}
+
+.past-event > a > div {
+    position: relative;
+}
+
+.event-city {
+    text-align: center;
+    padding: var(--spacing-small);
+    font-family: var(--font-title);
+    text-transform: uppercase;
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.event-img {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+}
+
+.event-description {
+    color: var(--text-color);
+    font-weight: bold;
+    padding: var(--spacing-large);
+    text-align: center;
+}
+
+.event-theme {
+    position: absolute;
+    top: var(--spacing-small);
+    right: 0.7rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem var(--spacing-small);
+    border-radius: var(--spacing-small);
+    font-size: var(--spacing-small);
+    font-weight: bold;
+    border: 1px solid var(--secondary-color);
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 768px) {
+    .profile-section {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: var(--spacing-large);
+    }
+
+    .profile-details {
+        text-align: left;
+        margin-left: var(--spacing-large);
+    }
+
+    .send-message-button {
+        padding: var(--spacing-small) var(--spacing-large);
+    }
+
+    .interests-section {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: var(--spacing-large);
+        align-items: start;
+    }
+
+    .intro-article {
+        grid-column: 1;
+    }
+
+    .general-info-article {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: stretch;
+        height: 100%;
+        position: sticky;
+        top: var(--spacing-medium);
+    }
+
+    .events-article {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-medium);
+    }
+
+    .past-events,
+    .upcoming-events {
+        margin-bottom: 0;
+    }
+
+    .event-details {
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .profile-section {
+        margin-bottom: var(--spacing-medium);
+    }
+
+    .intro-article-presentation,
+    .interests-article {
+        margin-bottom: var(--spacing-medium);
+    }
+
+    .interests-section {
+        position: relative;
+        padding-bottom: 4.3rem;
+    }
+}

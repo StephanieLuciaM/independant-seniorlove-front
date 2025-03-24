@@ -1,0 +1,284 @@
+/* Ajout pour désactiver le défilement lorsque la modale est ouverte */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Fond semi-transparent */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Opacité semi-transparente */
+  backdrop-filter: blur(5px); /* Effet de flou pour l'arrière-plan */
+  -webkit-backdrop-filter: blur(5px); /* Support pour Safari */
+}
+
+/* Contenu de la modale */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 1001; /* S'assure que le contenu est au-dessus du fond */
+}
+
+/* Bouton fermer */
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+<!-- Template profils page -->
+<template id="all-profils-page">
+  <div class="all-profils-page">
+    <section class="cities-filter">
+      <div class="cities-filter__list">
+        <button class="cities-filter__button active">Paris</button>
+        <button class="cities-filter__button">Lyon</button>
+        <button class="cities-filter__button">Toulouse</button>
+        <button class="cities-filter__button">Marseille</button>
+        
+        <!-- Menu déroulant avec checkboxes -->
+        <select class="dropdown-filter" id="description" name="description">
+          <option class="filter-button">Choisir les critères</option>         
+            <div class="checkbox-container">
+              <input type="checkbox" id="taille" name="description" value="taille">
+              <label for="taille">Taille</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="fumeur" name="description" value="fumeur">
+              <label for="fumeur">Fumeur</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="age" name="description" value="age">
+              <label for="age">Âge</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="situation-familiale" name="description" value="situation-familiale">
+              <label for="situation-familiale">Situation familiale</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="animaux-de-compagnie" name="description" value="animaux-de-compagnie">
+              <label for="animaux-de-compagnie">Animaux de compagnie</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="signe-astrologique" name="description" value="signe-astrologique">
+              <label for="signe-astrologique">Signe astrologique</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="centres-d-interets" name="description" value="centres-d-interets">
+              <label for="centres-d-interets">Centres d'intérêts</label>
+            </div>
+          
+        </select>
+      </div>
+    </section>
+
+    <section class="profils-grid">
+      <!-- Profils générés par JS ici -->
+    </section>
+  </div>
+</template>
+
+    
+ <!--- Template profil from profils page--->
+
+    <template id="profil__profils-page">
+      <article class="profil">
+        <a href="">
+            <div>
+                <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil" slot="picture"> 
+                <h2 class="profil__name" slot="firstname">Celine</h2>
+                <h3 class="profil__city" slot="city">Paris</h3>
+                <span class="profil__old" slot="age">60 ans</span>
+                <button class="more-btn">En savoir plus</button>
+            </div>
+        </a>
+      </article>
+    </template>
+  </body> 
+</html>
+
+
+
+
+import { resetViewTemplate } from "./utils.js";
+import { getAllProfils } from "./api.js";
+import { fetchDisplayMyAccountPage } from "./my.account.js";
+
+export async function fetchDisplayProfilsPage() {
+
+  // Reset the view templates for header and main content
+  resetViewTemplate('app-header', 'app-main');
+  
+  // Append the profils page templates with the fetched data
+  appendTemplateProfils();
+  
+  // Fetch all profils
+  const allProfils = await getAllProfils();
+  if (allProfils) {
+    allProfils.forEach(addProfilsContainer); 
+  }
+
+  // Initialize profils filters
+  setupFilters();
+
+  addMyAccountButtonListener();
+
+};
+
+function appendTemplateProfils() {
+
+  // Select the header and content templates from the DOM
+  const headerTemplate = document.querySelector("#header-connected");
+  const contentTemplate = document.querySelector("#all-profils-page");
+  
+  // Clone the templates
+  const headerClone = headerTemplate.content.cloneNode(true);
+  const contentClone = contentTemplate.content.cloneNode(true);
+  
+  // Select the containers where the clones will be appended
+  const headerContainer = document.querySelector("#app-header");
+  const contentContainer = document.querySelector("#app-main");
+  
+  // Append the cloned templates to their respective containers
+  headerContainer.appendChild(headerClone);
+  contentContainer.appendChild(contentClone);
+};
+  
+export function addProfilsContainer(data) {
+  // Select the profil template from the DOM
+  const profilTemplate = document.querySelector("#profil__profils-page");
+    
+  // Clone the profil template
+  const profilClone = profilTemplate.content.cloneNode(true);
+
+  // Set the data attributes for the profil - avec vérification
+  profilClone.querySelector("article").setAttribute("data-city", data.city ? data.city.toLowerCase() : "");
+  profilClone.querySelector("article").setAttribute("data-description", data.description ? data.description.toLowerCase() : "");
+  
+  // Populate the cloned template with profil data
+  profilClone.querySelector("[slot='city']").textContent = data.city || "";
+  profilClone.querySelector("[slot='age']").textContent = data.age || "";
+  profilClone.querySelector("[slot='firstname']").textContent = data.firstname || "";
+  
+  // Select the container for the profil list
+  const profilContainer = document.querySelector(".profils-grid");
+
+  // Append the cloned event template to the event list container
+  profilContainer.appendChild(profilClone);
+}
+
+
+function setupFilters() {
+  const cityButtons = document.querySelectorAll(".cities-filter__button");
+  const checkboxes = document.querySelectorAll('input[name="description"]');
+  
+  // Pour les boutons de ville
+  cityButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      // Retirer la classe active de tous les boutons
+      cityButtons.forEach(btn => btn.classList.remove("active"));
+      
+      // Ajouter la classe active au bouton cliqué
+      button.classList.add("active");
+
+      // Get the selected city from the button text
+      const selectedCity = button.textContent.toLowerCase();
+
+      // Obtenir les descriptions sélectionnées
+      const selectedDescriptions = getSelectedDescriptions();
+
+      // Apply the filtering logic
+      filterProfils(selectedCity, selectedDescriptions);
+    });
+  });
+  
+  // Pour les checkboxes
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", () => {
+      // Get the currently active city button or default to "tous"
+      const selectedCity = document.querySelector(".cities-filter__button.active")?.textContent.toLowerCase() || "tous";
+      
+      // Obtenir les descriptions sélectionnées
+      const selectedDescriptions = getSelectedDescriptions();
+      
+      // Apply the filtering logic
+      filterProfils(selectedCity, selectedDescriptions);
+    });
+  });
+}
+
+// Fonction pour obtenir les descriptions sélectionnées
+function getSelectedDescriptions() {
+  const checkedBoxes = document.querySelectorAll('input[name="description"]:checked');
+  if (checkedBoxes.length === 0) {
+    return ["tous"];
+  }
+  return Array.from(checkedBoxes).map(checkbox => checkbox.value);
+}
+
+function filterProfils(city, descriptions) {
+  const profils = document.querySelectorAll(".profils-grid article");
+  
+  profils.forEach(profil => {
+    // Retrieve the city and description attributes for each profil
+    const profilCity = profil.getAttribute("data-city");
+    const profilDescription = profil.getAttribute("data-description");
+    
+    // Check if the profil matches the selected city
+    const cityMatch = (city === "tous" || profilCity === city);
+    
+    // Check if the profil matches any of the selected descriptions
+    let descriptionMatch = false;
+    if (descriptions.includes("tous")) {
+      descriptionMatch = true;
+    } else {
+      descriptions.forEach(desc => {
+        if (profilDescription && profilDescription.includes(desc)) {
+          descriptionMatch = true;
+        }
+      });
+    }
+    
+    // Show the profil if it matches both filters, otherwise hide it
+    profil.style.display = (cityMatch && descriptionMatch) ? "block" : "none";
+  });
+}
+
+function addMyAccountButtonListener(data){
+
+  // Select the "Mon compte" button from the header
+  const myAccountButton = document.querySelector("#app-header .my__account");
+    
+  // Add click profil listener to the "Mon compte" button
+  myAccountButton.addEventListener('click', (e) =>{
+    
+    // Prevent the default behavior of the button
+    e.preventDefault();
+            
+    // Fetch and display the "Mon compte" page with the provided data
+    fetchDisplayMyAccountPage(data);
+        
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
+  });
+};

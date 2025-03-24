@@ -2,6 +2,8 @@ import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { getLastEventsMatch, getLastProfilesMatch } from "./api.js";
 import { fetchDisplayEventsPage } from "./events.js";
+import { fetchDisplayMessagesPage } from "./messages.js";
+import { fetchDisplayProfilsPage } from "./profils.js";
 
 export async function fetchDisplayHomePageConnected(data){
 // Reset the view templates for header and main content
@@ -9,7 +11,10 @@ export async function fetchDisplayHomePageConnected(data){
 
   appendTemplatesConnedted();
   addMyAccountButtonListener(data);
+  addMessagesButtonListener(data);
   addEventsButtonListener(data);
+  addProfilsButtonListener(data);
+  
 
   // Fetch and display the latest matched profiles
   const profilsMatch = await getLastProfilesMatch();
@@ -62,6 +67,25 @@ function addMyAccountButtonListener(data){
   });
 };
 
+function addMessagesButtonListener(data){
+
+  // Select the "Évènements" button from the header
+  const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
+
+  // Add click event listener to the "Évènements" button
+  messagesButton.addEventListener('click', (e) =>{
+
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Fetch and display the "Évènements" page with the provided data
+    fetchDisplayMessagesPage(1,2);
+    const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
+    const url = "/messages";
+    history.pushState(state, "", url);
+  });
+};
+
 function addEventsButtonListener(data){
 
   // Select the "Évènements" button from the header
@@ -80,6 +104,26 @@ function addEventsButtonListener(data){
     history.pushState(state, "", url);
   });
 };
+
+function addProfilsButtonListener(data){
+
+  // Select the "Évènements" button from the header
+  const ProfilsButton = document.querySelector("#app-header .header__nav-link-profils");
+
+  // Add click event listener to the "Évènements" button
+  ProfilsButton.addEventListener('click', (e) =>{
+
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Fetch and display the "Évènements" page with the provided data
+    fetchDisplayProfilsPage(data);
+    const state = {page: "Profils", initFunction: 'fetchDisplayProfilsPage'};
+    const url = "/profils";
+    history.pushState(state, "", url);
+  });
+};
+
 
 export function addEventContainer(data){
   
@@ -113,6 +157,14 @@ export function addProfilContainer(data){
   profilClone.querySelector("[slot='firstname']").textContent = data.firstname;
   profilClone.querySelector("[slot='city']").textContent = data.city;
   profilClone.querySelector("[slot='age']").textContent = data.age;
+
+  const pictureSlot = profilClone.querySelector("[slot='picture']");
+  if (pictureSlot) {
+    pictureSlot.src = data.picture;
+  } else {
+    console.error("Image de profil non trouvée dans le DOM.");
+  }
+
 
   // Select the container for the event list
   const profilContainer = document.querySelector("#profiles-list");

@@ -1,0 +1,281 @@
+import { resetViewTemplate } from "./utils.js";
+import { getAllProfils } from "./api.js";
+import { fetchDisplayMyAccountPage } from "./my.account.js";
+
+export async function fetchDisplayProfilsPage() {
+
+  // Reset the view templates for header and main content
+  resetViewTemplate('app-header', 'app-main');
+  
+  // Append the profils page templates with the fetched data
+  appendTemplateProfils();
+  
+  // Fetch all profils
+  const allProfils = await getAllProfils();
+  if (allProfils) {
+    allProfils.forEach(addProfilsContainer); 
+  }
+
+  // Initialize profils filters
+  setupFilters();
+
+  addMyAccountButtonListener();
+
+};
+
+function appendTemplateProfils() {
+
+  // Select the header and content templates from the DOM
+  const headerTemplate = document.querySelector("#header-connected");
+  const contentTemplate = document.querySelector("#all-profils-page");
+  
+  // Clone the templates
+  const headerClone = headerTemplate.content.cloneNode(true);
+  const contentClone = contentTemplate.content.cloneNode(true);
+  
+  // Select the containers where the clones will be appended
+  const headerContainer = document.querySelector("#app-header");
+  const contentContainer = document.querySelector("#app-main");
+  
+  // Append the cloned templates to their respective containers
+  headerContainer.appendChild(headerClone);
+  contentContainer.appendChild(contentClone);
+};
+  
+export function addProfilsContainer(data) {
+  // Select the profil template from the DOM
+  const profilTemplate = document.querySelector("#profil__profils-page");
+    
+  // Clone the profil template
+  const profilClone = profilTemplate.content.cloneNode(true);
+
+  // Set the data attributes for the profil - avec vérification
+  profilClone.querySelector("article").setAttribute("data-city", data.city ? data.city.toLowerCase() : "");
+  profilClone.querySelector("article").setAttribute("data-description", data.description ? data.description.toLowerCase() : "");
+  
+  // Populate the cloned template with profil data
+  profilClone.querySelector("[slot='city']").textContent = data.city || "";
+  profilClone.querySelector("[slot='age']").textContent = data.age || "";
+  profilClone.querySelector("[slot='firstname']").textContent = data.firstname || "";
+  
+  // Select the container for the profil list
+  const profilContainer = document.querySelector(".profils-grid");
+
+  // Append the cloned event template to the event list container
+  profilContainer.appendChild(profilClone);
+}
+
+
+function setupFilters() {
+  const cityButtons = document.querySelectorAll(".cities-filter__button");
+  const descriptionSelect = document.querySelectorAll("#description");
+
+  cityButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+      // Get the selected city from the button text
+      const selectedCity = button.textContent.toLowerCase();
+
+      // Apply the filtering logic based on the selected city and current theme
+      filterProfils(selectedCity, descriptionSelect.value);
+    });
+  });
+    
+  descriptionSelect.addEventListener("change", () => {
+
+    // Get the currently active city button or default to "tous"
+    const selectedCity = document.querySelector(".cities-filter__button.active")?.textContent.toLowerCase() || "tous-les-criteres";
+
+    // Apply the filtering logic based on the selected theme and current city
+    filterProfils(selectedCity, descriptionSelect.value);
+  });
+}
+  
+function filterProfils(city, description) {
+  const profils = document.querySelectorAll(".profils-grid article");
+      
+  profils.forEach( profil => {
+      
+    // Retrieve the city and label attributes for each event
+    const profilCity = profil.getAttribute("data-city");
+    const profilDescription = profil.getAttribute("data-description");
+      
+    // Check if the event matches the selected city and/or theme
+    const cityMatch = (city === "tous-les-criteres" || profilCity === city);
+    const descriptionMatch = (description === "tous-les-criteres" || profilDescription === profil);
+      
+    // Show the event if it matches both filters, otherwise hide it
+    profil.style.display = (cityMatch && profilDescription) ? "block" : "none";
+  });
+}
+
+
+function addMyAccountButtonListener(data){
+
+  // Select the "Mon compte" button from the header
+  const myAccountButton = document.querySelector("#app-header .my__account");
+    
+  // Add click profil listener to the "Mon compte" button
+  myAccountButton.addEventListener('click', (e) =>{
+    
+    // Prevent the default behavior of the button
+    e.preventDefault();
+            
+    // Fetch and display the "Mon compte" page with the provided data
+    fetchDisplayMyAccountPage(data);
+        
+    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
+    const url = "/mon-compte";
+    history.pushState(state, "", url);
+  });
+};
+
+
+
+/* CITIES FILTER */
+.cities-filter {
+    margin-top: var(--spacing-large);
+    background-color: var(--secondary-color);
+    padding: var(--spacing-small);
+    overflow-x: auto;
+  }
+  
+  .cities-filter__list {
+    display: flex;
+    gap: var(--spacing-small);
+    padding: var(--spacing-small);
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: var(--background-color);
+    border-radius: 1rem;
+  }
+  
+  .cities-filter__button {
+    background-color: white;
+    border: 0.1rem solid var(--light-gray);
+    border-radius: var(--spacing-small);
+    color: vac(--text-color);
+    cursor: pointer;
+    padding: 0.5rem var(--spacing-small);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-family: Poiret One;
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+  
+  .cities-filter__button.filter{
+    background-color: var(--primary-color);
+    color: white; 
+  }
+  
+  .cities-filter__button:hover,
+  .cities-filter__button.active {
+    background-color: var(--text-color-light);
+    color: white;
+  }
+  
+  /* PROFILS GRID */
+  .profils-grid {
+    display: grid;
+    grid-template-columns: 3fr;
+    gap: var(--spacing-large);
+    background-color: var(--secondary-color);
+    padding: var(--spacing-large);
+    margin-bottom: var(--spacing-large);
+  }
+  
+  .profil { 
+    background-color: white;
+    border-radius: var(--spacing-small);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+  } 
+  
+  .profil a {
+  text-decoration: none;
+  color: var(--text-color);
+  display: block;
+  }
+  
+  .profil > a > div {
+  position: relative;
+  }
+  
+  .profil img {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
+  }
+  
+  
+  .profil__old {
+    position: absolute; 
+    top: var(--spacing-small); 
+    right: 0.7rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem var(--spacing-small);
+    border-radius: var(--spacing-small);
+    font-size: var(--spacing-small);
+    font-weight: bold;
+    border: 0.1rem solid var(--secondary-color);
+  }
+  
+  .profil__name {
+    text-align: center;
+    padding: var(--spacing-small);
+    font-family: 'Poiret One', sans-serif;
+  }
+  
+  .profil__city {
+    padding: var(--spacing-small);
+    text-align: center;
+    margin: var(--spacing-small);
+  }
+
+  <!-- Template profils page -->
+<template id="all-profils-page">
+  <div class="all-profils-page">
+    <section class="cities-filter">
+      <div class="cities-filter__list">
+        <button class="cities-filter__button active">Paris</button>
+        <button class="cities-filter__button">Lyon</button>
+        <button class="cities-filter__button">Toulouse</button>
+        <button class="cities-filter__button">Marseille</button>
+        <select class="cities-filter__button filter" id="description" name="description">
+            <option value="tous-les-criteres">Choisir les critères</option>         
+            <option value="taille">Taille</option>
+            <option value="fumeur">Fumeur</option>
+            <option value="age">Âge</option> 
+            <option value="situation-familiale">Situation familiale</option>
+            <option value="animaux-de-compagnie">Animaux de compagnie</option>
+            <option value="signe-astrologique">Signe astrologique</option>
+            <option value="centres-d-interets">Centres d'intérêts</label>       
+        </select>
+      </div>
+    </section>
+
+    <section class="profils-grid">
+      <!-- Profils générés par JS ici -->
+    </section>
+  </div>
+</template>
+
+
+    
+    <!--- Template profil from profils page--->
+
+    <template id="profil__profils-page">
+      <article class="profil">
+        <a href="">
+            <div>
+                <img src="./src/assets/img/diverse-img/profils/Celine.png" alt="photo de profil" slot="picture"> 
+                <h2 class="profil__name" slot="firstname">Celine</h2>
+                <h3 class="profil__city" slot="city">Paris</h3>
+                <span class="profil__old" slot="age">60 ans</span>
+                <button class="more-btn">En savoir plus</button>
+            </div>
+        </a>
+      </article>
+    </template>

@@ -2,6 +2,8 @@ import { apiUrl } from "./config.js";
 import { errorServer } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
 
+
+
 // Asynchronous function to get the last event
 export async function getLastEvent() {
   try {
@@ -34,7 +36,7 @@ export async function signUp(data) {
     });
 
     if (!httpResponse.ok) {
-      showErrorMessage('erreur dans les données renseignées lors de l\'inscription.')
+      showErrorMessage('erreur dans les données renseignées lors de l\'inscription.');
       return null;
     }
 
@@ -47,6 +49,26 @@ export async function signUp(data) {
     console.error("API non accessible...", error);
   }
 };
+
+
+// Function to upload the image to Cloudinary
+export async function uploadImageToCloudinary(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "my_preset"); 
+  
+  const response = await fetch("https://api.cloudinary.com/v1_1/duvt7hg01/image/upload", {
+    method: "POST",
+    body: formData
+  });
+
+  if (!response.ok) {
+    throw new Error('Cloudinary Error');
+  }
+
+  const data = await response.json();
+  return data.secure_url;  // Return the secure URL of the image
+}
 
 // Asynchronous function to sign in a user
 export async function signIn(data) {
@@ -73,6 +95,8 @@ export async function signIn(data) {
   }
 };
 
+
+
 // Asynchronous function to authentificated user
 export async function authentificationUser() {
   try {
@@ -89,7 +113,7 @@ export async function authentificationUser() {
     return authentificatedUser;
 
   } catch (error) {
-    console.error('Erreur de vérification du token :', error)
+    console.error('Erreur de vérification du token :', error);
   }
 };
 
@@ -138,23 +162,43 @@ export async function getLastEventsMatch() {
 // Asynchronous function to get user data
 export async function getMyAccount() {
   try {
-
     const httpResponse = await fetch(`${apiUrl}/my-account`, {
       credentials: "include",
     });
-
     if (!httpResponse.ok) {
+      console.error("Erreur lors de la récupération des données utilisateur.");
       return null;
     }
-
-    // Parse the response as JSON
+    
     const myProfil = await httpResponse.json();
-    return myProfil;
-
+    return myProfil; // Retournez simplement les données sans manipuler le DOM
   } catch (error) {
     console.error("API non accessible...", error);
+    return null;
   }
-};
+}
+
+// Asynchronous function to get user data
+export async function getVisitorProfile(userIdOrSlug) {
+  try {
+    const httpResponse = await fetch(`${apiUrl}/visitor-profile/${userIdOrSlug}`, {
+      credentials: "include",
+    });
+    
+    if (!httpResponse.ok) {
+      const errorBody = await httpResponse.json();
+      console.error("Erreur lors de la récupération des données utilisateur:", errorBody);
+      return null;
+    }
+    
+    const myProfil = await httpResponse.json();
+    return myProfil;
+  } catch (error) {
+    console.error("API non accessible...", error);
+    return null;
+  }
+}
+
 
 // Asynchronous function to edit user data
 export async function editMyAccount(data) {
@@ -239,3 +283,71 @@ export async function getAllEvents(){
     console.error("API non accessible...", error);
   }
 };
+
+export async function getAllProfilsMatch(){
+  try {
+    
+    const httpResponse = await fetch(`${apiUrl}/profils`, {
+      credentials: "include",
+    });
+
+    if(!httpResponse.ok){
+      return null;
+    }
+
+    const allProfils = await httpResponse.json();
+    return allProfils;
+
+  } catch (error) {
+    console.error("API non accessible...", error);
+  }
+};
+
+
+
+// Fonction pour récupérer les messages entre deux utilisateurs
+export async function fetchMessages(userId1, userId2) {
+  try {
+    const response = await fetch(`${apiUrl}/messages?userId1=${userId1}&userId2=${userId2}`, {
+      method: "GET",
+      credentials: "include", // Pour envoyer automatiquement les cookies
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      console.error(`Erreur API GET Messages : ${response.status}`);
+      return [];
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors de la connexion à l'API :", error);
+    return [];
+  }
+}
+
+// Fonction pour envoyer un message entre deux utilisateurs
+export async function sendMessage(senderId, receiverId, content) {
+  try {
+    const response = await fetch(`${apiUrl}/messages`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ sender_id: senderId, receiver_id: receiverId, content })
+    });
+
+    if (!response.ok) {
+      console.error(`Erreur API POST Message : ${response.status}`);
+      return null;
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors de la connexion à l'API :", error);
+    return null;
+  }
+}
+
+
