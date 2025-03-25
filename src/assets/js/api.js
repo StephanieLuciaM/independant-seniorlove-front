@@ -307,6 +307,7 @@ export async function getAllProfilsMatch(){
 
 // Fonction pour récupérer les messages entre deux utilisateurs
 export async function fetchMessages(userId1, userId2) {
+  console.log (userId1, userId2);
   try {
     const response = await fetch(`${apiUrl}/messages?userId1=${userId1}&userId2=${userId2}`, {
       method: "GET",

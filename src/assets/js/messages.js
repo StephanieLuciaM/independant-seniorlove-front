@@ -6,8 +6,8 @@ import { resetViewTemplate } from "./utils.js";
 
 
 // Fonction principale pour afficher les messages
-export async function fetchDisplayMessagesPage(userId1, userId2) {
-  if (!userId1 || !userId2) {
+export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
+  if (!currentUserId || !otherUserId) {
     console.error("IDs utilisateurs manquants");
     return;
   }
@@ -29,27 +29,32 @@ export async function fetchDisplayMessagesPage(userId1, userId2) {
   appHeader.appendChild(headerClone);
   appMain.appendChild(messagesClone);
   
-  // Met à jour le nom du destinataire (à adapter selon votre logique)
-  document.querySelector(".conversation-partner").textContent = `Utilisateur ${userId2}`;
+  // Met à jour le nom du destinataire
+  const receiverSpan = document.querySelector("[slot='receiver-id']");
+  if (receiverSpan) {
+    receiverSpan.textContent = otherUserId;
+  }
+  
+  document.querySelector(".conversation-partner").textContent = `Utilisateur ${otherUserId}`;
   
   // Récupère les messages entre deux utilisateurs
-  const allMessages = await fetchMessages(userId1, userId2);
+  const allMessages = await fetchMessages(currentUserId, otherUserId);
   const messagesList = document.querySelector(".messages-list");
   
   if (allMessages && allMessages.length) {
     // Affiche tous les messages
     allMessages.forEach(message => {
-      addMessageToList(message, userId1);
+      addMessageToList(message, currentUserId);
     });
     
     // Scroll jusqu'au bas de la liste des messages
     messagesList.scrollTop = messagesList.scrollHeight;
   }
   
-  // Ajoute l'événement d'envoi de message
-  setupMessageSending(userId1, userId2);
+  // Ajoute l'envoi de message
+  setupMessageSending(currentUserId, otherUserId);
 
-
+  // Réajout des écouteurs d'événements de navigation
   addMyAccountButtonListener();
   addProfilsButtonListener();
   addEventsButtonListener();
@@ -67,6 +72,9 @@ function setupMessageSending(senderId, receiverId) {
     
     try {
       const message = await sendMessage(senderId, receiverId, content);
+      console.log("Sender ID:", senderId);
+      console.log("Receiver ID:", receiverId);
+
       if (message) {
         // Ajoute le message à l'interface sans recharger tout
         addMessageToList(message, senderId);
@@ -100,27 +108,34 @@ function addMessageToList(messageData, currentUserId) {
   const messageTemplate = document.querySelector("#message-item");
   const messageClone = messageTemplate.content.cloneNode(true);
   const messageBubble = messageClone.querySelector(".message-bubble");
-  
+  console.log("Message Data:", messageData);
+
   // Détermine si c'est un message envoyé ou reçu
   const isOutgoing = messageData.sender_id == currentUserId;
   messageBubble.classList.add(isOutgoing ? "message-outgoing" : "message-incoming");
-  
+
   // Remplit les détails du message
   messageClone.querySelector(".message-sender").textContent = 
     isOutgoing ? "Vous" : `Utilisateur ${messageData.sender_id}`;
-  
-  // Formate la date (si disponible)
+
+  // Formate la date et l'heure (si disponible)
   if (messageData.created_at || messageData.updated_at) {
     const date = new Date(messageData.created_at || messageData.updated_at);
+    // Format de la date et de l'heure
+    const dateString = date.toLocaleDateString([], { year: 'numeric', month: '2-digit', day: '2-digit' });
     const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    messageClone.querySelector(".message-time").textContent = timeString;
+
+    // Combine la date et l'heure
+    messageClone.querySelector(".message-time").textContent = `${dateString} ${timeString}`;
   }
-  
+
+  // Remplit le contenu du message
   messageClone.querySelector(".message-content").textContent = messageData.content;
-  
+
   // Ajoute le message à la liste
   document.querySelector(".messages-list").appendChild(messageClone);
 }
+
 
 function addMyAccountButtonListener(data){
 

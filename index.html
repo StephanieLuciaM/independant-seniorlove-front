@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="./src/assets/CSS/events.css">
     <link rel="stylesheet" href="./src/assets/CSS/profils.css">
     <link rel="stylesheet" href="./src/assets/CSS/profile.css">
+    <link rel="stylesheet" href="./src/assets/CSS/messages.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script type="module" src="./src/assets/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">s</script>
@@ -717,7 +718,8 @@
 <template id="message-item">
   <div class="message-bubble">
     <div class="message-info">
-      <span class="message-sender"></span>
+      <span class="message-receiver" slot="receiver-id"></span>
+      <span class="message-sender" slot="sender-id"></span>
       <span class="message-time"></span>
     </div>
     <p class="message-content"></p>

@@ -2,8 +2,8 @@ import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayEventsPage } from "./events.js";
 import { fetchDisplayMessagesPage } from "./messages.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
-import { fetchDisplayMyAccountPage } from "./my.account.js";
-import { getVisitorProfile } from "./api.js";
+import { fetchDisplayMyAccountPage, myAccount } from "./my.account.js";
+import { getMyAccount, getVisitorProfile } from "./api.js";
 
 
 
@@ -38,7 +38,7 @@ export async function fetchDisplayVisitorProfilePage(userData = null) {
   addSendMessagesButtonListener();
 }
 
-function addSendMessagesButtonListener(data){
+function addSendMessagesButtonListener() {
   const messagesPage = document.querySelector("#app-main");
         
   if (!messagesPage) {
@@ -48,16 +48,35 @@ function addSendMessagesButtonListener(data){
     
   messagesPage.addEventListener('click', async (e) => {
     const sendMessageButton = e.target.closest('.send-message-button') || 
-                                 e.target.id === 'send-message-button';
+                              e.target.id === 'send-message-button';
       
     if (!sendMessageButton) return;
       
     e.preventDefault();
-    fetchDisplayMessagesPage(1,2);
+
+    // Récupérer l'ID du profil visité depuis l'URL
+    const urlParts = window.location.pathname.split('/');
+    const userIdentifier = urlParts[urlParts.length - 1];
+
+    // Récupérer le profil du visiteur
+    const visitorProfile = await getVisitorProfile(userIdentifier);
+    const myAccount = await getMyAccount(userIdentifier);
+
+    if (visitorProfile && myAccount) {
+      // L'utilisateur sur le profil duquel on clique est le receiver
+      const receiverId = visitorProfile.id;
       
-    const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
-    const url = "/messages";
-    history.pushState(state, "", url);
+      // Récupérer l'ID de l'utilisateur connecté (à adapter selon votre système d'authentification)
+      const senderId = myAccount.id; // À remplacer par la logique de récupération de l'ID connecté
+
+      fetchDisplayMessagesPage(senderId, receiverId);
+      
+      const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
+      const url = "/messages";
+      history.pushState(state, "", url);
+    } else {
+      console.error('Impossible de récupérer le profil du visiteur');
+    }
   });
 }
  

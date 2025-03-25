@@ -10,6 +10,9 @@ export async function fetchDisplayHomePageConnected(data){
   resetViewTemplate('app-header', 'app-main');
 
   appendTemplatesConnedted();
+  
+  await new Promise(resolve => setTimeout(resolve, 100));
+
   addMyAccountButtonListener(data);
   addMessagesButtonListener(data);
   addEventsButtonListener(data);
