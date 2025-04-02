@@ -351,4 +351,23 @@ export async function sendMessage(senderId, receiverId, content) {
   }
 }
 
-
+export async function fetchConversations(currentUserId) {
+  try {
+    // Utiliser le nouvel endpoint API
+    const response = await fetch(`${apiUrl}/conversations?userId=${currentUserId}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Erreur API GET Conversations: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur lors de la connexion à l'API :", error);
+    return [];
+  }
+}
