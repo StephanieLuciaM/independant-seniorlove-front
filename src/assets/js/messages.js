@@ -1,4 +1,4 @@
-import { fetchConversations, fetchMessages, sendMessage } from "./api.js";
+import { fetchConversations, fetchMessages, getMyAccount, sendMessage } from "./api.js";
 import { fetchDisplayEventsPage } from "./events.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
@@ -10,6 +10,7 @@ let conversations = [];
 
 // Fonction pour afficher la liste des conversations
 export async function fetchDisplayConversationsList(currentUserId) {
+
   console.log("Current user ID in conversations list:", currentUserId);
   if (!currentUserId) {
     console.error("ID utilisateur manquant");
@@ -34,8 +35,11 @@ export async function fetchDisplayConversationsList(currentUserId) {
   appMain.appendChild(conversationsClone);
 
   // Récupérer toutes les conversations de l'utilisateur courant
-  // Récupérer toutes les conversations de l'utilisateur courant
   try {
+    // D'abord récupérer l'ID de l'utilisateur connecté
+    const myAccount = await getMyAccount();
+    const currentUserId = myAccount.id;
+
     conversations = await fetchConversations(currentUserId);
     // Afficher les conversations
     const conversationsList = document.createElement("div");
@@ -130,19 +134,26 @@ export async function fetchDisplayConversationsList(currentUserId) {
 }
 
 // Fonction principale pour afficher les messages
+// Fonction principale pour afficher les messages
 export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
   console.log("Affichage des messages entre", currentUserId, "et", otherUserId);
   
-  if (!currentUserId || !otherUserId) {
-    console.error("IDs utilisateurs manquants");
-    // Si on n'a pas l'ID de l'autre utilisateur, afficher la liste des conversations
-    if (currentUserId) {
-      fetchDisplayConversationsList(currentUserId);
-    }
+  // Si l'ID de l'autre utilisateur n'est pas défini, afficher la liste des conversations
+  if (!currentUserId) {
+    console.error("ID utilisateur courant manquant");
+    return;
+  }
+  
+  // Si otherUserId n'est pas défini, afficher la liste des conversations
+  if (!otherUserId) {
+    console.log("ID de l'autre utilisateur non fourni, affichage de la liste des conversations");
+    fetchDisplayConversationsList(currentUserId);
     return;
   }
 
   resetViewTemplate("app-header", "app-main");
+  
+
 
   // Charge le template des messages
   const appHeader = document.querySelector("#app-header");
@@ -166,6 +177,9 @@ export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
     backButton.textContent = "← Retour";
     backButton.addEventListener("click", () => {
       fetchDisplayConversationsList(currentUserId);
+      const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
+      const url = "/conversations";
+      history.pushState(state, "", url);
     });
     messagesHeader.prepend(backButton);
   }

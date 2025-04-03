@@ -352,6 +352,7 @@ export async function sendMessage(senderId, receiverId, content) {
 }
 
 export async function fetchConversations(currentUserId) {
+  console.log("ID utilisateur reçu par fetchConversations:", currentUserId);
   try {
     // Utiliser le nouvel endpoint API
     const response = await fetch(`${apiUrl}/conversations?userId=${currentUserId}`, {

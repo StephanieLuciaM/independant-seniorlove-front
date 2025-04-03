@@ -2,7 +2,7 @@ import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { getLastEventsMatch, getLastProfilesMatch } from "./api.js";
 import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayMessagesPage } from "./messages.js";
+import { fetchDisplayConversationsList } from "./messages.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
 
 export async function fetchDisplayHomePageConnected(data){
@@ -70,24 +70,26 @@ function addMyAccountButtonListener(data){
   });
 };
 
-function addMessagesButtonListener(data){
-
-  // Select the "Évènements" button from the header
+function addMessagesButtonListener() {
+  // Select the "Messages" button from the header
   const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
 
-  // Add click event listener to the "Évènements" button
-  messagesButton.addEventListener('click', (e) =>{
-
+  // Add click event listener to the "Messages" button
+  messagesButton.addEventListener('click', (e) => {
     // Prevent the default behavior of the button
     e.preventDefault();
     
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayMessagesPage(1,2);
-    const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
-    const url = "/messages";
+    // Récupérer l'ID de l'utilisateur connecté
+    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+    
+    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
+    fetchDisplayConversationsList(currentUserId);
+    
+    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
+    const url = "/conversations";
     history.pushState(state, "", url);
   });
-};
+}
 
 function addEventsButtonListener(data){
 

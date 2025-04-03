@@ -13,8 +13,8 @@ import {
 import {  logOutMyAccount } from "./api.js";
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
 import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayMessagesPage } from "./messages.js";
-
+import { fetchDisplayConversationsList } from "./messages.js";
+import { fetchDisplayProfilsPage } from "./profils.js";
 
 
 export async function fetchDisplayMyAccountPage(){
@@ -34,6 +34,7 @@ export async function fetchDisplayMyAccountPage(){
   addLogOutButtonListener();
   addMessagesButtonListener();
   addEventsButtonListener();
+  addProfilsButtonListener();
 };
 
 function appendTemplatesMyAccount(data){
@@ -239,22 +240,42 @@ function addEventsButtonListener(data){
   });
 };
 
-function addMessagesButtonListener(data){
-
-  // Select the "Évènements" button from the header
+function addMessagesButtonListener() {
+  // Select the "Messages" button from the header
   const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
 
+  // Add click event listener to the "Messages" button
+  messagesButton.addEventListener('click', (e) => {
+    // Prevent the default behavior of the button
+    e.preventDefault();
+    
+    // Récupérer l'ID de l'utilisateur connecté
+    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+    
+    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
+    fetchDisplayConversationsList(currentUserId);
+    
+    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
+    const url = "/conversations";
+    history.pushState(state, "", url);
+  });
+}
+
+function addProfilsButtonListener(data){
+
+  // Select the "Évènements" button from the header
+  const ProfilsButton = document.querySelector("#app-header .header__nav-link-profils");
+
   // Add click event listener to the "Évènements" button
-  messagesButton.addEventListener('click', (e) =>{
+  ProfilsButton.addEventListener('click', (e) =>{
 
     // Prevent the default behavior of the button
     e.preventDefault();
     
     // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayMessagesPage(1,2);
-    const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
-    const url = "/messages";
+    fetchDisplayProfilsPage(data);
+    const state = {page: "Profils", initFunction: 'fetchDisplayProfilsPage'};
+    const url = "/profils";
     history.pushState(state, "", url);
   });
 };
-

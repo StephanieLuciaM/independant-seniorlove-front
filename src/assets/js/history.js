@@ -13,9 +13,10 @@ import { fetchDisplayPrivacyPage } from "./privacy.cookies.page.js";
 import { fetchDisplaySiteMapPage } from "./site.map.page.js";
 import { fetchDisplay404Page } from "./error.404.page.js";
 import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayMessagesPage } from "./messages.js";
+import { fetchDisplayConversationsList, fetchDisplayMessagesPage } from "./messages.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
 import { fetchDisplayVisitorProfilePage } from "./profile.js";
+
 
 
 
@@ -37,6 +38,7 @@ const displayMap ={
   'fetchDisplay404Page' : fetchDisplay404Page,
   'fetchDisplayProfilsPage' : fetchDisplayProfilsPage,
   'fetchDisplayVisitorProfilePage' : fetchDisplayVisitorProfilePage,
+  'fetchDisplayConversationsList': fetchDisplayConversationsList,
 };
 
 export function popstate(e) {
