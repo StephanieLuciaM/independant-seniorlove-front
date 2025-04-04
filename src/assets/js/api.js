@@ -309,7 +309,7 @@ export async function getAllProfilsMatch(){
 export async function fetchMessages(userId1, userId2) {
   console.log (userId1, userId2);
   try {
-    const response = await fetch(`${apiUrl}/messages?userId1=${userId1}&userId2=${userId2}`, {
+    const response = await fetch(`${apiUrl}/messages?user1=${userId1}&user2=${userId2}`, {
       method: "GET",
       credentials: "include", // Pour envoyer automatiquement les cookies
       headers: {
@@ -355,7 +355,7 @@ export async function fetchConversations(currentUserId) {
   console.log("ID utilisateur reçu par fetchConversations:", currentUserId);
   try {
     // Utiliser le nouvel endpoint API
-    const response = await fetch(`${apiUrl}/conversations?userId=${currentUserId}`, {
+    const response = await fetch(`${apiUrl}/conversations?user=${currentUserId}`, {
       method: "GET",
       credentials: "include",
       headers: {

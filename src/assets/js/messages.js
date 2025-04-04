@@ -46,13 +46,16 @@ export async function fetchDisplayConversationsList(currentUserId) {
     conversationsList.classList.add("conversations-list");
   
     conversations.forEach(conv => {
+      const partnerId = conv.user_id;
+      const partnerSlug = conv.partner?.slug || null;
+
       const convItem = document.createElement("div");
       convItem.classList.add("conversation-item");
     
       // Créer l'élément pour l'utilisateur
       const userDiv = document.createElement("div");
       userDiv.classList.add("conversation-user");
-      userDiv.textContent = `Utilisateur ${conv.user_id}`;
+      userDiv.textContent = `${conv.partner?.slug}`;
     
       // Créer l'élément pour l'aperçu du message
       const previewDiv = document.createElement("div");
@@ -63,9 +66,12 @@ export async function fetchDisplayConversationsList(currentUserId) {
       convItem.appendChild(userDiv);
       convItem.appendChild(previewDiv);
     
+      
+    
       // Ajouter l'écouteur d'événement
       convItem.addEventListener("click", () => {
-        fetchDisplayMessagesPage(currentUserId, conv.user_id);
+        const partnerIdentifier = partnerSlug || partnerId;
+        fetchDisplayMessagesPage(currentUserId, partnerIdentifier);
       });
     
       conversationsList.appendChild(convItem);
@@ -135,8 +141,8 @@ export async function fetchDisplayConversationsList(currentUserId) {
 
 // Fonction principale pour afficher les messages
 // Fonction principale pour afficher les messages
-export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
-  console.log("Affichage des messages entre", currentUserId, "et", otherUserId);
+export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
+  console.log("Affichage des messages entre", currentUserId, "et", otherIdentifier);
   
   // Si l'ID de l'autre utilisateur n'est pas défini, afficher la liste des conversations
   if (!currentUserId) {
@@ -144,8 +150,8 @@ export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
     return;
   }
   
-  // Si otherUserId n'est pas défini, afficher la liste des conversations
-  if (!otherUserId) {
+  // Si otherIdentifier n'est pas défini, afficher la liste des conversations
+  if (!otherIdentifier) {
     console.log("ID de l'autre utilisateur non fourni, affichage de la liste des conversations");
     fetchDisplayConversationsList(currentUserId);
     return;
@@ -187,13 +193,13 @@ export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
   // Met à jour le nom du destinataire
   const receiverSpan = document.querySelector("[slot='receiver-id']");
   if (receiverSpan) {
-    receiverSpan.textContent = otherUserId;
+    receiverSpan.textContent = otherIdentifier;
   }
-  document.querySelector(".conversation-partner").textContent = `Utilisateur ${otherUserId}`;
+  document.querySelector(".conversation-partner").textContent = `${otherIdentifier}`;
 
   // Récupère les messages entre deux utilisateurs
-  console.log("Récupération des messages entre", currentUserId, "et", otherUserId);
-  const allMessages = await fetchMessages(currentUserId, otherUserId);
+  console.log("Récupération des messages entre", currentUserId, "et", otherIdentifier);
+  const allMessages = await fetchMessages(currentUserId, otherIdentifier);
   console.log("Messages récupérés:", allMessages);
   
   const messagesList = document.querySelector(".messages-list");
@@ -214,7 +220,7 @@ export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
   }
 
   // Ajoute l'envoi de message
-  setupMessageSending(currentUserId, otherUserId);
+  setupMessageSending(currentUserId, otherIdentifier);
 
   // Réajout des écouteurs d'événements de navigation
   addMyAccountButtonListener();
@@ -222,8 +228,8 @@ export async function fetchDisplayMessagesPage(currentUserId, otherUserId) {
   addEventsButtonListener();
   
   // Mettre à jour l'URL
-  const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage', params: [currentUserId, otherUserId]};
-  const url = `/messages/${otherUserId}`;
+  const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage', params: [currentUserId, otherIdentifier]};
+  const url = `/messages/${otherIdentifier}`;
   history.pushState(state, "", url);
 }
 
