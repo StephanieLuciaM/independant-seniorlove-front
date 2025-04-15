@@ -1,8 +1,10 @@
 import { resetViewTemplate } from "./utils.js";
-import { getAllEvents } from "./api.js";
+import { getAllEvents, getEventDetails } from "./api.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { fetchDisplayConversationsList } from "./messages.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
+import { fetchDisplayEventPage } from "./event.js";
+
 
 
 export async function fetchDisplayEventsPage() {
@@ -26,7 +28,65 @@ export async function fetchDisplayEventsPage() {
   addMyAccountButtonListener();
   addMessagesButtonListener();
   addProfilsButtonListener();
+  addEventButtonListener();
+  
 };
+
+ 
+function addEventButtonListener() {
+  const eventsPage = document.querySelector('#app-main');
+  
+  if (!eventsPage) {
+    console.error('Conteneur principal non trouvé');
+    return;
+  }
+  
+  eventsPage.addEventListener('click', async (event) => {
+    const eventButton = event.target.closest('.more-btn');
+    
+    if (!eventButton) return;
+    
+    event.preventDefault();
+    
+    const eventElement = eventButton.closest('.event');
+    
+    if (!eventElement) {
+      console.error('Élément de profil parent non trouvé');
+      return;
+    }
+    
+    const eventSlug = eventElement.dataset.eventSlug;
+    const eventId = eventElement.dataset.eventId;
+    
+    const eventIdentifier = eventSlug || eventId;
+    
+    if (!eventIdentifier) {
+      console.error('Aucun Evènement trouvé');
+      return;
+    }
+    
+    try {
+      const eventData = await getEventDetails(eventIdentifier);
+      
+      if (!eventData) {
+        throw new Error('Impossible de récupérer les données de l evenement');
+      }
+      
+      await fetchDisplayEventPage(eventData);
+      
+      const state = {
+        page: "event", 
+        initFunction: 'fetchDisplayEventPage'
+      };
+      
+      const url = `/event/${eventIdentifier}`;
+      history.pushState(state, "", url);
+      
+    } catch (error) {
+      console.error('Erreur lors de la gestion de l evenement:', error);
+    }
+  });
+}
 
 function appendTemplateEvents() {
 
@@ -46,24 +106,31 @@ function appendTemplateEvents() {
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
 };
-  
-export function addEventsContainer(data) {
 
+
+export function addEventsContainer(data) {
   // Select the event template from the DOM
   const eventTemplate = document.querySelector("#event__events-page");
     
   // Clone the event template
   const eventClone = eventTemplate.content.cloneNode(true);
+  console.log("Structure du clone :", eventClone);
 
   // Set the data attributes for the event
   eventClone.querySelector("article").setAttribute("data-city", data.city.toLowerCase());
   eventClone.querySelector("article").setAttribute("data-label", data.label.name.toLowerCase());
   
+  // Ajouter les identifiants uniques pour chaque événement
+  eventClone.querySelector("article").setAttribute("data-event-id", data.id);
+  eventClone.querySelector("article").setAttribute("data-event-slug", data.slug);
+  
   // Populate the cloned template with event data
   eventClone.querySelector("[slot='title']").textContent = data.title;
-  eventClone.querySelector("[slot='label']").textContent = data.label.name;
-  
-  // Select the container for the event list
+  eventClone.querySelector("[slot='label']").textContent = data.label.name; 
+  eventClone.querySelector("[slot='picture']").setAttribute('src', `./src/assets/img/diverse-img/events/${data.picture}`);
+
+  console.log(`Événement : ${data.title}, Picture : ${data.picture}`);
+  // Select the container for the event list 
   const eventContainer = document.querySelector(".events-grid");
 
   // Append the cloned event template to the event list container
@@ -175,3 +242,4 @@ function addProfilsButtonListener(data){
     history.pushState(state, "", url);
   });
 };
+

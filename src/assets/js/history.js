@@ -16,6 +16,7 @@ import { fetchDisplayEventsPage } from "./events.js";
 import { fetchDisplayConversationsList, fetchDisplayMessagesPage } from "./messages.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
 import { fetchDisplayVisitorProfilePage } from "./profile.js";
+import { fetchDisplayEventPage } from "./event.js";
 
 
 
@@ -39,6 +40,7 @@ const displayMap ={
   'fetchDisplayProfilsPage' : fetchDisplayProfilsPage,
   'fetchDisplayVisitorProfilePage' : fetchDisplayVisitorProfilePage,
   'fetchDisplayConversationsList': fetchDisplayConversationsList,
+  'fetchDisplayEventPage': fetchDisplayEventPage,
 };
 
 export function popstate(e) {

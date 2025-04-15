@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="./src/assets/CSS/my.account.css">
     <link rel="stylesheet" href="/src/assets/CSS/error.404.css">
     <link rel="stylesheet" href="./src/assets/CSS/events.css">
+    <link rel="stylesheet" href="./src/assets/CSS/event.css">
     <link rel="stylesheet" href="./src/assets/CSS/profils.css">
     <link rel="stylesheet" href="./src/assets/CSS/profile.css">
     <link rel="stylesheet" href="./src/assets/CSS/messages.css">
@@ -210,21 +211,20 @@
     <!-- Template connected -->
 
     <template id="home-page-connected">
-      <section class="events connected">
-        <h2 class="events__title connected"> Évènements à venir</h2>
-        <div class="events__list connected" id="events-list">
-            <!-- Genererated events here -->  
-        </div>
-      </section>
-
-      <section class="profils">
-        <h2 class="profils__title"> Profils selectionnés</h2>
-        <div id="profiles-list">
-
-        </div>
-        
-      </section>
-    </template>   
+      <div class="container">
+        <section class="events connected">
+          <h2 class="events__title connected"> Évènements à venir</h2>
+          <div class="events__list connected" id="events-list">
+              <!-- Genererated events here -->  
+          </div>
+        </section>
+        <section class="profils">
+          <h2 class="profils__title"> Profils selectionnés</h2>
+          <div id="profiles-list">
+          </div>
+        </section>
+      </div>
+    </template>
 
     <!-- Template miniature card of events -->
 
@@ -487,8 +487,6 @@
           </div>
             <button class="edit-modal edit-personal" type="button">Modifier</button>
             <button class="delete-account" type="button">Supprimer le compte</button>
-            
-
           </article>
           <article class="intro-article">
             <article class="intro-article-presentation">
@@ -698,14 +696,15 @@
 
     </template> 
 
-   <!-- Template de la page de messages -->
+   
+<!-- Template de la page de messages -->
 <template id="messages-page">
   <div class="messages-container">
     <div class="messages-header">
       <p><strong>Conversation avec : </strong><span class="conversation-partner"></span></p>
     </div>
     <div class="messages-list">
-      <!-- Les messages seront ajoutés ici dynamiquement -->
+      <div class="no-messages">Aucun message. Commencez la conversation !</div>
     </div>
     <div class="message-form">
       <input type="text" id="messageInput" placeholder="Écrivez votre message ici..." />
@@ -1043,6 +1042,37 @@
     </section>
   </template>
 
+    <!-- Template event page -->
+
+  <template id="your-event">
+
+    <h1 class="event-title" slot="title">Titre par défaut</h1>
+    <div class="event-section">
+        <div class="event-left">
+          <img src="./src/assets/img/diverse-img/events/culturel.jpg" alt="sortie culturelle" class="event-img" slot="picture">
+          <div class="event_info">
+            <p class="event_date" slot="date"><strong>DATE:</strong></p>
+            <p class="event_time" slot="time"><strong>HORAIRE:</strong></p>
+            <p class="event_city" slot="city"><strong>LIEU:</strong></p>
+            <p class="event_participants"><strong>NB PARTICIPANTS:</strong></p>
+          </div>
+        </div>
+        <div class="event-right">
+          <div class="event_access">
+            <h2>ACCÈS</h2>
+            <div class="google-map">
+              <!-- Intégration de Google Maps ici avec les coordonnées de l'événement -->
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="event-description">
+      <p class="event_description" slot="description"></p>
+    </div>
+    <button class="event-inscription" type="button">S'Inscrire</button>
+
+  </template>
+
     <!-- Template events page -->
 
     <template id="all-events-page">
@@ -1074,10 +1104,10 @@
     <!--- Template event from events page--->
 
     <template id="event__events-page">
-      <article class="event">
+      <article class="event" data-event-id="4" data-event-slug="randonnee-parc-tete-d-or">
         <a href="">
             <div>
-                <img src="./src/assets/img/diverse-img/events/culturel.jpeg" alt="sortie culturelle"> 
+                <img src="./src/assets/img/diverse-img/events/culturel.jpg" alt="sortie culturelle" slot="picture"> 
                 <h3 class="event__description" slot="title">Sortie au centre d'art "Les Abattoirs"</h3>
                 <span class="event__theme" slot="label">Sortie culturelle</span>
                 <button class="more-btn">En savoir plus</button>

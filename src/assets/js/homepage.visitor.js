@@ -102,7 +102,7 @@ export function addEventContainer(data){
   eventClone.querySelector("[slot='city']").textContent = data.city;
   eventClone.querySelector("[slot='title']").textContent = data.title;
   eventClone.querySelector("[slot='label']").textContent = data.label.name;
-
+  eventClone.querySelector("[slot='picture']").setAttribute('src', `./src/assets/img/diverse-img/events/${data.picture}`);
   // Select the container for the event list
   const eventContainer = document.querySelector("#events-list");
  

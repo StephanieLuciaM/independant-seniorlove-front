@@ -40,12 +40,13 @@ function addProfileButtonListener() {
   
   profilsPage.addEventListener('click', async (event) => {
     const profileButton = event.target.closest('.more-btn');
+    console.log('Bouton trouvé:', profileButton);
     
     if (!profileButton) return;
     
     event.preventDefault();
     
-    const profilElement = profileButton.closest('.profil');
+    const profilElement = profileButton.closest('article');
     
     if (!profilElement) {
       console.error('Élément de profil parent non trouvé');

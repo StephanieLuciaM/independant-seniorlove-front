@@ -1,0 +1,181 @@
+/* Event Page Styles */
+.event-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin: var(--spacing-large) 0;
+    font-family: var(--font-title);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.event-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-large);
+}
+
+.event-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    width: 100%;
+}
+
+.event-img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    border-radius: 5px;
+    align-self: center;
+    
+}
+
+.event_info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.event_info p {
+    margin: 0.25rem 0;
+    color: var(--text-color);
+}
+
+.event-right {
+    width: 100%;
+}
+
+.event_access {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-small);
+}
+
+.event_access h2 {
+    color: var(--primary-color);
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-small);
+    text-align: center;
+}
+
+.google-map {
+    width: 100%;
+    height: 200px;
+    background-color: var(--light-gray);
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+}
+
+.event-description {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-medium);
+    margin-bottom: var(--spacing-large);
+}
+
+.event_description {
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.event-inscription {
+    display: block;
+    width: 200px;
+    margin: 0 auto var(--spacing-large);
+    padding: var(--spacing-small);
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--spacing-medium);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.event-inscription:hover {
+    background-color: var(--primary-color-light);
+}
+
+/* Conteneur principal pour assurer l'ordre correct */
+#app-main {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Media query for tablets and larger screens */
+@media screen and (min-width: 768px) {
+    .event-section {
+        flex-direction: row;
+        align-items: stretch;
+    }
+    
+    .event-left {
+        width: 50%;
+        order: 1; /* Explicitement à gauche */
+        border-right: 2px solid var(--secondary-color);
+        padding-right: var(--spacing-medium);
+    }
+    
+    .event-right {
+        width: 50%;
+        order: 2; /* Explicitement à droite */
+        padding-left: var(--spacing-medium);
+    }
+    
+    .google-map {
+        height: 300px;
+    }
+    
+    .event-img {
+        max-width: 100%;
+    }
+}
+
+/* Media query for desktop */
+@media screen and (min-width: 1024px) {
+    .event-title {
+        font-size: 2.5rem;
+    }
+    
+    .event-section {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        flex-direction: row;
+        align-items: stretch;
+    }
+    
+    .event-left {
+        width: 50%;
+        order: 1; /* Explicitement à gauche */
+        border-right: 2px solid var(--secondary-color);
+        padding-right: var(--spacing-medium);
+    }
+    
+    .event-right {
+        width: 50%;
+        order: 2; /* Explicitement à droite */
+        padding-left: var(--spacing-medium);
+    }
+    
+    .event-description {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .google-map {
+        height: 350px;
+    }
+}

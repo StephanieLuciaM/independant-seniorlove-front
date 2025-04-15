@@ -199,6 +199,48 @@ export async function getVisitorProfile(userIdOrSlug) {
   }
 }
 
+// Asynchronous function to get event data
+export async function getEventDetails(eventIdorSlug) {
+  try {
+    const httpResponse = await fetch(`${apiUrl}/event/${eventIdorSlug}`, {
+      credentials: "include",
+    });
+    
+    if (!httpResponse.ok) {
+      const errorBody = await httpResponse.json();
+      console.error("Erreur lors de la récupération des données utilisateur:", errorBody);
+      return null;
+    }
+    
+    const event = await httpResponse.json();
+    return event;
+  } catch (error) {
+    console.error("API non accessible...", error);
+    return null;
+  }
+}
+
+export async function registerToEvent(eventId, userId) {
+  try {
+    const response = await fetch(`${apiUrl}/event/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ eventId, userId }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Échec de l\'inscription');
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Erreur lors de l\'inscription:', error);
+    throw error;
+  }
+}
 
 // Asynchronous function to edit user data
 export async function editMyAccount(data) {

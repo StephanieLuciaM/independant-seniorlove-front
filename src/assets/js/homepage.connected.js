@@ -5,8 +5,9 @@ import { fetchDisplayEventsPage } from "./events.js";
 import { fetchDisplayConversationsList } from "./messages.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
 
-export async function fetchDisplayHomePageConnected(data){
-// Reset the view templates for header and main content
+
+export async function fetchDisplayHomePageConnected(data) {
+  // Reset the view templates for header and main content
   resetViewTemplate('app-header', 'app-main');
 
   appendTemplatesConnedted();
@@ -14,23 +15,35 @@ export async function fetchDisplayHomePageConnected(data){
   await new Promise(resolve => setTimeout(resolve, 100));
 
   addMyAccountButtonListener(data);
-  addMessagesButtonListener(data);
+  addMessagesButtonListener();
   addEventsButtonListener(data);
   addProfilsButtonListener(data);
-  
-
-  // Fetch and display the latest matched profiles
-  const profilsMatch = await getLastProfilesMatch();
-  if(profilsMatch){
-    profilsMatch.forEach(addProfilContainer);
+ 
+  try {
+    // Fetch and display the latest matched profiles
+    const profilsMatch = await getLastProfilesMatch();
+    const profilesListContainer = document.querySelector("#profiles-list");
+    
+    if (profilsMatch && profilesListContainer) {
+      profilsMatch.forEach(addProfilContainer);
+    }
+  } catch (error) {
+    console.error("Error loading profile matches:", error);
   }
 
-  // Fetch and display the latest matched events
-  const eventsMatch = await getLastEventsMatch();
-  if(eventsMatch){
-    eventsMatch.forEach(addEventContainer);
+  try {
+    // Fetch and display the latest matched events
+    const eventsMatch = await getLastEventsMatch();
+    const eventsListContainer = document.querySelector("#events-list");
+    
+    if (eventsMatch && eventsListContainer) {
+      eventsMatch.forEach(addEventContainer);
+    }
+  } catch (error) {
+    console.error("Error loading event matches:", error);
   }
-};
+}
+
 
 function appendTemplatesConnedted(){
 
@@ -130,10 +143,13 @@ function addProfilsButtonListener(data){
 };
 
 
-export function addEventContainer(data){
-  
+export function addEventContainer(data) {
   // Select the event template
   const eventTemplate = document.querySelector("#minimal-event");
+  if (!eventTemplate) {
+    console.log("Template #minimal-event not found in the DOM");
+    return; // Sortir de la fonction si le template n'existe pas
+  }
 
   // Clone the event template
   const eventClone = eventTemplate.content.cloneNode(true);
@@ -142,23 +158,28 @@ export function addEventContainer(data){
   eventClone.querySelector("[slot='city']").textContent = data.city;
   eventClone.querySelector("[slot='title']").textContent = data.title;
   eventClone.querySelector("[slot='label']").textContent = data.label.name;
-
+  eventClone.querySelector("[slot='picture']").setAttribute('src', `./src/assets/img/diverse-img/events/${data.picture}`);
   // Select the container for the event list
   const eventContainer = document.querySelector("#events-list");
+  if (!eventContainer) {
+    console.log("Container #events-list not found in the DOM");
+    return; // Sortir de la fonction si le conteneur n'existe pas
+  }
  
   // Append the cloned event template to the event list container
   eventContainer.appendChild(eventClone);
-};
+}
 
-export function addProfilContainer(data){
-  
-  // Select the event template
+export function addProfilContainer(data) {
   const profilTemplate = document.querySelector("#minimal-profil");
 
-  // Clone the event template
+  if (!profilTemplate) {
+    console.log("Template #minimal-profil not found in the DOM");
+    return;
+  }
+
   const profilClone = profilTemplate.content.cloneNode(true);
 
-  // Populate the cloned template with event data
   profilClone.querySelector("[slot='firstname']").textContent = data.firstname;
   profilClone.querySelector("[slot='city']").textContent = data.city;
   profilClone.querySelector("[slot='age']").textContent = data.age;
@@ -167,13 +188,14 @@ export function addProfilContainer(data){
   if (pictureSlot) {
     pictureSlot.src = data.picture;
   } else {
-    console.error("Image de profil non trouvée dans le DOM.");
+    console.log("Profile picture element not found in the DOM");
   }
 
-
-  // Select the container for the event list
   const profilContainer = document.querySelector("#profiles-list");
- 
-  // Append the cloned event template to the event list container
+  if (!profilContainer) {
+    console.log("Container #profiles-list not found in the DOM");
+    return;
+  }
+
   profilContainer.appendChild(profilClone);
-};
+}

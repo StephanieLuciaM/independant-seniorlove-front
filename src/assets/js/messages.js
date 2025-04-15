@@ -1,4 +1,4 @@
-import { fetchConversations, fetchMessages, getMyAccount, sendMessage } from "./api.js";
+import { fetchConversations, fetchMessages, getMyAccount, getVisitorProfile, sendMessage } from "./api.js";
 import { fetchDisplayEventsPage } from "./events.js";
 import { fetchDisplayMyAccountPage } from "./my.account.js";
 import { fetchDisplayProfilsPage } from "./profils.js";
@@ -27,7 +27,7 @@ export async function fetchDisplayConversationsList(currentUserId) {
   const headerTemplate = document.querySelector("#header-connected");
   const conversationsTemplate = document.querySelector("#conversations-list-page") || 
                                 document.querySelector("#messages-page"); // Fallback si pas de template spécifique
-  
+ 
   const headerClone = headerTemplate.content.cloneNode(true);
   const conversationsClone = conversationsTemplate.content.cloneNode(true);
   
@@ -137,14 +137,15 @@ export async function fetchDisplayConversationsList(currentUserId) {
   addMyAccountButtonListener();
   addProfilsButtonListener();
   addEventsButtonListener();
+  
 }
 
-// Fonction principale pour afficher les messages
+
 // Fonction principale pour afficher les messages
 export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   console.log("Affichage des messages entre", currentUserId, "et", otherIdentifier);
   
-  // Si l'ID de l'autre utilisateur n'est pas défini, afficher la liste des conversations
+  // Si l'ID de l'utilisateur courant n'est pas défini, afficher un message d'erreur
   if (!currentUserId) {
     console.error("ID utilisateur courant manquant");
     return;
@@ -158,8 +159,6 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   }
 
   resetViewTemplate("app-header", "app-main");
-  
-
 
   // Charge le template des messages
   const appHeader = document.querySelector("#app-header");
@@ -190,12 +189,53 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
     messagesHeader.prepend(backButton);
   }
 
-  // Met à jour le nom du destinataire
+  // Si nous n'avons pas encore les conversations, nous les récupérons
+  if (!conversations || conversations.length === 0) {
+    try {
+      conversations = await fetchConversations(currentUserId);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des conversations:", error);
+    }
+  }
+
+  // Trouver le slug de l'utilisateur dans les conversations
+  let partnerSlug = otherIdentifier;
+  let partnerInfo = null;
+
+  // Rechercher dans les conversations existantes
+  const conversation = conversations.find(conv => 
+    conv.partner?.slug === otherIdentifier || 
+  conv.user_id == otherIdentifier
+  );
+
+  if (conversation && conversation.partner) {
+    partnerSlug = conversation.partner.slug || otherIdentifier;
+    partnerInfo = conversation.partner;
+  } else {
+  // Cas où nous n'avons pas encore communiqué avec ce profil
+    try {
+    // Appel à l'API pour récupérer les informations du profil
+      const profileInfo = await getVisitorProfile(otherIdentifier);
+      if (profileInfo && profileInfo.slug) {
+        partnerSlug = profileInfo.slug;
+        partnerInfo = profileInfo;
+      } else {
+      // Si pas de slug disponible, utiliser l'identifiant
+        partnerSlug = otherIdentifier;
+      }
+    } catch (error) {
+      console.warn("Impossible de récupérer le slug du profil:", error);
+      // En cas d'erreur, utiliser l'identifiant directement
+      partnerSlug = otherIdentifier;
+    }
+  }
+
+  // Met à jour le nom du destinataire avec le slug si disponible
   const receiverSpan = document.querySelector("[slot='receiver-id']");
   if (receiverSpan) {
-    receiverSpan.textContent = otherIdentifier;
+    receiverSpan.textContent = partnerSlug;
   }
-  document.querySelector(".conversation-partner").textContent = `${otherIdentifier}`;
+  document.querySelector(".conversation-partner").textContent = partnerSlug;
 
   // Récupère les messages entre deux utilisateurs
   console.log("Récupération des messages entre", currentUserId, "et", otherIdentifier);
@@ -203,20 +243,44 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   console.log("Messages récupérés:", allMessages);
   
   const messagesList = document.querySelector(".messages-list");
+  const noMessagesElement = messagesList.querySelector(".no-messages");
+  
   if (allMessages && allMessages.length) {
-    // Vider d'abord la liste des messages
-    messagesList.innerHTML = "";
+    // Si on a des messages, on cache l'élément "no-messages"
+    if (noMessagesElement) {
+      noMessagesElement.style.display = "none";
+    }
+    
+    // Vider d'abord la liste des messages (sauf l'élément no-messages)
+    while (messagesList.firstChild) {
+      if (messagesList.firstChild.classList && messagesList.firstChild.classList.contains("no-messages")) {
+        // On saute cet élément
+        messagesList.firstChild.style.display = "none";
+      } else {
+        messagesList.removeChild(messagesList.firstChild);
+      }
+    }
     
     // Affiche tous les messages
     allMessages.forEach(message => {
-      addMessageToList(message, currentUserId);
+      addMessageToList(message, currentUserId, conversations);
     });
 
     // Scroll jusqu'au bas de la liste des messages
     messagesList.scrollTop = messagesList.scrollHeight;
   } else {
-    // Aucun message - afficher un message d'information
-    messagesList.innerHTML = "<div class='no-messages'>Aucun message. Commencez la conversation !</div>";
+    // Aucun message - afficher l'élément no-messages
+    if (noMessagesElement) {
+      noMessagesElement.style.display = "block";
+    }
+    
+    // Supprimer tous les autres éventuels messages
+    const children = Array.from(messagesList.children);
+    children.forEach(child => {
+      if (!child.classList || !child.classList.contains("no-messages")) {
+        messagesList.removeChild(child);
+      }
+    });
   }
 
   // Ajoute l'envoi de message
@@ -229,7 +293,7 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   
   // Mettre à jour l'URL
   const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage', params: [currentUserId, otherIdentifier]};
-  const url = `/messages/${otherIdentifier}`;
+  const url = `/messages/${partnerSlug}`;
   history.pushState(state, "", url);
 }
 
@@ -292,8 +356,9 @@ function setupMessageSending(senderId, receiverId) {
   });
 }
 
+
 // Fonction pour ajouter un message à la liste
-function addMessageToList(messageData, currentUserId) {
+function addMessageToList(messageData, currentUserId, convList) {
   const messagesList = document.querySelector(".messages-list");
   
   // Supprimer le message "Aucun message" si présent
@@ -312,9 +377,23 @@ function addMessageToList(messageData, currentUserId) {
   const isOutgoing = messageData.sender_id == currentUserId;
   messageBubble.classList.add(isOutgoing ? "message-outgoing" : "message-incoming");
   
-  // Remplit les détails du message
-  messageClone.querySelector(".message-sender").textContent = 
-    isOutgoing ? "Vous" : `Utilisateur ${messageData.sender_id}`;
+  // Recherche du slug pour l'expéditeur
+  let senderName = isOutgoing ? "Vous" : `Utilisateur ${messageData.sender_id}`;
+  
+  // Si c'est un message entrant, on essaie de trouver le slug dans les conversations
+  if (!isOutgoing && convList && convList.length > 0) {
+    const senderConv = convList.find(conv => 
+      conv.user_id == messageData.sender_id || 
+      conv.partner?.id == messageData.sender_id
+    );
+    
+    if (senderConv && senderConv.partner && senderConv.partner.slug) {
+      senderName = senderConv.partner.slug;
+    }
+  }
+  
+  // Remplit les détails du message avec le nom/slug approprié
+  messageClone.querySelector(".message-sender").textContent = senderName;
   
   // Formate la date et l'heure (si disponible)
   if (messageData.created_at || messageData.updated_at) {
@@ -423,3 +502,4 @@ function addEventsButtonListener() {
     history.pushState(state, "", url);
   });
 }
+
