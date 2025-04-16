@@ -1,4 +1,4 @@
-/* CITIES FILTER */
+/* Container for city filter bar */
 .cities-filter {
   margin-top: var(--spacing-large);
   background-color: var(--secondary-color);
@@ -6,6 +6,7 @@
   overflow-x: auto;
 }
 
+/* List of city filter buttons */
 .cities-filter__list {
   display: flex;
   gap: var(--spacing-small);
@@ -16,6 +17,7 @@
   border-radius: 1rem;
 }
 
+/* Style for individual city filter buttons */
 .cities-filter__button {
   background-color: white;
   border: 0.1rem solid var(--light-gray);
@@ -30,18 +32,20 @@
   font-size: 1.2rem;
 }
 
+/* Active or selected filter style */
 .cities-filter__button.filter {
   background-color: var(--primary-color);
   color: white; 
 }
 
+/* Hover and active state for filter buttons */
 .cities-filter__button:hover,
 .cities-filter__button.active {
   background-color: var(--text-color-light);
   color: white;
 }
 
-/* Criteria Sub-options */
+/* Sub-options for criteria filtering */
 .criteria-sub-options {
   display: flex;
   flex-wrap: wrap;
@@ -54,6 +58,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Wrapper for sub-option buttons */
 .sub-option {
   display: flex;
   flex-wrap: wrap;
@@ -61,6 +66,7 @@
   justify-content: center;
 }
 
+/* Style for sub-option buttons */
 .sub-filter-btn {
   background-color: white;
   border: 0.1rem solid var(--light-gray);
@@ -72,13 +78,14 @@
   transition: all 0.3s ease;
 }
 
+/* Hover and active state for sub-option buttons */
 .sub-filter-btn:hover,
 .sub-filter-btn.active {
   background-color: var(--primary-color);
   color: white;
 }
 
-/* No results message */
+/* Message displayed when no results are found */
 .no-results-message {
   grid-column: 1 / -1;
   text-align: center;
@@ -89,7 +96,7 @@
   color: var(--text-color);
 }
 
-/* PROFILS GRID - same as yours */
+/* Grid container for displaying profiles */
 .profils-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -99,7 +106,7 @@
   margin-bottom: var(--spacing-large);
 }
 
-/* Rest of your CSS remains the same */
+/* Style for each profile card */
 .profil { 
   background-color: white;
   border-radius: var(--spacing-small);
@@ -107,11 +114,12 @@
   overflow: hidden;
 } 
 
+/* Hover effect on profile cards */
 .profil:hover {
   transform: scale(1.05);
 }
 
-/* Your existing media queries */
+/* Responsive layout adjustments for tablets */
 @media screen and (min-width: 768px) {
   .cities-filter__list {
     justify-content: center;
@@ -132,6 +140,7 @@
   }
 }
 
+/* Responsive layout adjustments for desktops */
 @media screen and (min-width: 1024px) {
   .profils-grid {
     grid-template-columns: repeat(3, 1fr);

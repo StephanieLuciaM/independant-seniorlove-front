@@ -1,166 +1,170 @@
 import { fetchConversations, fetchMessages, getMyAccount, getVisitorProfile, sendMessage } from "./api.js";
-import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayMyAccountPage } from "./my.account.js";
-import { fetchDisplayProfilsPage } from "./profils.js";
 import { resetViewTemplate } from "./utils.js";
+import { addEventsButtonListener, 
+  addHearderLogoButtonListener, 
+  addMyAccountButtonListener, 
+  addProfilsButtonListener } from "./button.js";
 
 
-// Liste des conversations (à ajouter)
+// List of conversations (to be added)
 let conversations = [];
 
-// Fonction pour afficher la liste des conversations
+// Function to display the list of conversations
 export async function fetchDisplayConversationsList(currentUserId) {
 
   console.log("Current user ID in conversations list:", currentUserId);
+
+  // Ensure the user ID is provided before proceeding
   if (!currentUserId) {
-    console.error("ID utilisateur manquant");
+    console.error("Missing user ID");
     return;
   }
+
+  // Reset the view templates for the header and main section
   resetViewTemplate("app-header", "app-main");
 
-  // Charge le template des messages
+  // Load message templates
   const appHeader = document.querySelector("#app-header");
   const appMain = document.querySelector("#app-main");
   appHeader.innerHTML = "";
   appMain.innerHTML = "";
 
   const headerTemplate = document.querySelector("#header-connected");
+  
+  // Fallback mechanism if no specific conversation template exists
   const conversationsTemplate = document.querySelector("#conversations-list-page") || 
-                                document.querySelector("#messages-page"); // Fallback si pas de template spécifique
+                                document.querySelector("#messages-page");
  
   const headerClone = headerTemplate.content.cloneNode(true);
   const conversationsClone = conversationsTemplate.content.cloneNode(true);
-  
+
+  // Append header and main content
   appHeader.appendChild(headerClone);
   appMain.appendChild(conversationsClone);
 
-  // Récupérer toutes les conversations de l'utilisateur courant
+  // Retrieve all conversations for the current user
   try {
-    // D'abord récupérer l'ID de l'utilisateur connecté
+    // First, fetch the account details of the connected user
     const myAccount = await getMyAccount();
     const currentUserId = myAccount.id;
 
+    // Fetch conversations associated with the current user
     conversations = await fetchConversations(currentUserId);
-    // Afficher les conversations
+
+    // Create a container for displaying conversations
     const conversationsList = document.createElement("div");
     conversationsList.classList.add("conversations-list");
-  
+
     conversations.forEach(conv => {
       const partnerId = conv.user_id;
       const partnerSlug = conv.partner?.slug || null;
 
       const convItem = document.createElement("div");
       convItem.classList.add("conversation-item");
-    
-      // Créer l'élément pour l'utilisateur
+
+      // Create element for displaying the conversation partner
       const userDiv = document.createElement("div");
       userDiv.classList.add("conversation-user");
       userDiv.textContent = `${conv.partner?.slug}`;
-    
-      // Créer l'élément pour l'aperçu du message
+
+      // Create element for previewing the last message
       const previewDiv = document.createElement("div");
       previewDiv.classList.add("conversation-preview");
       previewDiv.textContent = conv.last_message;
-    
-      // Ajouter les éléments à l'élément de conversation
+
+      // Append elements to conversation item
       convItem.appendChild(userDiv);
       convItem.appendChild(previewDiv);
-    
-      
-    
-      // Ajouter l'écouteur d'événement
+
+      // Event listener for clicking a conversation item
       convItem.addEventListener("click", () => {
         const partnerIdentifier = partnerSlug || partnerId;
         fetchDisplayMessagesPage(currentUserId, partnerIdentifier);
       });
-    
+
       conversationsList.appendChild(convItem);
     });
-  
-    // Chercher le conteneur où placer nos conversations
+
+    // Identify the container for placing conversation items
     const messagesContainer = document.querySelector(".messages-container");
-  
-    // Si on trouve le conteneur, on l'utilise
+
     if (messagesContainer) {
-    // Vider le contenu actuel
-      while (messagesContainer.firstChild) {
-        messagesContainer.removeChild(messagesContainer.firstChild);
-      }
-    
-      // Ajouter l'en-tête
+      // Clear existing content before appending new elements
+      messagesContainer.innerHTML = "";
+
+      // Add section header
       const header = document.createElement("div");
       header.classList.add("messages-header");
-    
+
       const paragraph = document.createElement("p");
       const strong = document.createElement("strong");
-      strong.textContent = "Vos conversations";
-    
+      strong.textContent = "Your conversations";
+
       paragraph.appendChild(strong);
       header.appendChild(paragraph);
       messagesContainer.appendChild(header);
-    
-      // Ajouter la liste des conversations
+
+      // Append conversation list
       messagesContainer.appendChild(conversationsList);
     } else {
-    // Si le conteneur n'existe pas, on crée notre propre conteneur
-    // et on l'ajoute à appMain
+      // Create a custom container if the default one doesn't exist
       const customContainer = document.createElement("div");
       customContainer.classList.add("messages-container", "custom-container");
-    
+
       const header = document.createElement("div");
       header.classList.add("messages-header");
-    
+
       const paragraph = document.createElement("p");
       const strong = document.createElement("strong");
-      strong.textContent = "Vos conversations";
-    
+      strong.textContent = "Your conversations";
+
       paragraph.appendChild(strong);
       header.appendChild(paragraph);
       customContainer.appendChild(header);
-    
-      // Ajouter la liste des conversations
+
+      // Append conversations list
       customContainer.appendChild(conversationsList);
-    
-      // Ajouter le conteneur à appMain
+
+      // Append custom container to main section
       const appMain = document.querySelector("#app-main");
       if (appMain) {
         appMain.appendChild(customContainer);
       } else {
-        console.error("Element #app-main non trouvé");
+        console.error("Element #app-main not found");
       }
     }
   } catch (error) {
-    console.error("Erreur lors de la récupération des conversations :", error);
+    console.error("Error fetching conversations:", error);
   }
 
-  // Réajout des écouteurs d'événements de navigation
+  // Re-add navigation event listeners for header elements
+  addHearderLogoButtonListener();
   addMyAccountButtonListener();
   addProfilsButtonListener();
   addEventsButtonListener();
-  
 }
 
 
-// Fonction principale pour afficher les messages
+// Main function to display messages between users
 export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
-  console.log("Affichage des messages entre", currentUserId, "et", otherIdentifier);
+  console.log("Displaying messages between", currentUserId, "and", otherIdentifier);
   
-  // Si l'ID de l'utilisateur courant n'est pas défini, afficher un message d'erreur
+  // Validate current user ID before proceeding
   if (!currentUserId) {
-    console.error("ID utilisateur courant manquant");
+    console.error("Current user ID missing");
     return;
   }
   
-  // Si otherIdentifier n'est pas défini, afficher la liste des conversations
+  // If the other user's ID is missing, show conversation list instead
   if (!otherIdentifier) {
-    console.log("ID de l'autre utilisateur non fourni, affichage de la liste des conversations");
+    console.log("No other user ID provided, displaying conversation list");
     fetchDisplayConversationsList(currentUserId);
     return;
   }
 
   resetViewTemplate("app-header", "app-main");
 
-  // Charge le template des messages
+  // Load the message templates
   const appHeader = document.querySelector("#app-header");
   const appMain = document.querySelector("#app-main");
   appHeader.innerHTML = "";
@@ -168,186 +172,147 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
 
   const headerTemplate = document.querySelector("#header-connected");
   const messagesTemplate = document.querySelector("#messages-page");
+  
+  // Clone and insert header and message templates
   const headerClone = headerTemplate.content.cloneNode(true);
   const messagesClone = messagesTemplate.content.cloneNode(true);
-
   appHeader.appendChild(headerClone);
   appMain.appendChild(messagesClone);
 
-  // Ajouter un bouton retour pour revenir à la liste des conversations
+  // Add a back button to navigate to conversation list
   const messagesHeader = document.querySelector(".messages-header");
   if (messagesHeader) {
     const backButton = document.createElement("button");
     backButton.classList.add("back-button");
-    backButton.textContent = "← Retour";
+    backButton.textContent = "← Back";
+    
+    // Handle back button click event
     backButton.addEventListener("click", () => {
       fetchDisplayConversationsList(currentUserId);
-      const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
+      const state = { page: "Conversations", initFunction: 'fetchDisplayConversationsList' };
       const url = "/conversations";
       history.pushState(state, "", url);
     });
+
     messagesHeader.prepend(backButton);
   }
 
-  // Si nous n'avons pas encore les conversations, nous les récupérons
+  // Fetch conversations if they haven't been retrieved yet
   if (!conversations || conversations.length === 0) {
     try {
       conversations = await fetchConversations(currentUserId);
     } catch (error) {
-      console.error("Erreur lors de la récupération des conversations:", error);
+      console.error("Error retrieving conversations:", error);
     }
   }
 
-  // Trouver le slug de l'utilisateur dans les conversations
+  // Find user slug from the conversation list or API
   let partnerSlug = otherIdentifier;
   let partnerInfo = null;
 
-  // Rechercher dans les conversations existantes
   const conversation = conversations.find(conv => 
-    conv.partner?.slug === otherIdentifier || 
-  conv.user_id == otherIdentifier
+    conv.partner?.slug === otherIdentifier || conv.user_id == otherIdentifier
   );
 
-  if (conversation && conversation.partner) {
+  if (conversation?.partner) {
     partnerSlug = conversation.partner.slug || otherIdentifier;
     partnerInfo = conversation.partner;
   } else {
-  // Cas où nous n'avons pas encore communiqué avec ce profil
     try {
-    // Appel à l'API pour récupérer les informations du profil
+      // Fetch profile data if no previous conversation exists
       const profileInfo = await getVisitorProfile(otherIdentifier);
-      if (profileInfo && profileInfo.slug) {
-        partnerSlug = profileInfo.slug;
-        partnerInfo = profileInfo;
-      } else {
-      // Si pas de slug disponible, utiliser l'identifiant
-        partnerSlug = otherIdentifier;
-      }
+      partnerSlug = profileInfo?.slug || otherIdentifier;
+      partnerInfo = profileInfo;
     } catch (error) {
-      console.warn("Impossible de récupérer le slug du profil:", error);
-      // En cas d'erreur, utiliser l'identifiant directement
-      partnerSlug = otherIdentifier;
+      console.warn("Unable to retrieve profile slug:", error);
+      partnerSlug = otherIdentifier; // Fallback to identifier if slug unavailable
     }
   }
 
-  // Met à jour le nom du destinataire avec le slug si disponible
+  // Update UI with recipient's identifier
   const receiverSpan = document.querySelector("[slot='receiver-id']");
-  if (receiverSpan) {
-    receiverSpan.textContent = partnerSlug;
-  }
+  if (receiverSpan) receiverSpan.textContent = partnerSlug;
   document.querySelector(".conversation-partner").textContent = partnerSlug;
 
-  // Récupère les messages entre deux utilisateurs
-  console.log("Récupération des messages entre", currentUserId, "et", otherIdentifier);
+  // Fetch messages between users
+  console.log("Retrieving messages between", currentUserId, "and", otherIdentifier);
   const allMessages = await fetchMessages(currentUserId, otherIdentifier);
-  console.log("Messages récupérés:", allMessages);
+  console.log("Messages retrieved:", allMessages);
   
   const messagesList = document.querySelector(".messages-list");
   const noMessagesElement = messagesList.querySelector(".no-messages");
-  
-  if (allMessages && allMessages.length) {
-    // Si on a des messages, on cache l'élément "no-messages"
-    if (noMessagesElement) {
-      noMessagesElement.style.display = "none";
-    }
-    
-    // Vider d'abord la liste des messages (sauf l'élément no-messages)
-    while (messagesList.firstChild) {
-      if (messagesList.firstChild.classList && messagesList.firstChild.classList.contains("no-messages")) {
-        // On saute cet élément
-        messagesList.firstChild.style.display = "none";
-      } else {
-        messagesList.removeChild(messagesList.firstChild);
-      }
-    }
-    
-    // Affiche tous les messages
-    allMessages.forEach(message => {
-      addMessageToList(message, currentUserId, conversations);
+
+  if (allMessages?.length) {
+    if (noMessagesElement) noMessagesElement.style.display = "none"; // Hide empty message indicator
+
+    // Clear existing messages while preserving "no-messages" element
+    [...messagesList.children].forEach(child => {
+      if (!child.classList?.contains("no-messages")) messagesList.removeChild(child);
     });
 
-    // Scroll jusqu'au bas de la liste des messages
+    // Append fetched messages to UI
+    allMessages.forEach(message => addMessageToList(message, currentUserId, conversations));
+
+    // Scroll to the latest message
     messagesList.scrollTop = messagesList.scrollHeight;
   } else {
-    // Aucun message - afficher l'élément no-messages
-    if (noMessagesElement) {
-      noMessagesElement.style.display = "block";
-    }
-    
-    // Supprimer tous les autres éventuels messages
-    const children = Array.from(messagesList.children);
-    children.forEach(child => {
-      if (!child.classList || !child.classList.contains("no-messages")) {
-        messagesList.removeChild(child);
-      }
-    });
+    if (noMessagesElement) noMessagesElement.style.display = "block"; // Show "no messages" indicator
   }
 
-  // Ajoute l'envoi de message
+  // Set up message sending
   setupMessageSending(currentUserId, otherIdentifier);
 
-  // Réajout des écouteurs d'événements de navigation
+  // Re-add navigation event listeners
   addMyAccountButtonListener();
   addProfilsButtonListener();
   addEventsButtonListener();
-  
-  // Mettre à jour l'URL
-  const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage', params: [currentUserId, otherIdentifier]};
+
+  // Update browser history state
+  const state = { page: "Messages", initFunction: 'fetchDisplayMessagesPage', params: [currentUserId, otherIdentifier] };
   const url = `/messages/${partnerSlug}`;
   history.pushState(state, "", url);
 }
 
-// Configuration de l'envoi de message
+// Function to set up message sending behavior
 function setupMessageSending(senderId, receiverId) {
   const messageInput = document.querySelector("#messageInput");
   const sendButton = document.querySelector("#sendMessageButton");
-  
+
   if (!messageInput || !sendButton) {
-    console.error("Éléments du formulaire de message non trouvés");
+    console.error("Message form elements not found");
     return;
   }
 
-  // Supprimer les anciens écouteurs d'événements si nécessaire
+  // Remove existing event listeners and attach new ones
   const oldSendButton = sendButton.cloneNode(true);
   sendButton.parentNode.replaceChild(oldSendButton, sendButton);
-  
-  // Référencer le nouveau bouton
   const newSendButton = document.querySelector("#sendMessageButton");
 
-  // Fonction pour envoyer le message
+  // Handle message sending
   const sendMessageHandler = async () => {
     const content = messageInput.value.trim();
     if (!content) return;
 
     try {
-      console.log("Envoi du message de", senderId, "à", receiverId, ":", content);
+      console.log("Sending message from", senderId, "to", receiverId, ":", content);
       const message = await sendMessage(senderId, receiverId, content);
-    
+
       if (message) {
-      // Ajoute le message à l'interface sans recharger tout
         addMessageToList(message, senderId);
-      
-        // Vide le champ de saisie
-        messageInput.value = "";
-      
-        // Scroll jusqu'au bas
-        const messagesList = document.querySelector(".messages-list");
-        messagesList.scrollTop = messagesList.scrollHeight;
-      
-        // Mettre à jour la liste des conversations en arrière-plan
+        messageInput.value = ""; // Clear input field
+        document.querySelector(".messages-list").scrollTop = document.querySelector(".messages-list").scrollHeight;
+
+        // Update conversation list in the background
         fetchConversations(senderId).then(updatedConversations => {
           conversations = updatedConversations;
         });
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message:", error);
+      console.error("Error sending message:", error);
     }
   };
 
-  // Ajoute les écouteurs d'événements
   newSendButton.addEventListener("click", sendMessageHandler);
-
-  // Permet d'envoyer avec la touche Entrée
   messageInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -357,149 +322,67 @@ function setupMessageSending(senderId, receiverId) {
 }
 
 
-// Fonction pour ajouter un message à la liste
+// Function to add a message to the list
 function addMessageToList(messageData, currentUserId, convList) {
   const messagesList = document.querySelector(".messages-list");
-  
-  // Supprimer le message "Aucun message" si présent
+
+  // Remove the "No messages" placeholder if present
   const noMessages = messagesList.querySelector('.no-messages');
   if (noMessages) {
     messagesList.removeChild(noMessages);
   }
-  
+
   const messageTemplate = document.querySelector("#message-item");
   const messageClone = messageTemplate.content.cloneNode(true);
   const messageBubble = messageClone.querySelector(".message-bubble");
-  
+
   console.log("Message Data:", messageData);
-  
-  // Détermine si c'est un message envoyé ou reçu
+
+  // Determine whether the message is outgoing or incoming
   const isOutgoing = messageData.sender_id == currentUserId;
   messageBubble.classList.add(isOutgoing ? "message-outgoing" : "message-incoming");
-  
-  // Recherche du slug pour l'expéditeur
-  let senderName = isOutgoing ? "Vous" : `Utilisateur ${messageData.sender_id}`;
-  
-  // Si c'est un message entrant, on essaie de trouver le slug dans les conversations
-  if (!isOutgoing && convList && convList.length > 0) {
-    const senderConv = convList.find(conv => 
-      conv.user_id == messageData.sender_id || 
-      conv.partner?.id == messageData.sender_id
+
+  // Identify sender name or slug
+  let senderName = isOutgoing ? "You" : `User ${messageData.sender_id}`;
+
+  // If it's an incoming message, try to find the sender's slug from conversation history
+  if (!isOutgoing && convList?.length > 0) {
+    const senderConv = convList.find(conv =>
+      conv.user_id == messageData.sender_id || conv.partner?.id == messageData.sender_id
     );
-    
-    if (senderConv && senderConv.partner && senderConv.partner.slug) {
+
+    if (senderConv?.partner?.slug) {
       senderName = senderConv.partner.slug;
     }
   }
-  
-  // Remplit les détails du message avec le nom/slug approprié
+
+  // Populate message details with the sender's name or slug
   messageClone.querySelector(".message-sender").textContent = senderName;
-  
-  // Formate la date et l'heure (si disponible)
+
+  // Format and display the message timestamp
   if (messageData.created_at || messageData.updated_at) {
     const date = new Date(messageData.created_at || messageData.updated_at);
-    // Format de la date et de l'heure
-    const dateString = date.toLocaleDateString([], { 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit' 
+
+    // Define date and time format
+    const dateString = date.toLocaleDateString([], {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
     });
-    const timeString = date.toLocaleTimeString([], { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    const timeString = date.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
     });
-    // Combine la date et l'heure
+
+    // Combine date and time in a readable format
     messageClone.querySelector(".message-time").textContent = `${dateString} ${timeString}`;
   }
-  
-  // Remplit le contenu du message
+
+  // Populate the message content
   messageClone.querySelector(".message-content").textContent = messageData.content;
-  
-  // Ajoute le message à la liste
+
+  // Append the message to the list
   messagesList.appendChild(messageClone);
 }
 
-function addMyAccountButtonListener() {
-  // Select the "Mon compte" button from the header
-  const myAccountButton = document.querySelector("#app-header .my__account");
-  if (!myAccountButton) return;
-  
-  // Clone et remplacer pour éviter les doublons d'écouteurs
-  const oldButton = myAccountButton.cloneNode(true);
-  myAccountButton.parentNode.replaceChild(oldButton, myAccountButton);
-  
-  const newButton = document.querySelector("#app-header .my__account");
-  
-  // Add click event listener to the "Mon compte" button
-  newButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Get the current user ID from localStorage or other source if available
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Fetch and display the "Mon compte" page with the provided data
-    fetchDisplayMyAccountPage(currentUserId);
-    
-    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
-    const url = "/mon-compte";
-    history.pushState(state, "", url);
-  });
-}
-
-function addProfilsButtonListener() {
-  // Select the "Profils" button from the header
-  const ProfilsButton = document.querySelector("#app-header .header__nav-link-profils");
-  if (!ProfilsButton) return;
-  
-  // Clone et remplacer pour éviter les doublons d'écouteurs
-  const oldButton = ProfilsButton.cloneNode(true);
-  ProfilsButton.parentNode.replaceChild(oldButton, ProfilsButton);
-  
-  const newButton = document.querySelector("#app-header .header__nav-link-profils");
-  
-  // Add click event listener to the "Profils" button
-  newButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Get the current user ID from localStorage or other source if available
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Fetch and display the "Profils" page with the provided data
-    fetchDisplayProfilsPage(currentUserId);
-    
-    const state = {page: "Profils", initFunction: 'fetchDisplayProfilsPage'};
-    const url = "/profils";
-    history.pushState(state, "", url);
-  });
-}
-
-function addEventsButtonListener() {
-  // Select the "Événements" button from the header
-  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
-  if (!EventsButton) return;
-  
-  // Clone et remplacer pour éviter les doublons d'écouteurs
-  const oldButton = EventsButton.cloneNode(true);
-  EventsButton.parentNode.replaceChild(oldButton, EventsButton);
-  
-  const newButton = document.querySelector("#app-header .header__nav-link-events");
-  
-  // Add click event listener to the "Événements" button
-  newButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Get the current user ID from localStorage or other source if available
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Fetch and display the "Événements" page with the provided data
-    fetchDisplayEventsPage(currentUserId);
-    
-    const state = {page: "Événements", initFunction: 'fetchDisplayEventsPage'};
-    const url = "/evenements";
-    history.pushState(state, "", url);
-  });
-}
 

@@ -1,12 +1,17 @@
 import { resetViewTemplate } from "./utils.js";
 import { getAllEvents, getEventDetails } from "./api.js";
-import { fetchDisplayMyAccountPage } from "./my.account.js";
-import { fetchDisplayConversationsList } from "./messages.js";
-import { fetchDisplayProfilsPage } from "./profils.js";
 import { fetchDisplayEventPage } from "./event.js";
+import { addHearderLogoButtonListener,
+  addMessagesButtonListener, 
+  addMyAccountButtonListener, 
+  addProfilsButtonListener } from "./button.js";
 
 
 
+/**
+ * Main function to fetch and display the events page
+ * Initializes the page, loads all events, and sets up navigation and filtering
+ */
 export async function fetchDisplayEventsPage() {
 
   // Reset the view templates for header and main content
@@ -15,16 +20,17 @@ export async function fetchDisplayEventsPage() {
   // Append the events page templates with the fetched data
   appendTemplateEvents();
   
-  // Fetch all events
+  // Fetch all events from the API
   const allEvents = await getAllEvents();
   if (allEvents) {
     allEvents.forEach(addEventsContainer); 
   }
 
-  // Initialize event filters
+  // Initialize event filters for city and theme
   setupFilters();
 
-  // Add event listeners to the "Mon compte" button
+  // Add event listeners to all navigation buttons
+  addHearderLogoButtonListener();
   addMyAccountButtonListener();
   addMessagesButtonListener();
   addProfilsButtonListener();
@@ -32,12 +38,15 @@ export async function fetchDisplayEventsPage() {
   
 };
 
- 
+/**
+ * Sets up event listeners for event detail buttons
+ * When a user clicks on an event's "more" button, it fetches details and navigates to the event page
+ */
 function addEventButtonListener() {
   const eventsPage = document.querySelector('#app-main');
   
   if (!eventsPage) {
-    console.error('Conteneur principal non trouvé');
+    console.error('Main container not found');
     return;
   }
   
@@ -51,29 +60,33 @@ function addEventButtonListener() {
     const eventElement = eventButton.closest('.event');
     
     if (!eventElement) {
-      console.error('Élément de profil parent non trouvé');
+      console.error('Parent event element not found');
       return;
     }
     
+    // Get event identification from data attributes
     const eventSlug = eventElement.dataset.eventSlug;
     const eventId = eventElement.dataset.eventId;
     
     const eventIdentifier = eventSlug || eventId;
     
     if (!eventIdentifier) {
-      console.error('Aucun Evènement trouvé');
+      console.error('No event found');
       return;
     }
     
     try {
+      // Fetch detailed event data for the selected event
       const eventData = await getEventDetails(eventIdentifier);
       
       if (!eventData) {
-        throw new Error('Impossible de récupérer les données de l evenement');
+        throw new Error('Unable to retrieve event data');
       }
       
+      // Display the event detail page with the fetched data
       await fetchDisplayEventPage(eventData);
       
+      // Update browser history for proper navigation
       const state = {
         page: "event", 
         initFunction: 'fetchDisplayEventPage'
@@ -83,18 +96,22 @@ function addEventButtonListener() {
       history.pushState(state, "", url);
       
     } catch (error) {
-      console.error('Erreur lors de la gestion de l evenement:', error);
+      console.error('Error handling event:', error);
     }
   });
 }
 
+/**
+ * Appends the header and events page templates to the DOM
+ * Creates the basic structure of the events page before populating with data
+ */
 function appendTemplateEvents() {
 
   // Select the header and content templates from the DOM
   const headerTemplate = document.querySelector("#header-connected");
   const contentTemplate = document.querySelector("#all-events-page");
   
-  // Clone the templates
+  // Clone the templates to avoid modifying the original templates
   const headerClone = headerTemplate.content.cloneNode(true);
   const contentClone = contentTemplate.content.cloneNode(true);
   
@@ -107,20 +124,23 @@ function appendTemplateEvents() {
   contentContainer.appendChild(contentClone);
 };
 
-
+/**
+ * Creates and adds an event card to the grid
+ * Populates each card with data from the API and sets data attributes for filtering
+ * @param {Object} data - The event data from the API
+ */
 export function addEventsContainer(data) {
   // Select the event template from the DOM
   const eventTemplate = document.querySelector("#event__events-page");
     
   // Clone the event template
   const eventClone = eventTemplate.content.cloneNode(true);
-  console.log("Structure du clone :", eventClone);
 
-  // Set the data attributes for the event
+  // Set data attributes for filtering
   eventClone.querySelector("article").setAttribute("data-city", data.city.toLowerCase());
   eventClone.querySelector("article").setAttribute("data-label", data.label.name.toLowerCase());
   
-  // Ajouter les identifiants uniques pour chaque événement
+  // Add unique identifiers for each event for navigation purposes
   eventClone.querySelector("article").setAttribute("data-event-id", data.id);
   eventClone.querySelector("article").setAttribute("data-event-slug", data.slug);
   
@@ -128,21 +148,22 @@ export function addEventsContainer(data) {
   eventClone.querySelector("[slot='title']").textContent = data.title;
   eventClone.querySelector("[slot='label']").textContent = data.label.name; 
   eventClone.querySelector("[slot='picture']").setAttribute('src', `./src/assets/img/diverse-img/events/${data.picture}`);
-
-  console.log(`Événement : ${data.title}, Picture : ${data.picture}`);
-  // Select the container for the event list 
+ 
+  // Select the container for the event list and append the new event
   const eventContainer = document.querySelector(".events-grid");
-
-  // Append the cloned event template to the event list container
   eventContainer.appendChild(eventClone);
 };
 
-
+/**
+ * Sets up filtering functionality for events
+ * Adds event listeners to city buttons and theme dropdown
+ */
 function setupFilters() {
     
   const cityButtons = document.querySelectorAll(".cities-filter__button");
   const themeSelect = document.querySelector("#theme");
   
+  // Add click event listeners to each city button
   cityButtons.forEach(button => {
     button.addEventListener("click", () => {
 
@@ -154,9 +175,10 @@ function setupFilters() {
     });
   });
     
+  // Add change event listener to the theme dropdown
   themeSelect.addEventListener("change", () => {
 
-    // Get the currently active city button or default to "tous"
+    // Get the currently active city button or default to "tous" (all)
     const selectedCity = document.querySelector(".cities-filter__button.active")?.textContent.toLowerCase() || "tous";
 
     // Apply the filtering logic based on the selected theme and current city
@@ -164,9 +186,16 @@ function setupFilters() {
   });
 }
   
+/**
+ * Filters events based on selected city and theme
+ * Shows only events that match both filters
+ * @param {string} city - The selected city to filter by
+ * @param {string} theme - The selected theme to filter by
+ */
 function filterEvents(city, theme) {
   const events = document.querySelectorAll(".events-grid article");
     
+  // Loop through each event and apply filtering
   events.forEach(event => {
     
     // Retrieve the city and label attributes for each event
@@ -174,6 +203,7 @@ function filterEvents(city, theme) {
     const eventTheme = event.getAttribute("data-label");
     
     // Check if the event matches the selected city and/or theme
+    // If "tous" (all) is selected, match all events for that filter
     const cityMatch = (city === "tous" || eventCity === city);
     const themeMatch = (theme === "tous" || eventTheme === theme);
     
@@ -181,65 +211,3 @@ function filterEvents(city, theme) {
     event.style.display = (cityMatch && themeMatch) ? "block" : "none";
   });
 }
-
-function addMyAccountButtonListener(data){
-
-  // Select the "Mon compte" button from the header
-  const myAccountButton = document.querySelector("#app-header .my__account");
-    
-  // Add click event listener to the "Mon compte" button
-  myAccountButton.addEventListener('click', (e) =>{
-    
-    // Prevent the default behavior of the button
-    e.preventDefault();
-            
-    // Fetch and display the "Mon compte" page with the provided data
-    fetchDisplayMyAccountPage(data);
-        
-    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
-    const url = "/mon-compte";
-    history.pushState(state, "", url);
-  });
-};
-
-function addMessagesButtonListener() {
-  // Select the "Messages" button from the header
-  const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
-
-  // Add click event listener to the "Messages" button
-  messagesButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Récupérer l'ID de l'utilisateur connecté
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
-    fetchDisplayConversationsList(currentUserId);
-    
-    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
-    const url = "/conversations";
-    history.pushState(state, "", url);
-  });
-}
-
-
-function addProfilsButtonListener(data){
-
-  // Select the "Évènements" button from the header
-  const ProfilsButton = document.querySelector("#app-header .header__nav-link-profils");
-
-  // Add click event listener to the "Évènements" button
-  ProfilsButton.addEventListener('click', (e) =>{
-
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayProfilsPage(data);
-    const state = {page: "Profils", initFunction: 'fetchDisplayProfilsPage'};
-    const url = "/profils";
-    history.pushState(state, "", url);
-  });
-};
-

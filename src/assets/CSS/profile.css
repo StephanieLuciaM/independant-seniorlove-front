@@ -43,6 +43,7 @@
     border-radius: var(--spacing-small);
 }
 
+
 /* Mise à jour spécifique pour le bouton */
 .send-message-button {
     background-color: var(--primary-color-light); /* Correspond au style des informations générales */
@@ -101,12 +102,15 @@
 
 /* TITLES */
 .intro-title,
-.interests-title,
 .general-info-title {
     color: var(--primary-color);
     margin-bottom: var(--spacing-medium);
     font-family: var(--font-title);
     font-size: var(--spacing-medium);
+}
+
+.interests-title{
+    margin-left:-12rem;
 }
 
 .events-title {

@@ -165,6 +165,65 @@ body {
     text-decoration: underline;
 }
 
+/* Menu burger pour mobile */
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .menu-icon span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-toggle {
+    display: none; /* Cache la checkbox */
+  }
+  
+  /* Style par défaut pour mobile - menu caché */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Ajustez selon la hauteur de votre header */
+    left: 0;
+    background-color: var(--primary-color);
+    z-index: 5;
+    padding: var(--spacing-small);
+  }
+  
+  /* Affiche le menu quand la checkbox est cochée */
+  .menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+  
+  /* Animation des barres du hamburger */
+  .menu-toggle:checked + .menu-icon span:nth-child(1) {
+    transform: rotate(45deg);
+    position: relative;
+    top: 9px;
+  }
+  
+  .menu-toggle:checked + .menu-icon span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-toggle:checked + .menu-icon span:nth-child(3) {
+    transform: rotate(-45deg);
+    position: relative;
+    top: -9px;
+  }
+
 @media screen and (min-width: 768px) {
 
     .header {
@@ -219,6 +278,21 @@ body {
         flex-direction: row;
         justify-content: space-around;
     }
+
+    .menu-icon {
+        display: none; /* Cache l'icône burger sur desktop */
+      }
+      
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        width: auto;
+        background-color: transparent;
+        padding: 0;
+      }
+    }
+    
 }
 
 
@@ -248,5 +322,12 @@ body {
         min-width: 250px;
         margin-left: var(--spacing-medium);
     }
+    .header-connected__nav {
+        align-items: center;
+      }
+      
+      .nav-links {
+        gap: var(--spacing-medium);
+      }
 }
 

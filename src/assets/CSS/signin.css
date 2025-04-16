@@ -79,3 +79,35 @@
     border-color: var(--primary-color);
 }
 
+@media (max-width: 768px) {
+    .sign-in {
+        margin-top: 5rem;
+      flex-direction: column;
+      padding: var(--spacing-medium);
+      height: auto;
+    }
+  
+    .sign-in__form {
+      width: 100%;
+      max-width: 100%;
+      padding: var(--spacing-medium);
+      border-radius: var(--spacing-small);
+    }
+  
+    .email-input,
+    .password-input {
+      width: 100%;
+    }
+  
+    .password-toggle {
+      right: 1rem;
+      bottom: -25%;
+      transform: translateY(50%);
+    }
+  
+    .sign-in__submit-btn {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+    }
+  }
+  

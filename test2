@@ -1,0 +1,38 @@
+
+export async function myAccount(display, data){
+  // Populate the account information slots with the user data
+  display.querySelector("[slot='firstname']").textContent = data.firstname;
+  display.querySelector("[slot='age']").textContent = data.age;
+  display.querySelector("[slot='city-profil']").textContent = data.city;
+  display.querySelector("[slot='description']").textContent = data.description;
+  display.querySelector("[slot='picture']").setAttribute('src', `/src/assets/img/diverse-img/events/${data.picture}`);
+
+  const pictureProfile = display.querySelector(".profile-img");
+  if (pictureProfile) {
+    pictureProfile.src = data.picture;
+  } else {
+    console.error("Image de profil non trouvée dans le DOM.");
+  }
+
+
+  data.labels.forEach(label => {
+    const labelTemplate = document.querySelector("#label");
+    const labelClone = labelTemplate.content.cloneNode(true);
+    
+    
+    // Setting the content of the cloned element
+    labelClone.querySelector("[slot='labels']").textContent = label.name;
+    labelClone.querySelector("[slot='labels']").dataset.id = label.id;
+    
+    // Appending the cloned element to the container
+    const labelContainer = document.querySelector("#label-user");
+    labelContainer.appendChild(labelClone);
+  });
+
+  display.querySelector("[slot='height']").textContent = data.height;
+  display.querySelector("[slot='smoker']").textContent = data.smoker;
+  display.querySelector("[slot='marital']").textContent = data.marital;
+  display.querySelector("[slot='zodiac']").textContent = data.zodiac;
+  display.querySelector("[slot='pet']").textContent = data.pet;
+  display.querySelector("[slot='music']").textContent = data.music;
+};

@@ -68,12 +68,20 @@
 
 /* TITLES */
 .intro-title,
-.interests-title,
 .general-info-title {
     color: var(--primary-color);
     margin-bottom: var(--spacing-medium);
     font-family: var(--font-title);
     font-size: var(--spacing-medium);
+   
+}
+
+.interests-title{
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-medium);
+    font-family: var(--font-title);
+    font-size: var(--spacing-medium);
+    margin-left:-50rem;
 }
 
 .events-title {
@@ -518,7 +526,11 @@ input[type="text"]:focus {
     .edit-modal.edit-personal {
         margin-right: none;
     }
-}
+    
+        
+      
+      
+}   
   
 @media screen and (min-width: 1024px) {
     .profile-section {

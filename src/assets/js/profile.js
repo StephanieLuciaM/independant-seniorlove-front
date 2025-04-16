@@ -1,222 +1,260 @@
 import { resetViewTemplate } from "./utils.js";
-import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayConversationsList, fetchDisplayMessagesPage } from "./messages.js";
-import { fetchDisplayProfilsPage } from "./profils.js";
-import { fetchDisplayMyAccountPage } from "./my.account.js";
+import { fetchDisplayMessagesPage } from "./messages.js";
 import { getMyAccount, getVisitorProfile } from "./api.js";
+import { addEventsButtonListener, 
+  addHearderLogoButtonListener, 
+  addMessagesButtonListener, 
+  addMyAccountButtonListener, 
+  addProfilsButtonListener } from "./button.js";
 
 
 
 export async function fetchDisplayVisitorProfilePage(userData = null) {
-  // Reset the view templates for header and main content
+  // Reset the view templates for header and main content to ensure a clean slate
   resetViewTemplate('app-header', 'app-main');
-  
-  let visitorProfile;
     
-  // If userData is not provided, fetch it
+  let visitorProfile;
+      
+  // If userData is not provided, extract the user identifier from the URL and fetch the profile
   if (!userData) {
     const urlParts = window.location.pathname.split('/');
-    const userIdentifier = urlParts[urlParts.length - 1];
+    const userIdentifier = urlParts[urlParts.length - 1]; // Extract the last part of the URL as the identifier
     visitorProfile = await getVisitorProfile(userIdentifier);
   } else {
-    visitorProfile = userData;
+    visitorProfile = userData; // Use the provided user data directly
   }
-  
+    
+  // Handle the case where the visitor's profile could not be retrieved
   if (!visitorProfile) {
     console.error('No user profile found');
     return;
   }
-  
-  // Append the user account templates with the fetched data
-  appendTemplatesVisitorProfile(visitorProfile);
     
-  // Add event listeners to the edit buttons
+  // Inject the visitor profile data into the appropriate templates
+  appendTemplatesVisitorProfile(visitorProfile);
+      
+  // Attach event listeners to various buttons in the interface for user interaction
+  addHearderLogoButtonListener();
   addMyAccountButtonListener();
   addMessagesButtonListener();
   addProfilsButtonListener();
   addEventsButtonListener();
   addSendMessagesButtonListener();
 }
-
+  
 function addSendMessagesButtonListener() {
+  // Locate the main container where messages will be displayed
   const messagesPage = document.querySelector("#app-main");
-        
+          
   if (!messagesPage) {
-    console.error('Conteneur principal non trouvé');
+    console.error('Main container not found');
     return;
   }
-    
+      
   messagesPage.addEventListener('click', async (e) => {
+    // Identify if a "send message" button has been clicked
     const sendMessageButton = e.target.closest('.send-message-button') || 
-                              e.target.id === 'send-message-button';
-      
+                                e.target.id === 'send-message-button';
+        
     if (!sendMessageButton) return;
-      
+        
     e.preventDefault();
-
-    // Récupérer l'ID du profil visité depuis l'URL
+  
+    // Extract the profile ID of the visited user from the URL
     const urlParts = window.location.pathname.split('/');
     const userIdentifier = urlParts[urlParts.length - 1];
-
-    // Récupérer le profil du visiteur
+  
+    // Retrieve both the visitor profile and the authenticated user’s account
     const visitorProfile = await getVisitorProfile(userIdentifier);
     const myAccount = await getMyAccount(userIdentifier);
-
+  
     if (visitorProfile && myAccount) {
-      // L'utilisateur sur le profil duquel on clique est le receiver
+      // Define the sender and receiver IDs for the messaging system
       const receiverId = visitorProfile.id;
-      
-      // Récupérer l'ID de l'utilisateur connecté (à adapter selon votre système d'authentification)
-      const senderId = myAccount.id; // À remplacer par la logique de récupération de l'ID connecté
-
+      const senderId = myAccount.id; // Adjust this as per the authentication logic
+        
+      // Load the messaging page and store state information
       fetchDisplayMessagesPage(senderId, receiverId);
-      
+        
       const state = {page: "Messages", initFunction: 'fetchDisplayMessagesPage'};
       const url = "/messages";
       history.pushState(state, "", url);
     } else {
-      console.error('Impossible de récupérer le profil du visiteur');
+      console.error('Unable to retrieve visitor profile');
     }
   });
 }
- 
+   
 function appendTemplatesVisitorProfile(data){
+  // Locate the required templates for the visitor profile display
   const headerTemplate = document.querySelector("#header-connected");
   const contentTemplate = document.querySelector("#visitor-profile");
-    
+      
   if (!headerTemplate || !contentTemplate) {
     console.error('Header or content template not found');
     return;
   }
-    
+      
+  // Clone templates and insert them into the page structure
   const headerClone = headerTemplate.content.cloneNode(true);
   const contentClone = contentTemplate.content.cloneNode(true);
-    
+      
   const headerContainer = document.querySelector("#app-header");
   const contentContainer = document.querySelector("#app-main");
-  
+    
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
-  
-  // Safely check and populate profile
+    
+  // Populate the profile with visitor information
   visitorProfile(contentContainer, data);
 }
-  
+    
 export function visitorProfile(display, data){
+  // Ensure both display container and data are valid
   if (!display || !data) {
     console.error('Invalid display or data');
     return;
   }
-  
-  // Add null checks for each field
+    
+  // Populate profile fields with safe null checks
   display.querySelector("[slot='firstname']").textContent = data.firstname || 'N/A';
-  display.querySelector("[slot='age']").textContent = data.age ? `${data.age} ans` : 'N/A';
+  display.querySelector("[slot='age']").textContent = data.age ? `${data.age} years old` : 'N/A';
   display.querySelector("[slot='city-profil']").textContent = data.city || 'N/A';
   display.querySelector("[slot='description']").textContent = data.description || 'N/A';
-  
-  const pictureSlot = display.querySelector("[slot='picture']");
-  if (pictureSlot) {
-    pictureSlot.src = data.picture || './default-profile.png';
+    
+  // Set the profile picture if the element exists
+  const pictureProfile = display.querySelector(".profile-img");
+  if (pictureProfile) {
+    pictureProfile.src = data.picture;
   }
-  
-  // Labels handling
+    
+  // Display user labels if available
   const labelContainer = display.querySelector("#label-user");
   if (data.labels && data.labels.length > 0) {
     data.labels.forEach(label => {
       const labelTemplate = document.querySelector("#label");
       const labelClone = labelTemplate.content.cloneNode(true);
-        
+          
       labelClone.querySelector("[slot='labels']").textContent = label.name;
       labelClone.querySelector("[slot='labels']").dataset.id = label.id;
-        
+          
       labelContainer.appendChild(labelClone);
     });
   }
-  
-  // Other profile details with null checks
+    
+  // Populate additional profile details with safe defaults
   display.querySelector("[slot='height']").textContent = data.height || 'N/A';
-  display.querySelector("[slot='smoker']").textContent = data.smoker !== undefined ? (data.smoker ? 'Oui' : 'Non') : 'N/A';
+  display.querySelector("[slot='smoker']").textContent = data.smoker !== undefined ? (data.smoker ? 'Yes' : 'No') : 'N/A';
   display.querySelector("[slot='marital']").textContent = data.marital || 'N/A';
   display.querySelector("[slot='zodiac']").textContent = data.zodiac || 'N/A';
-  display.querySelector("[slot='pet']").textContent = data.pet !== undefined ? (data.pet ? 'Oui' : 'Non') : 'N/A';
+  display.querySelector("[slot='pet']").textContent = data.pet !== undefined ? (data.pet ? 'Yes' : 'No') : 'N/A';
   display.querySelector("[slot='music']").textContent = data.music || 'N/A';
+ // Update events sections (past and future)
+ updateEvents(display, data);
 }
 
-function addEventsButtonListener(data){
-
-  // Select the "Évènements" button from the header
-  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
-
-  // Add click event listener to the "Évènements" button
-  EventsButton.addEventListener('click', (e) =>{
+// Separate function to handle event updates for cleaner organization
+function updateEvents(display, data) {
+  // Handle past events
+  const pastEventsContainer = display.querySelector(".past-events");
+  if (pastEventsContainer) {
+    // Keep only the title element, remove all other content
+    const pastEventsTitle = pastEventsContainer.querySelector('.events-title');
+    while (pastEventsContainer.firstChild) {
+      pastEventsContainer.removeChild(pastEventsContainer.firstChild);
+    }
+    pastEventsContainer.appendChild(pastEventsTitle);
     
-    // Prevent the default behavior of the button
-    e.preventDefault();
+    // Add past events dynamically from the data
+    if (data.pastEvents && data.pastEvents.length > 0) {
+      data.pastEvents.forEach(event => {
+        const eventElement = createEventElement(event, data.city);
+        pastEventsContainer.appendChild(eventElement);
+      });
+    } else {
+      // Add message if no past events exist
+      const noEventMessage = document.createElement('p');
+      noEventMessage.textContent = 'Aucun événement passé';
+      pastEventsContainer.appendChild(noEventMessage);
+    }
+  }
+  
+  // Handle upcoming events
+  const upcomingEventsContainer = display.querySelector(".upcoming-events");
+  if (upcomingEventsContainer) {
+    // Keep only the title element, remove all other content
+    const upcomingEventsTitle = upcomingEventsContainer.querySelector('.events-title');
+    while (upcomingEventsContainer.firstChild) {
+      upcomingEventsContainer.removeChild(upcomingEventsContainer.firstChild);
+    }
+    upcomingEventsContainer.appendChild(upcomingEventsTitle);
     
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayEventsPage(data);
-    const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
-    const url = "/evenements";
-    history.pushState(state, "", url);
-  });
-};
-
-function addMessagesButtonListener() {
-  // Select the "Messages" button from the header
-  const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
-
-  // Add click event listener to the "Messages" button
-  messagesButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Récupérer l'ID de l'utilisateur connecté
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
-    fetchDisplayConversationsList(currentUserId);
-    
-    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
-    const url = "/conversations";
-    history.pushState(state, "", url);
-  });
+    // Add the future event if it exists
+    if (data.futureEvent) {
+      const eventElement = createEventElement(data.futureEvent, data.city, true);
+      upcomingEventsContainer.appendChild(eventElement);
+    } else {
+      // Add message if no future events exist
+      const noEventMessage = document.createElement('p');
+      noEventMessage.textContent = 'Aucun événement à venir';
+      upcomingEventsContainer.appendChild(noEventMessage);
+    }
+  }
 }
 
-
-function addProfilsButtonListener(data){
-
-  // Select the "Évènements" button from the header
-  const ProfilsButton = document.querySelector("#app-header .header__nav-link-profils");
+// Utility function to create an event element with proper DOM structure
+function createEventElement(event, city, isFuture = false) {
+  // Create the main event container
+  const eventDiv = document.createElement('div');
+  eventDiv.className = 'past-event';
   
-  // Add click event listener to the "Évènements" button
-  ProfilsButton.addEventListener('click', (e) =>{
+  // Create and set the city heading
+  const cityHeading = document.createElement('h3');
+  cityHeading.className = 'event-city';
+  cityHeading.textContent = city || 'Ville non spécifiée';
+  eventDiv.appendChild(cityHeading);
   
-    // Prevent the default behavior of the button
-    e.preventDefault();
-      
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayProfilsPage(data);
-    const state = {page: "Profils", initFunction: 'fetchDisplayProfilsPage'};
-    const url = "/profils";
-    history.pushState(state, "", url);
-  });
-};
-
-function addMyAccountButtonListener(data){
-
-  // Select the "Mon compte" button from the header
-  const myAccountButton = document.querySelector("#app-header .my__account");
+  // Create the link element that wraps the event details
+  const eventLink = document.createElement('a');
+  eventLink.href = '';
   
-  // Add click event listener to the "Mon compte" button
-  myAccountButton.addEventListener('click', (e) =>{
-      
-    // Prevent the default behavior of the button
-    e.preventDefault();
-      
-    // Fetch and display the "Mon compte" page with the provided data
-    fetchDisplayMyAccountPage(data);
-    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
-    const url = "/mon-compte";
-    history.pushState(state, "", url);
-  });
-};
+  // Create the container for event details
+  const detailsDiv = document.createElement('div');
+  detailsDiv.className = 'event-details';
+  
+  // Create and set the event image
+  const img = document.createElement('img');
+  img.src = `/src/assets/img/diverse-img/events/${event.picture}`;
+  img.alt = event.title || 'Événement';
+  img.className = 'event-img';
+  detailsDiv.appendChild(img);
+  
+  // Create and set the event title
+  const titleHeading = document.createElement('h3');
+  titleHeading.className = isFuture ? 'event-description connected' : 'event-description';
+  titleHeading.textContent = event.title || 'Sans titre';
+  detailsDiv.appendChild(titleHeading);
+  
+  // Create and set the event theme/label
+  const themeSpan = document.createElement('span');
+  themeSpan.className = 'event-theme';
+  themeSpan.textContent = event.label ? event.label.name : 'Thème non spécifié';
+  detailsDiv.appendChild(themeSpan);
+  
+  // Assemble the complete structure
+  eventLink.appendChild(detailsDiv);
+  eventDiv.appendChild(eventLink);
+  
+  return eventDiv;
+}
+
+  
+
+
+
+
+
+
+
+
+

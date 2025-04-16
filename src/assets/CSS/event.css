@@ -1,4 +1,6 @@
 /* Event Page Styles */
+
+/* Title styling: centered, bold, custom font and spacing */
 .event-title {
     color: var(--primary-color);
     text-align: center;
@@ -8,6 +10,7 @@
     font-weight: bold;
 }
 
+/* Main container for event section with background, padding, and shadow */
 .event-section {
     display: flex;
     flex-direction: column;
@@ -19,6 +22,7 @@
     margin-bottom: var(--spacing-large);
 }
 
+/* Left part of the event: image and basic info */
 .event-left {
     display: flex;
     flex-direction: column;
@@ -26,6 +30,7 @@
     width: 100%;
 }
 
+/* Event image styling: responsive and bordered */
 .event-img {
     width: 100%;
     max-width: 300px;
@@ -34,30 +39,34 @@
     border: 3px solid var(--primary-color);
     border-radius: 5px;
     align-self: center;
-    
 }
 
+/* Container for event details text */
 .event_info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
+/* Paragraph styling inside event info */
 .event_info p {
     margin: 0.25rem 0;
     color: var(--text-color);
 }
 
+/* Right part of the event section */
 .event-right {
     width: 100%;
 }
 
+/* Accessibility section: includes address or map */
 .event_access {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-small);
 }
 
+/* Heading style for access information */
 .event_access h2 {
     color: var(--primary-color);
     font-family: var(--font-title);
@@ -66,6 +75,7 @@
     text-align: center;
 }
 
+/* Google map container: placeholder with border */
 .google-map {
     width: 100%;
     height: 200px;
@@ -74,6 +84,7 @@
     border-radius: 5px;
 }
 
+/* Section for detailed event description */
 .event-description {
     background-color: white;
     border-radius: 5px;
@@ -82,11 +93,13 @@
     margin-bottom: var(--spacing-large);
 }
 
+/* Styling of the text inside event description */
 .event_description {
     line-height: 1.6;
     color: var(--text-color);
 }
 
+/* Button for event registration */
 .event-inscription {
     display: block;
     width: 200px;
@@ -103,17 +116,18 @@
     text-transform: uppercase;
 }
 
+/* Hover effect for the registration button */
 .event-inscription:hover {
     background-color: var(--primary-color-light);
 }
 
-/* Conteneur principal pour assurer l'ordre correct */
+/* Main container to ensure correct stacking and flow */
 #app-main {
     display: flex;
     flex-direction: column;
 }
 
-/* Media query for tablets and larger screens */
+/* Responsive layout adjustments for tablet and above */
 @media screen and (min-width: 768px) {
     .event-section {
         flex-direction: row;
@@ -122,14 +136,14 @@
     
     .event-left {
         width: 50%;
-        order: 1; /* Explicitement à gauche */
+        order: 1; /* Placed on the left */
         border-right: 2px solid var(--secondary-color);
         padding-right: var(--spacing-medium);
     }
     
     .event-right {
         width: 50%;
-        order: 2; /* Explicitement à droite */
+        order: 2; /* Placed on the right */
         padding-left: var(--spacing-medium);
     }
     
@@ -142,7 +156,7 @@
     }
 }
 
-/* Media query for desktop */
+/* Further layout refinements for desktop screens */
 @media screen and (min-width: 1024px) {
     .event-title {
         font-size: 2.5rem;
@@ -158,14 +172,14 @@
     
     .event-left {
         width: 50%;
-        order: 1; /* Explicitement à gauche */
+        order: 1;
         border-right: 2px solid var(--secondary-color);
         padding-right: var(--spacing-medium);
     }
     
     .event-right {
         width: 50%;
-        order: 2; /* Explicitement à droite */
+        order: 2;
         padding-left: var(--spacing-medium);
     }
     

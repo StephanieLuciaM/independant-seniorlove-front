@@ -1,46 +1,55 @@
 import { resetViewTemplate } from "./utils.js";
 import { getAllProfilsMatch, getVisitorProfile } from "./api.js";
-import { fetchDisplayMyAccountPage } from "./my.account.js";
-import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayConversationsList } from "./messages.js";
 import { fetchDisplayVisitorProfilePage } from "./profile.js";
+import { addEventsButtonListener,
+  addHearderLogoButtonListener, 
+  addMessagesButtonListener, 
+  addMyAccountButtonListener } from "./button.js";
 
 
+/**
+ * Main function to fetch and display the profiles page
+ * Handles the initialization of the page, loading profiles, and setting up all event listeners
+ */
 export async function fetchDisplayProfilsPage() {
   // Reset the view templates for header and main content
   resetViewTemplate('app-header', 'app-main');
   
-  // Append the profils page templates with the fetched data
+  // Append the profiles page templates with the fetched data
   appendTemplateProfils();
   
-  // Fetch all profils Match
+  // Fetch all profiles that match the current user's preferences
   const allProfilsMatch = await getAllProfilsMatch();
   if (allProfilsMatch) {
     allProfilsMatch.forEach(addProfilsContainer);
   }
   
-  // Initialize profils filters
+  // Initialize profiles filters and all navigation button listeners
   setupFilters();
-  
+  addHearderLogoButtonListener();
   addMyAccountButtonListener();
   addMessagesButtonListener();
   addEventsButtonListener();
   
-  // Ajoutez l'écouteur APRÈS avoir ajouté les profils
+  // Add profile click event listeners after profiles are added to the DOM
   addProfileButtonListener();
 }
  
+/**
+ * Sets up event listeners for profile detail buttons
+ * When clicked, fetches the corresponding profile data and navigates to the profile detail page
+ */
 function addProfileButtonListener() {
   const profilsPage = document.querySelector('#app-main');
   
   if (!profilsPage) {
-    console.error('Conteneur principal non trouvé');
+    console.error('Main container not found');
     return;
   }
   
   profilsPage.addEventListener('click', async (event) => {
     const profileButton = event.target.closest('.more-btn');
-    console.log('Bouton trouvé:', profileButton);
+    console.log('Button found:', profileButton);
     
     if (!profileButton) return;
     
@@ -49,29 +58,33 @@ function addProfileButtonListener() {
     const profilElement = profileButton.closest('article');
     
     if (!profilElement) {
-      console.error('Élément de profil parent non trouvé');
+      console.error('Parent profile element not found');
       return;
     }
     
+    // Get user identification from data attributes
     const userSlug = profilElement.dataset.userSlug;
     const userId = profilElement.dataset.userId;
     
     const userIdentifier = userSlug || userId;
     
     if (!userIdentifier) {
-      console.error('Aucun identifiant utilisateur trouvé');
+      console.error('No user identifier found');
       return;
     }
     
     try {
+      // Fetch detailed profile data for the selected user
       const userData = await getVisitorProfile(userIdentifier);
       
       if (!userData) {
-        throw new Error('Impossible de récupérer les données du profil');
+        throw new Error('Unable to retrieve profile data');
       }
       
+      // Display the visitor profile page with the fetched data
       await fetchDisplayVisitorProfilePage(userData);
       
+      // Update browser history for proper navigation
       const state = {
         page: "visitor-profile", 
         initFunction: 'fetchDisplayVisitorProfilePage'
@@ -81,11 +94,15 @@ function addProfileButtonListener() {
       history.pushState(state, "", url);
       
     } catch (error) {
-      console.error('Erreur lors de la gestion du profil:', error);
+      console.error('Error handling profile:', error);
     }
   });
 }
 
+/**
+ * Appends the header and main content templates to the DOM
+ * Creates the basic structure of the profiles page before populating with data
+ */
 function appendTemplateProfils() {
 
   // Select the header and content templates from the DOM
@@ -103,29 +120,32 @@ function appendTemplateProfils() {
   // Append the cloned templates to their respective containers
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
-};
+}; 
 
-  
-// Enhanced version of addProfilsContainer to include additional data attributes
+/**
+ * Creates and adds a profile card to the grid
+ * Populates each card with data from the API and sets data attributes for filtering
+ * @param {Object} data - The profile data from the API
+ */
 export function addProfilsContainer(data) {
-  // Select the profil template from the DOM
+  // Select the profile template from the DOM
   const profilTemplate = document.querySelector("#profil__profils-page");
     
-  // Clone the profil template
+  // Clone the profile template
   const profilClone = profilTemplate.content.cloneNode(true);
   
-  // Set all data attributes for filtering
+  // Get the article element that will contain the profile information
   const article = profilClone.querySelector("article");
  
   
-  // Debug: Afficher les données reçues du serveur
-  console.log("Données de profil reçues:", data);
+  // Debug: Display the profile data received from the server
+  console.log("Profile data received:", data);
   
-  // Set data attributes with the correct user identifier
+  // Set data attributes with the correct user identifier for navigation and filtering
   article.setAttribute("data-user-id", data.id);  // Assuming there's an 'id' field
   article.setAttribute("data-user-slug", data.slug || data.firstname.toLowerCase());
 
-  // Basic attributes
+  // Basic attributes for filtering
   article.setAttribute("data-city", data.city ? data.city.toLowerCase() : "");
   article.setAttribute("data-description", data.description ? data.description.toLowerCase() : "");
   article.setAttribute("data-age", data.age || "");
@@ -136,52 +156,55 @@ export function addProfilsContainer(data) {
   article.setAttribute("data-marital", data.marital ? data.marital.toLowerCase() : "");
   article.setAttribute("data-pet", data.pet !== undefined ? data.pet.toString() : "");
  
-  // Mapping pour les centres d'intérêt si existants
+  // Map interests from labels if they exist
   if (data.labels && data.labels.length > 0) {
     const interests = data.labels.map(label => label.name.toLowerCase()).join(',');
     article.setAttribute("data-centres-interet", interests);
   } else {
-    article.setAttribute("data-centres-interet", ""); // Valeur par défaut si pas de labels
+    article.setAttribute("data-centres-interet", ""); // Default value if no labels
   }
   
   
-  // Populate the cloned template with profil data
+  // Populate the cloned template with profile data
   profilClone.querySelector("[slot='city']").textContent = data.city || "";
   profilClone.querySelector("[slot='age']").textContent = data.age ? `${data.age} ans` : "";
   profilClone.querySelector("[slot='firstname']").textContent = data.firstname || "";
   
+  // Set the profile picture
   const pictureSlot = profilClone.querySelector("[slot='picture']");
   if (pictureSlot) {
     pictureSlot.src = data.picture;
   } else {
-    console.error("Image de profil non trouvée dans le DOM.");
+    console.error("Profile image not found in the DOM.");
   }
-  // Select the container for the profil list
+  
+  // Select the container for the profile list and append the new profile
   const profilContainer = document.querySelector(".profils-grid");
-
-  // Append the cloned event template to the event list container
   profilContainer.appendChild(profilClone);
 }
 
-
+/**
+ * Sets up all filtering functionality for the profiles page
+ * Creates city filters, criteria filters, and related sub-options
+ */
 function setupFilters() {
   const cityButtons = document.querySelectorAll(".cities-filter__button:not(.filter)");
   const criteriaSelect = document.querySelector("#description");
   
-  // Setup for specific criteria options
+  // Setup dropdown sub-options for specific criteria
   setupCriteriaSubOptions();
   
-  // Initial state - all profiles visible
+  // Create an "All cities" button and make it active by default
   const allProfilesButton = document.createElement("button");
   allProfilesButton.textContent = "Toutes les villes";
   allProfilesButton.classList.add("cities-filter__button");
   document.querySelector(".cities-filter__list").prepend(allProfilesButton);
   allProfilesButton.classList.add("active");
   
-  // Add all city buttons to a single array for event management
+  // Combine all city filter buttons for consistent event handling
   const allCityButtons = [...cityButtons, allProfilesButton];
   
-  // City filter event listeners
+  // Add city filter event listeners to each button
   allCityButtons.forEach(button => {
     button.addEventListener("click", () => {
       // Remove active class from all buttons
@@ -196,14 +219,14 @@ function setupFilters() {
       // Get current criteria filters
       const criteriaFilters = getActiveCriteriaFilters();
       
-      // Apply filtering
+      // Apply filtering with combined city and criteria options
       filterProfils(selectedCity, criteriaFilters);
     });
   });
     
-  // Criteria change event
+  // Add event listener for criteria dropdown changes
   criteriaSelect.addEventListener("change", () => {
-    // Show appropriate sub-options based on selected criteria
+    // Show relevant sub-options based on selected criteria
     showRelevantSubOptions(criteriaSelect.value);
     
     // Get the currently active city button
@@ -215,13 +238,17 @@ function setupFilters() {
     // Get current criteria filters
     const criteriaFilters = getActiveCriteriaFilters();
     
-    // Apply filtering
+    // Apply filtering with updated criteria
     filterProfils(selectedCity, criteriaFilters);
   });
 }
 
+/**
+ * Creates and sets up sub-options for different filtering criteria
+ * Each criteria has its own set of buttons for more specific filtering
+ */
 function setupCriteriaSubOptions() {
-  // Create sub-options container
+  // Create container for all sub-options
   const subOptionsContainer = document.createElement("div");
   subOptionsContainer.classList.add("criteria-sub-options");
   subOptionsContainer.style.display = "none";
@@ -230,7 +257,7 @@ function setupCriteriaSubOptions() {
   const criteriaSelect = document.querySelector("#description");
   criteriaSelect.parentNode.insertBefore(subOptionsContainer, criteriaSelect.nextSibling);
   
-  // Prepare sub-options for different criteria
+  // Define HTML for different criteria sub-options
   const subOptions = {
     'taille': `
       <div class="sub-option" data-for="taille">
@@ -270,7 +297,7 @@ function setupCriteriaSubOptions() {
     `
   };
   
-  // Add all sub-options to the container
+  // Add all sub-options HTML to the container
   for (const criteria in subOptions) {
     subOptionsContainer.innerHTML += subOptions[criteria];
   }
@@ -280,40 +307,47 @@ function setupCriteriaSubOptions() {
     opt.style.display = 'none';
   });
   
-  // Add event listeners to sub-option buttons
+  // Add event listeners to each sub-option button
   document.querySelectorAll('.sub-filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      // Toggle active class on this button
+      // Toggle active class on this button for visual feedback
       btn.classList.toggle('active');
       
       // Get the currently active city
       const activeButton = document.querySelector(".cities-filter__button.active");
       const selectedCity = activeButton ? activeButton.textContent.toLowerCase() : "toutes les villes";
       
-      // Get current criteria filters
+      // Get updated criteria filters with the toggled button
       const criteriaFilters = getActiveCriteriaFilters();
       
-      // Apply filtering
+      // Apply filtering with updated criteria
       filterProfils(selectedCity, criteriaFilters);
     });
   });
 }
 
+/**
+ * Shows relevant sub-options based on selected criteria
+ * Hides all other sub-options for a cleaner UI
+ * @param {string} criteria - The selected criteria from the dropdown
+ */
 function showRelevantSubOptions(criteria) {
   // Hide all sub-options first
   document.querySelectorAll('.sub-option').forEach(opt => {
     opt.style.display = 'none';
   });
   
-  // Show the container if a valid criteria is selected
+  // Get the container for all sub-options
   const subOptionsContainer = document.querySelector('.criteria-sub-options');
   
+  // Hide the container if "All criteria" is selected
   if (criteria === 'tous-les-criteres') {
     subOptionsContainer.style.display = 'none';
   } else {
+    // Otherwise show the container and the specific sub-options
     subOptionsContainer.style.display = 'flex';
     
-    // Show only the relevant sub-option
+    // Show only the relevant sub-option for the selected criteria
     const relevantSubOption = document.querySelector(`.sub-option[data-for="${criteria}"]`);
     if (relevantSubOption) {
       relevantSubOption.style.display = 'flex';
@@ -321,50 +355,63 @@ function showRelevantSubOptions(criteria) {
   }
 }
 
+/**
+ * Gets the currently active criteria filters based on selected options
+ * @returns {Object} An object with the filter type and selected values
+ */
 function getActiveCriteriaFilters() {
   const criteriaSelect = document.querySelector("#description");
   const selectedCriteria = criteriaSelect.value;
   
+  // If "All criteria" is selected, return a special object
   if (selectedCriteria === 'tous-les-criteres') {
     return { type: 'none', values: [] };
   }
   
-  // Get active sub-options for the selected criteria
+  // Get all active (selected) sub-option buttons for the current criteria
   const activeSubOptions = document.querySelectorAll(`.sub-option[data-for="${selectedCriteria}"] .sub-filter-btn.active`);
   const values = Array.from(activeSubOptions).map(btn => btn.dataset.value);
   
+  // Return an object with the criteria type and selected values
   return {
     type: selectedCriteria,
     values: values.length > 0 ? values : [] // If no sub-options selected, return empty array
   };
 }
 
+/**
+ * Filters profiles based on selected city and criteria
+ * Shows only profiles that match all selected filters
+ * @param {string} city - The selected city to filter by
+ * @param {Object} criteriaFilters - Object containing criteria type and values
+ */
 function filterProfils(city, criteriaFilters) {
   const profils = document.querySelectorAll(".profils-grid article");
   const isCityAll = city.toLowerCase() === "toutes les villes";
   const isCriteriaAll = criteriaFilters.type === 'none';
   
-  console.log(`Filtrage - Ville: ${city}, Critère: ${criteriaFilters.type}, Valeurs: ${criteriaFilters.values.join(', ')}`);
+  console.log(`Filtering - City: ${city}, Criteria: ${criteriaFilters.type}, Values: ${criteriaFilters.values.join(', ')}`);
   
-  // Tracking variable for whether any profiles are visible
+  // Counter for visible profiles to detect "no results" state
   let visibleProfileCount = 0;
   
+  // Loop through all profiles and filter them
   profils.forEach(profil => {
-    // Get profile data
+    // Get profile data from its attributes
     const profilCity = profil.getAttribute("data-city").toLowerCase();
     const profilData = getProfileDataFromAttributes(profil);
     
-    // Check city match
+    // Check if the city matches (or if "All cities" is selected)
     const cityMatch = isCityAll || profilCity === city.toLowerCase();
     
-    // Check criteria match
+    // Check if criteria match (or if "All criteria" is selected)
     let criteriaMatch = true;
     
     if (!isCriteriaAll) {
       criteriaMatch = matchesCriteria(profilData, criteriaFilters);
     }
     
-    // Show or hide based on combined match
+    // Show or hide the profile based on combined matches
     if (cityMatch && criteriaMatch) {
       profil.style.display = "block";
       visibleProfileCount++;
@@ -373,7 +420,7 @@ function filterProfils(city, criteriaFilters) {
     }
   });
   
-  // Show a message if no results found
+  // Show or hide the "no results" message based on whether any profiles are visible
   const noResultsMessage = document.querySelector('.no-results-message') || createNoResultsMessage();
   
   if (visibleProfileCount === 0) {
@@ -383,6 +430,10 @@ function filterProfils(city, criteriaFilters) {
   }
 }
 
+/**
+ * Creates a message element to display when no profiles match the filters
+ * @returns {HTMLElement} The created message element
+ */
 function createNoResultsMessage() {
   const message = document.createElement('div');
   message.classList.add('no-results-message');
@@ -398,8 +449,14 @@ function createNoResultsMessage() {
   return message;
 }
 
+/**
+ * Extracts all relevant data attributes from a profile element
+ * Used to compare profile data against selected filters
+ * @param {HTMLElement} profil - The profile element to extract data from
+ * @returns {Object} An object containing all profile data for filtering
+ */
 function getProfileDataFromAttributes(profil) {
-  // Extract all data attributes from the profile
+  // Extract all data attributes from the profile for easy access during filtering
   return {
     city: profil.getAttribute("data-city") || "",
     description: profil.getAttribute("data-description") || "",
@@ -412,20 +469,28 @@ function getProfileDataFromAttributes(profil) {
   };
 }
 
+/**
+ * Checks if a profile matches the selected criteria filters
+ * Handles different comparison logic based on the criteria type
+ * @param {Object} profilData - Profile data extracted from attributes
+ * @param {Object} criteriaFilters - The current filtering criteria
+ * @returns {boolean} True if the profile matches the criteria, false otherwise
+ */
 function matchesCriteria(profilData, criteriaFilters) {
   const { type, values } = criteriaFilters;
   
-  // If no specific values are selected, show all that match the category
+  // If no specific values are selected, show all profiles of this category
   if (values.length === 0) return true;
   
-  // Debug log pour afficher les données comparées
-  console.log("Données du profil pour filtrage:", profilData);
-  console.log("Filtre appliqué:", type, values);
+  // Debug logs to help with troubleshooting
+  console.log("Profile data for filtering:", profilData);
+  console.log("Applied filter:", type, values);
   
+  // Different comparison logic based on the criteria type
   switch(type) {
   case 'taille':
     const taille = parseInt(profilData.taille) || 0;
-    console.log(`Comparaison taille: ${taille} cm`);
+    console.log(`Height comparison: ${taille} cm`);
     return values.some(value => {
       if (value === '+170') return taille >= 170;
       if (value === '-170') return taille < 170;
@@ -433,23 +498,23 @@ function matchesCriteria(profilData, criteriaFilters) {
     });
       
   case 'situation-familiale':
-    console.log(`Comparaison situation: ${profilData.situationFamiliale}`);
+    console.log(`Marital status comparison: ${profilData.situationFamiliale}`);
     return values.some(value => {
-      // Vérification plus permissive
+      // More permissive check using includes rather than exact match
       return profilData.situationFamiliale.toLowerCase().includes(value.toLowerCase());
     });
       
   case 'animaux-de-compagnie':
-    console.log(`Comparaison animaux: ${profilData.animauxDeCompagnie}`);
-    // Conversion de "true"/"false" (string) en boolean pour la comparaison
+    console.log(`Pets comparison: ${profilData.animauxDeCompagnie}`);
+    // Convert "true"/"false" strings to lowercase for comparison
     const hasPets = profilData.animauxDeCompagnie.toString().toLowerCase();
     return values.some(value => {
       return hasPets === value.toLowerCase();
     });
       
   case 'fumeur':
-    console.log(`Comparaison fumeur: ${profilData.fumeur}`);
-    // Conversion de "true"/"false" (string) en boolean pour la comparaison
+    console.log(`Smoker comparison: ${profilData.fumeur}`);
+    // Convert "true"/"false" strings to lowercase for comparison
     const isSmoker = profilData.fumeur.toString().toLowerCase();
     return values.some(value => {
       return isSmoker === value.toLowerCase();
@@ -464,66 +529,3 @@ function matchesCriteria(profilData, criteriaFilters) {
     return true;
   }
 }
-
-
-function addMyAccountButtonListener(data){
-
-  // Select the "Mon compte" button from the header
-  const myAccountButton = document.querySelector("#app-header .my__account");
-    
-  // Add click profil listener to the "Mon compte" button
-  myAccountButton.addEventListener('click', (e) =>{
-    
-    // Prevent the default behavior of the button
-    e.preventDefault();
-            
-    // Fetch and display the "Mon compte" page with the provided data
-    fetchDisplayMyAccountPage(data);
-        
-    const state = {page: "Mon compte", initFunction: 'fetchDisplayMyAccountPage'};
-    const url = "/mon-compte";
-    history.pushState(state, "", url);
-  });
-};
-
-
-function addMessagesButtonListener() {
-  // Select the "Messages" button from the header
-  const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
-
-  // Add click event listener to the "Messages" button
-  messagesButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Récupérer l'ID de l'utilisateur connecté
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
-    fetchDisplayConversationsList(currentUserId);
-    
-    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
-    const url = "/conversations";
-    history.pushState(state, "", url);
-  });
-}
-
-function addEventsButtonListener(data){
-
-  // Select the "Évènements" button from the header
-  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
-
-  // Add click event listener to the "Évènements" button
-  EventsButton.addEventListener('click', (e) =>{
-
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayEventsPage(data);
-    const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
-    const url = "/evenements";
-    history.pushState(state, "", url);
-  });
-};
-

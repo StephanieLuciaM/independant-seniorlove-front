@@ -12,9 +12,10 @@ import {
 } from "./edit.account.js";
 import {  logOutMyAccount } from "./api.js";
 import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
-import { fetchDisplayEventsPage } from "./events.js";
-import { fetchDisplayConversationsList } from "./messages.js";
-import { fetchDisplayProfilsPage } from "./profils.js";
+import { addEventsButtonListener, 
+  addHearderLogoButtonListener, 
+  addMessagesButtonListener, 
+  addProfilsButtonListener } from "./button.js";
 
 
 export async function fetchDisplayMyAccountPage(){
@@ -29,6 +30,7 @@ export async function fetchDisplayMyAccountPage(){
   appendTemplatesMyAccount(myAccount);
   
   // Add event listeners to the edit buttons
+  addHearderLogoButtonListener();
   addEditButtonsListener();
   addDeleteButtonListener();
   addLogOutButtonListener();
@@ -37,25 +39,24 @@ export async function fetchDisplayMyAccountPage(){
   addProfilsButtonListener();
 };
 
-function appendTemplatesMyAccount(data){
 
-  // Select the header and content templates from the DOM
+function appendTemplatesMyAccount(data){
+  const headerContainer = document.querySelector("#app-header");
+  const contentContainer = document.querySelector("#app-main");
+  
+
+  headerContainer.innerHTML = '';
+  contentContainer.innerHTML = '';
+  
   const headerTemplate = document.querySelector("#header-my-account");
   const contentTemplate = document.querySelector("#my-account");
   
-  // Clone the templates
   const headerClone = headerTemplate.content.cloneNode(true);
   const contentClone = contentTemplate.content.cloneNode(true);
   
-  // Select the containers where the clones will be appended
-  const headerContainer = document.querySelector("#app-header");
-  const contentContainer = document.querySelector("#app-main");
-
-  // Append the cloned templates to their respective containers
   headerContainer.appendChild(headerClone);
   contentContainer.appendChild(contentClone);
 
-  // Populate the content with the user data
   myAccount(contentContainer, data);
 };
 
@@ -183,99 +184,143 @@ function handleEditPersonal(){
   history.pushState(state, "", url);
 };
 
-export async function myAccount(display, data){
-  // Populate the account information slots with the user data
+
+
+export async function myAccount(display, data) {
+  // Set user information from the data object to their respective slots in the display
   display.querySelector("[slot='firstname']").textContent = data.firstname;
   display.querySelector("[slot='age']").textContent = data.age;
   display.querySelector("[slot='city-profil']").textContent = data.city;
   display.querySelector("[slot='description']").textContent = data.description;
 
-  const pictureSlot = display.querySelector("[slot='picture']");
-  if (pictureSlot) {
-    pictureSlot.src = data.picture;
-  } else {
-    console.error("Image de profil non trouvée dans le DOM.");
+  // Set the profile picture if the element exists
+  const pictureProfile = display.querySelector(".profile-img");
+  if (pictureProfile) {
+    pictureProfile.src = data.picture;
   }
 
+  // Clear and populate the user's interest labels
+  const labelContainer = document.querySelector("#label-user");
+  labelContainer.innerHTML = ''; // Clear existing labels
+  
   data.labels.forEach(label => {
     const labelTemplate = document.querySelector("#label");
     const labelClone = labelTemplate.content.cloneNode(true);
     
-    
-    // Setting the content of the cloned element
     labelClone.querySelector("[slot='labels']").textContent = label.name;
     labelClone.querySelector("[slot='labels']").dataset.id = label.id;
     
-    // Appending the cloned element to the container
-    const labelContainer = document.querySelector("#label-user");
     labelContainer.appendChild(labelClone);
   });
 
+  // Set general user information
   display.querySelector("[slot='height']").textContent = data.height;
   display.querySelector("[slot='smoker']").textContent = data.smoker;
   display.querySelector("[slot='marital']").textContent = data.marital;
   display.querySelector("[slot='zodiac']").textContent = data.zodiac;
   display.querySelector("[slot='pet']").textContent = data.pet;
   display.querySelector("[slot='music']").textContent = data.music;
-};
-
-
-
-function addEventsButtonListener(data){
-
-  // Select the "Évènements" button from the header
-  const EventsButton = document.querySelector("#app-header .header__nav-link-events");
-
-  // Add click event listener to the "Évènements" button
-  EventsButton.addEventListener('click', (e) =>{
-    
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayEventsPage(data);
-    const state = {page: "Évènements", initFunction: 'fetchDisplayEventsPage'};
-    const url = "/evenements";
-    history.pushState(state, "", url);
-  });
-};
-
-function addMessagesButtonListener() {
-  // Select the "Messages" button from the header
-  const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
-
-  // Add click event listener to the "Messages" button
-  messagesButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
-    e.preventDefault();
-    
-    // Récupérer l'ID de l'utilisateur connecté
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-    
-    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
-    fetchDisplayConversationsList(currentUserId);
-    
-    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
-    const url = "/conversations";
-    history.pushState(state, "", url);
-  });
+  
+  // Update events sections (past and future)
+  updateEvents(display, data);
 }
 
-function addProfilsButtonListener(data){
-
-  // Select the "Évènements" button from the header
-  const ProfilsButton = document.querySelector("#app-header .header__nav-link-profils");
-
-  // Add click event listener to the "Évènements" button
-  ProfilsButton.addEventListener('click', (e) =>{
-
-    // Prevent the default behavior of the button
-    e.preventDefault();
+// Separate function to handle event updates for cleaner organization
+function updateEvents(display, data) {
+  // Handle past events
+  const pastEventsContainer = display.querySelector(".past-events");
+  if (pastEventsContainer) {
+    // Keep only the title element, remove all other content
+    const pastEventsTitle = pastEventsContainer.querySelector('.events-title');
+    while (pastEventsContainer.firstChild) {
+      pastEventsContainer.removeChild(pastEventsContainer.firstChild);
+    }
+    pastEventsContainer.appendChild(pastEventsTitle);
     
-    // Fetch and display the "Évènements" page with the provided data
-    fetchDisplayProfilsPage(data);
-    const state = {page: "Profils", initFunction: 'fetchDisplayProfilsPage'};
-    const url = "/profils";
-    history.pushState(state, "", url);
-  });
-};
+    // Add past events dynamically from the data
+    if (data.pastEvents && data.pastEvents.length > 0) {
+      data.pastEvents.forEach(event => {
+        const eventElement = createEventElement(event, data.city);
+        pastEventsContainer.appendChild(eventElement);
+      });
+    } else {
+      // Add message if no past events exist
+      const noEventMessage = document.createElement('p');
+      noEventMessage.textContent = 'Aucun événement passé';
+      pastEventsContainer.appendChild(noEventMessage);
+    }
+  }
+  
+  // Handle upcoming events
+  const upcomingEventsContainer = display.querySelector(".upcoming-events");
+  if (upcomingEventsContainer) {
+    // Keep only the title element, remove all other content
+    const upcomingEventsTitle = upcomingEventsContainer.querySelector('.events-title');
+    while (upcomingEventsContainer.firstChild) {
+      upcomingEventsContainer.removeChild(upcomingEventsContainer.firstChild);
+    }
+    upcomingEventsContainer.appendChild(upcomingEventsTitle);
+    
+    // Add the future event if it exists
+    if (data.futureEvent) {
+      const eventElement = createEventElement(data.futureEvent, data.city, true);
+      upcomingEventsContainer.appendChild(eventElement);
+    } else {
+      // Add message if no future events exist
+      const noEventMessage = document.createElement('p');
+      noEventMessage.textContent = 'Aucun événement à venir';
+      upcomingEventsContainer.appendChild(noEventMessage);
+    }
+  }
+}
+
+// Utility function to create an event element with proper DOM structure
+function createEventElement(event, city, isFuture = false) {
+  // Create the main event container
+  const eventDiv = document.createElement('div');
+  eventDiv.className = 'past-event';
+  
+  // Create and set the city heading
+  const cityHeading = document.createElement('h3');
+  cityHeading.className = 'event-city';
+  cityHeading.textContent = city || 'Ville non spécifiée';
+  eventDiv.appendChild(cityHeading);
+  
+  // Create the link element that wraps the event details
+  const eventLink = document.createElement('a');
+  eventLink.href = '';
+  
+  // Create the container for event details
+  const detailsDiv = document.createElement('div');
+  detailsDiv.className = 'event-details';
+  
+  // Create and set the event image
+  const img = document.createElement('img');
+  img.src = `./src/assets/img/diverse-img/events/${event.picture}`;
+  img.alt = event.title || 'Événement';
+  img.className = 'event-img';
+  detailsDiv.appendChild(img);
+  
+  // Create and set the event title
+  const titleHeading = document.createElement('h3');
+  titleHeading.className = isFuture ? 'event-description connected' : 'event-description';
+  titleHeading.textContent = event.title || 'Sans titre';
+  detailsDiv.appendChild(titleHeading);
+  
+  // Create and set the event theme/label
+  const themeSpan = document.createElement('span');
+  themeSpan.className = 'event-theme';
+  themeSpan.textContent = event.label ? event.label.name : 'Thème non spécifié';
+  detailsDiv.appendChild(themeSpan);
+  
+  // Assemble the complete structure
+  eventLink.appendChild(detailsDiv);
+  eventDiv.appendChild(eventLink);
+  
+  return eventDiv;
+}
+
+
+
+
+
