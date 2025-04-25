@@ -8,13 +8,21 @@ import { addEventsButtonListener,
 
 // Function to display the connected home page
 export async function fetchDisplayHomePageConnected(data) {
+  console.log("Données utilisateur:", data);
+
   // Reset view templates for header and main content
   resetViewTemplate('app-header', 'app-main');
 
   appendTemplatesConnedted();
 
   // Ensure template updates are processed before proceeding
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise(resolve => setTimeout(resolve, 200));
+
+  const profilesListContainer = document.querySelector("#profiles-list");
+  if (!profilesListContainer) {
+    console.error("Container #profiles-list introuvable après chargement du template");
+    console.log("Template content:", document.querySelector("#home-page-connected")?.content);
+  }
 
   // Attach event listeners for navigation elements
   addMyAccountButtonListener(data);
@@ -24,8 +32,12 @@ export async function fetchDisplayHomePageConnected(data) {
 
   try {
     // Fetch and display the latest matched profiles
+    console.log("Récupération des profils correspondants...");
+
     const profilsMatch = await getLastProfilesMatch();
     const profilesListContainer = document.querySelector("#profiles-list");
+    console.log("Profils reçus:", profilsMatch);
+
 
     if (profilsMatch && profilesListContainer) {
       profilsMatch.forEach(addProfilContainer);

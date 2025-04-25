@@ -49,7 +49,6 @@ function addProfileButtonListener() {
   
   profilsPage.addEventListener('click', async (event) => {
     const profileButton = event.target.closest('.more-btn');
-    console.log('Élément button trouvé:', profileButton);
     
     if (!profileButton) return;
     

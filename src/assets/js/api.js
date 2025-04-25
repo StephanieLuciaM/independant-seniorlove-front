@@ -331,9 +331,15 @@ export async function getAllEvents(){
 
 export async function getAllProfilsMatch(){
   try {
+    console.log("URL de l'API:", apiUrl);
+    console.log("Token présent:", document.cookie.includes("token"));
     
     const httpResponse = await fetch(`${apiUrl}/profils`, {
       credentials: "include",
+      headers: {
+        // Ajoute des headers d'authentification si nécessaire
+        "Content-Type": "application/json"
+      }
     });
 
     if(!httpResponse.ok){

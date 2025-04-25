@@ -186,17 +186,17 @@ async function createNewUser(data) {
     delete data.confirmPassword;
   }
   
-  // S'assurer que gender_match existe
+  // Ensure that gender_match exists
   if (!data.gender_match) {
-    data.gender_match = "Indifférent"; // Valeur par défaut
+    data.gender_match = "Indifférent"; // Default value
   }
   
-  // S'assurer que description existe
+  // Ensure that description exists
   if (!data.description) {
     data.description = "";
   }
   
-  // S'assurer que zodiac existe
+  // Ensure that zodiac exists
   if (!data.zodiac) {
     data.zodiac = "";
   }
