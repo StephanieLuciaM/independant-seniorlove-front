@@ -57,10 +57,10 @@ function addEventButtonListener() {
     
     event.preventDefault();
     
-    const eventElement = eventButton.closest('.event');
+    const eventElement = eventButton.closest('article.event');
     
     if (!eventElement) {
-      console.error('Parent event element not found');
+      console.log('Ce n\'est pas un événement - ignoré');
       return;
     }
     

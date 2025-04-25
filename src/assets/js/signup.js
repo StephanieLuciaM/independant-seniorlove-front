@@ -116,10 +116,17 @@ function addFormSubmitListener(form, count, data) {
 
 function addSkipButtonListener(skipButton, count, data) {
   if (skipButton) {
-    skipButton.addEventListener('click', () => {
+    skipButton.addEventListener('click', (e) => {
+      // Empêcher la soumission du formulaire
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Passer à l'étape suivante
       count++;
       if (count <= 10) {
         displayNextForm(count, data);
+      } else {
+        createNewUser(data);
       }
     });
   }
@@ -174,6 +181,27 @@ function handleFormSubmit(e, count, data) {
 
 
 async function createNewUser(data) {
+  if (data.confirmPassword && !data.repeat_password) {
+    data.repeat_password = data.confirmPassword;
+    delete data.confirmPassword;
+  }
+  
+  // S'assurer que gender_match existe
+  if (!data.gender_match) {
+    data.gender_match = "Indifférent"; // Valeur par défaut
+  }
+  
+  // S'assurer que description existe
+  if (!data.description) {
+    data.description = "";
+  }
+  
+  // S'assurer que zodiac existe
+  if (!data.zodiac) {
+    data.zodiac = "";
+  }
+  
+  console.log("Données finales envoyées:", data);
   const createUser = await signUp(data);
   if (!createUser) {
     return  null;

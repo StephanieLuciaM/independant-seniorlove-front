@@ -1,0 +1,229 @@
+import { resetViewTemplate } from "./utils.js";
+import { signUp, uploadImageToCloudinary } from "./api.js";
+import { fetchDisplaySigninPage } from "./signin.js";
+import { validateFormSignup } from "./handling.error.js";
+import { successSignup } from "./handling.error.js";
+import { showErrorMessage } from "./handling.error.js";
+
+
+export function fetchDisplaySignupForm(data) {
+  let i = 1;
+  displayNextForm(i, data);
+};
+
+function displayNextForm(count, data) {
+
+  // Reset the view template for the main application area
+  resetViewTemplate('app-main');
+
+  // Select the template corresponding to the current slide
+  const contentTemplate = document.querySelector(`template[data-slide-id='${count}']`);
+  initContent(contentTemplate, count, data);
+
+  const state = {page: `Inscription etape ${count + 1}`, initFunction: 'fetchDisplaySignupForm'};
+  const url = `/inscription/etape-${count}`;
+  history.pushState(state, "", url); 
+};
+
+function initContent(contentTemplate, count, data) {
+
+  // Clone and append the content template to the main container
+  const contentContainer = cloneAndAppendContent(contentTemplate,count);
+  if (!contentContainer) {
+    return null;
+  }
+
+  // Select the form and skip button within the appended content
+  const form = contentContainer.querySelector('form');
+  const skipButton = contentContainer.querySelector('.skip-btn');
+
+  // Add event listeners to the form and skip button
+  addFormSubmitListener(form, count, data);
+  addSkipButtonListener(skipButton, count, data);
+
+  // Add event listeners for showing/hiding password
+  addPasswordToggleListener(contentContainer);
+};
+
+function addPasswordToggleListener(container) {
+  // Select the elements that will act as toggle buttons for password visibility
+  const togglePassword = container.querySelector('#togglePassword');
+  const toggleRepeatPassword = container.querySelector('#toggleRepeatPassword');
+
+  // If the first toggle button exists, add a click event listener
+  if (togglePassword) {
+    togglePassword.addEventListener('click', function () {
+
+      // Select the password input field
+      const passwordField = container.querySelector('#password');
+
+      // Select the icon inside the toggle button
+      const icon = this.querySelector('i');
+
+      // Check if the password is currently hidden (type="password")
+      const isPasswordHidden = passwordField.getAttribute('type') === 'password';
+
+      // Toggle the input field type between 'password' and 'text'
+      passwordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
+      
+      // Toggle the icon between an open eye (visible) and a slashed eye (hidden)
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+  }
+
+  // If the second toggle button exists, add a click event listener
+  if (toggleRepeatPassword) {
+    toggleRepeatPassword.addEventListener('click', function () {
+
+      // Select the repeat password input field
+      const repeatPasswordField = container.querySelector('#repeat_password');
+
+      // Select the icon inside the toggle button
+      const icon = this.querySelector('i');
+
+      // Check if the repeat password is currently hidden (type="password")
+      const isPasswordHidden = repeatPasswordField.getAttribute('type') === 'password';
+      
+      // Toggle the input field type between 'password' and 'text'
+      repeatPasswordField.setAttribute('type', isPasswordHidden ? 'text' : 'password');
+      
+      // Toggle the icon between an open eye (visible) and a slashed eye (hidden)
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+  }
+}
+
+
+function cloneAndAppendContent(contentTemplate) {
+  if (!contentTemplate) {
+    console.error(`Template non trouvé.`);
+    return null;
+  }
+
+  const contentClone = contentTemplate.content.cloneNode(true);
+  const contentContainer = document.querySelector("#app-main");
+  
+  // Vider le conteneur avant d'ajouter le nouveau contenu
+  contentContainer.innerHTML = '';
+  
+  // Ajouter le nouveau contenu
+  contentContainer.appendChild(contentClone);
+  return contentContainer;
+};
+
+
+function addFormSubmitListener(form, count, data) {
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Capturer les données du formulaire avant de changer de page
+      const formData = new FormData(e.target);
+      const formDataObject = Object.fromEntries(formData);
+      
+      // Valider les données
+      const error = validateFormSignup(formDataObject, count);
+      if (error) {
+        showErrorMessage(error);
+        return;
+      }
+      
+      // Get all checkbox values with the name 'labels'
+      const checkboxes = formData.getAll('labels');
+      if (checkboxes.length > 0) {
+        formDataObject.labels = checkboxes;
+      }
+      
+      // Merge formDataObject into the existing data object
+      Object.assign(data, formDataObject);
+      
+      // Si nous sommes à la dernière étape, créer l'utilisateur
+      if (count === 10) {
+        createNewUser(data);
+        return;
+      }
+      
+      // Sinon, passer à l'étape suivante
+      count++;
+      setTimeout(() => {
+        displayNextForm(count, data);
+      }, 0);
+    });
+  }
+};
+
+function addSkipButtonListener(skipButton, count, data) {
+  if (skipButton) {
+    skipButton.addEventListener('click', () => {
+      count++;
+      if (count <= 10) {
+        displayNextForm(count, data);
+      } else {
+        createNewUser(data);
+      }
+    });
+  }
+};
+
+
+
+
+
+async function createNewUser(data) {
+  // Vérifier et ajuster les champs avant l'envoi
+  
+  // Renommer confirmPassword en repeat_password si nécessaire
+  if (data.confirmPassword && !data.repeat_password) {
+    data.repeat_password = data.confirmPassword;
+    delete data.confirmPassword;
+  }
+  
+  // S'assurer que gender_match existe
+  if (!data.gender_match) {
+    data.gender_match = "Indifférent"; // Valeur par défaut
+  }
+  
+  // S'assurer que description existe
+  if (!data.description) {
+    data.description = "";
+  }
+  
+  // S'assurer que zodiac existe
+  if (!data.zodiac) {
+    data.zodiac = "";
+  }
+  
+  // Corriger le format de picture
+  if (data.picture && typeof data.picture === 'object' && Object.keys(data.picture).length === 0) {
+    data.picture = "";
+  }
+  
+  console.log("Données finales envoyées:", data);
+  
+  const createUser = await signUp(data);
+  if (!createUser) {
+    return null;
+  }
+
+  // display the success signup alert
+  successSignup();
+   
+  // Display the sign-in page upon successful user creation
+  fetchDisplaySigninPage();
+
+  const state = {page: "Connexion", initFunction: 'fetchDisplaySigninPage'};
+  const url = "/connexion";
+  history.pushState(state, "", url);
+};
+
+
+
+
+
+
+
+
+
+

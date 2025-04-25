@@ -28,28 +28,31 @@ export async function getLastEvent() {
 // Asynchronous function to sign up a user
 export async function signUp(data) {
   try {
+    console.log("Données envoyées à l'API:", JSON.stringify(data));
+    
     const httpResponse = await fetch(`${apiUrl}/signup`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
-
+    
     if (!httpResponse.ok) {
-      showErrorMessage('erreur dans les données renseignées lors de l\'inscription.');
+      // Récupérer plus d'informations sur l'erreur
+      const errorText = await httpResponse.text();
+      console.error("Erreur du serveur:", errorText);
+      showErrorMessage('Erreur dans les données renseignées lors de l\'inscription.');
       return null;
     }
-
+    
     // Parse the response as JSON
     const createdUser = await httpResponse.json();
     return createdUser;
-
   } catch (error) {
     errorServer();  //alert ereur server
     console.error("API non accessible...", error);
   }
 };
-
 
 // Function to upload the image to Cloudinary
 export async function uploadImageToCloudinary(file) {

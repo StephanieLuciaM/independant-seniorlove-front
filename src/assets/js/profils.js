@@ -49,27 +49,31 @@ function addProfileButtonListener() {
   
   profilsPage.addEventListener('click', async (event) => {
     const profileButton = event.target.closest('.more-btn');
-    console.log('Button found:', profileButton);
+    console.log('Élément button trouvé:', profileButton);
     
     if (!profileButton) return;
     
     event.preventDefault();
     
-    const profilElement = profileButton.closest('article');
+    const profilElement = profileButton.closest('article.profil');
+    console.log('Élément parent trouvé:', profilElement);
     
     if (!profilElement) {
-      console.error('Parent profile element not found');
+      console.log('Ce n\'est pas un profil - ignoré');
       return;
     }
     
     // Get user identification from data attributes
     const userSlug = profilElement.dataset.userSlug;
     const userId = profilElement.dataset.userId;
+    console.log('Identifiants trouvés:', {userId, userSlug});
+  
     
     const userIdentifier = userSlug || userId;
     
     if (!userIdentifier) {
       console.error('No user identifier found');
+      console.log('Attributs disponibles:', profilElement.dataset);
       return;
     }
     
@@ -142,7 +146,7 @@ export function addProfilsContainer(data) {
   console.log("Profile data received:", data);
   
   // Set data attributes with the correct user identifier for navigation and filtering
-  article.setAttribute("data-user-id", data.id);  // Assuming there's an 'id' field
+  article.setAttribute("data-user-id", data.id || "");  
   article.setAttribute("data-user-slug", data.slug || data.firstname.toLowerCase());
 
   // Basic attributes for filtering
