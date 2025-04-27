@@ -3,18 +3,45 @@ import { resetViewTemplate } from "./utils.js";
 import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
 import { validateFormSignin } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
+import { fetchDisplayHomePageVisitor } from "./homepage.visitor.js";
+
 
 export function fetchDisplaySigninPage() {
 
   // Reset the view template for the main content area
   resetViewTemplate('app-main');
   
+  appendHeaderTemplate();
+
   // Append the sign-in template to the main content container
   appendSigninTemplate();
   
   // Add the event listener to the sign-in form
   addSigninFormListener();
+
+  addHearderLogoButtonListener(); 
+
 };
+
+function appendHeaderTemplate() {
+  const headerContainer = document.querySelector("#app-header");
+  
+  if (headerContainer) {
+    
+    headerContainer.innerHTML = "";
+
+    const headerTemplate = document.querySelector('#header-not-connected');
+    if (headerTemplate) {
+      const headerClone = headerTemplate.content.cloneNode(true);
+      headerContainer.appendChild(headerClone);
+    } else {
+      console.warn("Header template not found in the DOM.");
+    }
+  } else {
+    console.warn("Header container not found in the DOM.");
+  }
+}
+;
   
 function appendSigninTemplate() {
 
@@ -92,6 +119,23 @@ function addPasswordToggleListener() {
       icon.classList.toggle('fa-eye');
       icon.classList.toggle('fa-eye-slash');
 	  });
+  }
+};
+
+function addHearderLogoButtonListener() { 
+  const headerButton = document.querySelector(".header__logo").parentElement;
+ 
+  
+  if (headerButton) { 
+    headerButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      fetchDisplayHomePageVisitor();
+      const state = {page: "Page d'accueil", initFunction: 'fetchDisplayHomePageVisitor'};
+      const url = "/accueil";
+      history.pushState(state, "", url);
+    });
+  } else {
+    console.warn("Header logo button not found in the DOM");
   }
 };
 

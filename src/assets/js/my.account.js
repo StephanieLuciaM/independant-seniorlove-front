@@ -107,7 +107,7 @@ export async function handleDeleteAccount() {
     console.error('Erreur lors de la suppression du compte:', error);
     showErrorMessage('Une erreur inattendue est survenue. Veuillez réessayer plus tard.');
   }
-}
+};
 
 export function addDeleteButtonListener() {
   // Delete button CSS selector. Make sure it matches your HTML.
@@ -122,7 +122,7 @@ export function addDeleteButtonListener() {
   deleteButton.addEventListener('click', async () => {
     await handleDeleteAccount();
   });
-}
+};
 
 function addLogOutButtonListener(){
   
@@ -141,7 +141,7 @@ function addLogOutButtonListener(){
     const url = "/accueil";
     history.pushState(state, "", url);
   });
-}
+};
 
 function handleEditInfo(){
 
@@ -184,12 +184,10 @@ function handleEditPersonal(){
   history.pushState(state, "", url);
 };
 
-
-
 export async function myAccount(display, data) {
   // Set user information from the data object to their respective slots in the display
   display.querySelector("[slot='firstname']").textContent = data.firstname;
-  display.querySelector("[slot='age']").textContent = data.age;
+  display.querySelector("[slot='age']").textContent = data.age ? `${data.age} ans` : 'N/A';
   display.querySelector("[slot='city-profil']").textContent = data.city;
   display.querySelector("[slot='description']").textContent = data.description;
 
@@ -223,7 +221,7 @@ export async function myAccount(display, data) {
   
   // Update events sections (past and future)
   updateEvents(display, data);
-}
+};
 
 // Separate function to handle event updates for cleaner organization
 function updateEvents(display, data) {
@@ -272,7 +270,7 @@ function updateEvents(display, data) {
       upcomingEventsContainer.appendChild(noEventMessage);
     }
   }
-}
+};
 
 // Utility function to create an event element with proper DOM structure
 function createEventElement(event, city, isFuture = false) {
@@ -318,7 +316,7 @@ function createEventElement(event, city, isFuture = false) {
   eventDiv.appendChild(eventLink);
   
   return eventDiv;
-}
+};
 
 
 

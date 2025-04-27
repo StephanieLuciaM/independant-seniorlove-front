@@ -54,7 +54,8 @@ body {
 .header-connected__logo {
     max-width: 4rem;
     transition: transform 0.3s ease;
-    margin: auto;
+    /* Remplacé margin: auto; par margin: 0; */
+    margin: 0;
 }
 
 .header__logo:hover, 
@@ -174,63 +175,64 @@ body {
     height: 21px;
     cursor: pointer;
     z-index: 10;
-  }
+}
   
-  .menu-icon span {
+.menu-icon span {
     display: block;
     height: 3px;
     width: 100%;
     background-color: white;
     border-radius: 3px;
     transition: all 0.3s ease;
-  }
+}
   
-  .menu-toggle {
+.menu-toggle {
     display: none; /* Cache la checkbox */
-  }
+}
   
-  /* Style par défaut pour mobile - menu caché */
-  .nav-links {
+/* Style par défaut pour mobile - menu caché */
+.nav-links {
     display: none;
     flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 60px; /* Ajustez selon la hauteur de votre header */
+    top: 60px; 
     left: 0;
     background-color: var(--primary-color);
     z-index: 5;
     padding: var(--spacing-small);
-  }
+}
   
-  /* Affiche le menu quand la checkbox est cochée */
-  .menu-toggle:checked ~ .nav-links {
+/* Affiche le menu quand la checkbox est cochée */
+.menu-toggle:checked ~ .nav-links {
     display: flex;
-  }
+}
   
-  /* Animation des barres du hamburger */
-  .menu-toggle:checked + .menu-icon span:nth-child(1) {
+/* Animation des barres du hamburger */
+.menu-toggle:checked + .menu-icon span:nth-child(1) {
     transform: rotate(45deg);
     position: relative;
     top: 9px;
-  }
+}
   
-  .menu-toggle:checked + .menu-icon span:nth-child(2) {
+.menu-toggle:checked + .menu-icon span:nth-child(2) {
     opacity: 0;
-  }
+}
   
-  .menu-toggle:checked + .menu-icon span:nth-child(3) {
+.menu-toggle:checked + .menu-icon span:nth-child(3) {
     transform: rotate(-45deg);
     position: relative;
     top: -9px;
-  }
+}
 
 @media screen and (min-width: 768px) {
-
     .header {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-between; 
         padding: var(--spacing-small) var(--spacing-medium);
     }
+
+    
 
     .header__nav {
         flex-direction: row;
@@ -250,23 +252,28 @@ body {
         width: auto;
     }
 
+    /* Header connecté */
     .header-connected__container {
+        
         flex-direction: column; 
         align-items: center; 
-        justify-content: center;
+        justify-content: center; 
+    }
+
+    .header-connected__container a:first-child {
+        margin-right: auto; 
     }
 
     .header-connected__nav {
         flex-direction: row;
-        justify-content: center;
-        width: 100%;
-        margin-bottom: var(--spacing-small);
+        justify-content: flex-end; 
+        width: auto;
     }
 
     .header-connected__search-form {
-        margin: 0 auto;
-        width: 60%;
-        max-width: 400px; 
+        margin: 0 var(--spacing-small);
+        width: auto;
+        min-width: 150px;
     }
 
     .header__nav-link-disconnected {
@@ -280,28 +287,24 @@ body {
     }
 
     .menu-icon {
-        display: none; /* Cache l'icône burger sur desktop */
-      }
+        display: none; 
+    }
       
-      .nav-links {
+    .nav-links {
         display: flex;
         flex-direction: row;
         position: static;
         width: auto;
         background-color: transparent;
         padding: 0;
-      }
     }
-    
 }
 
-
 @media screen and (min-width: 1271px) {
-
     .header-connected__container {
         padding: var(--spacing-small) var(--spacing-medium);
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start; 
         align-items: center;
     }
 
@@ -312,9 +315,10 @@ body {
     .header-connected__nav {
         width: auto;
         margin: 0;
-        flex: 1;
+        flex: 0 1 auto; 
         justify-content: flex-end;
         gap: var(--spacing-medium);
+        align-items: center;
     }
 
     .header-connected__search-form {
@@ -322,12 +326,8 @@ body {
         min-width: 250px;
         margin-left: var(--spacing-medium);
     }
-    .header-connected__nav {
-        align-items: center;
-      }
       
-      .nav-links {
+    .nav-links {
         gap: var(--spacing-medium);
-      }
+    }
 }
-

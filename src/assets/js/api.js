@@ -28,8 +28,6 @@ export async function getLastEvent() {
 // Asynchronous function to sign up a user
 export async function signUp(data) {
   try {
-    console.log("Données envoyées à l'API:", JSON.stringify(data));
-    
     const httpResponse = await fetch(`${apiUrl}/signup`, {
       method: "POST",
       credentials: "include",
@@ -97,8 +95,6 @@ export async function signIn(data) {
     console.error("API non accessible...", error);
   }
 };
-
-
 
 // Asynchronous function to authentificated user
 export async function authentificationUser() {
@@ -221,8 +217,9 @@ export async function getEventDetails(eventIdorSlug) {
     console.error("API non accessible...", error);
     return null;
   }
-}
+};
 
+// Asynchronous function to register a user for an event
 export async function registerToEvent(eventId, userId) {
   try {
     const response = await fetch(`${apiUrl}/event/register`, {
@@ -234,16 +231,28 @@ export async function registerToEvent(eventId, userId) {
       body: JSON.stringify({ eventId, userId }),
     });
     
-    if (!response.ok) {
-      throw new Error('Échec de l\'inscription');
+    // Essayer de récupérer le corps de la réponse comme JSON
+    let responseData;
+    try {
+      responseData = await response.json();
+    } catch (e) {
+      // Si la réponse n'est pas du JSON valide
+      responseData = { error: "Format de réponse invalide" };
     }
     
-    return await response.json();
+    // Si la réponse n'est pas OK, lancer une erreur avec le message approprié
+    if (!response.ok) {
+      const errorMessage = responseData.error || responseData.console || responseData.message || `Erreur ${response.status}: ${response.statusText}`;
+      throw new Error(errorMessage);
+    }
+    
+    return responseData;
   } catch (error) {
     console.error('Erreur lors de l\'inscription:', error);
     throw error;
   }
-}
+}; 
+
 
 // Asynchronous function to edit user data
 export async function editMyAccount(data) {
@@ -268,6 +277,7 @@ export async function editMyAccount(data) {
   }
 };
 
+// Asynchronous function to delete logged-in user's account
 export async function deleteMyAccount() {
   try {
 
@@ -290,6 +300,7 @@ export async function deleteMyAccount() {
   }
 };
 
+// Asynchronous function to log out the user
 export async function logOutMyAccount(){
   try {
     
@@ -308,8 +319,9 @@ export async function logOutMyAccount(){
   } catch (error) {
     console.error("API non accessible...", error);
   }
-}
+};
 
+// Asynchronous function to retrieve all events
 export async function getAllEvents(){
   try {
     
@@ -329,15 +341,12 @@ export async function getAllEvents(){
   }
 };
 
+// Asynchronous function to retrieve all matching profiles
 export async function getAllProfilsMatch(){
-  try {
-    console.log("URL de l'API:", apiUrl);
-    console.log("Token présent:", document.cookie.includes("token"));
-    
+  try {   
     const httpResponse = await fetch(`${apiUrl}/profils`, {
       credentials: "include",
-      headers: {
-        // Ajoute des headers d'authentification si nécessaire
+      headers: {     
         "Content-Type": "application/json"
       }
     });
@@ -354,15 +363,12 @@ export async function getAllProfilsMatch(){
   }
 };
 
-
-
-// Fonction pour récupérer les messages entre deux utilisateurs
+// Asynchronous function to fetch messages between two users
 export async function fetchMessages(userId1, userId2) {
-  console.log (userId1, userId2);
   try {
     const response = await fetch(`${apiUrl}/messages?user1=${userId1}&user2=${userId2}`, {
       method: "GET",
-      credentials: "include", // Pour envoyer automatiquement les cookies
+      credentials: "include", 
       headers: {
         "Content-Type": "application/json"
       }
@@ -377,9 +383,9 @@ export async function fetchMessages(userId1, userId2) {
     console.error("Erreur lors de la connexion à l'API :", error);
     return [];
   }
-}
+};
 
-// Fonction pour envoyer un message entre deux utilisateurs
+// Asynchronous function to send a message between two users
 export async function sendMessage(senderId, receiverId, content) {
   try {
     const response = await fetch(`${apiUrl}/messages`, {
@@ -400,12 +406,12 @@ export async function sendMessage(senderId, receiverId, content) {
     console.error("Erreur lors de la connexion à l'API :", error);
     return null;
   }
-}
+};
 
+// Asynchronous function to fetch all conversations for a specific user
 export async function fetchConversations(currentUserId) {
-  console.log("ID utilisateur reçu par fetchConversations:", currentUserId);
   try {
-    // Utiliser le nouvel endpoint API
+    
     const response = await fetch(`${apiUrl}/conversations?user=${currentUserId}`, {
       method: "GET",
       credentials: "include",
@@ -422,4 +428,4 @@ export async function fetchConversations(currentUserId) {
     console.error("Erreur lors de la connexion à l'API :", error);
     return [];
   }
-}
+};

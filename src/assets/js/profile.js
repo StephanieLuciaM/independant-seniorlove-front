@@ -40,7 +40,7 @@ export async function fetchDisplayVisitorProfilePage(userData = null) {
   addProfilsButtonListener();
   addEventsButtonListener();
   addSendMessagesButtonListener();
-}
+};
   
 function addSendMessagesButtonListener() {
   // Locate the main container where messages will be displayed
@@ -83,7 +83,7 @@ function addSendMessagesButtonListener() {
       console.error('Unable to retrieve visitor profile');
     }
   });
-}
+};
    
 function appendTemplatesVisitorProfile(data){
   // Locate the required templates for the visitor profile display
@@ -107,7 +107,7 @@ function appendTemplatesVisitorProfile(data){
     
   // Populate the profile with visitor information
   visitorProfile(contentContainer, data);
-}
+};
     
 export function visitorProfile(display, data){
   // Ensure both display container and data are valid
@@ -118,7 +118,7 @@ export function visitorProfile(display, data){
     
   // Populate profile fields with safe null checks
   display.querySelector("[slot='firstname']").textContent = data.firstname || 'N/A';
-  display.querySelector("[slot='age']").textContent = data.age ? `${data.age} years old` : 'N/A';
+  display.querySelector("[slot='age']").textContent = data.age ? `${data.age} ans` : 'N/A';
   display.querySelector("[slot='city-profil']").textContent = data.city || 'N/A';
   display.querySelector("[slot='description']").textContent = data.description || 'N/A';
     
@@ -144,14 +144,14 @@ export function visitorProfile(display, data){
     
   // Populate additional profile details with safe defaults
   display.querySelector("[slot='height']").textContent = data.height || 'N/A';
-  display.querySelector("[slot='smoker']").textContent = data.smoker !== undefined ? (data.smoker ? 'Yes' : 'No') : 'N/A';
+  display.querySelector("[slot='smoker']").textContent = data.smoker !== undefined ? (data.smoker ? 'Oui' : 'Non') : 'N/A';
   display.querySelector("[slot='marital']").textContent = data.marital || 'N/A';
   display.querySelector("[slot='zodiac']").textContent = data.zodiac || 'N/A';
-  display.querySelector("[slot='pet']").textContent = data.pet !== undefined ? (data.pet ? 'Yes' : 'No') : 'N/A';
+  display.querySelector("[slot='pet']").textContent = data.pet !== undefined ? (data.pet ? 'Oui' : 'Non') : 'N/A';
   display.querySelector("[slot='music']").textContent = data.music || 'N/A';
  // Update events sections (past and future)
  updateEvents(display, data);
-}
+};
 
 // Separate function to handle event updates for cleaner organization
 function updateEvents(display, data) {
@@ -200,7 +200,7 @@ function updateEvents(display, data) {
       upcomingEventsContainer.appendChild(noEventMessage);
     }
   }
-}
+};
 
 // Utility function to create an event element with proper DOM structure
 function createEventElement(event, city, isFuture = false) {
@@ -246,7 +246,7 @@ function createEventElement(event, city, isFuture = false) {
   eventDiv.appendChild(eventLink);
   
   return eventDiv;
-}
+};
 
   
 

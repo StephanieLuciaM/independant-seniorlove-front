@@ -12,8 +12,6 @@ let conversations = [];
 // Function to display the list of conversations
 export async function fetchDisplayConversationsList(currentUserId) {
 
-  console.log("Current user ID in conversations list:", currentUserId);
-
   // Ensure the user ID is provided before proceeding
   if (!currentUserId) {
     console.error("Missing user ID");
@@ -98,7 +96,7 @@ export async function fetchDisplayConversationsList(currentUserId) {
 
       const paragraph = document.createElement("p");
       const strong = document.createElement("strong");
-      strong.textContent = "Your conversations";
+      strong.textContent = "Vos conversations";
 
       paragraph.appendChild(strong);
       header.appendChild(paragraph);
@@ -116,7 +114,7 @@ export async function fetchDisplayConversationsList(currentUserId) {
 
       const paragraph = document.createElement("p");
       const strong = document.createElement("strong");
-      strong.textContent = "Your conversations";
+      strong.textContent = "Vos conversations";
 
       paragraph.appendChild(strong);
       header.appendChild(paragraph);
@@ -147,7 +145,6 @@ export async function fetchDisplayConversationsList(currentUserId) {
 
 // Main function to display messages between users
 export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
-  console.log("Displaying messages between", currentUserId, "and", otherIdentifier);
   
   // Validate current user ID before proceeding
   if (!currentUserId) {
@@ -157,7 +154,6 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   
   // If the other user's ID is missing, show conversation list instead
   if (!otherIdentifier) {
-    console.log("No other user ID provided, displaying conversation list");
     fetchDisplayConversationsList(currentUserId);
     return;
   }
@@ -184,7 +180,7 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   if (messagesHeader) {
     const backButton = document.createElement("button");
     backButton.classList.add("back-button");
-    backButton.textContent = "← Back";
+    backButton.textContent = "← Retour";
     
     // Handle back button click event
     backButton.addEventListener("click", () => {
@@ -235,9 +231,8 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   document.querySelector(".conversation-partner").textContent = partnerSlug;
 
   // Fetch messages between users
-  console.log("Retrieving messages between", currentUserId, "and", otherIdentifier);
   const allMessages = await fetchMessages(currentUserId, otherIdentifier);
-  console.log("Messages retrieved:", allMessages);
+ 
   
   const messagesList = document.querySelector(".messages-list");
   const noMessagesElement = messagesList.querySelector(".no-messages");
@@ -271,7 +266,7 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   const state = { page: "Messages", initFunction: 'fetchDisplayMessagesPage', params: [currentUserId, otherIdentifier] };
   const url = `/messages/${partnerSlug}`;
   history.pushState(state, "", url);
-}
+};
 
 // Function to set up message sending behavior
 function setupMessageSending(senderId, receiverId) {
@@ -294,7 +289,6 @@ function setupMessageSending(senderId, receiverId) {
     if (!content) return;
 
     try {
-      console.log("Sending message from", senderId, "to", receiverId, ":", content);
       const message = await sendMessage(senderId, receiverId, content);
 
       if (message) {
@@ -319,7 +313,7 @@ function setupMessageSending(senderId, receiverId) {
       sendMessageHandler();
     }
   });
-}
+};
 
 
 // Function to add a message to the list
@@ -336,14 +330,12 @@ function addMessageToList(messageData, currentUserId, convList) {
   const messageClone = messageTemplate.content.cloneNode(true);
   const messageBubble = messageClone.querySelector(".message-bubble");
 
-  console.log("Message Data:", messageData);
-
   // Determine whether the message is outgoing or incoming
   const isOutgoing = messageData.sender_id == currentUserId;
   messageBubble.classList.add(isOutgoing ? "message-outgoing" : "message-incoming");
 
   // Identify sender name or slug
-  let senderName = isOutgoing ? "You" : `User ${messageData.sender_id}`;
+  let senderName = isOutgoing ? "Vous" : `User ${messageData.sender_id}`;
 
   // If it's an incoming message, try to find the sender's slug from conversation history
   if (!isOutgoing && convList?.length > 0) {
@@ -383,6 +375,6 @@ function addMessageToList(messageData, currentUserId, convList) {
 
   // Append the message to the list
   messagesList.appendChild(messageClone);
-}
+};
 
 

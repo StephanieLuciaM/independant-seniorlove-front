@@ -88,74 +88,92 @@ function appendTemplateEvent(data) {
   eventDetails(contentContainer, data);
 };
   
-  
-  
 // Function to handle event registration, including checking if user is already registered
 function setupEventRegistration() {
   const registerButton = document.querySelector('.event-inscription');
     
-  if (registerButton) {
-    // Get event ID from button's data attribute
-    const eventId = registerButton.dataset.eventId;
-      
-    if (!eventId) {
-      console.error("ID de l'événement non trouvé sur le bouton");
+  if (!registerButton) {
+    console.error("Bouton d'inscription non trouvé");
+    return;
+  }
+    
+  const eventId = registerButton.dataset.eventId;
+  if (!eventId) {
+    console.error("ID de l'événement non trouvé sur le bouton");
+    return;
+  }
+    
+  const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+  if (!userId) {
+    console.warn("Utilisateur non connecté");
+    return;
+  }
+    
+  // Unique key for this user and event
+  const userEventKey = `user_${userId}_event_${eventId}`;
+  
+  // Check if the current user is already registered for this event
+  const isRegistered = localStorage.getItem(userEventKey) === 'registered';
+  
+  // Update the button appearance based on registration state
+  updateButtonState(registerButton, isRegistered);
+  
+  // Display the total number of participants
+  const participantsKey = `event_${eventId}_participants`;
+  const nombreParticipants = localStorage.getItem(participantsKey) || 0;
+  document.querySelector("#nombreClics").textContent = nombreParticipants;
+    
+ 
+  registerButton.addEventListener('click', async () => {
+    if (!userId) {
+      alert('Veuillez vous connecter pour vous inscrire.');
       return;
     }
       
-    // Get user ID from local or session storage
-    const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-      
-    // Check if the user is already registered for this event
-    if (userId) {
-      const userEventsKey = `user_${userId}_events`;
-      let userEvents = JSON.parse(localStorage.getItem(userEventsKey)) || [];
-        
-      if (userEvents.includes(eventId)) {
-        // User is already registered, update button appearance
-        registerButton.textContent = 'Inscrit';
-        registerButton.disabled = true;
-        registerButton.style.backgroundColor = '#cccccc';
-      }
+    if (isRegistered) {
+      alert('Vous êtes déjà inscrit à cet événement.');
+      return;
     }
       
-    // Load participant count from localStorage
-    const participantsKey = `event_${eventId}_participants`;
-    const nombreParticipants = localStorage.getItem(participantsKey) || 0;
-    document.querySelector("#nombreClics").textContent = nombreParticipants;
-      
-    // Add click event listener to handle registration
-    registerButton.addEventListener('click', async () => {
-      try {
-        if (!eventId) {
-          alert('Identifiant d\'événement introuvable.');
-          return;
-        }
-          
-        // Process registration if user is logged in
-        if (userId) {
-          // Call counting function to increment and store participant count
-          comptage({ target: registerButton });
-            
-          // Additional actions after registration
-          alert('Inscription validée !');
-            
-          // Update button appearance to show registered state
-          registerButton.textContent = 'Inscrit';
-          registerButton.disabled = true;
-          registerButton.style.backgroundColor = '#cccccc';
-        } else {
-          alert('Veuillez vous connecter pour vous inscrire.');
-        }
-      } catch (error) {
-        alert('Erreur lors de l\'inscription. Veuillez réessayer.');
-        console.error(error);
-      }
-    });
+    try {
+      // Increment the number of participants
+      incrementParticipantCount(eventId);
+        
+      // Mark this user as registered for this event
+      localStorage.setItem(userEventKey, 'registered');
+        
+      // Update the button appearance
+      updateButtonState(registerButton, true);
+        
+      alert('Inscription validée !');
+    } catch (error) {
+      alert('Erreur lors de l\'inscription. Veuillez réessayer.');
+      console.error(error);
+    }
+  });
+};
+
+// Function to update the appearance of the button
+function updateButtonState(button, isRegistered) {
+  if (isRegistered) {
+    button.textContent = 'Inscrit';
+    button.disabled = true;
+    button.style.backgroundColor = '#cccccc';
   } else {
-    console.error("Bouton d'inscription non trouvé");
+    button.textContent = 'S\'inscrire';
+    button.disabled = false;
+    button.style.backgroundColor = ''; 
   }
-}
+};
+
+// Function to increment the participant count
+function incrementParticipantCount(eventId) {
+  const participantsKey = `event_${eventId}_participants`;
+  let nombreClics = parseInt(localStorage.getItem(participantsKey)) || 0;
+  nombreClics++;
+  localStorage.setItem(participantsKey, nombreClics);
+  document.querySelector("#nombreClics").textContent = nombreClics;
+};
   
   
 export async function eventDetails(display, data) {
@@ -232,48 +250,7 @@ export async function eventDetails(display, data) {
     // Use only city if complete address is not available
     initMap(data.city ? `${data.city}, France` : null);
   }
-}
-  
-  
-// Function to track and store event registration count
-function comptage(event) {
-  // Get event ID from the clicked button
-  const bouton = event.target;
-  const eventId = bouton.dataset.eventId;
-    
-  if (!eventId) {
-    console.error("ID de l'événement non trouvé sur le bouton");
-    return;
-  }
-    
-  // Create unique key for storing participant count for this event
-  const participantsKey = `event_${eventId}_participants`;
-    
-  // Get current participant count from localStorage or default to 0
-  let nombreClics = parseInt(localStorage.getItem(participantsKey)) || 0;
-    
-  // Increment count
-  nombreClics++;
-    
-  // Store updated count in localStorage
-  localStorage.setItem(participantsKey, nombreClics);
-    
-  // Update display of participant count
-  document.querySelector("#nombreClics").textContent = nombreClics;
-    
-  // Store that current user is registered for this event
-  const userId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
-  if (userId) {
-    const userEventsKey = `user_${userId}_events`;
-    let userEvents = JSON.parse(localStorage.getItem(userEventsKey)) || [];
-      
-    // Add event to user's event list if not already present
-    if (!userEvents.includes(eventId)) {
-      userEvents.push(eventId);
-      localStorage.setItem(userEventsKey, JSON.stringify(userEvents));
-    }
-  }
-}
+};
   
 let map;
   
@@ -320,4 +297,4 @@ async function initMap(address = null) {
   } catch (error) {
     console.error("Erreur lors de l'initialisation de la carte:", error);
   }
-}
+};

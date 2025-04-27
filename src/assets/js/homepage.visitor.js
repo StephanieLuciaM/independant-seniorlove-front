@@ -88,7 +88,7 @@ function addSignupFormListener() {
     history.pushState(state, "", url); 
 
   });
-}
+};
 
 export function addEventContainer(data){
   

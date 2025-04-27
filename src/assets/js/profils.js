@@ -33,7 +33,7 @@ export async function fetchDisplayProfilsPage() {
   
   // Add profile click event listeners after profiles are added to the DOM
   addProfileButtonListener();
-}
+};
  
 /**
  * Sets up event listeners for profile detail buttons
@@ -55,24 +55,19 @@ function addProfileButtonListener() {
     event.preventDefault();
     
     const profilElement = profileButton.closest('article.profil');
-    console.log('Élément parent trouvé:', profilElement);
     
     if (!profilElement) {
-      console.log('Ce n\'est pas un profil - ignoré');
       return;
     }
     
     // Get user identification from data attributes
     const userSlug = profilElement.dataset.userSlug;
     const userId = profilElement.dataset.userId;
-    console.log('Identifiants trouvés:', {userId, userSlug});
-  
-    
+   
     const userIdentifier = userSlug || userId;
     
     if (!userIdentifier) {
       console.error('No user identifier found');
-      console.log('Attributs disponibles:', profilElement.dataset);
       return;
     }
     
@@ -100,7 +95,7 @@ function addProfileButtonListener() {
       console.error('Error handling profile:', error);
     }
   });
-}
+};
 
 /**
  * Appends the header and main content templates to the DOM
@@ -139,10 +134,6 @@ export function addProfilsContainer(data) {
   
   // Get the article element that will contain the profile information
   const article = profilClone.querySelector("article");
- 
-  
-  // Debug: Display the profile data received from the server
-  console.log("Profile data received:", data);
   
   // Set data attributes with the correct user identifier for navigation and filtering
   article.setAttribute("data-user-id", data.id || "");  
@@ -184,7 +175,7 @@ export function addProfilsContainer(data) {
   // Select the container for the profile list and append the new profile
   const profilContainer = document.querySelector(".profils-grid");
   profilContainer.appendChild(profilClone);
-}
+};
 
 /**
  * Sets up all filtering functionality for the profiles page
@@ -244,7 +235,7 @@ function setupFilters() {
     // Apply filtering with updated criteria
     filterProfils(selectedCity, criteriaFilters);
   });
-}
+};
 
 /**
  * Creates and sets up sub-options for different filtering criteria
@@ -327,7 +318,7 @@ function setupCriteriaSubOptions() {
       filterProfils(selectedCity, criteriaFilters);
     });
   });
-}
+};
 
 /**
  * Shows relevant sub-options based on selected criteria
@@ -356,7 +347,7 @@ function showRelevantSubOptions(criteria) {
       relevantSubOption.style.display = 'flex';
     }
   }
-}
+};
 
 /**
  * Gets the currently active criteria filters based on selected options
@@ -380,7 +371,7 @@ function getActiveCriteriaFilters() {
     type: selectedCriteria,
     values: values.length > 0 ? values : [] // If no sub-options selected, return empty array
   };
-}
+};
 
 /**
  * Filters profiles based on selected city and criteria
@@ -392,8 +383,6 @@ function filterProfils(city, criteriaFilters) {
   const profils = document.querySelectorAll(".profils-grid article");
   const isCityAll = city.toLowerCase() === "toutes les villes";
   const isCriteriaAll = criteriaFilters.type === 'none';
-  
-  console.log(`Filtering - City: ${city}, Criteria: ${criteriaFilters.type}, Values: ${criteriaFilters.values.join(', ')}`);
   
   // Counter for visible profiles to detect "no results" state
   let visibleProfileCount = 0;
@@ -431,7 +420,7 @@ function filterProfils(city, criteriaFilters) {
   } else {
     noResultsMessage.style.display = 'none';
   }
-}
+};
 
 /**
  * Creates a message element to display when no profiles match the filters
@@ -450,7 +439,7 @@ function createNoResultsMessage() {
   
   document.querySelector('.profils-grid').appendChild(message);
   return message;
-}
+};
 
 /**
  * Extracts all relevant data attributes from a profile element
@@ -470,7 +459,7 @@ function getProfileDataFromAttributes(profil) {
     animauxDeCompagnie: profil.getAttribute("data-pet") || profil.getAttribute("data-animaux-de-compagnie") || "",
     centresInteret: profil.getAttribute("data-centres-interet") || ""
   };
-}
+};
 
 /**
  * Checks if a profile matches the selected criteria filters
@@ -484,16 +473,12 @@ function matchesCriteria(profilData, criteriaFilters) {
   
   // If no specific values are selected, show all profiles of this category
   if (values.length === 0) return true;
-  
-  // Debug logs to help with troubleshooting
-  console.log("Profile data for filtering:", profilData);
-  console.log("Applied filter:", type, values);
-  
+   
   // Different comparison logic based on the criteria type
   switch(type) {
   case 'taille':
     const taille = parseInt(profilData.taille) || 0;
-    console.log(`Height comparison: ${taille} cm`);
+   
     return values.some(value => {
       if (value === '+170') return taille >= 170;
       if (value === '-170') return taille < 170;
@@ -501,7 +486,7 @@ function matchesCriteria(profilData, criteriaFilters) {
     });
       
   case 'situation-familiale':
-    console.log(`Marital status comparison: ${profilData.situationFamiliale}`);
+    
     return values.some(value => {
       // More permissive check using includes rather than exact match
       return profilData.situationFamiliale.toLowerCase().includes(value.toLowerCase());
@@ -516,7 +501,7 @@ function matchesCriteria(profilData, criteriaFilters) {
     });
       
   case 'fumeur':
-    console.log(`Smoker comparison: ${profilData.fumeur}`);
+   
     // Convert "true"/"false" strings to lowercase for comparison
     const isSmoker = profilData.fumeur.toString().toLowerCase();
     return values.some(value => {
@@ -531,4 +516,4 @@ function matchesCriteria(profilData, criteriaFilters) {
   default:
     return true;
   }
-}
+};

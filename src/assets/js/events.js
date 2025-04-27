@@ -60,7 +60,6 @@ function addEventButtonListener() {
     const eventElement = eventButton.closest('article.event');
     
     if (!eventElement) {
-      console.log('Ce n\'est pas un événement - ignoré');
       return;
     }
     

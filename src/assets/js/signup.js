@@ -6,6 +6,7 @@ import { successSignup } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
 
 
+
 export function fetchDisplaySignupForm(data) {
   let i = 1;
   displayNextForm(i, data);
@@ -178,8 +179,6 @@ function handleFormSubmit(e, count, data) {
   }
 }
 
-
-
 async function createNewUser(data) {
   if (data.confirmPassword && !data.repeat_password) {
     data.repeat_password = data.confirmPassword;
@@ -201,7 +200,6 @@ async function createNewUser(data) {
     data.zodiac = "";
   }
   
-  console.log("Données finales envoyées:", data);
   const createUser = await signUp(data);
   if (!createUser) {
     return  null;
@@ -217,6 +215,7 @@ async function createNewUser(data) {
   const url = "/connexion";
   history.pushState(state, "", url);
 };
+
 
 
 

@@ -8,8 +8,7 @@ import { addEventsButtonListener,
 
 // Function to display the connected home page
 export async function fetchDisplayHomePageConnected(data) {
-  console.log("Données utilisateur:", data);
-
+  
   // Reset view templates for header and main content
   resetViewTemplate('app-header', 'app-main');
 
@@ -21,7 +20,6 @@ export async function fetchDisplayHomePageConnected(data) {
   const profilesListContainer = document.querySelector("#profiles-list");
   if (!profilesListContainer) {
     console.error("Container #profiles-list introuvable après chargement du template");
-    console.log("Template content:", document.querySelector("#home-page-connected")?.content);
   }
 
   // Attach event listeners for navigation elements
@@ -32,12 +30,10 @@ export async function fetchDisplayHomePageConnected(data) {
 
   try {
     // Fetch and display the latest matched profiles
-    console.log("Récupération des profils correspondants...");
-
+   
     const profilsMatch = await getLastProfilesMatch();
     const profilesListContainer = document.querySelector("#profiles-list");
-    console.log("Profils reçus:", profilsMatch);
-
+    
 
     if (profilsMatch && profilesListContainer) {
       profilsMatch.forEach(addProfilContainer);
@@ -85,7 +81,6 @@ export function addEventContainer(data) {
   
   // Validate template existence before proceeding
   if (!eventTemplate) {
-    console.log("Template #minimal-event not found in the DOM");
     return; // Exit function if template doesn't exist
   }
 
@@ -107,7 +102,6 @@ export function addEventContainer(data) {
   
   // Ensure container existence before appending the event
   if (!eventContainer) {
-    console.log("Container #events-list not found in the DOM");
     return;
   }
 
@@ -122,7 +116,6 @@ export function addProfilContainer(data) {
 
   // Validate template existence before proceeding
   if (!profilTemplate) {
-    console.log("Template #minimal-profil not found in the DOM");
     return;
   }
 
@@ -147,7 +140,6 @@ export function addProfilContainer(data) {
 
   // Ensure container existence before appending the profile
   if (!profilContainer) {
-    console.log("Container #profiles-list not found in the DOM");
     return;
   }
 
