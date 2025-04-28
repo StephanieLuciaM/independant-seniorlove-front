@@ -146,7 +146,7 @@ export function addEventsContainer(data) {
   // Populate the cloned template with event data
   eventClone.querySelector("[slot='title']").textContent = data.title;
   eventClone.querySelector("[slot='label']").textContent = data.label.name; 
-  eventClone.querySelector("[slot='picture']").setAttribute('src', `./src/assets/img/diverse-img/events/${data.picture}`);
+  eventClone.querySelector("[slot='picture']").setAttribute('src', `/assets/img/diverse-img/events/${data.picture}`);
  
   // Select the container for the event list and append the new event
   const eventContainer = document.querySelector(".events-grid");

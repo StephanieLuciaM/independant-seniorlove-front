@@ -205,8 +205,8 @@ export async function eventDetails(display, data) {
   const pictureElement = display.querySelector(".event-img");
   if (pictureElement) {
     const imagePath = data.picture ? 
-      `/src/assets/img/diverse-img/events/${data.picture}` : 
-      '/src/assets/img/diverse-img/events/default.jpg';
+      `/assets/img/diverse-img/events/${data.picture}` : 
+      '/assets/img/diverse-img/events/default.jpg';
     pictureElement.src = imagePath;
   } else {
     console.error("Image element not found");
