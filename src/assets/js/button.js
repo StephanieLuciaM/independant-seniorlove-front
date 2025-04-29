@@ -20,8 +20,8 @@ export function addHearderLogoButtonListener(data) {
         
       // Fetch and display the connected homepage with the provided data
       fetchDisplayHomePageConnected(data);
-      const state = {page: "Tableau de bord", initFunction: 'fetchDisplayHomePageConnected'};
-      const url = "/tableau-de-bord";
+      const state = {page: "Accueil", initFunction: 'fetchDisplayHomePageConnected'};
+      const url = "/accueil";
       history.pushState(state, "", url);
     });
   } else {

@@ -91,9 +91,11 @@ async function handleSigninFormSubmit(e) {
 	  return null;
   };
 
+  localStorage.setItem('userId', onSign.userId); 
+
   fetchDisplayHomePageConnected(dataUser);
   const state = {initFunction: 'fetchDisplayHomePageConnected'};
-  	const url = "/tableau-de-bord";
+  	const url = "/accueil";
   	history.pushState(state, "", url);
 };
 
