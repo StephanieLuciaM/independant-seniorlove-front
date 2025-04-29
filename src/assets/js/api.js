@@ -88,11 +88,24 @@ export async function signIn(data) {
 
     // Parse the response as JSON
     const connectedUser = await httpResponse.json();
+    
+    // Debug - voir ce que contient la réponse
+    console.log("Réponse de connexion:", connectedUser);
+    
+    // Stockez l'ID utilisateur dans localStorage si présent dans la réponse
+    if (connectedUser && connectedUser.userId) {
+      localStorage.setItem('userId', connectedUser.userId);
+      console.log("ID utilisateur stocké:", connectedUser.userId);
+    } else {
+      console.warn("userId non trouvé dans la réponse:", connectedUser);
+    }
+    
     return connectedUser;
 
   } catch (error) {
     errorServer(); //alert ereur server
     console.error("API non accessible...", error);
+    return null;
   }
 };
 
