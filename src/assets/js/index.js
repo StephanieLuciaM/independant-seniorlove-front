@@ -77,18 +77,18 @@ async function init() {
       "/404"
     ];
 
-     // Verifies the JWT token and updates the UI
-     const user = await checkUserAuthentication();
+    // Verifies the JWT token and updates the UI
+    const user = await checkUserAuthentication();
 
-     // Normal processing of known routes
-     if (!user) {
-       await fetchDisplayHomePageVisitor();
+    // Normal processing of known routes
+    if (!user) {
+      await fetchDisplayHomePageVisitor();
  
-       const state = { page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor' };
-       const url = "/accueil";
-       history.pushState(state, "", url);
+      const state = { page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor' };
+      const url = "/accueil";
+      history.pushState(state, "", url);
      
-        // Checks if the current path is a known routess
+      // Checks if the current path is a known routess
       if (!knownRoutes.includes(path)) {
 
         // If the route is not known, display the 404 page
@@ -97,48 +97,48 @@ async function init() {
         history.replaceState(state, "", "/404");
       }
 
-     } else {
-
-       // Displays the home page for authenticated users
-       fetchDisplayHomePageConnected();
-      
-   
-    const state = { page: "Tableau de bord", initFunction: 'fetchDisplayHomePageConnected' };
-    const url = "/tableau-de-bord";
-    history.pushState(state, "", url);
-
-    // Checks if the current path is a known routess
-    if (!knownRoutes.includes(path)) {
-
-      // If the route is not known, display the 404 page
-      fetchDisplay404Page();
-
-      const state = { page: "404", initFunction: 'fetchDisplay404Page' };
-      history.replaceState(state, "", "/404");
-      
-      return;
-    }
-
-    // Normal processing of known routes
-    if (!user) {
-
-      await fetchDisplayHomePageVisitor();
-
-      const state = { page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor' };
-      const url = "/accueil";
-      history.pushState(state, "", url);
-
     } else {
 
       // Displays the home page for authenticated users
       fetchDisplayHomePageConnected();
-
+      
+   
       const state = { page: "Tableau de bord", initFunction: 'fetchDisplayHomePageConnected' };
       const url = "/tableau-de-bord";
       history.pushState(state, "", url);
 
+      // Checks if the current path is a known routess
+      if (!knownRoutes.includes(path)) {
+
+        // If the route is not known, display the 404 page
+        fetchDisplay404Page();
+
+        const state = { page: "404", initFunction: 'fetchDisplay404Page' };
+        history.replaceState(state, "", "/404");
+      
+        return;
+      }
+
+      // Normal processing of known routes
+      if (!user) {
+
+        await fetchDisplayHomePageVisitor();
+
+        const state = { page: "Accueil", initFunction: 'fetchDisplayHomePageVisitor' };
+        const url = "/accueil";
+        history.pushState(state, "", url);
+
+      } else {
+
+        // Displays the home page for authenticated users
+        fetchDisplayHomePageConnected();
+
+        const state = { page: "Tableau de bord", initFunction: 'fetchDisplayHomePageConnected' };
+        const url = "/tableau-de-bord";
+        history.pushState(state, "", url);
+
+      }
     }
-  }
   } catch (error) {
     console.error('Erreur d\'initialisation:', error);
 
