@@ -94,7 +94,7 @@ export function addEventContainer(data) {
   
   // Set event picture source
   eventClone.querySelector("[slot='picture']").setAttribute(
-    'src', `./src/assets/img/diverse-img/events/${data.picture}`
+    'src', `/assets/img/diverse-img/events/${data.picture}`
   );
 
   // Select the container for event listings

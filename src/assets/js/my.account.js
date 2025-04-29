@@ -294,7 +294,7 @@ function createEventElement(event, city, isFuture = false) {
   
   // Create and set the event image
   const img = document.createElement('img');
-  img.src = `./src/assets/img/diverse-img/events/${event.picture}`;
+  img.src = `/assets/img/diverse-img/events/${event.picture}`;
   img.alt = event.title || 'Événement';
   img.className = 'event-img';
   detailsDiv.appendChild(img);
