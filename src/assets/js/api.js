@@ -214,6 +214,7 @@ export async function getVisitorProfile(userIdOrSlug) {
   try {
     const httpResponse = await fetch(`${apiUrl}/visitor-profile/${userIdOrSlug}`, {
       credentials: "include",
+      headers: createAuthHeaders(),
     });
     
     if (!httpResponse.ok) {
@@ -314,6 +315,7 @@ export async function deleteMyAccount() {
     const httpResponse = await fetch(`${apiUrl}/my-account`, {
       method: "DELETE",
       credentials: "include",
+      headers: createAuthHeaders()
     });
 
 
@@ -337,6 +339,7 @@ export async function logOutMyAccount(){
     const httpResponse = await fetch(`${apiUrl}/logout`, {
       method: "POST",
       credentials: "include",
+      headers: createAuthHeaders()
     });
 
     if(!httpResponse.ok){
