@@ -3,6 +3,20 @@ import { errorServer } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
 
 
+// Utility function to add authentication to all requests
+function createAuthHeaders() {
+  const token = localStorage.getItem('token');
+  const headers = {
+    "Content-Type": "application/json"
+  };
+  
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  
+  return headers;
+};
+
 
 // Asynchronous function to get the last event
 export async function getLastEvent() {
@@ -31,7 +45,7 @@ export async function signUp(data) {
     const httpResponse = await fetch(`${apiUrl}/signup`, {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
+      headers: createAuthHeaders(),
       body: JSON.stringify(data)
     });
     
@@ -76,8 +90,8 @@ export async function signIn(data) {
   try {
     const httpResponse = await fetch(`${apiUrl}/signin`, {
       method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
+      credentials: "include", // To send/receive cookies
+      headers: createAuthHeaders(),
       body: JSON.stringify(data)
     });
 
@@ -86,15 +100,13 @@ export async function signIn(data) {
       return null;
     }
 
-    // Parse the response as JSON
+    // Debug - see what the response contains
     const connectedUser = await httpResponse.json();
     
-    // Debug - voir ce que contient la réponse
-    console.log("Réponse de connexion:", connectedUser);
-    
-    // Stockez l'ID utilisateur dans localStorage si présent dans la réponse
+    // Store both the ID and the token in localStorage
     if (connectedUser && connectedUser.userId) {
       localStorage.setItem('userId', connectedUser.userId);
+      localStorage.setItem('token', connectedUser.token); // Also store the token
       console.log("ID utilisateur stocké:", connectedUser.userId);
     } else {
       console.warn("userId non trouvé dans la réponse:", connectedUser);
@@ -103,29 +115,33 @@ export async function signIn(data) {
     return connectedUser;
 
   } catch (error) {
-    errorServer(); //alert ereur server
+    errorServer(); // server error alert
     console.error("API non accessible...", error);
     return null;
   }
 };
 
+
 // Asynchronous function to authentificated user
 export async function authentificationUser() {
   try {
     const httpResponse = await fetch(`${apiUrl}/verify-token`, {
-      credentials: 'include',
+      credentials: 'include', 
+      headers: createAuthHeaders() // To add token
     });
 
     if (!httpResponse.ok) {
       const authentificatedUser = false;
       return authentificatedUser;
     }
-    // Parse the response as JSON      
-    const authentificatedUser = true;
-    return authentificatedUser;
+    
+    // Parse the response as JSON
+    const userData = await httpResponse.json();
+    return true;
 
   } catch (error) {
     console.error('Erreur de vérification du token :', error);
+    return false;
   }
 };
 
@@ -134,7 +150,8 @@ export async function getLastProfilesMatch() {
   try {
 
     const httpResponse = await fetch(`${apiUrl}/homepage-profiles`, {
-      credentials: "include"
+      credentials: "include",
+      headers: createAuthHeaders()
     });
 
     if (!httpResponse.ok) {
@@ -155,7 +172,8 @@ export async function getLastEventsMatch() {
   try {
 
     const httpResponse = await fetch(`${apiUrl}/homepage-events`, {
-      credentials: "include"
+      credentials: "include",
+      headers: createAuthHeaders()
     });
 
     if (!httpResponse.ok) {
@@ -176,6 +194,7 @@ export async function getMyAccount() {
   try {
     const httpResponse = await fetch(`${apiUrl}/my-account`, {
       credentials: "include",
+      headers: createAuthHeaders()
     });
     if (!httpResponse.ok) {
       console.error("Erreur lors de la récupération des données utilisateur.");
@@ -237,9 +256,7 @@ export async function registerToEvent(eventId, userId) {
   try {
     const response = await fetch(`${apiUrl}/event/register`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: createAuthHeaders(),
       credentials: "include",
       body: JSON.stringify({ eventId, userId }),
     });
@@ -273,7 +290,7 @@ export async function editMyAccount(data) {
     const httpResponse = await fetch(`${apiUrl}/my-account`, {
       method: "PATCH",
       credentials: "include",
-      headers: { "Content-Type": "application/json" },
+      headers: createAuthHeaders(),
       body: JSON.stringify(data)
     });
 
@@ -359,9 +376,7 @@ export async function getAllProfilsMatch(){
   try {   
     const httpResponse = await fetch(`${apiUrl}/profils`, {
       credentials: "include",
-      headers: {     
-        "Content-Type": "application/json"
-      }
+      headers: createAuthHeaders()
     });
 
     if(!httpResponse.ok){
@@ -382,9 +397,7 @@ export async function fetchMessages(userId1, userId2) {
     const response = await fetch(`${apiUrl}/messages?user1=${userId1}&user2=${userId2}`, {
       method: "GET",
       credentials: "include", 
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: createAuthHeaders()
     });
 
     if (!response.ok) {
@@ -404,9 +417,7 @@ export async function sendMessage(senderId, receiverId, content) {
     const response = await fetch(`${apiUrl}/messages`, {
       method: "POST",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: createAuthHeaders(),
       body: JSON.stringify({ sender_id: senderId, receiver_id: receiverId, content })
     });
 
@@ -428,9 +439,7 @@ export async function fetchConversations(currentUserId) {
     const response = await fetch(`${apiUrl}/conversations?user=${currentUserId}`, {
       method: "GET",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: createAuthHeaders()
     });
     
     if (!response.ok) {
