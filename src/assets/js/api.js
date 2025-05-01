@@ -107,7 +107,6 @@ export async function signIn(data) {
     if (connectedUser && connectedUser.userId) {
       localStorage.setItem('userId', connectedUser.userId);
       localStorage.setItem('token', connectedUser.token); // Also store the token
-      console.log("ID utilisateur stocké:", connectedUser.userId);
     } else {
       console.warn("userId non trouvé dans la réponse:", connectedUser);
     }
