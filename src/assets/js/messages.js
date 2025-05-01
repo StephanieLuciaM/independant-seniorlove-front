@@ -2,9 +2,10 @@ import { fetchConversations, fetchMessages, getMyAccount, getVisitorProfile, sen
 import { resetViewTemplate } from "./utils.js";
 import { addEventsButtonListener, 
   addHearderLogoButtonListener, 
+  addMessagesButtonListener, 
   addMyAccountButtonListener, 
   addProfilsButtonListener } from "./button.js";
-
+  
 
 // List of conversations (to be added)
 let conversations = [];
@@ -12,11 +13,24 @@ let conversations = [];
 // Function to display the list of conversations
 export async function fetchDisplayConversationsList(currentUserId) {
 
-  // Ensure the user ID is provided before proceeding
+  // If the user ID is not provided, try to retrieve it
   if (!currentUserId) {
-    console.error("Missing user ID");
-    return;
+    try {
+      const myAccount = await getMyAccount();
+      currentUserId = myAccount.id;
+    } catch (error) {
+      console.error("Impossible de récupérer l'ID de l'utilisateur actuel:", error);
+      const storedUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+      if (storedUserId) {
+        currentUserId = storedUserId;
+      } else {
+        console.error("ID utilisateur manquant et impossible à récupérer");
+        return;
+      }
+    }
   }
+
+  console.log("Récupération des conversations pour l'utilisateur:", currentUserId);
 
   // Reset the view templates for the header and main section
   resetViewTemplate("app-header", "app-main");
@@ -42,10 +56,6 @@ export async function fetchDisplayConversationsList(currentUserId) {
 
   // Retrieve all conversations for the current user
   try {
-    // First, fetch the account details of the connected user
-    const myAccount = await getMyAccount();
-    const currentUserId = myAccount.id;
-
     // Fetch conversations associated with the current user
     conversations = await fetchConversations(currentUserId);
 
@@ -63,7 +73,7 @@ export async function fetchDisplayConversationsList(currentUserId) {
       // Create element for displaying the conversation partner
       const userDiv = document.createElement("div");
       userDiv.classList.add("conversation-user");
-      userDiv.textContent = `${conv.partner?.slug}`;
+      userDiv.textContent = `${conv.partner?.slug || partnerId}`;
 
       // Create element for previewing the last message
       const previewDiv = document.createElement("div");
@@ -77,6 +87,7 @@ export async function fetchDisplayConversationsList(currentUserId) {
       // Event listener for clicking a conversation item
       convItem.addEventListener("click", () => {
         const partnerIdentifier = partnerSlug || partnerId;
+        console.log("Navigating to conversation with:", partnerIdentifier, "currentUserId:", currentUserId);
         fetchDisplayMessagesPage(currentUserId, partnerIdentifier);
       });
 
@@ -139,20 +150,27 @@ export async function fetchDisplayConversationsList(currentUserId) {
   addHearderLogoButtonListener();
   addMyAccountButtonListener();
   addProfilsButtonListener();
+  addMessagesButtonListener(); // Re-add the event listener for the messages button as well
   addEventsButtonListener();
-}
+};
 
 
-// Main function to display messages between users
+
+// Fixed version of the fetchDisplayMessagesPage function
 export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   
-  // Validate current user ID before proceeding
+  // If the current user ID is not provided, try to retrieve it
   if (!currentUserId) {
-    console.error("Current user ID missing");
-    return;
+    try {
+      const myAccount = await getMyAccount();
+      currentUserId = myAccount.id;
+    } catch (error) {
+      console.error("Impossible de récupérer l'ID de l'utilisateur actuel:", error);
+      return;
+    }
   }
   
-  // If the other user's ID is missing, show conversation list instead
+  // If the other user's identifier is missing, display the conversation list
   if (!otherIdentifier) {
     fetchDisplayConversationsList(currentUserId);
     return;
@@ -160,7 +178,7 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
 
   resetViewTemplate("app-header", "app-main");
 
-  // Load the message templates
+  // Load message templates
   const appHeader = document.querySelector("#app-header");
   const appMain = document.querySelector("#app-main");
   appHeader.innerHTML = "";
@@ -175,14 +193,14 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   appHeader.appendChild(headerClone);
   appMain.appendChild(messagesClone);
 
-  // Add a back button to navigate to conversation list
+  // Add a back button to navigate to the conversation list
   const messagesHeader = document.querySelector(".messages-header");
   if (messagesHeader) {
     const backButton = document.createElement("button");
     backButton.classList.add("back-button");
     backButton.textContent = "← Retour";
     
-    // Handle back button click event
+    // Handle click event for the back button
     backButton.addEventListener("click", () => {
       fetchDisplayConversationsList(currentUserId);
       const state = { page: "Conversations", initFunction: 'fetchDisplayConversationsList' };
@@ -193,16 +211,16 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
     messagesHeader.prepend(backButton);
   }
 
-  // Fetch conversations if they haven't been retrieved yet
+  // Retrieve conversations if they haven't been fetched yet
   if (!conversations || conversations.length === 0) {
     try {
       conversations = await fetchConversations(currentUserId);
     } catch (error) {
-      console.error("Error retrieving conversations:", error);
+      console.error("Erreur lors de la récupération des conversations:", error);
     }
   }
 
-  // Find user slug from the conversation list or API
+  // Find the user's slug from the conversation list or the API
   let partnerSlug = otherIdentifier;
   let partnerInfo = null;
 
@@ -215,40 +233,39 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
     partnerInfo = conversation.partner;
   } else {
     try {
-      // Fetch profile data if no previous conversation exists
+      // Retrieve profile data if no previous conversation exists
       const profileInfo = await getVisitorProfile(otherIdentifier);
       partnerSlug = profileInfo?.slug || otherIdentifier;
       partnerInfo = profileInfo;
     } catch (error) {
-      console.warn("Unable to retrieve profile slug:", error);
-      partnerSlug = otherIdentifier; // Fallback to identifier if slug unavailable
+      console.warn("Impossible de récupérer le slug du profil:", error);
+      partnerSlug = otherIdentifier; // Fallback to identifier if slug is not available
     }
   }
 
-  // Update UI with recipient's identifier
+  // Update the UI with the recipient's identifier
   const receiverSpan = document.querySelector("[slot='receiver-id']");
   if (receiverSpan) receiverSpan.textContent = partnerSlug;
   document.querySelector(".conversation-partner").textContent = partnerSlug;
 
-  // Fetch messages between users
+  // Retrieve messages between users
   const allMessages = await fetchMessages(currentUserId, otherIdentifier);
- 
   
   const messagesList = document.querySelector(".messages-list");
   const noMessagesElement = messagesList.querySelector(".no-messages");
 
   if (allMessages?.length) {
-    if (noMessagesElement) noMessagesElement.style.display = "none"; // Hide empty message indicator
+    if (noMessagesElement) noMessagesElement.style.display = "none"; // Hide "no messages" indicator
 
-    // Clear existing messages while preserving "no-messages" element
+    // Clear existing messages while keeping the "no-messages" element
     [...messagesList.children].forEach(child => {
       if (!child.classList?.contains("no-messages")) messagesList.removeChild(child);
     });
 
-    // Append fetched messages to UI
+    // Add fetched messages to the UI
     allMessages.forEach(message => addMessageToList(message, currentUserId, conversations));
 
-    // Scroll to the latest message
+    // Scroll to the last message
     messagesList.scrollTop = messagesList.scrollHeight;
   } else {
     if (noMessagesElement) noMessagesElement.style.display = "block"; // Show "no messages" indicator
@@ -258,6 +275,7 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   setupMessageSending(currentUserId, otherIdentifier);
 
   // Re-add navigation event listeners
+  addHearderLogoButtonListener();
   addMyAccountButtonListener();
   addProfilsButtonListener();
   addEventsButtonListener();
@@ -268,15 +286,35 @@ export async function fetchDisplayMessagesPage(currentUserId, otherIdentifier) {
   history.pushState(state, "", url);
 };
 
-// Function to set up message sending behavior
+
+// Function to configure message sending
 function setupMessageSending(senderId, receiverId) {
   const messageInput = document.querySelector("#messageInput");
   const sendButton = document.querySelector("#sendMessageButton");
 
+  // Check if message form elements exist
   if (!messageInput || !sendButton) {
-    console.error("Message form elements not found");
+    console.error("Éléments de formulaire de message non trouvés");
     return;
   }
+
+  // Check if required IDs are present
+  if (!senderId || !receiverId) {
+    console.error("IDs d'expéditeur ou de destinataire manquants:", { senderId, receiverId });
+    
+    // Attempt to retrieve sender ID if missing
+    if (!senderId) {
+      getMyAccount().then(account => {
+        setupMessageSending(account.id, receiverId);
+      }).catch(error => {
+        console.error("Impossible de récupérer l'ID de l'utilisateur:", error);
+      });
+      return;
+    }
+    return;
+  }
+
+  console.log("Configuration de l'envoi de message entre:", senderId, "et", receiverId);
 
   // Remove existing event listeners and attach new ones
   const oldSendButton = sendButton.cloneNode(true);
@@ -289,10 +327,11 @@ function setupMessageSending(senderId, receiverId) {
     if (!content) return;
 
     try {
+      console.log("Envoi du message:", { senderId, receiverId, content });
       const message = await sendMessage(senderId, receiverId, content);
 
       if (message) {
-        addMessageToList(message, senderId);
+        addMessageToList(message, senderId, conversations);
         messageInput.value = ""; // Clear input field
         document.querySelector(".messages-list").scrollTop = document.querySelector(".messages-list").scrollHeight;
 
@@ -302,7 +341,7 @@ function setupMessageSending(senderId, receiverId) {
         });
       }
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("Erreur lors de l'envoi du message:", error);
     }
   };
 

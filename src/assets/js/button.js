@@ -1,3 +1,4 @@
+import { getMyAccount } from "./api.js";
 import { fetchDisplayEventsPage } from "./events.js";
 import { fetchDisplayHomePageConnected } from "./homepage.connected.js";
 import { fetchDisplayConversationsList } from "./messages.js";
@@ -27,7 +28,7 @@ export function addHearderLogoButtonListener(data) {
   } else {
     console.warn("Header logo button not found in the DOM");
   }
-}
+};
 
 export function addMyAccountButtonListener(data){
 
@@ -54,22 +55,48 @@ export function addMessagesButtonListener() {
   // Select the "Messages" button from the header
   const messagesButton = document.querySelector("#app-header .header__nav-link-messages");
   
-  // Add click event listener to the "Messages" button
-  messagesButton.addEventListener('click', (e) => {
-    // Prevent the default behavior of the button
+  if (!messagesButton) {
+    console.warn("Bouton Messages non trouvé dans le DOM");
+    return;
+  }
+  
+  // Add a click event listener to the "Messages" button
+  messagesButton.addEventListener('click', async (e) => {
+    // Prevent the default button behavior
     e.preventDefault();
+    
+    try {
+      // First try to retrieve the user ID from the API (preferred method)
+      const myAccount = await getMyAccount();
+      const currentUserId = myAccount.id;
       
-    // Récupérer l'ID de l'utilisateur connecté
-    const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+      // Call the function to display the list of conversations
+      fetchDisplayConversationsList(currentUserId);
       
-    // Appeler la fonction sans specifier otherUserId pour afficher la liste des conversations
-    fetchDisplayConversationsList(currentUserId);
+      // Update the browser history
+      const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList', params: [currentUserId]};
+      const url = "/conversations";
+      history.pushState(state, "", url);
+    } catch (error) {
+      console.warn("Impossible de récupérer le compte depuis l'API, utilisation du stockage local", error);
       
-    const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList'};
-    const url = "/conversations";
-    history.pushState(state, "", url);
+      // As a fallback, use localStorage/sessionStorage
+      const currentUserId = localStorage.getItem('userId') || sessionStorage.getItem('userId');
+      
+      if (currentUserId) {
+        fetchDisplayConversationsList(currentUserId);
+        
+        const state = {page: "Conversations", initFunction: 'fetchDisplayConversationsList', params: [currentUserId]};
+        const url = "/conversations";
+        history.pushState(state, "", url);
+      } else {
+        console.error("Impossible de déterminer l'ID de l'utilisateur actuel");
+        // Redirect to the login page or show an error message
+      }
+    }
   });
-}
+};
+
   
 export function addEventsButtonListener(data){
   

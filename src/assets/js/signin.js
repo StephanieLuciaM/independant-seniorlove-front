@@ -85,8 +85,6 @@ async function handleSigninFormSubmit(e) {
 
   // Attempt to sign in the user
   const onSign = await signIn(dataUser);
-
-  console.log("Réponse de signIn:", onSign);
 	
   // If sign-in is unsuccessful, exit the function
   if (!onSign) {

@@ -149,8 +149,8 @@ export function visitorProfile(display, data){
   display.querySelector("[slot='zodiac']").textContent = data.zodiac || 'N/A';
   display.querySelector("[slot='pet']").textContent = data.pet !== undefined ? (data.pet ? 'Oui' : 'Non') : 'N/A';
   display.querySelector("[slot='music']").textContent = data.music || 'N/A';
- // Update events sections (past and future)
- updateEvents(display, data);
+  // Update events sections (past and future)
+  updateEvents(display, data);
 };
 
 // Separate function to handle event updates for cleaner organization

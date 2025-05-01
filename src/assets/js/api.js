@@ -3,7 +3,7 @@ import { errorServer } from "./handling.error.js";
 import { showErrorMessage } from "./handling.error.js";
 
 
-// Utility function to add authentication to all requests
+// Utility function to add authentication to all requests (VERY IMPORTANT)
 function createAuthHeaders() {
   const token = localStorage.getItem('token');
   const headers = {
