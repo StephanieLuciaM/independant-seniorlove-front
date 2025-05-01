@@ -17,6 +17,7 @@ import { addEventsButtonListener,
   addMessagesButtonListener, 
   addProfilsButtonListener } from "./button.js";
 
+  const DEFAULT_PROFILE_PHOTO = "/assets/img/diverse-img/profils/default-avatar.png";
 
 export async function fetchDisplayMyAccountPage(){
 
@@ -195,6 +196,10 @@ export async function myAccount(display, data) {
   const pictureProfile = display.querySelector(".profile-img");
   if (pictureProfile) {
     pictureProfile.src = data.picture;
+  }
+
+  if (!data.profile_photo_url) {
+    data.profile_photo_url = DEFAULT_PROFILE_PHOTO;
   }
 
   // Clear and populate the user's interest labels
