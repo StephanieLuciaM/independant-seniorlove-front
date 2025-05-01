@@ -17,7 +17,6 @@ import { addEventsButtonListener,
   addMessagesButtonListener, 
   addProfilsButtonListener } from "./button.js";
 
-const DEFAULT_PROFILE_PHOTO = "/assets/img/diverse-img/profils/default-avatar.png";
 
 export async function fetchDisplayMyAccountPage(){
 
@@ -192,18 +191,10 @@ export async function myAccount(display, data) {
   display.querySelector("[slot='city-profil']").textContent = data.city;
   display.querySelector("[slot='description']").textContent = data.description;
 
-  const profileImageUrl = data.profile_photo_url || data.picture || DEFAULT_PROFILE_PHOTO;
-  
   // Set the profile picture if the element exists
   const pictureProfile = display.querySelector(".profile-img");
   if (pictureProfile) {
-    pictureProfile.src = profileImageUrl;
-
-  
-    pictureProfile.onerror = function() {
-      this.src = DEFAULT_PROFILE_PHOTO;
-      this.onerror = null; // Évite les boucles infinies
-    };
+    pictureProfile.src = data.picture;
   }
 
   // Clear and populate the user's interest labels
