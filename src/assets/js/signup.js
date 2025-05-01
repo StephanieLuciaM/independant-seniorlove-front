@@ -7,6 +7,7 @@ import { showErrorMessage } from "./handling.error.js";
 
 const DEFAULT_PROFILE_PHOTO = "/assets/img/diverse-img/profils/default-avatar.png";
 
+
 export function fetchDisplaySignupForm(data) {
   let i = 1;
   displayNextForm(i, data);
@@ -180,10 +181,11 @@ function handleFormSubmit(e, count, data) {
 }
 
 async function createNewUser(data) {
+
   if (!data.profile_photo_url) {
     data.profile_photo_url = DEFAULT_PROFILE_PHOTO;
   }
-
+ 
   if (data.confirmPassword && !data.repeat_password) {
     data.repeat_password = data.confirmPassword;
     delete data.confirmPassword;
