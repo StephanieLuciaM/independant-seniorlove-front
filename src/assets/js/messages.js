@@ -305,8 +305,6 @@ function setupMessageSending(senderId, receiverId) {
     return;
   }
 
-  // Log the IDs used for message sending (for debugging)
-  console.log(`Configuration de l'envoi de messages: senderId=${senderId}, receiverId=${receiverId}`);
 
   // Remove existing event listeners and attach new ones
   const oldSendButton = sendButton.cloneNode(true);
@@ -326,7 +324,6 @@ function setupMessageSending(senderId, receiverId) {
       // Use the stored ID or the provided one
       const finalReceiverId = storedReceiverId || receiverId;
       
-      console.log(`Envoi du message à: ${finalReceiverId}`);
       
       const message = await sendMessage(senderId, finalReceiverId, content);
 
